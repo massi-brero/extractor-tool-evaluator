@@ -1,12 +1,13 @@
 package de.mbrero.see.models.bo;
 
+import java.util.Date;
 import java.util.List;
 
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.TestRun;
 
 public class TestRunModel implements IModelPersistance<TestRun> {
-	
+
 	private Repository<TestRun> repository;
 
 	@Override
@@ -21,7 +22,14 @@ public class TestRunModel implements IModelPersistance<TestRun> {
 
 	@Override
 	public void save(TestRun item) {
-		repository.save(item);
+		if (!item.getPath().isEmpty()) {
+			
+			if (item.getDate() == null)
+				item.setDate(new Date());
+
+			repository.save(item);
+		}
+
 	}
 
 	@Override

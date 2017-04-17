@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>semantic_extractor_evaluation</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>semantic_extractor_evaluation</name>
 	<url>http://maven.apache.org</url>
 

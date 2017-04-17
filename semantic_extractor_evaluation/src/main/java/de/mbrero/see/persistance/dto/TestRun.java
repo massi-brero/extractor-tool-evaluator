@@ -32,14 +32,14 @@ public class TestRun {
 	private int id;  
     
     @Column(name = "path")
-	private String path;
+	private String path = "";
 	
     @Column(name="date", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
-	private Date date;
+	private Date date = null;
 	
     @Column(name="result")
-	private TestRunResults result;
+	private TestRunResults result = TestRunResults.PENDING;
 
 	public int getId() {
 		return id;

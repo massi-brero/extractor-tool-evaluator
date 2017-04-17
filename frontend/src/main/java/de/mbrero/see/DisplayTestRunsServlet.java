@@ -1,11 +1,21 @@
 package de.mbrero.see;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.ListIterator;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import de.mbrero.see.models.bo.TestRunModel;
+import de.mbrero.see.persistance.dto.TestRun;
 
 /**
  * Servlet implementation class DisplayTestRunsServlet
@@ -26,16 +36,23 @@ public class DisplayTestRunsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		PrintWriter out = response.getWriter();
+		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(this.getServletContext());
+		TestRunModel testRunModel = (TestRunModel) context.getBean("testRunBo");
+		
+		List<TestRun> allTests = testRunModel.getAll();
+		ListIterator<TestRun> iter = allTests.listIterator();
+		
+		while (iter.hasNext())
+		{
+			TestRun item = iter.next();
+			out.println(item.getId());
+			out.println(item.getDate());
+			out.println(item.getPath());
+			out.println(item.getResult());
+		}
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
 }
