@@ -6,12 +6,12 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean id="repositoryDao" class="de.mbrero.see.persistance.dao.Repository" />
+	<bean id="genericRepository" class="de.mbrero.see.persistance.dao.Repository" />
 	<bean id="articleBo" class="de.mbrero.see.models.bo.ArticleModel">
-		<property name="repository" ref="repositoryDao"></property>
+		<property name="repository" ref="genericRepository"></property>
 	</bean>
 	<bean id="testRunBo" class="de.mbrero.see.models.bo.TestRunModel">
-		<property name="repository" ref="repositoryDao"></property>
+		<property name="repository" ref="genericRepository"></property>
 	</bean>
 
 </beans>
