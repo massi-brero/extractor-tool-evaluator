@@ -1,14 +1,12 @@
-package de.mbrero.see;
+package de.mbrero.see.controllers;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import de.mbrero.see.persistance.dto.TestRun;  
 
@@ -23,20 +21,18 @@ public class CreateTestRunController {
 		// TODO Auto-generated constructor stub
 	}
     
-    @RequestMapping("/create-test-run")
-    public String createTestRun() {
-    	return "create-test-run";
+    @GetMapping("create-test-run")
+    public ModelAndView createTestRun() {
+    	return new ModelAndView("create-test-run");
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @PostMapping("create-test-run")
+	protected void save(@ModelAttribute TestRun run) {
 		
-		String path = request.getParameter("path");
-		
-		TestRun testRun = new TestRun();
-		testRun.setPath(path);
+//		String path = request.getParameter("path");
+//		
+//		TestRun testRun = new TestRun();
+//		testRun.setPath(path);
 		
 //		WebApplicationContext context = WebApplicationContextUtils.getRequiredWebApplicationContext(this.getServletContext());
 //		TestRunModel testRunModel = (TestRunModel) context.getBean("testRunBo");

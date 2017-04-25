@@ -1,4 +1,4 @@
-package de.mbrero.see;
+package de.mbrero.see.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;

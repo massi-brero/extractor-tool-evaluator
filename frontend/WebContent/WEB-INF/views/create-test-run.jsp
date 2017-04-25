@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Create Test Run</title>
+    <title>Create test run</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h3>Test Details</h3>
-	<form action="" method="post">
-		Enter path to text data: <input id="path" name="texts_path" /> 
-		<input type="submit" value="Start Test" />
-	</form>
+	<h1>Create a test run</h1>
+    <form action="#" th:action="@{/save}" th:object="${newRun}" method="post">
+        <p>Path to text corpus: <input type="text" th:field="*{path}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
 </body>
 </html>
