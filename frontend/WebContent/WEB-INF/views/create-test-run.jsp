@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>Create a test run</h1>
-    <form action="#" th:action="@{/save}" th:object="${newRun}" method="post">
+    <form action="#" th:action="@{/save}" th:object="${testRun}" method="post">
         <p>Path to text corpus: <input type="text" th:field="*{path}" /></p>
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
     </form>
