@@ -1,5 +1,7 @@
 package de.mbrero.see.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServlet;
 
 import org.springframework.stereotype.Controller;
@@ -30,15 +32,17 @@ public class CreateTestRunController {
     	testRun.setPath("example/path");
     	model.addAttribute("testRun", testRun);
     	
-    	return new ModelAndView("create-test-run");
+    	return new ModelAndView("create-test-run", "command", testRun);
     }
 
-    @PostMapping("create-test-run")
-	protected void save(@ModelAttribute TestRun run) {
+    @PostMapping("save")
+	protected ModelAndView save(@ModelAttribute TestRun run) {
 			
 		TestRunModel testRunModel = new TestRunModel();
 		testRunModel.save(run);
+		ArrayList<String> messages = new ArrayList<>();
 		
+		return new ModelAndView("create-test-run", "command", messages);
 	}
 
 }

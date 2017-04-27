@@ -5,7 +5,7 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
-
+<!--  
 	<bean id="genericRepository" class="de.mbrero.see.persistance.dao.Repository" />
 	<bean id="articleBo" class="de.mbrero.see.models.bo.ArticleModel">
 		<property name="repository" ref="genericRepository"></property>
@@ -13,5 +13,5 @@
 	<bean id="testRunBo" class="de.mbrero.see.models.bo.TestRunModel">
 		<property name="repository" ref="genericRepository"></property>
 	</bean>
-
+-->
 </beans>

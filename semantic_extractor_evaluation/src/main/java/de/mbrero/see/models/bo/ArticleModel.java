@@ -9,6 +9,10 @@ public class ArticleModel implements IModelPersistance<Article> {
 
 	private Repository<Article> repository;
 
+	public ArticleModel() {
+		this.repository = new Repository<>(Article.class);
+	}
+	
 	@Override
 	public Article get(int id) {
 		return repository.get(id);

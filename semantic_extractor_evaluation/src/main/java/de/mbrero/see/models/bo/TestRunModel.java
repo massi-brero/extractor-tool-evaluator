@@ -9,6 +9,10 @@ import de.mbrero.see.persistance.dto.TestRun;
 public class TestRunModel implements IModelPersistance<TestRun> {
 
 	private Repository<TestRun> repository;
+	
+	public TestRunModel() {
+		this.repository = new Repository<>(TestRun.class);
+	}
 
 	@Override
 	public TestRun get(int id) {
