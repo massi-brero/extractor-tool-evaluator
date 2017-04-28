@@ -19,7 +19,6 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>frontend</module>
 		<module>semantic_extractor_evaluation</module>
 	</modules>
 	

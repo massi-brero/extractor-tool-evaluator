@@ -1,4 +1,4 @@
-package de.mbrero.see.models.bo;
+package de.mbrero.see.models;
 
 import java.util.Date;
 import java.util.List;
