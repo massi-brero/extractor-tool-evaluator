@@ -8,7 +8,9 @@
 		<version>0.0.2</version>
 	</parent>
 
+	<groupId>${parent.groupId}</groupId>
 	<artifactId>semantic_extractor_evaluation</artifactId>
+	<version>${parent.version}</version>
 	<packaging>jar</packaging>
 	<name>semantic_extractor_evaluation</name>
 	<url>http://maven.apache.org</url>
@@ -98,10 +100,14 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
-					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 
 	</build>
 
