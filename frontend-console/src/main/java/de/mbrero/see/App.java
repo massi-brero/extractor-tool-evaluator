@@ -1,5 +1,6 @@
 package de.mbrero.see;
 
+import de.mbrero.see.controllers.MainController;
 import de.mbrero.see.models.TestRunModel;
 import de.mbrero.see.persistance.dto.TestRun;
 
@@ -11,13 +12,13 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        MainController.bootstrap();
         
-        TestRun test = new TestRun();
-        test.setPath("test/test");
-        
-        TestRunModel model = new TestRunModel();
-        model.save(test);
+//        TestRun test = new TestRun();
+//        test.setPath("test/test");
+//        
+//        TestRunModel model = new TestRunModel();
+//        model.save(test);
         
     }
 }

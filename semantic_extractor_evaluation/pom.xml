@@ -91,7 +91,6 @@
 	</dependencies>
 
 	<build>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -108,7 +107,6 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-
 	</build>
 
 </project>

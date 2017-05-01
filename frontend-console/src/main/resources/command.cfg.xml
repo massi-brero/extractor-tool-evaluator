@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<commands>
+	<create>
+		<params>
+			<param>
+				<name>type</name>
+				<long>type</long>
+				<short>t</short>
+			</param>
+			<param>
+				<name>path</name>
+				<long>path</long>
+				<short>p</short>
+			</param>
+		</params>
+	</create>
+</commands>
