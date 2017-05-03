@@ -1,4 +1,4 @@
-package io;
+package de.mbrero.see.console.io;
 
 import java.io.File;
 import java.io.FileInputStream;

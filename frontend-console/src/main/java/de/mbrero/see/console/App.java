@@ -1,6 +1,6 @@
-package de.mbrero.see;
+package de.mbrero.see.console;
 
-import de.mbrero.see.controllers.MainController;
+import de.mbrero.see.console.controllers.MainController;
 import de.mbrero.see.models.TestRunModel;
 import de.mbrero.see.persistance.dto.TestRun;
 

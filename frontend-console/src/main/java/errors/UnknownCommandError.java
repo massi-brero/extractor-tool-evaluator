@@ -6,15 +6,15 @@ package errors;
  * @author massi
  *
  */
-public class CommandError extends Exception {
+public class UnknownCommandError extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public CommandError(String msg) {
-		super(msg);
+	
+	public UnknownCommandError() {
+		super("Unknown Command");
 	}
 
 }
