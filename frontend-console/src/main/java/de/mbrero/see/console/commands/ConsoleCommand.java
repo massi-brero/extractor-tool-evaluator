@@ -5,30 +5,40 @@ import java.util.HashMap;
 public class ConsoleCommand {
 	
 	private String command;
-	private HashMap<String, String> arguments;
+	private HashMap<String, String> parameters;
+	
+	public ConsoleCommand() {
+		this.parameters = new HashMap<String, String>();
+		this.command = "";
+	}
+	
 	/**
-	 * @return the command
+	 * 
+	 * @return {@link String}
 	 */
 	public String getCommand() {
 		return command;
 	}
 	/**
-	 * @param command the command to set
+	 * 
+	 * @param command
 	 */
 	public void setCommand(String command) {
 		this.command = command;
 	}
 	/**
-	 * @return the arguments
+	 * 
+	 * @return {@link String}
 	 */
-	public HashMap<String, String> getArguments() {
-		return arguments;
+	public HashMap<String, String> getParameters() {
+		return parameters;
 	}
 	/**
-	 * @param arguments the arguments to set
+	 * 
+	 * @param arguments
 	 */
-	public void setArguments(HashMap<String, String> arguments) {
-		this.arguments = arguments;
+	public void setParameters(HashMap<String, String> parameters) {
+		this.parameters = parameters;
 	}
 	
 

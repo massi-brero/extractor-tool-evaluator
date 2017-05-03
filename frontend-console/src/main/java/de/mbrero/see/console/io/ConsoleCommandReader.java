@@ -9,19 +9,32 @@ import java.util.List;
 import de.mbrero.see.console.commands.ConsoleCommand;
 import errors.ParameterError;
 
+/**
+ * Class to use the console as a user interface. Quite straightforward.
+ * 
+ * @author massi
+ *
+ */
 public class ConsoleCommandReader {
 
+	Console console = null;
 
-	public String readFromConsole() {
+	/**
+	 * Reads the user input.
+	 * 
+	 * @return {@link ConsoleCommand}
+	 * @throws ParameterError 
+	 */
+	public ConsoleCommand readFromConsole() throws ParameterError {
 
 		BufferedReader br = null;
 		String input = "";
 
 		br = new BufferedReader(new InputStreamReader(System.in));
 
-		Console console = System.console();
+		this.console = System.console();
 		// read user name, using java.util.Formatter syntax :
-		input = console.readLine("see > ");
+		input = this.console.readLine("$see > ");
 
 		if ("quit".equals(input)) {
 			System.out.println("Exit!");
@@ -35,42 +48,68 @@ public class ConsoleCommandReader {
 				e.printStackTrace();
 			}
 		}
+		
 
-		return input;
+		return this.buildCommand(input);
 
 	}
 
-	private ConsoleCommand buildCommand(String str) throws ParameterError {
+	/**
+	 * This method parses the console input into a command parameters and
+	 * corresponding arguments. It will use a {@link ConsoleCommand} object for
+	 * storing them.
+	 * 
+	 * @param str
+	 * @return {@link ConsoleCommand}
+	 * @throws ParameterError
+	 */
+	protected ConsoleCommand buildCommand(String str) throws ParameterError {
 
 		List<String> parameters = null;
-		String cmd = "";
 		String lastParameter = "";
+		ConsoleCommand cmd = new ConsoleCommand();
 
 		String[] components = str.split(" ");
 
-		for (String cmp : components) {
+		for (String chunk : components) {
 
-			if (cmd.isEmpty()) {
+			if (cmd.getCommand().isEmpty()) {
 
-				if (cmd.charAt(0) != '-') {
+				if (chunk.charAt(0) == '-') {
 					throw new ParameterError();
 				}
 
-				cmd = cmp;
+				cmd.setCommand(chunk);
 			} else {
 
 				/*
 				 * start parsing arguments
 				 */
-				if (lastParameter.isEmpty()) {
-
-				}
-
+				if (lastParameter.isEmpty())
+					cmd.getParameters().put(chunk, "");
+				else
+					cmd.getParameters().put(lastParameter, chunk);
 			}
 
 		}
 
-		return null;
+		return cmd;
 	}
+
+	/**
+	 * @return the console
+	 */
+	public Console getConsole() {
+		return console;
+	}
+
+	/**
+	 * @param console the console to set
+	 */
+	public void setConsole(Console console) {
+		this.console = console;
+	}
+	
+	
 
 }
