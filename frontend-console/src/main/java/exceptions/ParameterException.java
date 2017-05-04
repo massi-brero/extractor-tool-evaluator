@@ -1,4 +1,4 @@
-package errors;
+package exceptions;
 
 /**
  * Error class for console command errors.
@@ -6,19 +6,19 @@ package errors;
  * @author massi
  *
  */
-public class ParameterError extends Exception {
+public class ParameterException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public ParameterError(String msg) {
+	public ParameterException(String msg) {
 		super(msg);
 	}
 	
 	
-	public ParameterError() {
+	public ParameterException() {
 		super("Parameter Error");
 	}
 

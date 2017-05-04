@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import de.mbrero.see.console.commands.ConsoleCommand;
-import errors.ParameterError;
+import exceptions.ParameterException;
+import exceptions.UnknownCommandException;
 
 /**
  * Class to use the console as a user interface. Quite straightforward.
@@ -23,9 +24,9 @@ public class ConsoleCommandReader {
 	 * Reads the user input.
 	 * 
 	 * @return {@link ConsoleCommand}
-	 * @throws ParameterError 
+	 * @throws ParameterException 
 	 */
-	public ConsoleCommand readFromConsole() throws ParameterError {
+	public ConsoleCommand readFromConsole() throws ParameterException {
 
 		BufferedReader br = null;
 		String input = "";
@@ -61,13 +62,15 @@ public class ConsoleCommandReader {
 	 * 
 	 * @param str
 	 * @return {@link ConsoleCommand}
-	 * @throws ParameterError
+	 * @throws ParameterException
 	 */
-	protected ConsoleCommand buildCommand(String str) throws ParameterError {
+	protected ConsoleCommand buildCommand(String str) throws ParameterException {
 
 		List<String> parameters = null;
 		String lastParameter = "";
 		ConsoleCommand cmd = new ConsoleCommand();
+		
+		if (str.isEmpty()) return cmd;
 
 		String[] components = str.trim().split(" ");
 
@@ -76,7 +79,7 @@ public class ConsoleCommandReader {
 			if (cmd.getCommand().isEmpty()) {
 
 				if (chunk.charAt(0) == '-') {
-					throw new ParameterError();
+					throw new ParameterException();
 				}
 
 				cmd.setCommand(chunk);
@@ -87,7 +90,6 @@ public class ConsoleCommandReader {
 				 */
 				if (lastParameter.isEmpty()) {
 					
-					
 					if (chunk.charAt(0) == '-') {
 						
 						chunk = chunk.substring(1);
@@ -96,12 +98,17 @@ public class ConsoleCommandReader {
 						
 					}
 					else {
-						throw new ParameterError("You missed to name an parameter.");
+						throw new ParameterException();
 					}
 					
 				}
 				else {
-					cmd.getParameters().put(lastParameter, chunk);					
+					
+					if (chunk.isEmpty())
+						throw new ParameterException("There is a parameter with no arguments!");
+
+					cmd.getParameters().put(lastParameter, chunk);		
+					lastParameter = "";
 				}
 			}
 

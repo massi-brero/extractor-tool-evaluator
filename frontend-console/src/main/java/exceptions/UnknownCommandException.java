@@ -1,4 +1,4 @@
-package errors;
+package exceptions;
 
 /**
  * Error class for console command errors.
@@ -6,14 +6,14 @@ package errors;
  * @author massi
  *
  */
-public class UnknownCommandError extends Exception {
+public class UnknownCommandException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public UnknownCommandError() {
+	public UnknownCommandException() {
 		super("Unknown Command");
 	}
 
