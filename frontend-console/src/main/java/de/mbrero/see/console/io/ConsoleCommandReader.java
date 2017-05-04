@@ -69,7 +69,7 @@ public class ConsoleCommandReader {
 		String lastParameter = "";
 		ConsoleCommand cmd = new ConsoleCommand();
 
-		String[] components = str.split(" ");
+		String[] components = str.trim().split(" ");
 
 		for (String chunk : components) {
 
@@ -85,10 +85,24 @@ public class ConsoleCommandReader {
 				/*
 				 * start parsing arguments
 				 */
-				if (lastParameter.isEmpty())
-					cmd.getParameters().put(chunk, "");
-				else
-					cmd.getParameters().put(lastParameter, chunk);
+				if (lastParameter.isEmpty()) {
+					
+					
+					if (chunk.charAt(0) == '-') {
+						
+						chunk = chunk.substring(1);
+						cmd.getParameters().put(chunk, "");	
+						lastParameter = chunk;
+						
+					}
+					else {
+						throw new ParameterError("You missed to name an parameter.");
+					}
+					
+				}
+				else {
+					cmd.getParameters().put(lastParameter, chunk);					
+				}
 			}
 
 		}

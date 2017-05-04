@@ -13,8 +13,13 @@ public class ParameterError extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public ParameterError(String msg) {
+		super(msg);
+	}
+	
+	
 	public ParameterError() {
-		super("Argument Error");
+		super("Parameter Error");
 	}
 
 }
