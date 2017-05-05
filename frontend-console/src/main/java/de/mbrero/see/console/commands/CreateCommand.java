@@ -1,7 +1,13 @@
 package de.mbrero.see.console.commands;
 
-public class CreateCommand {
+import exceptions.ParameterException;
+import exceptions.UnknownCommandException;
 
-	
+public class CreateCommand implements ICommand {
+
+	public void execute() throws UnknownCommandException, ParameterException {
+		System.out.println("create new test run");
+	}
+
 	
 }

@@ -16,7 +16,6 @@ public class ConsoleCommandReaderTest {
 	@Before
 	public void setUp() throws Exception {
 		reader = new CommandInterpreter();
-		reader.setConsole(System.console());
 	}
 
 

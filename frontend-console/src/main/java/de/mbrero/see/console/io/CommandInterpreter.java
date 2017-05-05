@@ -26,7 +26,6 @@ public class CommandInterpreter {
 	 */
 	public ConsoleCommand buildCommand(String str) throws ParameterException {
 
-		List<String> parameters = null;
 		String lastParameter = "";
 		ConsoleCommand cmd = new ConsoleCommand();
 		
@@ -74,34 +73,6 @@ public class CommandInterpreter {
 		}
 
 		return cmd;
-	}
-
-	/**
-	 * @return the interpreter
-	 */
-	public CommandInterpreter getInterpreter() {
-		return interpreter;
-	}
-
-	/**
-	 * @param interpreter the interpreter to set
-	 */
-	public void setInterpreter(CommandInterpreter interpreter) {
-		this.interpreter = interpreter;
-	}
-
-	/**
-	 * @return the controller
-	 */
-	public CommandController getController() {
-		return controller;
-	}
-
-	/**
-	 * @param controller the controller to set
-	 */
-	public void setController(CommandController controller) {
-		this.controller = controller;
 	}
 
 
