@@ -11,11 +11,11 @@ import exceptions.ParameterException;
 
 public class ConsoleCommandReaderTest {
 
-	private ConsoleCommandReader reader;
+	private CommandInterpreter reader;
 
 	@Before
 	public void setUp() throws Exception {
-		reader = new ConsoleCommandReader();
+		reader = new CommandInterpreter();
 		reader.setConsole(System.console());
 	}
 
