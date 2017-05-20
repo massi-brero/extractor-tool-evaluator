@@ -22,6 +22,7 @@
 	<modules>
 		<module>semantic_extractor_evaluation</module>
 		<module>frontend-console</module>
+		<module>goldstandard</module>
 	</modules>
 
 	<build>

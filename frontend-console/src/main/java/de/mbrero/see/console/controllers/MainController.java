@@ -77,11 +77,15 @@ public class MainController {
 		 * get corresponding Comman class an execute command
 		 */
 		if (cmd.getCommand().isEmpty()) {
+			
 			throw new UnknownCommandException();
+			
 		} else {
+			
 			Class<?> commandClass = Class.forName("de.mbrero.see.console.commands.CreateCommand");
 			ICommand commandObj = (ICommand) commandClass.newInstance();
 			commandClass.getDeclaredMethod("execute").invoke(commandObj);
+			
 		}
 		
 	}
