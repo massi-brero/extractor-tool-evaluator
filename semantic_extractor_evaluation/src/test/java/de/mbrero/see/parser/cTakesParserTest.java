@@ -15,8 +15,9 @@ import org.junit.Test;
  * @author massi
  *
  */
-public class XMIParserTest 
+public class cTakesParserTest 
 {
+	private umlsInformatioinTag = "";
 
 	@Test
 	public void readTextFromFile() {

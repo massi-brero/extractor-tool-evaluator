@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 /**
- * Table reprensentation for article entity.
+ * Table representation for article entity.
  * @author massi
  *
  */
