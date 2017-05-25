@@ -3,28 +3,29 @@ package de.mbrero.see.models;
 import java.util.List;
 
 import de.mbrero.see.persistance.dao.Repository;
+import de.mbrero.see.persistance.dto.Annotation;
 import de.mbrero.see.persistance.dto.Article;
 
-public class ArticleModel implements IModelPersistance<Article> {
+public class ArticleModel implements IModelPersistance<Annotation> {
 
-	private Repository<Article> repository;
+	private Repository<Annotation> repository;
 
 	public ArticleModel() {
-		this.repository = new Repository<>(Article.class);
+		this.repository = new Repository<>(Annotation.class);
 	}
 	
 	@Override
-	public Article get(int id) {
+	public Annotation get(int id) {
 		return repository.get(id);
 	}
 
 	@Override
-	public List<Article> getAll() {
+	public List<Annotation> getAll() {
 		return repository.getAll();
 	}
 
 	@Override
-	public void save(Article item) {
+	public void save(Annotation item) {
 		repository.save(item);
 	}
 
@@ -34,20 +35,20 @@ public class ArticleModel implements IModelPersistance<Article> {
 	}
 
 	@Override
-	public void delete(Article item) {
+	public void delete(Annotation item) {
 		repository.delete(item);
 	}
 
 	@Override
-	public void update(Article item) {
+	public void update(Annotation item) {
 		repository.update(item);
 	}
 
-	public Repository<Article> getRepository() {
+	public Repository<Annotation> getRepository() {
 		return repository;
 	}
 
-	public void setRepository(Repository<Article> repository) {
+	public void setRepository(Repository<Annotation> repository) {
 		this.repository = repository;
 	}
 	

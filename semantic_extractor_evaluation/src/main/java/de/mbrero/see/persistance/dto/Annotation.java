@@ -13,7 +13,7 @@ import types.Ontology;
 
 /**
  * Table reprenentation for article entity.
- * This class is meantr as a bean to store detailed information about a concept found in a given 
+ * This class is meant as a bean to store detailed information about a concept found in a given 
  * text using a specific extractor.
  * 
  * @author massi

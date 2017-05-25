@@ -1,11 +1,13 @@
 package de.mbrero.see.parser;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+
+import de.mbrero.see.persistance.dto.Annotation;
 
 public interface IParser {
 	
-	public void read(File text) throws FileNotFoundException;
-	public void parse();
+	public HashMap<String, Annotation> parse();
+	void read() throws FileNotFoundException;
 	
 }

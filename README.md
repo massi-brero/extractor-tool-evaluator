@@ -1,6 +1,6 @@
-##2. Extractors##
+## 2. Extractors##
 
-####QuickUMLS####
+#### QuickUMLS####
 
 1. Download and follow the instructions on ...
 
