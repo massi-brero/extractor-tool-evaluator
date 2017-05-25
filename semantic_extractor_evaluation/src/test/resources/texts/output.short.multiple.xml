@@ -1979,7 +1979,8 @@
     <uima.cas.EmptyFSList _id="6082"/>
     <uima.cas.EmptyFSList _id="6068"/>
     <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043336" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C1622890" tui="T044" preferredText="site-specific telomere resolvase activity"/>
-    <uima.cas.FSArray _id="3125" size="1">
+    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043336" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C1622890" tui="T044" preferredText="site-specific telomere resolvase activity"/>
+    <uima.cas.FSArray _id="3125" size="2">
         <i>3115</i>
     </uima.cas.FSArray>
     <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3083" codingScheme="NCBI" code="9606" oid="9606#NCBI" score="0.0" disambiguated="false" cui="C0086418" tui="T016" preferredText="Homo sapiens"/>

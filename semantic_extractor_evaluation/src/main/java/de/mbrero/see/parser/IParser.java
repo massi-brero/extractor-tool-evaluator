@@ -7,7 +7,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 
 public interface IParser {
 	
-	public HashMap<String, Annotation> parse();
+	public void parse();
 	void read() throws FileNotFoundException;
 	
 }

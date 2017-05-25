@@ -30,28 +30,34 @@ public class Annotation {
 	private int id;  
     
     @Column(name = "test_run_id")
-	private int count;
+	private int count = 0;
     
     @Column(name = "extractor")
-    private String extractor;
+    private String extractor = "";
     
     @Column(name = "source_text")
-	private File sourceText;
+	private File sourceText = null;
 	
     @Column(name = "cui")
-	private String cui;
+	private String cui ="";
 	
     @Column(name = "matched_chunk")
-	private String matchedChunk;
+	private String matchedChunk = "";
+    
+    @Column(name = "prefereedText")
+	private String preferredText = "";
 	
     @Column(name = "ontology")
-	private Ontology ontology;
+	private Ontology ontology = null;
 	
     @Column(name = "test_run_id")
-	private int testRunId;
+	private int testRunId = 0;
     
 
-	
+	public void incrementCounter() {
+		count++;
+	}
+    
 	/**
 	 * @return the id
 	 */
@@ -123,6 +129,18 @@ public class Annotation {
 	 */
 	public void setMatchedChunk(String matchedChunk) {
 		this.matchedChunk = matchedChunk;
+	}
+	/**
+	 * @return the preferredText
+	 */
+	public String getPreferredText() {
+		return preferredText;
+	}
+	/**
+	 * @param preferredText the prefereedText to set
+	 */
+	public void setPreferredText(String prefereedText) {
+		this.preferredText = prefereedText;
 	}
 	/**
 	 * @return the ontology
