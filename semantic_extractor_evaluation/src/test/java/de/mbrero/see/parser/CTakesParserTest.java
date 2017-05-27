@@ -9,11 +9,15 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
 import types.Ontology;
@@ -34,27 +38,9 @@ public class CTakesParserTest {
 	}
 	
 	@Test
-	public void test_1_InjectFileWithConstructor() throws FileNotFoundException
-	{
-		CTakesParser parser2 = new CTakesParser(workingFile);
+	public void test_3_parseTinyXMLResult() throws SAXException, IOException, ParserConfigurationException {
 		
-		assertTrue(parser2.getSourceTextFile() instanceof File);
-	}
-	
-	@Test
-	public void test_2_InjectFileWithSet() throws FileNotFoundException
-	{
-		parser.setSourceTextFile(workingFile);
-		
-		assertTrue(parser.getSourceTextFile() instanceof File);
-	}
-	
-
-	@Test
-	public void test_3_parseTinyXMLResult() throws FileNotFoundException {
-		
-		parser.setSourceTextFile(workingFile);
-		parser.parse();
+		parser.parse(workingFile);
 		HashMap<String, Annotation> annotations = parser.getAnnotations();
 		Annotation annotation = annotations.get("C1622890");
 		
@@ -70,9 +56,8 @@ public class CTakesParserTest {
 
 	
 	@Test
-	public void test_4_parseResultWithDuplicateAnnotations() {
-		parser.setSourceTextFile(multipleAnnotationsFile);
-		parser.parse();
+	public void test_4_parseResultWithDuplicateAnnotations() throws SAXException, IOException, ParserConfigurationException {
+		parser.parse(multipleAnnotationsFile);
 		HashMap<String, Annotation> annotations = parser.getAnnotations();
 		Annotation annotation = annotations.get("C1622890");
 		
@@ -81,9 +66,19 @@ public class CTakesParserTest {
 		
 	}
 	
+	@Test 
+	public void test_5_parseFilesInDirectory() {
+		
+	}
+	
+	@Test 
+	public void test_56parseFilesInNestedDirectory() {
+		
+	}
+	
 	
 	@Test
-	public void test_5_parseBigXMLResult() {
+	public void test_99_parseBigXMLResult() {
 		fail("not implemented");
 	}
 	

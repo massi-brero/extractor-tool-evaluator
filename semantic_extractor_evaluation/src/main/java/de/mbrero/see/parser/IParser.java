@@ -1,13 +1,19 @@
 package de.mbrero.see.parser;
 
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
+import java.io.IOException;
 
-import de.mbrero.see.persistance.dto.Annotation;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import types.OutputType;
 
 public interface IParser {
 	
-	public void parse();
-	void read() throws FileNotFoundException;
+	public void parse(File source) throws SAXException, IOException, ParserConfigurationException;
+	public void read() throws FileNotFoundException;
+	public void setOutputType(OutputType type);
 	
 }
