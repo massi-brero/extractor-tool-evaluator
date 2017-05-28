@@ -36,7 +36,7 @@ public class Annotation {
     private String extractor = "";
     
     @Column(name = "source_text")
-	private File sourceText = null;
+	private String documentID = null;
 	
     @Column(name = "cui")
 	private String cui ="";
@@ -95,16 +95,16 @@ public class Annotation {
 		this.extractor = extractor;
 	}
 	/**
-	 * @return the sourceText
+	 * @return the document id
 	 */
-	public File getSourceText() {
-		return sourceText;
+	public String getDocumentID() {
+		return documentID;
 	}
 	/**
-	 * @param sourceText the sourceText to set
+	 * @param document id to set
 	 */
-	public void setSourceText(File sourceText) {
-		this.sourceText = sourceText;
+	public void setDocumentID(String sourceText) {
+		this.documentID = sourceText;
 	}
 	/**
 	 * @return the cui

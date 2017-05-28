@@ -21,15 +21,42 @@ import types.OutputType;
 
 public class CTakesParser implements IParser {
 
+	/**
+	 * Tag name in the cTakes result xml where the umls concepts are displayed.
+	 */
 	protected String umlsInformationTag = "org.apache.ctakes.typesystem.type.refsem.UmlsConcept";
-	protected HashMap<String, Annotation> annotations;
+	/**
+	 * Tag name in the cTakes result xml where the document id are displayed.
+	 */
+	protected String textInformationTag = "org.apache.ctakes.typesystem.type.structured.DocumentID";
+	/**
+	 * The result xml fom thr cTAkes rum.
+	 */
+	protected File sourceFile;
+	/**
+	 * All annotations for every parsed result file.
+	 * Structure {@link Annotation}:
+	 * <ul>[document_id]
+	 * <li>[cui 1] -> Annotation object</li>	
+	 * <li>[cui 1] -> Annotation object</li>
+	 * <li>...</li>
+	 * <ul>[document_id]
+	 * <li>[cui 2] -> Annotation object</li>	
+	 * <li>[cui 1] -> Annotation object</li>
+	 * <li>...</li>
+	 */
+	protected HashMap<String, HashMap<String, Annotation>> annotations;
 	protected OutputType outputType = null;
-	protected File outputFile;
 	
+	/**
+	 * Where to write the TREC result file.
+	 */
+	protected File outputFile;
 	final String EXTRACTOR_NAME = "cTakes";
 
 	public CTakesParser() {
 		annotations = new HashMap<>();
+		setSourceFile(new File(""));
 	}
 
 	@Override
@@ -45,30 +72,34 @@ public class CTakesParser implements IParser {
 	 */
 	@Override
 	public void parse(File source) throws SAXException, IOException, ParserConfigurationException {
-
-
-		if (source.isFile()) {
+		setSourceFile(source);
+		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
+		
+		if (getSourceFile().isFile()) {
 			
-			parseFile(source);
+			parseFile();
+			getAnnotations().put(getParsedFileName(), fileAnnotations);	
 			
-		} else if (source.isDirectory()) {
+		} else if (getSourceFile().isDirectory()) {
 			
-			File[] files = source.listFiles();
+			File[] files = getSourceFile().listFiles();
 			
 			for (File file : files) {
 				
-				if (file.isDirectory()) {
-					
+				if (file.isDirectory())
+				{
 					parse(file);
-					
-				} else {
-					
+					getAnnotations().put(getParsedFileName(), fileAnnotations);					
+				} else 
+				{
+					setSourceFile(file);
+					parseFile();					
 				}
-				 
+				
 			}
 			
 		} else {
-
+			throw new FileNotFoundException("Could not parsed given path!");
 		}
 
 	}
@@ -97,14 +128,14 @@ public class CTakesParser implements IParser {
 	/**
 	 * @return the annotations
 	 */
-	public HashMap<String, Annotation> getAnnotations() {
+	public HashMap<String, HashMap<String, Annotation>> getAnnotations() {
 		return annotations;
 	}
 
 	/**
 	 * @param annotations the annotations to set
 	 */
-	public void setAnnotations(HashMap<String, Annotation> annotations) {
+	public void setAnnotations(HashMap<String, HashMap<String, Annotation>> annotations) {
 		this.annotations = annotations;
 	}
 
@@ -114,6 +145,20 @@ public class CTakesParser implements IParser {
 	public File getOutputFile() {
 		return outputFile;
 	}
+	
+	/**
+	 * @return the sourceFile
+	 */
+	public File getSourceFile() {
+		return sourceFile;
+	}
+
+	/**
+	 * @param sourceFile the sourceFile to set
+	 */
+	public void setSourceFile(File sourceFile) {
+		this.sourceFile = sourceFile;
+	}
 
 	/**
 	 * @param outputFile the outputFile to set
@@ -122,49 +167,70 @@ public class CTakesParser implements IParser {
 		this.outputFile = outputFile;
 	}
 	
-	private void addAnnotation(Element elem, String cui, File source) {
+	private HashMap<String, Annotation> parseFile() throws SAXException, IOException, ParserConfigurationException {
+		
+		NodeList nList = getNodeList(umlsInformationTag);
+		HashMap<String, Annotation> fileAnnotations= new HashMap<>();
+
+		for (int idx = 0; idx < nList.getLength(); idx++) {
+			Annotation annotation = new Annotation();
+
+			Node node = nList.item(idx);
+
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element elem = (Element) node;
+				String cui = elem.getAttribute("cui");
+				annotation = buildAnnotation(elem, cui);
+				
+				if (fileAnnotations.get(cui) == null) {
+					fileAnnotations.put(cui, annotation);
+				} else {
+					fileAnnotations.get(cui).incrementCounter();
+				}
+			}
+		}
+		
+		return fileAnnotations;
+	}
+
+	private NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
+		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.parse(getSourceFile());
+		doc.getDocumentElement().normalize();
+		NodeList nList = doc.getElementsByTagName(tagName);
+		
+		return nList;
+	}
+	
+	private Annotation buildAnnotation(Element elem, String cui) throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
 		annotation.setOntology(Ontology.valueOf((elem.getAttribute("codingScheme").toUpperCase())));
 		annotation.setCui(cui);
 		annotation.setPreferredText(elem.getAttribute("preferredText"));
-		annotation.setSourceText(source);
+		annotation.setDocumentID(getParsedFileName());
 		annotation.setExtractor(EXTRACTOR_NAME);
 		annotation.setCount(1);	
-		getAnnotations().put(annotation.getCui(), annotation);
-	}
-
-	
-	private void parseFile(File source) throws SAXException, IOException, ParserConfigurationException {
 		
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(source);
-
-		// optional, but recommended
-		// read this -
-		// http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
-		doc.getDocumentElement().normalize();
-
-		NodeList nList = doc.getElementsByTagName(this.getUmlsInformationTag());
-
-		for (int idx = 0; idx < nList.getLength(); idx++) {
-
-			Node nNode = nList.item(idx);
-
-			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-				Element elem = (Element) nNode;
-				String cui = elem.getAttribute("cui");
-				
-				if (getAnnotations().get(cui) == null) {
-					addAnnotation(elem, cui, source);
-				} else {
-					getAnnotations().get(cui).incrementCounter();
-				}
-			}
-		}
+		return annotation;
 	}
 
+	private String getParsedFileName() throws ParserConfigurationException, SAXException, IOException {
+		String filename = "";
+		
+		NodeList nList = getNodeList(textInformationTag);
+		Node node = nList.item(0);
+		
+		if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
+			Element elem = (Element) node;
+			filename = elem.getAttribute("documentID");
+		}
+		
+		return filename;
+	}
+	
 
 }

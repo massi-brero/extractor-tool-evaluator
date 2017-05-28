@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><CAS version="2">
     <uima.cas.Sofa _indexed="0" _id="3" sofaNum="1" sofaID="_InitialView" mimeType="text" sofaString=" Dr. Nutritious&#10; &#10;This man has genes. Gene Ontology. Mitochondrium. Medical Nutrition Therapy for Hyperlipidemia&#10;Referral from: Julie Tester, RD, LD, CNSD&#10;Phone contact: (555) 555-1212&#10;Height: 144 cm Current Weight: 45 kg Date of current weight: 02-29-2001&#10;Admit Weight: 53 kg BMI: 18 kg/m2&#10;Diet: General&#10;Daily Calorie needs (kcals): 1500 calories, assessed as HB + 20% for activity.&#10;Daily Protein needs: 40 grams, assessed as 1.0 g/kg.&#10;Pt has been on a 3-day calorie count and has had an average intake of 1100 calories.&#10;She was instructed to drink 2-3 cans of liquid supplement to help promote weight gain.&#10;She agrees with the plan and has my number for further assessment. May want a Resting&#10;Metabolic Rate as well. She takes an aspirin a day for knee pain.&#10;"/>
-    <org.apache.ctakes.typesystem.type.structured.DocumentID _indexed="1" _id="1" documentID="test-input_m.txt"/>
+    <org.apache.ctakes.typesystem.type.structured.DocumentID _indexed="1" _id="1" documentID="test-input1.txt"/>
     <uima.tcas.DocumentAnnotation _indexed="1" _id="10" _ref_sofa="3" begin="0" end="761" language="x-unspecified"/>
     <org.apache.ctakes.typesystem.type.textspan.Segment _indexed="1" _id="15" _ref_sofa="3" begin="0" end="761" id="SIMPLE_SEGMENT"/>
     <org.apache.ctakes.typesystem.type.textspan.Sentence _indexed="1" _id="21" _ref_sofa="3" begin="1" end="15" sentenceNumber="0"/>
@@ -1978,9 +1978,8 @@
     <uima.cas.EmptyFSList _id="6174"/>
     <uima.cas.EmptyFSList _id="6082"/>
     <uima.cas.EmptyFSList _id="6068"/>
-    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043336" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C1622890" tui="T044" preferredText="site-specific telomere resolvase activity"/>
-    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043336" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C1622890" tui="T044" preferredText="site-specific telomere resolvase activity"/>
-    <uima.cas.FSArray _id="3125" size="2">
+    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043336" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C1111111" tui="T044" preferredText="test"/>
+    <uima.cas.FSArray _id="3125" size="1">
         <i>3115</i>
     </uima.cas.FSArray>
     <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3083" codingScheme="NCBI" code="9606" oid="9606#NCBI" score="0.0" disambiguated="false" cui="C0086418" tui="T016" preferredText="Homo sapiens"/>
