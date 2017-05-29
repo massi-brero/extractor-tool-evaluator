@@ -10,7 +10,7 @@ import de.mbrero.see.persistance.DBConnection;
 
 /**
  * 
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 

@@ -12,7 +12,7 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 /**
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 public class DBConnectionTest 

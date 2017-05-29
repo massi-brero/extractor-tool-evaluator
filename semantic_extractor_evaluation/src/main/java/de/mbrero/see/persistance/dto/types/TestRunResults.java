@@ -6,7 +6,7 @@ import de.mbrero.see.persistance.dto.TestRun;
  * Possible Outcomes for a test run. Stored in database:
  * @see TestRun
  * 
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 public enum TestRunResults {

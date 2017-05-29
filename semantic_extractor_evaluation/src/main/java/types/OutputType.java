@@ -3,7 +3,7 @@ package types;
 /**
  * Defines different types in which annotation results may be stored
  * 
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 public enum OutputType {

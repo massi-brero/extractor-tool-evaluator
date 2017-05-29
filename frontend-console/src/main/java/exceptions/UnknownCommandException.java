@@ -3,7 +3,7 @@ package exceptions;
 /**
  * Error class for console command errors.
  * 
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 public class UnknownCommandException extends Exception {

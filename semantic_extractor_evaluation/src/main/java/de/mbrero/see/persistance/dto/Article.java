@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 /**
  * Table representation for article entity.
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 @Entity

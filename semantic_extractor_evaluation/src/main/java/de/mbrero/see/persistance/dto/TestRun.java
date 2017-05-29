@@ -19,7 +19,7 @@ import de.mbrero.see.persistance.dto.types.TestRunResults;
 
 /**
  * Table reprensentation for a test run.
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 @Entity

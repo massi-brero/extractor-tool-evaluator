@@ -16,7 +16,7 @@ import types.Ontology;
  * This class is meant as a bean to store detailed information about a concept found in a given 
  * text using a specific extractor.
  * 
- * @author massi
+ * @author massi.brero@gmail.com
  *
  */
 @Entity
