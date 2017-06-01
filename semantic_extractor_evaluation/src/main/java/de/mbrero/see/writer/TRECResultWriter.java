@@ -5,12 +5,11 @@ import java.util.HashMap;
 import de.mbrero.see.persistance.dto.Annotation;
 
 /**
- * Saves annotation to a database table defined by the {@link Annotation} bean.
- * 
+ * Saves annotation to a database table defined by the annotate bean.
  * @author massi.brero@gmail.com
  *
  */
-public class DBWriter implements IAnnotationWriter<Annotation> {
+public class TRECResultWriter implements IAnnotationWriter<Annotation> {
 
 	
 	public void save(HashMap<String, Annotation> annotations) {

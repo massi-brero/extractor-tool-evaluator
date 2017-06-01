@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <!DOCTYPE hibernate-mapping PUBLIC  
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="de.mbrero.see.persistance.dto.Annotation" table="annotation">
+		<id name="id">
+			<generator class="increment" />
+		</id>
+		<property name="count" />
+		<property name="extractor" />
+		<property name="document_id" />
+		<property name="cui" />
+		<property name="matched_chunk" />
+		<property name="preferredText" />
+		<property name="ontology" />
+		<property name="source_text" />
+		<property name="test_run_id" />
+	</class>
+</hibernate-mapping>

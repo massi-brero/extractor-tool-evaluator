@@ -1,7 +1,5 @@
 package de.mbrero.see.persistance.dto;
 
-import java.io.File;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,13 +27,13 @@ public class Annotation {
     @Column(name = "id")
 	private int id;  
     
-    @Column(name = "test_run_id")
+    @Column(name = "count")
 	private int count = 0;
     
     @Column(name = "extractor")
     private String extractor = "";
     
-    @Column(name = "source_text")
+    @Column(name = "document_id")
 	private String documentID = null;
 	
     @Column(name = "cui")
@@ -44,7 +42,7 @@ public class Annotation {
     @Column(name = "matched_chunk")
 	private String matchedChunk = "";
     
-    @Column(name = "prefereedText")
+    @Column(name = "preferredText")
 	private String preferredText = "";
 	
     @Column(name = "ontology")
@@ -103,8 +101,8 @@ public class Annotation {
 	/**
 	 * @param document id to set
 	 */
-	public void setDocumentID(String sourceText) {
-		this.documentID = sourceText;
+	public void setDocumentID(String documentID) {
+		this.documentID = documentID;
 	}
 	/**
 	 * @return the cui
@@ -140,7 +138,7 @@ public class Annotation {
 	 * @param preferredText the prefereedText to set
 	 */
 	public void setPreferredText(String prefereedText) {
-		this.preferredText = prefereedText;
+		preferredText = prefereedText;
 	}
 	/**
 	 * @return the ontology
