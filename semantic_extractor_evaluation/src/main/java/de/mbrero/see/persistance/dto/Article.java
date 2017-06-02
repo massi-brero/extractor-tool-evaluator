@@ -21,10 +21,10 @@ public class Article {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name="id")
 	private int id;  
     
-    @Column(name = "name")
+    @Column(name="name")
 	private String name;
 	
     @Column(name="article_id")
@@ -49,11 +49,11 @@ public class Article {
 		this.name = name;
 	}
 	
-	public String getArticle_id() {
+	public String getArticleId() {
 		return articleId;
 	}
 	
-	public void setArticle_id(String aid) {
+	public void setArticleId(String aid) {
 		this.articleId = aid;
 	}
 	

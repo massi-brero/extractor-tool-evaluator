@@ -41,7 +41,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testSave() {
 		Article art = new Article();
-		art.setArticle_id("HM123");
+		art.setArticleId("HM123");
 		art.setName("Artikel");
 		art.setSource("PubMed");
 		
@@ -54,7 +54,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testGet() {
 		Article art = new Article();
-		art.setArticle_id("HM123");
+		art.setArticleId("HM123");
 		art.setName("Artikel");
 		art.setSource("PubMed");
 		
@@ -74,7 +74,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testDeleteById() {
 		Article art = new Article();
-		art.setArticle_id("HM123");
+		art.setArticleId("HM123");
 		art.setName("Artikel");
 		art.setSource("PubMed");
 		
@@ -88,7 +88,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testDeleteByEntity() {
 		Article art = new Article();
-		art.setArticle_id("HM123");
+		art.setArticleId("HM123");
 		art.setName("Artikel");
 		art.setSource("PubMed");
 		
@@ -104,7 +104,7 @@ public class ArticleRepositoryTest {
 	@Test
 	public void testUpdate() {
 		Article art = new Article();
-		art.setArticle_id("HM123");
+		art.setArticleId("HM123");
 		art.setName("Artikel");
 		art.setSource("PubMed");
 		

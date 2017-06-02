@@ -22,7 +22,8 @@ public class DBAnnotationWriterTest {
 	private HashMap<String, HashMap<String, Annotation>> allAnnotations;
 	private Repository<Annotation> repo;
 	private Annotation annotation1;
-	DBConnection conn;
+	private DBConnection conn;
+	private DBAnnotationWriter annotationWriter = new DBAnnotationWriter();
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,15 +33,14 @@ public class DBAnnotationWriterTest {
 		
 		URL url = getClass().getClassLoader().getResource("hibernate.cfg.xml");
 		conn = new DBConnection(url);
-
-		
+	
 	}
 	
 	@After
 	public void tearDown() throws Exception {
 		Session session = conn.getNewSession();
 		Transaction t = session.beginTransaction();
-	    Query query = session.createQuery("delete from Article");
+	    Query query = session.createQuery("delete from Annotation");
 	    query.executeUpdate();
 	    t.commit();
 	    session.close();
@@ -55,17 +55,17 @@ public class DBAnnotationWriterTest {
 	@Test
 	public void testSaveAnnotation() {
 	
-		repo.save(annotation1);
-		Annotation item = repo.get(0);
+		annotationWriter.saveEntity(annotation1);
+		Annotation item = repo.get(1);
 
 		assertEquals(item.getCount(), 1);
 		assertEquals(item.getCui(), "CUI001");
 		assertEquals(item.getDocumentID(), "testText1.txt");
-		assertEquals(item.getExtractor(), "extractor2");
+		assertEquals(item.getExtractor(), "extractor1");
 		assertEquals(item.getMatchedChunk(), "test text");
 		assertEquals(item.getOntology(), Ontology.NCBI);
 		assertEquals(item.getPreferredText(), "test text");
-		assertEquals(item.getTestRunId(), 1);
+		assertEquals(item.getTestRunId(), 0);
 		
 	}
 	

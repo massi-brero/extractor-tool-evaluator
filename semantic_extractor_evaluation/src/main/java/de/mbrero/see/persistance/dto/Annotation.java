@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import types.Ontology;
 
 /**
- * Table reprenentation for article entity.
+ * Table representation for annotation entity.
  * This class is meant as a bean to store detailed information about a concept found in a given 
  * text using a specific extractor.
  * 
@@ -18,37 +18,37 @@ import types.Ontology;
  *
  */
 @Entity
-@Table(name = "article")
+@Table(name="annotation")
 public class Annotation {
 	
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name="id")
 	private int id;  
     
-    @Column(name = "count")
+    @Column(name="count")
 	private int count = 0;
     
-    @Column(name = "extractor")
+    @Column(name="extractor")
     private String extractor = "";
     
-    @Column(name = "document_id")
+    @Column(name="document_id")
 	private String documentID = null;
 	
-    @Column(name = "cui")
+    @Column(name="cui")
 	private String cui ="";
 	
-    @Column(name = "matched_chunk")
+    @Column(name="matched_chunk")
 	private String matchedChunk = "";
     
-    @Column(name = "preferredText")
+    @Column(name="preferred_text")
 	private String preferredText = "";
 	
-    @Column(name = "ontology")
+    @Column(name="ontology")
 	private Ontology ontology = null;
 	
-    @Column(name = "test_run_id")
+    @Column(name="test_run_id")
 	private int testRunId = 0;
     
 

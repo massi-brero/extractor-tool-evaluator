@@ -10,12 +10,11 @@
 		</id>
 		<property name="count" />
 		<property name="extractor" />
-		<property name="document_id" />
+		<property name="documentID" />
 		<property name="cui" />
-		<property name="matched_chunk" />
+		<property name="matchedChunk" />
 		<property name="preferredText" />
 		<property name="ontology" />
-		<property name="source_text" />
-		<property name="test_run_id" />
+		<property name="testRunId" />
 	</class>
 </hibernate-mapping>

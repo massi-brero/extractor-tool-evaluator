@@ -45,35 +45,6 @@ public class Repository<T> implements IRepository<T> {
 			this.conn = new DBConnection();
 	}
 
-//	public static void main(String[] args) {
-//
-//		// creating configuration object
-//		Configuration cfg = new Configuration();
-//		cfg.configure("resources/hibernate.cfg.xml");// populates the data of the
-//											// configuration file
-//
-//		// creating seession factory object
-//		SessionFactory factory = cfg.buildSessionFactory();
-//
-//		// creating session object
-//		Session session = factory.openSession();
-//
-//		// creating transaction object
-//		Transaction t = session.beginTransaction();
-//
-//		Article e1 = new Article();
-//		e1.setName("Good Article");
-//		e1.setArticle_id("12345");
-//
-//		session.persist(e1);// persisting the object
-//
-//		t.commit();// transaction is committed
-//		session.close();
-//
-//		System.out.println("Article saved");
-//
-//	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	public T get(int id) {
