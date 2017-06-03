@@ -1,7 +1,10 @@
-package de.mbrero.see.writer;
+package de.mbrero.see.models;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
@@ -13,24 +16,21 @@ import de.mbrero.see.persistance.dto.Annotation;
  * @author massi.brero@gmail.com
  *
  */
-public class DBAnnotationWriter implements IEntityWriter<Annotation> {
+public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	private Repository<Annotation> repo;
 	private final String HBM_CONFIG_PATH = "hibernate.cfg.xml";
 	private DBConnection conn;
-	
-	public DBAnnotationWriter() {
+
+	public DBAnnotationModel() {
 		init();
 	}
-	
-	
+
 	public void init() {
 		repo = new Repository<>(Annotation.class, conn);
-		
+
 		URL url = getClass().getClassLoader().getResource(HBM_CONFIG_PATH);
 		conn = new DBConnection(url);
 	}
-
-
 
 	@Override
 	public void saveEntity(Annotation annotation) {
@@ -38,17 +38,27 @@ public class DBAnnotationWriter implements IEntityWriter<Annotation> {
 	}
 
 	@Override
-	public void saveEntitiesInDocument(HashMap<String, Annotation> annotations) {
-		// TODO Auto-generated method stub
-		
+	public void saveEntityList(ArrayList<Annotation> annotations) {
+		for (Annotation annotation : annotations) {
+			saveEntity(annotation);
+		}
+
 	}
 
 	@Override
-	public void saveEntityInCorpus(HashMap<String, HashMap<String, Annotation>> annotations) {
-		// TODO Auto-generated method stub
+	@SuppressWarnings("unchecked")
+	public void saveEntityInCorpus(HashMap<String, HashMap<String, Annotation>> allAnnotations) {
 		
+		Iterator it = allAnnotations.entrySet().iterator();
+		
+		while (it.hasNext()) {
+			Map.Entry<String, HashMap<String, Annotation>> entry = (Map.Entry<String, HashMap<String, Annotation>>) it.next();
+			HashMap<String, Annotation> foo = entry.getValue();
+			ArrayList<Annotation> annList = new ArrayList<Annotation>((entry.getValue().values()));
+			saveEntityList(annList);
+			//it.remove(); // avoids a ConcurrentModificationException
+		}
 	}
-
 
 	/**
 	 * @return the repo
@@ -57,14 +67,13 @@ public class DBAnnotationWriter implements IEntityWriter<Annotation> {
 		return repo;
 	}
 
-
 	/**
-	 * @param repo the repo to set
+	 * @param repo
+	 *            the repo to set
 	 */
 	public void setRepo(Repository<Annotation> repo) {
 		this.repo = repo;
 	}
-
 
 	/**
 	 * @return the conn
@@ -73,9 +82,9 @@ public class DBAnnotationWriter implements IEntityWriter<Annotation> {
 		return conn;
 	}
 
-
 	/**
-	 * @param conn the conn to set
+	 * @param conn
+	 *            the conn to set
 	 */
 	public void setConn(DBConnection conn) {
 		this.conn = conn;

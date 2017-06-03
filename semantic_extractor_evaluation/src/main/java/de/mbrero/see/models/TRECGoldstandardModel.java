@@ -1,7 +1,9 @@
-package de.mbrero.see.writer;
+package de.mbrero.see.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import antlr.collections.List;
 import de.mbrero.see.persistance.dto.Annotation;
 
 /**
@@ -9,7 +11,7 @@ import de.mbrero.see.persistance.dto.Annotation;
  * @author massi.brero@gmail.com
  *
  */
-public class TRECResultWriter implements IEntityWriter<Annotation> {
+public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 
 	@Override
 	public void saveEntity(Annotation annotations) {
@@ -18,7 +20,7 @@ public class TRECResultWriter implements IEntityWriter<Annotation> {
 	}
 
 	@Override
-	public void saveEntitiesInDocument(HashMap<String, Annotation> annotations) {
+	public void saveEntityList(ArrayList<Annotation> annotations) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -29,6 +31,7 @@ public class TRECResultWriter implements IEntityWriter<Annotation> {
 		
 	}
 
+	
 
 
 }

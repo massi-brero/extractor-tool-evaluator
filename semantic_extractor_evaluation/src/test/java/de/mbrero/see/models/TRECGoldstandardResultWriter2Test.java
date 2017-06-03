@@ -1,4 +1,4 @@
-package de.mbrero.see.writer;
+package de.mbrero.see.models;
 
 import static org.junit.Assert.*;
 

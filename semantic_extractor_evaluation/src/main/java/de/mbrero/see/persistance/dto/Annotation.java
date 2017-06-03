@@ -46,7 +46,7 @@ public class Annotation {
 	private String preferredText = "";
 	
     @Column(name="ontology")
-	private Ontology ontology = null;
+	private String ontology = "";
 	
     @Column(name="test_run_id")
 	private int testRunId = 0;
@@ -143,13 +143,13 @@ public class Annotation {
 	/**
 	 * @return the ontology
 	 */
-	public Ontology getOntology() {
+	public String getOntology() {
 		return ontology;
 	}
 	/**
 	 * @param ontology the ontology to set
 	 */
-	public void setOntology(Ontology ontology) {
+	public void setOntology(String ontology) {
 		this.ontology = ontology;
 	}
 	/**

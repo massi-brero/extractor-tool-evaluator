@@ -5,11 +5,9 @@ package de.mbrero.see.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -66,7 +64,7 @@ public class CTakesParserTest {
 		
 		assertEquals(2, annotations.size());
 		assertEquals("error matching cui", "C1622890", annotation.getCui());
-		assertEquals("error matching ontology", Ontology.GO, annotation.getOntology());
+		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "test", annotation.getPreferredText());
 		assertEquals("error matching file", "test-input.txt", annotation.getDocumentID());
 		assertEquals("error matching extractor", "cTakes", annotation.getExtractor());
