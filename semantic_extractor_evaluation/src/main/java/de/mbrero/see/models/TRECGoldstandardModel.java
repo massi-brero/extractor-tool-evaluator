@@ -26,7 +26,7 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 	}
 
 	@Override
-	public void saveEntityInCorpus(HashMap<String, HashMap<String, Annotation>> annotations) {
+	public void saveEntitiesInCorpus(HashMap<String, HashMap<String, Annotation>> annotations) {
 		// TODO Auto-generated method stub
 		
 	}

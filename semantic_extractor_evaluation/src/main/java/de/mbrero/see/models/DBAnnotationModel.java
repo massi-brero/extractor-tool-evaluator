@@ -47,7 +47,7 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public void saveEntityInCorpus(HashMap<String, HashMap<String, Annotation>> allAnnotations) {
+	public void saveEntitiesInCorpus(HashMap<String, HashMap<String, Annotation>> allAnnotations) {
 		
 		Iterator it = allAnnotations.entrySet().iterator();
 		
@@ -56,7 +56,6 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 			HashMap<String, Annotation> foo = entry.getValue();
 			ArrayList<Annotation> annList = new ArrayList<Annotation>((entry.getValue().values()));
 			saveEntityList(annList);
-			//it.remove(); // avoids a ConcurrentModificationException
 		}
 	}
 

@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import org.hibernate.Query;
@@ -97,26 +99,33 @@ public class DBAnnotationModelTest {
 	@Test
 	public void testSaveAnnotationsinCorpus() {
 	
-		annotationModel.saveEntityInCorpus(allAnnotations);
+		annotationModel.saveEntitiesInCorpus(allAnnotations);
 		ArrayList<Annotation> items = (ArrayList<Annotation>)repo.getAll();
 		
-		assertEquals(1, items.get(1).getCount());
-		assertEquals("CUI001", items.get(1).getCui());
-		assertEquals("testText1.txt", items.get(1).getDocumentID());
-		assertEquals("extractor1", items.get(1).getExtractor());
-		assertEquals("test text", items.get(1).getMatchedChunk());
-		assertEquals(Ontology.NCBI.name(), items.get(1).getOntology());
-		assertEquals("test text", items.get(1).getPreferredText());
-		assertEquals(0, items.get(1).getTestRunId());
-
-		assertEquals(2, items.get(0).getCount());
-		assertEquals("CUI002", items.get(0).getCui());
-		assertEquals("testText2.txt", items.get(0).getDocumentID());
-		assertEquals("extractor2", items.get(0).getExtractor());
+		Collections.sort(items, new Comparator<Annotation>() {
+		    @Override
+		    public int compare(Annotation a1, Annotation a2) {
+		        return a1.getCui().compareTo(a2.getCui());
+		    }
+		});
+		
+		assertEquals(1, items.get(0).getCount());
+		assertEquals("CUI001", items.get(0).getCui());
+		assertEquals("testText1.txt", items.get(0).getDocumentID());
+		assertEquals("extractor1", items.get(0).getExtractor());
 		assertEquals("test text", items.get(0).getMatchedChunk());
 		assertEquals(Ontology.NCBI.name(), items.get(0).getOntology());
 		assertEquals("test text", items.get(0).getPreferredText());
-		assertEquals(1, items.get(0).getTestRunId());
+		assertEquals(0, items.get(0).getTestRunId());
+		
+		assertEquals(2, items.get(1).getCount());
+		assertEquals("CUI002", items.get(1).getCui());
+		assertEquals("testText2.txt", items.get(1).getDocumentID());
+		assertEquals("extractor2", items.get(1).getExtractor());
+		assertEquals("test text", items.get(1).getMatchedChunk());
+		assertEquals(Ontology.NCBI.name(), items.get(1).getOntology());
+		assertEquals("test text", items.get(1).getPreferredText());
+		assertEquals(1, items.get(1).getTestRunId());
 	}
 	
 	private void setUpAnnotationsFixture() {
@@ -149,8 +158,8 @@ public class DBAnnotationModelTest {
 		HashMap<String, Annotation> put2 = new HashMap<>();
 		put2.put(annotation2.getCui(), annotation2);
 		
-		allAnnotations.put(document2, put2);
 		allAnnotations.put(document1, put1);
+		allAnnotations.put(document2, put2);
 	}
 
 }

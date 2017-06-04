@@ -1,12 +1,14 @@
 package de.mbrero.see.models;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
@@ -14,7 +16,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Annotation;
 import types.Ontology;
 
@@ -24,10 +25,13 @@ public class TRECResultWriterTest {
 	private HashMap<String, HashMap<String, Annotation>> allAnnotations;
 	private Annotation annotation1;
 	private Annotation annotation2;
+	private TRECResultModel model;
 
 	@Before
 	public void setUp() throws Exception {
-		resultFile = new File("src/test/resources/result");
+		model = new TRECResultModel();
+		allAnnotations = new HashMap<>();
+		resultFile = new File("src/test/resources/trec/result");
 		setUpAnnotationsFixture();
 	}
 	
@@ -37,12 +41,9 @@ public class TRECResultWriterTest {
 	}
 
 	@Test
-	public void testSaveHashMapOfStringAnnotation() {
-		fail("Not yet implemented");
-	}
-
-	@Test
 	public void testSaveSingleAnnotation() throws IOException {
+		model.setResultFile(resultFile);
+		model.saveEntity(annotation1);
 		Stream<String> stream = Files.lines(Paths.get(resultFile.getPath()));
 
 		stream.forEach((str) -> {
@@ -54,14 +55,52 @@ public class TRECResultWriterTest {
 	}
 	@Test
 	public void testSaveAnnotationList() throws IOException {
-//		Stream<String> stream = Files.lines(Paths.get(resultFile.getPath()));
-//
-//		stream.forEach((str) -> {
-//			assertTrue("testText1.txt 0 CUI001 0 0 0" = str);
-//		});
-//		
-//		stream.close();
+		ArrayList<Annotation> annotations = new ArrayList<>();
+		annotations.add(annotation1);
+		annotations.add(annotation2);
+		ArrayList<String> annotationsResult = new ArrayList<>();
+		model.setResultFile(resultFile);
+		model.saveEntityList(annotations);
+		
+		Stream<String> stream = Files.lines(Paths.get(resultFile.getPath()));
+		
+		stream.forEach((str) -> {
+			annotationsResult.add(str);
+		});
+		
+		assertEquals(2, annotationsResult.size());
+		assertEquals("testText1.txt 0 CUI001 0 0 0", annotationsResult.get(0));
+		assertEquals("testText2.txt 0 CUI002 0 0 0", annotationsResult.get(1));
+		
+		stream.close();
+		
+	}
+	
+	@Test
+	public void testSaveAnnotationFromMultipleDocuments() throws IOException {
 
+		ArrayList<String> annotationsResult = new ArrayList<>();
+		model.setResultFile(resultFile);
+		model.saveEntitiesInCorpus(allAnnotations);
+		
+		Stream<String> stream = Files.lines(Paths.get(resultFile.getPath()));
+		
+		stream.forEach((str) -> {
+			annotationsResult.add(str);
+		});
+		
+		Collections.sort(annotationsResult, new Comparator<String>() {
+		    @Override
+		    public int compare(String l1, String l2) {
+		        return l1.compareTo(l2);
+		    }
+		});
+		assertEquals(2, annotationsResult.size());
+		assertEquals("testText1.txt 0 CUI001 0 0 0", annotationsResult.get(0));
+		assertEquals("testText2.txt 0 CUI002 0 0 0", annotationsResult.get(1));
+		
+		stream.close();
+		
 	}
 	
 	private void setUpAnnotationsFixture() {
@@ -94,8 +133,8 @@ public class TRECResultWriterTest {
 		HashMap<String, Annotation> put2 = new HashMap<>();
 		put2.put(annotation2.getCui(), annotation2);
 		
-		allAnnotations.put(document2, put2);
 		allAnnotations.put(document1, put1);
+		allAnnotations.put(document2, put2);
 	}
 
 }
