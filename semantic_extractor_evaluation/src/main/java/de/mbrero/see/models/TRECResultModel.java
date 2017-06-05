@@ -34,9 +34,11 @@ public class TRECResultModel implements IEntityWriter<Annotation> {
 	public void saveEntity(Annotation annotation) throws IOException {
 
 		if (getResultFile() != null) {
-
-			String line = String.format(trecLine, annotation.getDocumentID(), annotation.getCui());
-			Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+			
+			for (int idx = 0; idx < annotation.getCount(); idx++) {
+				String line = String.format(trecLine, annotation.getDocumentID(), annotation.getCui() + "_" + idx);
+				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
+			}
 
 		} else {
 			throw new FileNotFoundException();

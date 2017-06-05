@@ -47,7 +47,7 @@ public class TRECResultWriterTest {
 		Stream<String> stream = Files.lines(Paths.get(resultFile.getPath()));
 
 		stream.forEach((str) -> {
-			assertEquals("testText1.txt 0 CUI001 0 0 0", str);
+			assertEquals("testText1.txt 0 CUI001_0 0 0 0", str);
 		});
 		
 		stream.close();
@@ -68,9 +68,10 @@ public class TRECResultWriterTest {
 			annotationsResult.add(str);
 		});
 		
-		assertEquals(2, annotationsResult.size());
-		assertEquals("testText1.txt 0 CUI001 0 0 0", annotationsResult.get(0));
-		assertEquals("testText2.txt 0 CUI002 0 0 0", annotationsResult.get(1));
+		assertEquals(3, annotationsResult.size());
+		assertEquals("testText1.txt 0 CUI001_0 0 0 0", annotationsResult.get(0));
+		assertEquals("testText2.txt 0 CUI002_0 0 0 0", annotationsResult.get(1));
+		assertEquals("testText2.txt 0 CUI002_1 0 0 0", annotationsResult.get(2));
 		
 		stream.close();
 		
@@ -95,9 +96,10 @@ public class TRECResultWriterTest {
 		        return l1.compareTo(l2);
 		    }
 		});
-		assertEquals(2, annotationsResult.size());
-		assertEquals("testText1.txt 0 CUI001 0 0 0", annotationsResult.get(0));
-		assertEquals("testText2.txt 0 CUI002 0 0 0", annotationsResult.get(1));
+		assertEquals(3, annotationsResult.size());
+		assertEquals("testText1.txt 0 CUI001_0 0 0 0", annotationsResult.get(0));
+		assertEquals("testText2.txt 0 CUI002_0 0 0 0", annotationsResult.get(1));
+		assertEquals("testText2.txt 0 CUI002_1 0 0 0", annotationsResult.get(2));
 		
 		stream.close();
 		
