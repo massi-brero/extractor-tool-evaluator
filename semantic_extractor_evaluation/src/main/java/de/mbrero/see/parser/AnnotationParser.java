@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 
 import types.OutputType;
 
-public interface IParser {
+public interface AnnotationParser {
 	
 	public void parse(File source) throws SAXException, IOException, ParserConfigurationException;
 	public void read() throws FileNotFoundException;

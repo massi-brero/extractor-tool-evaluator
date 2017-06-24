@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,6 +22,7 @@ import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
 import types.Ontology;
+import types.ParserType;
 
 /**
  * @author massi.brero@gmail.com
@@ -28,17 +30,24 @@ import types.Ontology;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CTakesParserTest {
-	private CTakesParser parser = new CTakesParser();
-	private File workingFile = new File(getClass().getClassLoader().getResource("texts/output.short.xml").getFile());
-	private File multipleAnnotationsFile = new File(getClass().getClassLoader().getResource("texts/output.short.multiple.xml").getFile());
-	private File folder = new File(getClass().getClassLoader().getResource("texts/folder1").getFile());
-	private File nestedFolder = new File(getClass().getClassLoader().getResource("texts/folder2").getFile());
-	private File nestedFolderWithDuplicates = new File(getClass().getClassLoader().getResource("texts/folder4").getFile());
+	private CTakesParser parser = null;
+	private File workingFile = null;
+	private File multipleAnnotationsFile = null;
+	private File folder = null;
+	private File nestedFolder = null;
+	private File nestedFolderWithDuplicates = null;
 
-		
+	@Before
 	public void setUp()
 	{
-		
+		parser = (CTakesParser)ParserFactory.instantiateParser(ParserType.CTAKES);
+		workingFile = new File(getClass().getClassLoader().getResource("texts/output.short.xml").getFile());
+		multipleAnnotationsFile = new File(getClass().getClassLoader().getResource("texts/output.short.multiple.xml").getFile());
+		folder = new File(getClass().getClassLoader().getResource("texts/folder1").getFile());
+		nestedFolder = new File(getClass().getClassLoader().getResource("texts/folder2").getFile());
+		nestedFolderWithDuplicates = new File(getClass().getClassLoader().getResource("texts/folder4").getFile());
+	
+	
 	}
 	
 	@Test
@@ -67,7 +76,7 @@ public class CTakesParserTest {
 		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "test", annotation.getPreferredText());
 		assertEquals("error matching file", "test-input.txt", annotation.getDocumentID());
-		assertEquals("error matching extractor", "cTakes", annotation.getExtractor());
+		assertEquals("error matching extractor", ParserType.CTAKES.toString(), annotation.getExtractor());
 		assertEquals("error matching count", 1, annotation.getCount());
 		
 	}
@@ -139,6 +148,13 @@ public class CTakesParserTest {
 		assertEquals("error matching file", "test-input_m.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 2, annotation2.getCount());
 	}
+	
+	@Ignore
+	@Test 
+	public void test_saveResultToRable() {
+		
+	}
+
 	
 	@Ignore
 	@Test

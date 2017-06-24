@@ -12,11 +12,13 @@ bin/runClinicalPipeline.sh  -i input --xmiOut output  --user massibrero  --pass 
 
 #####Customizing ctakes with own ontologies#####
 
-1. You need a UMLS installation of RFF files.
+1. You need a UMLS installation consisting of RFF files.
 2. Create custom dictionary with your ontology. use cTakes Dictionary Creator for that.
+see here for details; https://cwiki.apache.org/confluence/display/CTAKES/Dictionary+Creator+GUI
 3. Customize an annotator (in /desc/ctakes-dictionary-lookup-fast or /desc/ctakes-dictionary-lookup-fast). Save an custom descriptor.
 4. Customize a clinical pipeline descriptor like /home/massi/projects/resources/extractors/ctakes/apache-ctakes-4.0.0/desc/ctakes-clinical-pipeline/desc/analysis_engine/AggregatePlaintextUMLSProcessor.xml -> insert your custom annotator.
 5. reduce pipeline steps to remove any not wanted analysis from yout output (and maybe speeding up the process...?)
+6. start the annotation run with bin/runctakesCPE.sh
 
 Extremely important: Add the following type definition to the most primitive descriptor (or your custom annotator)
 <typeSystemDescription>
