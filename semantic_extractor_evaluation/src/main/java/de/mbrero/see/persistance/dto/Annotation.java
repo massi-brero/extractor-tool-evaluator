@@ -36,8 +36,8 @@ public class Annotation {
     @Column(name="document_id")
 	private String documentID = null;
 	
-    @Column(name="cui")
-	private String cui ="";
+    @Column(name="concept_id")
+	private String conceptId ="";
 	
     @Column(name="matched_chunk")
 	private String matchedChunk = "";
@@ -107,14 +107,14 @@ public class Annotation {
 	/**
 	 * @return the cui
 	 */
-	public String getCui() {
-		return cui;
+	public String getConceptId() {
+		return conceptId;
 	}
 	/**
 	 * @param cui the cui to set
 	 */
-	public void setCui(String cui) {
-		this.cui = cui;
+	public void setConceptId(String cui) {
+		this.conceptId = cui;
 	}
 	/**
 	 * @return the matchedChunk

@@ -34,8 +34,14 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * Tag name in the result xml where the document id are displayed.
 	 */
 	protected String textInformationTag = "";
+	
 	/**
-	 * The result xml from the cTAkes run.
+	 * The tag where the id of the concept is stored
+	 */
+	protected String conceptIdentifierNode = "";
+	
+	/**
+	 * The result xml from the cTakes run.
 	 */
 	protected File sourceFile;
 	
@@ -119,13 +125,18 @@ public abstract class AbstractParser implements AnnotationParser {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 
 				Element elem = (Element) node;
-				String cui = elem.getAttribute("cui");
-				annotation = buildAnnotation(elem, cui);
+				
+				if (getConceptIdentifierNode().isEmpty())
+					throw new ParserConfigurationException("No tag where the concept id can be found was set");
+				
+				String conceptIdNode = elem.getAttribute(getConceptIdentifierNode());
+								
+				annotation = buildAnnotation(elem, conceptIdNode);
 
-				if (fileAnnotations.get(cui) == null) {
-					fileAnnotations.put(cui, annotation);
+				if (fileAnnotations.get(conceptIdNode) == null) {
+					fileAnnotations.put(conceptIdNode, annotation);
 				} else {
-					fileAnnotations.get(cui).incrementCounter();
+					fileAnnotations.get(conceptIdNode).incrementCounter();
 				}
 			}
 		}
@@ -243,6 +254,20 @@ public abstract class AbstractParser implements AnnotationParser {
 	 */
 	public void setTextInformationTag(String textInformationTag) {
 		this.textInformationTag = textInformationTag;
+	}
+
+	/**
+	 * @return the conceptIdTag
+	 */
+	public String getConceptIdentifierNode() {
+		return conceptIdentifierNode;
+	}
+
+	/**
+	 * @param conceptIdTag the conceptIdTag to set
+	 */
+	public void setConceptIdentifierNode(String node) {
+		this.conceptIdentifierNode = node;
 	}
 
 }

@@ -46,7 +46,7 @@ public class AnnotationRepositoryTest {
 		ann.setExtractor("ctakes");
 		ann.setDocumentID("#123");
 		ann.setMatchedChunk("test");
-		ann.setCui("123");
+		ann.setConceptId("123");
 		ann.setOntology(Ontology.GO.toString());
 		ann.setPreferredText("test");
 		ann.setTestRunId(123);
@@ -64,7 +64,7 @@ public class AnnotationRepositoryTest {
 		ann.setExtractor("ctakes");
 		ann.setDocumentID("#123");
 		ann.setMatchedChunk("test");
-		ann.setCui("123");
+		ann.setConceptId("123");
 		ann.setOntology(Ontology.GO.toString());
 		ann.setPreferredText("test");
 		ann.setTestRunId(123);
@@ -72,7 +72,7 @@ public class AnnotationRepositoryTest {
 		repo.save(ann);
 		Annotation item = (Annotation) repo.get(1);
 
-		assertEquals("123", item.getCui());
+		assertEquals("123", item.getConceptId());
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class AnnotationRepositoryTest {
 		ann.setExtractor("ctakes");
 		ann.setDocumentID("#123");
 		ann.setMatchedChunk("test");
-		ann.setCui("123");
+		ann.setConceptId("123");
 		ann.setOntology(Ontology.GO.toString());
 		ann.setPreferredText("test");
 		ann.setTestRunId(123);
@@ -108,7 +108,7 @@ public class AnnotationRepositoryTest {
 		ann.setExtractor("ctakes");
 		ann.setDocumentID("#123");
 		ann.setMatchedChunk("test");
-		ann.setCui("123");
+		ann.setConceptId("123");
 		ann.setOntology(Ontology.GO.toString());
 		ann.setPreferredText("test");
 		ann.setTestRunId(123);
@@ -129,7 +129,7 @@ public class AnnotationRepositoryTest {
 		ann.setExtractor("ctakes");
 		ann.setDocumentID("#123");
 		ann.setMatchedChunk("test");
-		ann.setCui("123");
+		ann.setConceptId("123");
 		ann.setOntology(Ontology.GO.toString());
 		ann.setPreferredText("test");
 		ann.setTestRunId(123);
@@ -137,10 +137,10 @@ public class AnnotationRepositoryTest {
 		repo.save(ann);
 		
 		Annotation item = (Annotation) repo.get(1);
-		item.setCui("124");
+		item.setConceptId("124");
 		repo.update(item);
 
-		assertEquals("124", item.getCui());
+		assertEquals("124", item.getConceptId());
 	}
 
 }

@@ -57,7 +57,7 @@ public class DBAnnotationModelTest {
 		Annotation item = repo.get(1);
 
 		assertEquals(1, item.getCount());
-		assertEquals("CUI001", item.getCui());
+		assertEquals("CUI001", item.getConceptId());
 		assertEquals("testText1.txt", item.getDocumentID());
 		assertEquals("extractor1", item.getExtractor());
 		assertEquals("test text", item.getMatchedChunk());
@@ -78,7 +78,7 @@ public class DBAnnotationModelTest {
 		
 		assertEquals(2, items.size());
 		assertEquals(1, items.get(0).getCount());
-		assertEquals("CUI001", items.get(0).getCui());
+		assertEquals("CUI001", items.get(0).getConceptId());
 		assertEquals("testText1.txt", items.get(0).getDocumentID());
 		assertEquals("extractor1", items.get(0).getExtractor());
 		assertEquals("test text", items.get(0).getMatchedChunk());
@@ -87,7 +87,7 @@ public class DBAnnotationModelTest {
 		assertEquals(0, items.get(0).getTestRunId());
 
 		assertEquals(2, items.get(1).getCount());
-		assertEquals("CUI002", items.get(1).getCui());
+		assertEquals("CUI002", items.get(1).getConceptId());
 		assertEquals("testText2.txt", items.get(1).getDocumentID());
 		assertEquals("extractor2", items.get(1).getExtractor());
 		assertEquals("test text", items.get(1).getMatchedChunk());
@@ -105,12 +105,12 @@ public class DBAnnotationModelTest {
 		Collections.sort(items, new Comparator<Annotation>() {
 		    @Override
 		    public int compare(Annotation a1, Annotation a2) {
-		        return a1.getCui().compareTo(a2.getCui());
+		        return a1.getConceptId().compareTo(a2.getConceptId());
 		    }
 		});
 		
 		assertEquals(1, items.get(0).getCount());
-		assertEquals("CUI001", items.get(0).getCui());
+		assertEquals("CUI001", items.get(0).getConceptId());
 		assertEquals("testText1.txt", items.get(0).getDocumentID());
 		assertEquals("extractor1", items.get(0).getExtractor());
 		assertEquals("test text", items.get(0).getMatchedChunk());
@@ -119,7 +119,7 @@ public class DBAnnotationModelTest {
 		assertEquals(0, items.get(0).getTestRunId());
 		
 		assertEquals(2, items.get(1).getCount());
-		assertEquals("CUI002", items.get(1).getCui());
+		assertEquals("CUI002", items.get(1).getConceptId());
 		assertEquals("testText2.txt", items.get(1).getDocumentID());
 		assertEquals("extractor2", items.get(1).getExtractor());
 		assertEquals("test text", items.get(1).getMatchedChunk());
@@ -134,7 +134,7 @@ public class DBAnnotationModelTest {
 		
 		annotation1 = new Annotation();
 		annotation1.setCount(1);
-		annotation1.setCui("CUI001");
+		annotation1.setConceptId("CUI001");
 		annotation1.setDocumentID(document1);
 		annotation1.setExtractor("extractor1");
 		annotation1.setMatchedChunk("test text");
@@ -144,7 +144,7 @@ public class DBAnnotationModelTest {
 		
 		annotation2 = new Annotation();
 		annotation2.setCount(2);
-		annotation2.setCui("CUI002");
+		annotation2.setConceptId("CUI002");
 		annotation2.setDocumentID(document2);
 		annotation2.setExtractor("extractor2");
 		annotation2.setMatchedChunk("test text");
@@ -153,10 +153,10 @@ public class DBAnnotationModelTest {
 		annotation2.setTestRunId(1);
 		
 		HashMap<String, Annotation> put1 = new HashMap<>();
-		put1.put(annotation1.getCui(), annotation1);
+		put1.put(annotation1.getConceptId(), annotation1);
 				
 		HashMap<String, Annotation> put2 = new HashMap<>();
-		put2.put(annotation2.getCui(), annotation2);
+		put2.put(annotation2.getConceptId(), annotation2);
 		
 		allAnnotations.put(document1, put1);
 		allAnnotations.put(document2, put2);

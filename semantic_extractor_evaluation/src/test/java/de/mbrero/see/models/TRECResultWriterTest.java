@@ -111,7 +111,7 @@ public class TRECResultWriterTest {
 		
 		annotation1 = new Annotation();
 		annotation1.setCount(1);
-		annotation1.setCui("CUI001");
+		annotation1.setConceptId("CUI001");
 		annotation1.setDocumentID(document1);
 		annotation1.setExtractor("extractor1");
 		annotation1.setMatchedChunk("test text");
@@ -121,7 +121,7 @@ public class TRECResultWriterTest {
 		
 		annotation2 = new Annotation();
 		annotation2.setCount(2);
-		annotation2.setCui("CUI002");
+		annotation2.setConceptId("CUI002");
 		annotation2.setDocumentID(document2);
 		annotation2.setExtractor("extractor2");
 		annotation2.setMatchedChunk("test text");
@@ -130,10 +130,10 @@ public class TRECResultWriterTest {
 		annotation2.setTestRunId(1);
 		
 		HashMap<String, Annotation> put1 = new HashMap<>();
-		put1.put(annotation1.getCui(), annotation1);
+		put1.put(annotation1.getConceptId(), annotation1);
 				
 		HashMap<String, Annotation> put2 = new HashMap<>();
-		put2.put(annotation2.getCui(), annotation2);
+		put2.put(annotation2.getConceptId(), annotation2);
 		
 		allAnnotations.put(document1, put1);
 		allAnnotations.put(document2, put2);

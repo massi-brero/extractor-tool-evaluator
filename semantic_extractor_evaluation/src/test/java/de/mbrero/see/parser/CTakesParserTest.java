@@ -25,6 +25,9 @@ import types.Ontology;
 import types.ParserType;
 
 /**
+ * This test class also tests the methods provided by the abstract class. You may see the test for the 
+ * cTakes Parser as a model checking all the funcionalities. This is not reall TDD but faster ;-) 
+ * 
  * @author massi.brero@gmail.com
  *
  */
@@ -40,13 +43,19 @@ public class CTakesParserTest {
 	@Before
 	public void setUp()
 	{
-		parser = (CTakesParser)ParserFactory.instantiateParser(ParserType.CTAKES);
+		// setup  parser	
+		parser = new CTakesParser();
+		parser.setExtractorName("CTAKES");
+		parser.setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
+		parser.setTextInformationTag("org.apache.ctakes.typesystem.type.structured.DocumentID");
+		parser.setConceptIdentifierNode("oid");
+		
+		//set up working files
 		workingFile = new File(getClass().getClassLoader().getResource("texts/output.short.xml").getFile());
 		multipleAnnotationsFile = new File(getClass().getClassLoader().getResource("texts/output.short.multiple.xml").getFile());
 		folder = new File(getClass().getClassLoader().getResource("texts/folder1").getFile());
 		nestedFolder = new File(getClass().getClassLoader().getResource("texts/folder2").getFile());
 		nestedFolderWithDuplicates = new File(getClass().getClassLoader().getResource("texts/folder4").getFile());
-	
 	
 	}
 	
@@ -72,7 +81,7 @@ public class CTakesParserTest {
 		Annotation annotation = annotations.get("C1622890");
 		
 		assertEquals(2, annotations.size());
-		assertEquals("error matching cui", "C1622890", annotation.getCui());
+		assertEquals("error matching cui", "C1622890", annotation.getConceptId());
 		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "test", annotation.getPreferredText());
 		assertEquals("error matching file", "test-input.txt", annotation.getDocumentID());
@@ -90,7 +99,7 @@ public class CTakesParserTest {
 		
 		Annotation annotation = annotations.get("C1622890");
 		
-		assertEquals("error matching cui", "C1622890", annotation.getCui());
+		assertEquals("error matching cui", "C1622890", annotation.getConceptId());
 		assertEquals("error matching file", "test-input_m.txt", annotation.getDocumentID());
 		assertEquals("error matching count", 2, annotation.getCount());
 	}
@@ -105,10 +114,10 @@ public class CTakesParserTest {
 		Annotation annotation2 = annotations2.get("C2222222");
 		
 		assertEquals(2, allAnnotations.size());
-		assertEquals("error matching cui", "C1111111", annotation1.getCui());
+		assertEquals("error matching cui", "C1111111", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "C2222222", annotation2.getCui());
+		assertEquals("error matching cui", "C2222222", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input2.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 1, annotation2.getCount());
 	}
@@ -123,10 +132,10 @@ public class CTakesParserTest {
 		Annotation annotation2 = annotations2.get("C2222222");
 		
 		assertEquals(2, allAnnotations.size());
-		assertEquals("error matching cui", "C1111111", annotation1.getCui());
+		assertEquals("error matching cui", "C1111111", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "C2222222", annotation2.getCui());
+		assertEquals("error matching cui", "C2222222", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input2.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 1, annotation2.getCount());
 	}
@@ -141,12 +150,22 @@ public class CTakesParserTest {
 		Annotation annotation2 = annotations2.get("C2222222");
 		
 		assertEquals(2, allAnnotations.size());
-		assertEquals("error matching cui", "C1111111", annotation1.getCui());
+		assertEquals("error matching cui", "C1111111", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "C2222222", annotation2.getCui());
+		assertEquals("error matching cui", "C2222222", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input_m.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 2, annotation2.getCount());
+	}
+	
+	@Test (expected = ParserConfigurationException.class)
+	public void test_8_errorThrownWhenNoTagForTheConceptIdIsSet() throws SAXException, IOException, ParserConfigurationException {
+		CTakesParser parser = new CTakesParser();
+		parser.setExtractorName("GO");
+		parser.setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
+		parser.setTextInformationTag("org.apache.ctakes.typesystem.type.structured.DocumentID");
+		
+		parser.parse(workingFile);		
 	}
 	
 	@Ignore

@@ -36,7 +36,7 @@ public class TRECResultModel implements IEntityWriter<Annotation> {
 		if (getResultFile() != null) {
 			
 			for (int idx = 0; idx < annotation.getCount(); idx++) {
-				String line = String.format(trecLine, annotation.getDocumentID(), annotation.getCui() + "_" + idx);
+				String line = String.format(trecLine, annotation.getDocumentID(), annotation.getConceptId() + "_" + idx);
 				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
 			}
 
