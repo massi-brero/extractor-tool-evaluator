@@ -16,34 +16,7 @@ public class CTakesParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "documentID";
 	private final String ONTOLOGY_TAG = "codingScheme";
 	private final String PREFERRED_TEXT_TAG = "preferredText";
-	
-	@Override
-	protected HashMap<String, Annotation> parseFile() throws SAXException, IOException, ParserConfigurationException {
 
-		NodeList nList = getNodeList(umlsInformationTag);
-		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
-
-		for (int idx = 0; idx < nList.getLength(); idx++) {
-			Annotation annotation = new Annotation();
-
-			Node node = nList.item(idx);
-
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-
-				Element elem = (Element) node;
-				String cui = elem.getAttribute("cui");
-				annotation = buildAnnotation(elem, cui);
-
-				if (fileAnnotations.get(cui) == null) {
-					fileAnnotations.put(cui, annotation);
-				} else {
-					fileAnnotations.get(cui).incrementCounter();
-				}
-			}
-		}
-
-		return fileAnnotations;
-	}
 	
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {

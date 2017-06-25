@@ -14,7 +14,17 @@ public class CRAFTParser extends AbstractParser {
 	@Override
 	protected Annotation buildAnnotation(Element elem, String cui)
 			throws ParserConfigurationException, SAXException, IOException {
-		// TODO Auto-generated method stub
+		Annotation annotation = new Annotation();
+
+//		annotation.setOntology((elem.getAttribute(ONTOLOGY_TAG).toUpperCase()));
+//		annotation.setConceptId(cui);
+//		annotation.setPreferredText(elem.getAttribute(PREFERRED_TEXT_TAG));
+//		annotation.setDocumentID(getAnnotatedFileName());
+//		annotation.setExtractor(extractorName);
+//		annotation.setCount(1);
+//
+//		return annotation;
+		
 		return null;
 	}
 

@@ -48,7 +48,7 @@ public class CTakesParserTest {
 		parser.setExtractorName("CTAKES");
 		parser.setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
 		parser.setTextInformationTag("org.apache.ctakes.typesystem.type.structured.DocumentID");
-		parser.setConceptIdentifierNode("oid");
+		parser.setConceptIdentifierNode("code");
 		
 		//set up working files
 		workingFile = new File(getClass().getClassLoader().getResource("texts/output.short.xml").getFile());
@@ -78,10 +78,10 @@ public class CTakesParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations = allAnnotations.get("test-input.txt");
 		
-		Annotation annotation = annotations.get("C1622890");
+		Annotation annotation = annotations.get("GO:0043336");
 		
 		assertEquals(2, annotations.size());
-		assertEquals("error matching cui", "C1622890", annotation.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation.getConceptId());
 		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "test", annotation.getPreferredText());
 		assertEquals("error matching file", "test-input.txt", annotation.getDocumentID());
@@ -97,9 +97,9 @@ public class CTakesParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations = allAnnotations.get("test-input_m.txt");
 		
-		Annotation annotation = annotations.get("C1622890");
+		Annotation annotation = annotations.get("GO:0043336");
 		
-		assertEquals("error matching cui", "C1622890", annotation.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation.getConceptId());
 		assertEquals("error matching file", "test-input_m.txt", annotation.getDocumentID());
 		assertEquals("error matching count", 2, annotation.getCount());
 	}
@@ -110,14 +110,14 @@ public class CTakesParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
 		HashMap<String, Annotation> annotations2 = allAnnotations.get("test-input2.txt");
-		Annotation annotation1 = annotations1.get("C1111111");
-		Annotation annotation2 = annotations2.get("C2222222");
+		Annotation annotation1 = annotations1.get("GO:0043336");
+		Annotation annotation2 = annotations2.get("GO:0043336");
 		
 		assertEquals(2, allAnnotations.size());
-		assertEquals("error matching cui", "C1111111", annotation1.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "C2222222", annotation2.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input2.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 1, annotation2.getCount());
 	}
@@ -128,14 +128,14 @@ public class CTakesParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
 		HashMap<String, Annotation> annotations2 = allAnnotations.get("test-input2.txt");
-		Annotation annotation1 = annotations1.get("C1111111");
-		Annotation annotation2 = annotations2.get("C2222222");
+		Annotation annotation1 = annotations1.get("GO:0043336");
+		Annotation annotation2 = annotations2.get("GO:0043336");
 		
 		assertEquals(2, allAnnotations.size());
-		assertEquals("error matching cui", "C1111111", annotation1.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "C2222222", annotation2.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input2.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 1, annotation2.getCount());
 	}
@@ -146,14 +146,14 @@ public class CTakesParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
 		HashMap<String, Annotation> annotations2 = allAnnotations.get("test-input_m.txt");
-		Annotation annotation1 = annotations1.get("C1111111");
-		Annotation annotation2 = annotations2.get("C2222222");
+		Annotation annotation1 = annotations1.get("GO:0043336");
+		Annotation annotation2 = annotations2.get("GO:0043336");
 		
 		assertEquals(2, allAnnotations.size());
-		assertEquals("error matching cui", "C1111111", annotation1.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "C2222222", annotation2.getConceptId());
+		assertEquals("error matching cui", "GO:0043336", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input_m.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 2, annotation2.getCount());
 	}
