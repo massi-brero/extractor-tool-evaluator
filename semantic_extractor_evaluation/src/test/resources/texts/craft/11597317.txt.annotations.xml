@@ -282,8 +282,9 @@
     <span start="14223" end="14232" />
     <spannedText>complexes</spannedText>
   </annotation>
-<classMention id="cellular_component_new_Instance_10354">
-    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  <classMention id="cellular_component_new_Instance_10361">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50002" />
   </classMention>
   <booleanSlotMention id="cellular_component_new_Instance_50002">
     <mentionSlot id="macromolecular complex or protein ambiguity" />
@@ -295,4 +296,167 @@
   <classMention id="cellular_component_new_Instance_10351">
     <mentionClass id="GO:0005737">cytoplasm</mentionClass>
   </classMention>
+  <classMention id="cellular_component_new_Instance_10346">
+    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170098">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10339">
+    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170096">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10334">
+    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170102">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10331">
+    <mentionClass id="GO:0005737">cytoplasm</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170100">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10326">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50001" />
+  </classMention>
+  <booleanSlotMention id="cellular_component_new_Instance_50001">
+    <mentionSlot id="macromolecular complex or protein ambiguity" />
+    <booleanSlotMentionValue value="false" />
+  </booleanSlotMention>
+  <classMention id="cellular_component_Instance_170090">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10319">
+    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170088">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10314">
+    <mentionClass id="GO:0005694">chromosome</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170094">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170092">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170082">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_70004">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170080">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_30000">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170086">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170084">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170076">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170078">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_60002">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170072">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170074">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170068">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170070">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170064">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170066">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10401">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50007" />
+  </classMention>
+  <booleanSlotMention id="cellular_component_new_Instance_50007">
+    <mentionSlot id="macromolecular complex or protein ambiguity" />
+    <booleanSlotMentionValue value="false" />
+  </booleanSlotMention>
+  <classMention id="cellular_component_new_Instance_10389">
+    <mentionClass id="GO:0005694">chromosome</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170060">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10396">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50006" />
+  </classMention>
+  <booleanSlotMention id="cellular_component_new_Instance_50006">
+    <mentionSlot id="macromolecular complex or protein ambiguity" />
+    <booleanSlotMentionValue value="false" />
+  </booleanSlotMention>
+  <classMention id="cellular_component_Instance_170062">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10381">
+    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170056">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10384">
+    <mentionClass id="GO:0005634">nucleus</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170058">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_Instance_170052">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10376">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50005" />
+  </classMention>
+  <booleanSlotMention id="cellular_component_new_Instance_50005">
+    <mentionSlot id="macromolecular complex or protein ambiguity" />
+    <booleanSlotMentionValue value="false" />
+  </booleanSlotMention>
+  <classMention id="cellular_component_Instance_170054">
+    <mentionClass id="GO:0005623">cell</mentionClass>
+  </classMention>
+  <classMention id="cellular_component_new_Instance_10366">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50003" />
+  </classMention>
+  <booleanSlotMention id="cellular_component_new_Instance_50003">
+    <mentionSlot id="macromolecular complex or protein ambiguity" />
+    <booleanSlotMentionValue value="false" />
+  </booleanSlotMention>
+  <classMention id="cellular_component_new_Instance_10371">
+    <mentionClass id="GO:0032991">macromolecular complex</mentionClass>
+    <hasSlotMention id="cellular_component_new_Instance_50004" />
+  </classMention>
+  <booleanSlotMention id="cellular_component_new_Instance_50004">
+    <mentionSlot id="macromolecular complex or protein ambiguity" />
+    <booleanSlotMentionValue value="false" />
+  </booleanSlotMention>
 </annotations>
+

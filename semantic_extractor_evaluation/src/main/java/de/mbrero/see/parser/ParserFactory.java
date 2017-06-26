@@ -6,18 +6,19 @@ import types.ParserType;
 
 public class ParserFactory {
 	
+	private static ParserType parserType = null;
+	
 	/*
 	 * cTakes parameters
 	 */
 	private final static String CTAKES_UMLS_INFORMATION_TAG = "org.apache.ctakes.typesystem.type.refsem.UmlsConcept";
-	private final static String CTAKES_TEXT_INFORMATION_TAG = "org.apache.ctakes.typesystem.type.structured.DocumentID";
 	private final static String CTAKES_CONCEPT_NODE = "code";
 	
 	/*
 	 * CRAFT parameters
 	 */
-	private final static String CRAFT_UMLS_INFORMATION_TAG = "";
-	private final static String CRAFT_CONCEPT_NODE = "sem";
+	private final static String CRAFT_UMLS_INFORMATION_TAG = "mentionClass";
+	private final static String CRAFT_CONCEPT_NODE = "id";
 
 
 	/**
@@ -28,25 +29,24 @@ public class ParserFactory {
 	 * @throws TypeConstraintException
 	 */
 	public static AnnotationParser instantiateParser(ParserType type) throws TypeConstraintException  {
-		return createParser(type);
+		parserType = type;
+		return createParser();
 	}
 	
 
-	private static AnnotationParser createParser(ParserType type) throws TypeConstraintException {
+	private static AnnotationParser createParser() throws TypeConstraintException {
 		AnnotationParser parser = null;
 		
-		switch (type) {
+		switch (parserType) {
 		case CTAKES:
-			parser = setUpCTakesParser(type);
+			parser = setUpCTakesParser();
 			break;
 		case QUICKUMLS:
-			
 			break;
 		case METAMAP:
-			
 			break;
 		case CRAFT:
-			
+			parser = setUpCRAFTParser();
 			break;
 		default:
 			throw new TypeConstraintException("No parser exists for this type!");
@@ -57,22 +57,20 @@ public class ParserFactory {
 	}
 
 
-	private static CTakesParser setUpCTakesParser(ParserType type) {
+	private static CTakesParser setUpCTakesParser() {
 		CTakesParser parser = new CTakesParser();
-		parser.setExtractorName(type.toString());
+		parser.setExtractorName(parserType.toString());
 		parser.setUmlsInformationTag(CTAKES_UMLS_INFORMATION_TAG);
-		parser.setTextInformationTag(CTAKES_TEXT_INFORMATION_TAG);
 		parser.setConceptIdentifierNode(CTAKES_CONCEPT_NODE);
 		
 		return parser;
 	}
 	
-	private static CTakesParser setUpCRAFTParser(ParserType type) {
-		CTakesParser parser = new CTakesParser();
-		parser.setExtractorName(type.toString());
-		parser.setUmlsInformationTag(CTAKES_UMLS_INFORMATION_TAG);
-		parser.setTextInformationTag(CTAKES_TEXT_INFORMATION_TAG);
-		parser.setConceptIdentifierNode(CTAKES_CONCEPT_NODE);
+	private static CRAFTParser setUpCRAFTParser() {
+		CRAFTParser parser = new CRAFTParser();
+		parser.setExtractorName(parserType.toString());
+		parser.setUmlsInformationTag(CRAFT_UMLS_INFORMATION_TAG);
+		parser.setConceptIdentifierNode(CRAFT_CONCEPT_NODE);
 		
 		return parser;
 	}

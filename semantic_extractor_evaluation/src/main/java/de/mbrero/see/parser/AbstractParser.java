@@ -30,10 +30,6 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * Tag name in the cTakes result xml where the umls concepts are displayed.
 	 */
 	protected String umlsInformationTag = "";
-	/**
-	 * Tag name in the result xml where the document id are displayed.
-	 */
-	protected String textInformationTag = "";
 	
 	/**
 	 * The tag where the id of the concept is stored
@@ -107,7 +103,7 @@ public abstract class AbstractParser implements AnnotationParser {
 			}
 
 		} else {
-			throw new FileNotFoundException("Could not parsed given path!");
+			throw new FileNotFoundException("Could not parse given path!");
 		}
 
 	}
@@ -240,20 +236,6 @@ public abstract class AbstractParser implements AnnotationParser {
 	 */
 	public void setOutputFile(File outputFile) {
 		this.outputFile = outputFile;
-	}
-
-	/**
-	 * @return the textInformationTag
-	 */
-	public String getTextInformationTag() {
-		return textInformationTag;
-	}
-
-	/**
-	 * @param textInformationTag the textInformationTag to set
-	 */
-	public void setTextInformationTag(String textInformationTag) {
-		this.textInformationTag = textInformationTag;
 	}
 
 	/**

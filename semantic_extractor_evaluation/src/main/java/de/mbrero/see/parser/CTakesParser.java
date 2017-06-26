@@ -13,7 +13,8 @@ import org.xml.sax.SAXException;
 import de.mbrero.see.persistance.dto.Annotation;
 
 public class CTakesParser extends AbstractParser {
-	private final String DOCUMENT_ID_TAG = "documentID";
+	private final String DOCUMENT_ID_TAG = "org.apache.ctakes.typesystem.type.structured.DocumentID";
+	private final String DOCUMENT_ID_NODE = "documentID";
 	private final String ONTOLOGY_TAG = "codingScheme";
 	private final String PREFERRED_TEXT_TAG = "preferredText";
 
@@ -23,12 +24,12 @@ public class CTakesParser extends AbstractParser {
 
 		String filename = "";
 
-		NodeList nList = getNodeList(textInformationTag);
+		NodeList nList = getNodeList(DOCUMENT_ID_TAG);
 		Node node = nList.item(0);
 
 		if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
 			Element elem = (Element) node;
-			filename = elem.getAttribute(DOCUMENT_ID_TAG);
+			filename = elem.getAttribute(DOCUMENT_ID_NODE);
 		}
 
 		return filename;

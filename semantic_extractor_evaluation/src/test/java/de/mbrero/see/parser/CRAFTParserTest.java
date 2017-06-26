@@ -41,7 +41,7 @@ public class CRAFTParserTest {
 	public void setUp()
 	{
 		parser = (CRAFTParser)ParserFactory.instantiateParser(ParserType.CRAFT);
-		workingFile = new File(getClass().getClassLoader().getResource("texts/craft/annotated.xml").getFile());
+		workingFile = new File(getClass().getClassLoader().getResource("texts/craft/craft-1.xml").getFile());
 	}
 	
 	@Test
@@ -51,7 +51,7 @@ public class CRAFTParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		
 		assertEquals(1, allAnnotations.size());
-		assertNotNull(allAnnotations.get("test-input.txt"));
+		assertNotNull(allAnnotations.get("11597317.txt"));
 	}
 		
 		
@@ -63,17 +63,17 @@ public class CRAFTParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations = allAnnotations.get("test-input.txt");
 		
-		Annotation annotation = annotations.get("GO:0005623");
+		Annotation annotation = annotations.get("GO:0005634");
 		
-		assertEquals(2, annotations.size());
-		assertEquals("error matching cui", "GO:0005623", annotation.getConceptId());
+		assertEquals(3, annotations.size());
+		assertEquals("error matching cui", "GO:0005634", annotation.getConceptId());
 		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "", annotation.getPreferredText());
-		assertEquals("error matching file", "craft-1.txt.xml", annotation.getDocumentID());
+		//assertEquals("error matching file", "craft-1.txt.xml", annotation.getDocumentID());
 		assertEquals("error matching extractor", ParserType.CRAFT.toString(), annotation.getExtractor());
 		assertEquals("error matching count", 2, annotation.getCount());
 		
-		Annotation annotation2 = annotations.get("GO:0005694");
+		Annotation annotation2 = annotations.get("GO:0005737");
 		assertEquals("error matching count annotation2", 1, annotation2.getCount());
 		
 	}
