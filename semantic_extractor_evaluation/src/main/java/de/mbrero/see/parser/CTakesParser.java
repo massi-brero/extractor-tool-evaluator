@@ -15,14 +15,15 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class CTakesParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "org.apache.ctakes.typesystem.type.structured.DocumentID";
 	private final String DOCUMENT_ID_NODE = "documentID";
-	private final String ONTOLOGY_TAG = "codingScheme";
-	private final String PREFERRED_TEXT_TAG = "preferredText";
+	private final String ONTOLOGY_NODE = "codingScheme";
+	//private final String PREFERRED_TEXT_TAG = "preferredText";
 
 	
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
 
 		String filename = "";
+		
 
 		NodeList nList = getNodeList(DOCUMENT_ID_TAG);
 		Node node = nList.item(0);
@@ -41,11 +42,12 @@ public class CTakesParser extends AbstractParser {
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
-		annotation.setOntology((elem.getAttribute(ONTOLOGY_TAG).toUpperCase()));
+		annotation.setOntology((elem.getAttribute(ONTOLOGY_NODE).toUpperCase()));
 		annotation.setConceptId(cui);
-		annotation.setPreferredText(elem.getAttribute(PREFERRED_TEXT_TAG));
+		annotation.setPreferredText(""); //not used at the moment
 		annotation.setDocumentID(getAnnotatedFileName());
 		annotation.setExtractor(extractorName);
+		annotation.setMatchedChunk(elem.getTextContent());
 		annotation.setCount(1);
 
 		return annotation;

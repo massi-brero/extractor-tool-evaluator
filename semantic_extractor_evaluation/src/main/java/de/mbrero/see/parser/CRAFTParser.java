@@ -15,8 +15,7 @@ public class CRAFTParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "annotations";
 	private final String DOCUMENT_ID_NODE = "textSource";
 	private final String PREFERRED_TEXT_TAG = "preferredText";
-	private final String MATCHED_CHUNK_TAG = "preferredText";
-	private final String ONTOLOGY_NODE = "codingScheme";
+	private final String MATCHED_CHUNK_TAG = "mentionClass";
 	
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
@@ -40,7 +39,7 @@ public class CRAFTParser extends AbstractParser {
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
-		annotation.setOntology((elem.getAttribute(ONTOLOGY_TAG).toUpperCase()));
+		annotation.setOntology((extractOntology(conceptId).toUpperCase()));
 		annotation.setConceptId(conceptId);
 		annotation.setPreferredText(elem.getAttribute(""));
 		annotation.setDocumentID(getAnnotatedFileName());
@@ -51,5 +50,10 @@ public class CRAFTParser extends AbstractParser {
 		return annotation;
 		
 	}
-
+	
+	private String extractOntology(String conceptId)
+	{
+		return conceptId.split(":")[0].toUpperCase();
+	}
+	
 }

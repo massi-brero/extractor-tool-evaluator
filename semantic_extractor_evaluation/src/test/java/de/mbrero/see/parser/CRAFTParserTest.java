@@ -61,15 +61,15 @@ public class CRAFTParserTest {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
-		HashMap<String, Annotation> annotations = allAnnotations.get("test-input.txt");
+		HashMap<String, Annotation> annotations = allAnnotations.get("11597317.txt");
 		
 		Annotation annotation = annotations.get("GO:0005634");
 		
-		assertEquals(3, annotations.size());
+		assertEquals(2, annotations.size());
 		assertEquals("error matching cui", "GO:0005634", annotation.getConceptId());
 		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "", annotation.getPreferredText());
-		//assertEquals("error matching file", "craft-1.txt.xml", annotation.getDocumentID());
+		assertEquals("error matching file", "11597317.txt", annotation.getDocumentID());
 		assertEquals("error matching extractor", ParserType.CRAFT.toString(), annotation.getExtractor());
 		assertEquals("error matching count", 2, annotation.getCount());
 		
