@@ -16,6 +16,7 @@ import exceptions.UnknownCommandException;
 public class MainController {
 	
 	CommandInterpreter interpreter;
+	private final String CLASSNAME_SUFFIX = "Command";
 	
 	public static Map<String, String> bootstrap() {
 		MainController mainCtrl = new MainController();
@@ -57,10 +58,12 @@ public class MainController {
 				
 				cmd =  this.getInterpreter().buildCommand(input);
 				this.executeCommand(cmd);
-					
+
+			}catch (UnknownCommandException e) {
+					output(e.getMessage());
 			} catch (Exception e) {
 				e.printStackTrace();
-				this.output(e.getMessage());	
+				output(e.getMessage());	
 			}
 		}
 		
@@ -74,20 +77,27 @@ public class MainController {
 	private void executeCommand(ConsoleCommand cmd) throws Exception {
 		
 		/*
-		 * get corresponding Comman class an execute command
+		 * get corresponding Command class an execute command
 		 */
 		if (cmd.getCommand().isEmpty()) {
-			
 			throw new UnknownCommandException();
-			
 		} else {
-			
-			Class<?> commandClass = Class.forName("de.mbrero.see.console.commands.CreateCommand");
-			ICommand commandObj = (ICommand) commandClass.newInstance();
-			commandClass.getDeclaredMethod("execute").invoke(commandObj);
-			
+			try {
+				Class<?> commandClass = Class.forName("de.mbrero.see.console.commands." + buildClassname(cmd));
+				ICommand commandObj = (ICommand) commandClass.newInstance();
+				commandClass.getDeclaredMethod("execute").invoke(commandObj);
+			} catch (ClassNotFoundException e) {
+				throw new UnknownCommandException();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
+	}
+
+	private String buildClassname(ConsoleCommand cmd) {
+		return cmd.getCommand().substring(0, 1).toUpperCase() 
+				+ cmd.getCommand().substring(1) 
+				+ CLASSNAME_SUFFIX;
 	}
 	
 	/**

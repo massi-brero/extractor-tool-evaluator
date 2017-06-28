@@ -68,7 +68,7 @@ public class ParserFactory {
 	
 	private static CRAFTParser setUpCRAFTParser() {
 		CRAFTParser parser = new CRAFTParser();
-		parser.setExtractorName(parserType.toString());
+		parser.setExtractorName(parserType.name());
 		parser.setUmlsInformationTag(CRAFT_UMLS_INFORMATION_TAG);
 		parser.setConceptIdentifierNode(CRAFT_CONCEPT_NODE);
 		
