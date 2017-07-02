@@ -23,15 +23,18 @@ import types.Extractors;
  *
  */
 public class ExtractorFactoryTest {
-	File inputFile = null;
-	File outputFile = null;
-	ExtractorController mmCtrl = null;
+	private File inputFile = null;
+	private File outputFile = null;
+	private MetaMapController mmCtrl = null;
+	
 
 	@Before
 	public void setUp() throws Exception {
-		mmCtrl = ExtractorControllerFactory.getExstractor(Extractors.METAMAP);
+		String workingDir = System.getProperty("user.dir");
 		inputFile = new File(getClass().getClassLoader().getResource("mm_test/input/mm_input.txt").getFile());
-		outputFile = new File(getClass().getClassLoader().getResource("mm_test/output/output.txt").getFile());
+		outputFile = new File(System.getProperty("user.dir") + "/src/test/resources/mm_test/output/output.txt");
+		HashMap<String, String> params= new HashMap<>();
+		mmCtrl = (MetaMapController)ExtractorControllerFactory.getExtractor(Extractors.METAMAP, null, inputFile, outputFile, params);
 	}
 
 	@After
@@ -40,8 +43,8 @@ public class ExtractorFactoryTest {
 	}
 
 	@Test
-	public void testStartExtractor() {
-		mmCtrl.start(new HashMap<>());
+	public void testStartExtractor() throws Exception {
+		mmCtrl.start(false);
 		assertTrue(outputFile.exists());
 	}
 	

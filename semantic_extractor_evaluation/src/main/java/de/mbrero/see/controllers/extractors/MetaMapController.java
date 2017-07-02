@@ -1,15 +1,16 @@
 package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class MetaMapController extends AbstractExtractorController {
-	private String publicMMPath = "";
-	private String startExtractionCmd = "./bin/wsdserverctl start";
-	private String mmStartCmd = "./bin/skrmedpostctl start";
-	private String mmStopCmd = "./bin/skrmedpostctl stop";
-	private String disambiguationStartCmd = "./bin/wsdserverctl start";
-	private String disambiguationStopCmd = "./bin/wsdserverctl stop";
+	
+	private final String START_EXTRACTION_CMD = "./bin/metamap";
+	private final String START_TAGGER_CMD = "/bin/skrmedpostctl start";
+	private final String STOP_TAGGER_CMD = "/bin/skrmedpostctl stop";
+	private final String START_DIAMBIGUATION_SERVER_CMD = "/bin/wsdserverctl start";
+	private final String STOP_DIAMBIGUATION_SERVER_CMD = "/bin/wsdserverctl stop";
 	
 	
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
@@ -23,106 +24,60 @@ public class MetaMapController extends AbstractExtractorController {
 	 * 
 	 * @param params HashMap<String, String> for the console run.
 	 * @param startDisambiguation starts disambiguation server. This is optional.
+	 * @throws IOException 
+	 * 
+	 * @override
 	 */
-	public void start(HashMap<String, String> params, Boolean startDisambiguation) {
-		
-		startTagger();
+	public void start(Boolean startDisambiguation) throws IOException {
+
 		if (startDisambiguation) 
 			startDisambiguationServer();
-		super.start(params);
 		
+		start();
 		stopDisambiguationServer();
-		stopMMServer();
 	}
+	
+	public void start() throws IOException {
+		
+		buildCommand();
+		startTagger();
+		
+		Process proc = Runtime.getRuntime().exec(new String[]{"bash","-c", buildCommand()});
+		
+		stopTagger();
+	}
+	
 
-	private void startDisambiguationServer() {
-		// TODO Auto-generated method stub
+	/**
+	 * @todo add params
+	 */
+	@Override
+	protected String buildCommand() {
+		return getBasePath() + START_EXTRACTION_CMD + " " 
+							+ getInputFile().getAbsolutePath() + " " 
+							+ getOutputFile().getAbsolutePath();
+	}
+	
+	
+
+	private void startDisambiguationServer() throws IOException {
+		Process proc = Runtime.getRuntime().exec(new String[]{"bash","-c", getBasePath() + START_DIAMBIGUATION_SERVER_CMD});
 		
 	}
 
-	private void startTagger() {
-		// TODO Auto-generated method stub
+	public void stopDisambiguationServer() throws IOException {
+		Process proc = Runtime.getRuntime().exec(new String[]{"bash","-c", getBasePath() + STOP_DIAMBIGUATION_SERVER_CMD});
+	
+	}
+	
+	private void startTagger() throws IOException {
+		Process proc = Runtime.getRuntime().exec(new String[]{"bash","-c", getBasePath() + START_TAGGER_CMD});
 		
 	}
 	
-	public void stopDisambiguationServer() {
-		// TODO Auto-generated method stub
+	private void stopTagger() throws IOException {
+		Process proc = Runtime.getRuntime().exec(new String[]{"bash","-c", getBasePath() + STOP_TAGGER_CMD});
 		
-	}
-
-	public void stopMMServer() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @return the publicMMPath
-	 */
-	public String getPublicMMPath() {
-		return publicMMPath;
-	}
-
-	/**
-	 * @param publicMMPath the publicMMPath to set
-	 */
-	public void setPublicMMPath(String publicMMPath) {
-		this.publicMMPath = publicMMPath;
-	}
-
-	/**
-	 * @return the mmStartCmd
-	 */
-	public String getMmStartCmd() {
-		return mmStartCmd;
-	}
-
-	/**
-	 * @param mmStartCmd the mmStartCmd to set
-	 */
-	public void setMmStartCmd(String mmStartCmd) {
-		this.mmStartCmd = mmStartCmd;
-	}
-
-	/**
-	 * @return the mmStopCmd
-	 */
-	public String getMmStopCmd() {
-		return mmStopCmd;
-	}
-
-	/**
-	 * @param mmStopCmd the mmStopCmd to set
-	 */
-	public void setMmStopCmd(String mmStopCmd) {
-		this.mmStopCmd = mmStopCmd;
-	}
-
-	/**
-	 * @return the disambiguationStartCmd
-	 */
-	public String getDisambiguationStartCmd() {
-		return disambiguationStartCmd;
-	}
-
-	/**
-	 * @param disambiguationStartCmd the disambiguationStartCmd to set
-	 */
-	public void setDisambiguationStartCmd(String disambiguationStartCmd) {
-		this.disambiguationStartCmd = disambiguationStartCmd;
-	}
-
-	/**
-	 * @return the disambiguationStopCmd
-	 */
-	public String getDisambiguationStopCmd() {
-		return disambiguationStopCmd;
-	}
-
-	/**
-	 * @param disambiguationStopCmd the disambiguationStopCmd to set
-	 */
-	public void setDisambiguationStopCmd(String disambiguationStopCmd) {
-		this.disambiguationStopCmd = disambiguationStopCmd;
 	}
 	
 }

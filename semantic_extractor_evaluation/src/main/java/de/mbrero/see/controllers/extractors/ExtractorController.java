@@ -1,6 +1,7 @@
 package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -15,6 +16,6 @@ public interface ExtractorController {
 	Float getExecutionTime();
 	void setInputFile(File inputFile);
 	void setOutputFile(File outputFile);
-	void start(HashMap<String, String> params);
+	void start() throws IOException;
 	
 }

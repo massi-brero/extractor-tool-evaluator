@@ -1,33 +1,54 @@
 package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AbstractExtractorController implements ExtractorController{
+/**
+ * Base Class for strating the extractor software from the console.
+ * @author massi.brero@gmail.com
+ *
+ */
+public abstract class AbstractExtractorController implements ExtractorController{
 
 	private Float executionTime = 0f;
-	private String basePath = "";
-	File inputFile = null;
-	File outputFile = null;
+	/**
+	 * The console command that has to be executed.
+	 */
+	private String consoleCmd;
+	/**
+	 * The path the bin directory/files are stored.
+	 */
+	private File basePath = null;
+	/*
+	 * Path to the files that need to be processed.
+	 */
+	private File inputFile = null;
+	/**
+	 * The path where the output files from the extractors shall be saved to.
+	 */
+	private File outputFile = null;
+	/**
+	 * Parameters the extractors allows when started from the command line.
+	 */
 	private HashMap<String, String> params = null;
 	
-	@Override
-	public void start(HashMap<String, String> params)
-	{
-		String cmd = this.buildCommand();
-				
-	}
 	
+
+	/**
+	 * Get the processing time the run needed for extracting the given documents.
+	 */
 	public Float getExecutionTime()
 	{
 		return executionTime;
 	}
 	
-	private String buildCommand() {
-				
-		return null;
-	}
+	/**
+	 * Builds the command line statement to start the extractor.
+	 * @return
+	 */
+	protected abstract String buildCommand();
 	
 	private String buildParams(ArrayList params)
 	{
@@ -38,14 +59,14 @@ public class AbstractExtractorController implements ExtractorController{
 	 * @Override	
 	 * return the commandPath
 	 */
-	public String getBasePath() {
+	public File getBasePath() {
 		return basePath;
 	}
 
 	/**
 	 * @param commandPath the commandPath to set
 	 */
-	public void setBasePath(String commandPath) {
+	public void setBasePath(File commandPath) {
 		this.basePath = commandPath;
 	}
 
@@ -92,7 +113,6 @@ public class AbstractExtractorController implements ExtractorController{
 	 */
 	public void setParams(HashMap<String, String> params) {
 		this.params = params;
-	}
-	
+	}	
 	
 }
