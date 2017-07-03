@@ -2,15 +2,17 @@ package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Base Class for strating the extractor software from the console.
+ * 
  * @author massi.brero@gmail.com
  *
  */
-public abstract class AbstractExtractorController implements ExtractorController{
+public abstract class AbstractExtractorController implements ExtractorController {
 
 	private Float executionTime = 0f;
 	/**
@@ -33,38 +35,44 @@ public abstract class AbstractExtractorController implements ExtractorController
 	 * Parameters the extractors allows when started from the command line.
 	 */
 	private HashMap<String, String> params = null;
-	
-	
+
+	public AbstractExtractorController(File inputFile, 
+									   File outputFile, 
+									   HashMap<String, String> params) {
+		setInputFile(inputFile);
+		setOutputFile(outputFile);
+		setParams(params);
+	}
 
 	/**
-	 * Get the processing time the run needed for extracting the given documents.
+	 * Get the processing time the run needed for extracting the given
+	 * documents.
 	 */
-	public Float getExecutionTime()
-	{
+	public Float getExecutionTime() {
 		return executionTime;
 	}
-	
+
 	/**
 	 * Builds the command line statement to start the extractor.
+	 * 
 	 * @return
 	 */
 	protected abstract String buildCommand();
-	
-	private String buildParams(ArrayList params)
-	{
+
+	private String buildParams(ArrayList params) {
 		return null;
 	}
 
 	/**
-	 * @Override	
-	 * return the commandPath
+	 * @Override return the commandPath
 	 */
 	public File getBasePath() {
 		return basePath;
 	}
 
 	/**
-	 * @param commandPath the commandPath to set
+	 * @param commandPath
+	 *            the commandPath to set
 	 */
 	public void setBasePath(File commandPath) {
 		this.basePath = commandPath;
@@ -79,7 +87,8 @@ public abstract class AbstractExtractorController implements ExtractorController
 
 	/**
 	 * @Override
-	 * @param inputFile the inputFile to set
+	 * @param inputFile
+	 *            the inputFile to set
 	 */
 	public void setInputFile(File inputFile) {
 		this.inputFile = inputFile;
@@ -94,7 +103,8 @@ public abstract class AbstractExtractorController implements ExtractorController
 
 	/**
 	 * @Override
-	 * @param outputFile the outputFile to set
+	 * @param outputFile
+	 *            the outputFile to set
 	 */
 	public void setOutputFile(File outputFile) {
 		this.outputFile = outputFile;
@@ -109,10 +119,19 @@ public abstract class AbstractExtractorController implements ExtractorController
 
 	/**
 	 * @Override
-	 * @param params the params to set
+	 * @param params
+	 *            the params to set
 	 */
 	public void setParams(HashMap<String, String> params) {
 		this.params = params;
-	}	
-	
+	}
+
+	protected void runLinuxExec(String[] command) throws IOException, InterruptedException {
+		;
+		String[] cmd = command;
+		Process p = new ProcessBuilder(cmd).redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT).start();
+		p.waitFor();
+
+	}
+
 }

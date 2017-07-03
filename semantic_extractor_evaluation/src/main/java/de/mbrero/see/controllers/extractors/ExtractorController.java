@@ -16,6 +16,6 @@ public interface ExtractorController {
 	Float getExecutionTime();
 	void setInputFile(File inputFile);
 	void setOutputFile(File outputFile);
-	void start() throws IOException;
+	void start() throws IOException, InterruptedException;
 	
 }
