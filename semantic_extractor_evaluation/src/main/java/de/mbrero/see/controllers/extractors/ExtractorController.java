@@ -2,7 +2,10 @@ package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashMap;
+
+import de.mbrero.see.exceptions.ExtractorExecutionException;
 
 /**
  * Interface to be implemented by all Extractor controllers.
@@ -13,9 +16,9 @@ import java.util.HashMap;
 public interface ExtractorController {
 
 	void setParams(HashMap<String, String> params);
-	Float getExecutionTime();
+	Duration getExecutionTime();
 	void setInputFile(File inputFile);
 	void setOutputFile(File outputFile);
-	void start() throws IOException, InterruptedException;
+	void start() throws IOException, InterruptedException, ExtractorExecutionException;
 	
 }

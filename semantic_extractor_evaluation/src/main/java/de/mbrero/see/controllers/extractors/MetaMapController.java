@@ -2,86 +2,98 @@ package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashMap;
 
-import org.junit.runner.notification.RunListener;
+import de.mbrero.see.exceptions.ExtractorExecutionException;
 
+/**
+ * This class is for managing the MetaMap extractor.
+ * 
+ * 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class MetaMapController extends AbstractExtractorController {
-	
-	private final String START_EXTRACTION_CMD = "./bin/metamap";
+
+	private final String START_EXTRACTION_CMD = "/bin/metamap";
 	private final String TAGGER_CMD = "/bin/skrmedpostctl";
 	private final String DISMBIGUATION_SERVER_CMD = "/bin/wsdserverctl";
-	
+
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
 		super(inputFile, outputFile, params);
 	}
-	
+
 	/**
 	 * Starts all the server for an annotation run.
 	 * 
-	 * @param params HashMap<String, String> for the console run.
-	 * @param startDisambiguation starts disambiguation server. This is optional.
-	 * @throws IOException 
-	 * @throws InterruptedException 
+	 * @param params
+	 *            HashMap<String, String> for the console run.
+	 * @param startDisambiguation
+	 *            This argument starts disambiguation server. This is optional.
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException 
 	 * 
 	 * @override
 	 */
-	public void start(Boolean startDisambiguation) throws IOException, InterruptedException {
+	public void start(Boolean startDisambiguation) throws IOException, InterruptedException, ExtractorExecutionException {
 
-		if (startDisambiguation) 
+		if (startDisambiguation)
 			startDisambiguationServer();
-		
+
+		Instant start = Instant.now();
 		start();
-		stopDisambiguationServer();
+		Instant end = Instant.now();
+		setExecutionTime(Duration.between(start, end));
+
+		
+		if (startDisambiguation)
+			stopDisambiguationServer();
 	}
-	
-	public void start() throws IOException, InterruptedException {
-		
-		buildCommand();
+
+	public void start() throws IOException, InterruptedException, ExtractorExecutionException {		
 		startTagger();
-		
-		Process proc = Runtime.getRuntime().exec(new String[]{"bash","-c", buildCommand()});
-		
+		runLinuxExec(buildStartCommand());
 		stopTagger();
 	}
-	
 
 	/**
 	 * @todo add params
 	 */
 	@Override
-	protected String buildCommand() {
-		return getBasePath() + START_EXTRACTION_CMD + " " 
-							+ getInputFile().getAbsolutePath() + " " 
-							+ getOutputFile().getAbsolutePath();
+	protected String[] buildStartCommand() {
+		String[] startCmd = { getBasePath() + START_EXTRACTION_CMD, 
+							getInputFile().getAbsolutePath(), 
+							getOutputFile().getAbsolutePath() };
+		
+		
+		return startCmd;
 	}
-	
-	
 
-	private void startDisambiguationServer() throws IOException, InterruptedException {
+	private void startDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
 		String[] command = { getBasePath() + DISMBIGUATION_SERVER_CMD, "start" };
 		runLinuxExec(command);
-		
+
 	}
 
-	public void stopDisambiguationServer() throws IOException, InterruptedException {
+	public void stopDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
 		String[] command = { getBasePath() + DISMBIGUATION_SERVER_CMD, "stop" };
 		runLinuxExec(command);
-	
+
 	}
-	
-	private void startTagger() throws IOException, InterruptedException {
+
+	private void startTagger() throws IOException, InterruptedException, ExtractorExecutionException {
 		String[] command = { getBasePath() + TAGGER_CMD, "start" };
 		runLinuxExec(command);
-		
+
 	}
-	
-	private void stopTagger() throws IOException, InterruptedException {
+
+	private void stopTagger() throws IOException, InterruptedException, ExtractorExecutionException {
 		String[] command = { getBasePath() + TAGGER_CMD, "stop" };
 		runLinuxExec(command);
 
 	}
-	
 
 }

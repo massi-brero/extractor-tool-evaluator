@@ -3,18 +3,21 @@ package de.mbrero.see.controllers.extractors;
 import java.io.File;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import de.mbrero.see.exceptions.ExtractorExecutionException;
+
 /**
- * Base Class for strating the extractor software from the console.
+ * Base Class for starting the extractor software from the console.
  * 
  * @author massi.brero@gmail.com
  *
  */
 public abstract class AbstractExtractorController implements ExtractorController {
 
-	private Float executionTime = 0f;
+	private Duration executionTime = null;
 	/**
 	 * The console command that has to be executed.
 	 */
@@ -36,20 +39,10 @@ public abstract class AbstractExtractorController implements ExtractorController
 	 */
 	private HashMap<String, String> params = null;
 
-	public AbstractExtractorController(File inputFile, 
-									   File outputFile, 
-									   HashMap<String, String> params) {
+	public AbstractExtractorController(File inputFile, File outputFile, HashMap<String, String> params) {
 		setInputFile(inputFile);
 		setOutputFile(outputFile);
 		setParams(params);
-	}
-
-	/**
-	 * Get the processing time the run needed for extracting the given
-	 * documents.
-	 */
-	public Float getExecutionTime() {
-		return executionTime;
 	}
 
 	/**
@@ -57,7 +50,7 @@ public abstract class AbstractExtractorController implements ExtractorController
 	 * 
 	 * @return
 	 */
-	protected abstract String buildCommand();
+	protected abstract String[] buildStartCommand();
 
 	private String buildParams(ArrayList params) {
 		return null;
@@ -126,12 +119,36 @@ public abstract class AbstractExtractorController implements ExtractorController
 		this.params = params;
 	}
 
-	protected void runLinuxExec(String[] command) throws IOException, InterruptedException {
-		;
+	protected int runLinuxExec(String[] command)
+			throws IOException, InterruptedException, ExtractorExecutionException {
+
 		String[] cmd = command;
 		Process p = new ProcessBuilder(cmd).redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT).start();
-		p.waitFor();
 
+		int result = p.waitFor();
+		
+		/** 
+		 * @todo: return error from proiess
+		 */
+		if (result != 0)
+			throw new ExtractorExecutionException();
+		
+		return result;
+
+	}
+
+	/**
+	 * @param executionTime the executionTime to set
+	 */
+	public void setExecutionTime(Duration executionTime) {
+		this.executionTime = executionTime;
+	}
+	
+	/**
+	 * @param executionTime get the executionTime
+	 */
+	public Duration getExecutionTime() {
+		return executionTime;
 	}
 
 }

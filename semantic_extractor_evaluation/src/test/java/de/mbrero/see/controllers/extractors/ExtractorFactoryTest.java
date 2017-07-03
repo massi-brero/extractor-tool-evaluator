@@ -4,6 +4,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.mbrero.see.exceptions.ExtractorExecutionException;
 import types.Extractors;
 
 /**
@@ -54,8 +57,11 @@ public class ExtractorFactoryTest {
 	}
 	
 	@Test
-	public void testgetExecutionTime() {
-		fail("Not yet implemented");
+	public void testgetExecutionTime() throws IOException, InterruptedException, ExtractorExecutionException {
+		mmCtrl.start(false);
+		Duration duration = mmCtrl.getExecutionTime();	
+		
+		assertTrue(duration.getSeconds() > 0);
 	}
 
 	@Test

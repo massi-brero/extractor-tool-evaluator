@@ -1,0 +1,17 @@
+Processing 00000000.tx.1: The mouse has diabetes.
+
+Phrase: The mouse
+Meta Mapping (1000):
+  1000   Mouse, NOS (House mice) [Mammal]
+Meta Mapping (1000):
+  1000   mouse (Laboratory mice) [Mammal]
+Meta Mapping (1000):
+  1000   MOUSE (Mus) [Mammal]
+
+Phrase: has
+
+Phrase: diabetes.
+Meta Mapping (1000):
+  1000   Diabetes [Disease or Syndrome]
+Meta Mapping (1000):
+  1000   Diabetes (Diabetes Mellitus) [Disease or Syndrome]
