@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.mbrero.see.exceptions.ExtractorExecutionException;
+import javassist.expr.NewArray;
 
 /**
  * Base Class for starting the extractor software from the console.
@@ -37,7 +38,7 @@ public abstract class AbstractExtractorController implements ExtractorController
 	/**
 	 * Parameters the extractors allows when started from the command line.
 	 */
-	private HashMap<String, String> params = null;
+	private String[] params = null;
 
 	public AbstractExtractorController(File inputFile, File outputFile, HashMap<String, String> params) {
 		setInputFile(inputFile);
@@ -104,19 +105,48 @@ public abstract class AbstractExtractorController implements ExtractorController
 	}
 
 	/**
+	 * Returns  the params as a simple array to be used with the {@link Process#}
+	 * 
 	 * @return the params
 	 */
-	public HashMap<String, String> getParams() {
+	public String[] getParams() {
 		return params;
 	}
 
 	/**
+	 * The parameters are accepted as a key/value pair of a HashMap.
+	 * Example: key = "-output" / value = "file.txt" results to
+	 *  ... -output file.txt ...
+	 * <ol>
+	 * <li>
+	 * 		If the there is no value for a param like for "-XMLf"
+	 * 		leave the corresponding value null or set the blank string "";
+	 * </li>
+	 * <li>
+	 *		If the there is no key for a param like "/folder/file.txt"
+	 * 		leave the corresponding key null or set the blank string "";
+	 * </li>
+	 * </ol>
+	 * 
 	 * @Override
 	 * @param params
 	 *            the params to set
 	 */
 	public void setParams(HashMap<String, String> params) {
-		this.params = params;
+		
+		ArrayList<String> paramsAsArray = new ArrayList<>();
+		
+		params.forEach( (key, value) -> {
+			if (key != null && !key.isEmpty())
+				paramsAsArray.add(key);
+			
+			if (value != null && !value.isEmpty())
+				paramsAsArray.add(value);
+		});
+		
+		 String[] result = new String[params.size() * 2];
+		
+		this.params =  paramsAsArray.toArray(result);
 	}
 
 	protected int runLinuxExec(String[] command)
@@ -128,7 +158,7 @@ public abstract class AbstractExtractorController implements ExtractorController
 		int result = p.waitFor();
 		
 		/** 
-		 * @todo: return error from proiess
+		 * @todo: return error from process
 		 */
 		if (result != 0)
 			throw new ExtractorExecutionException();
