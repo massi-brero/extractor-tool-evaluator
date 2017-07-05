@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.mbrero.see.exceptions.ExtractorExecutionException;
@@ -53,6 +54,9 @@ public class MetaMapController extends AbstractExtractorController {
 			stopDisambiguationServer();
 	}
 
+	/**
+	 * 
+	 */
 	public void start() throws IOException, InterruptedException, ExtractorExecutionException {		
 		startTagger();
 		runLinuxExec(buildStartCommand());
@@ -62,36 +66,44 @@ public class MetaMapController extends AbstractExtractorController {
 	/**
 	 * @todo add params
 	 */
-	@Override
-	protected String[] buildStartCommand() {
-		String[] startCmd = { getBasePath() + START_EXTRACTION_CMD, 
-							getInputFile().getAbsolutePath(), 
-							getOutputFile().getAbsolutePath() };
-		
+	protected ArrayList<String> buildStartCommand() {
+		ArrayList<String> startCmd = new ArrayList<>();
+		startCmd.add(getBasePath() + START_EXTRACTION_CMD);
+		startCmd.add(getInputFile().getAbsolutePath());
+		startCmd.add(getOutputFile().getAbsolutePath());
 		
 		return startCmd;
+		
 	}
 
 	private void startDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
-		String[] command = { getBasePath() + DISMBIGUATION_SERVER_CMD, "start" };
+		ArrayList<String> command = new ArrayList<>();
+		command.add(getBasePath() + DISMBIGUATION_SERVER_CMD);
+		command.add("start");
 		runLinuxExec(command);
 
 	}
 
 	public void stopDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
-		String[] command = { getBasePath() + DISMBIGUATION_SERVER_CMD, "stop" };
+		ArrayList<String> command = new ArrayList<>();
+		command.add(getBasePath() + DISMBIGUATION_SERVER_CMD);
+		command.add("stop");
 		runLinuxExec(command);
 
 	}
 
 	private void startTagger() throws IOException, InterruptedException, ExtractorExecutionException {
-		String[] command = { getBasePath() + TAGGER_CMD, "start" };
+		ArrayList<String> command = new ArrayList<>();
+		command.add(getBasePath() + TAGGER_CMD);
+		command.add("start");
 		runLinuxExec(command);
 
 	}
 
 	private void stopTagger() throws IOException, InterruptedException, ExtractorExecutionException {
-		String[] command = { getBasePath() + TAGGER_CMD, "stop" };
+		ArrayList<String> command = new ArrayList<>();
+		command.add(getBasePath() + TAGGER_CMD);
+		command.add("stop");
 		runLinuxExec(command);
 
 	}

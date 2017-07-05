@@ -1,11 +1,13 @@
 package de.mbrero.see.controllers.extractors;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,16 +30,18 @@ import types.Extractors;
  */
 public class MetaMapBasicExtractorTest {
 	private File inputFile = null;
-	private File outputFile = null;
+	private File outputFileTxt = null;
+	private File outputFileXml = null;
 	private MetaMapController mmCtrl = null;
 	
 
 	@Before
 	public void setUp() throws Exception {
 		inputFile = new File(getClass().getClassLoader().getResource("mm_test/input/mm_input.txt").getFile());
-		outputFile = new File(System.getProperty("user.dir") + "/src/test/resources/mm_test/output/output.txt");
+		outputFileTxt = new File(System.getProperty("user.dir") + "/src/test/resources/mm_test/output/output.txt");
+		outputFileXml = new File(System.getProperty("user.dir") + "/src/test/resources/mm_test/output/output.xml");
 		HashMap<String, String> params= new HashMap<>();
-		mmCtrl = (MetaMapController)ExtractorControllerFactory.getExtractor(Extractors.METAMAP, null, inputFile, outputFile, params);
+		mmCtrl = (MetaMapController)ExtractorControllerFactory.getExtractor(Extractors.METAMAP, null, inputFile, outputFileTxt, params);
 	}
 
 	@After
@@ -48,12 +52,7 @@ public class MetaMapBasicExtractorTest {
 	@Test
 	public void testStartExtractor() throws Exception {
 		mmCtrl.start(false);
-		assertTrue(outputFile.exists());
-	}
-	
-	@Test
-	public void testCheckOutputFile() {
-		fail("Not yet implemented");
+		assertTrue(outputFileTxt.exists());
 	}
 	
 	@Test
@@ -71,13 +70,13 @@ public class MetaMapBasicExtractorTest {
 		params1.put("-bar", "1");
 		
 		mmCtrl.setParams(params1);
-		String[] result1 = mmCtrl.getParams();
+		ArrayList<String> result1 = mmCtrl.getParams();
 		
-		assertEquals(4, result1.length);
-		assertEquals("-bar", result1[0]);
-		assertEquals("1", result1[1]);
-		assertEquals("-foo", result1[2]);
-		assertEquals("0", result1[3]);
+		assertEquals(4, result1.size());
+		assertEquals("-bar", result1.get(0));
+		assertEquals("1", result1.get(1));
+		assertEquals("-foo", result1.get(2));
+		assertEquals("0", result1.get(3));
 
 	}
 	
@@ -88,41 +87,91 @@ public class MetaMapBasicExtractorTest {
 		params1.put("-bar", null);
 		
 		mmCtrl.setParams(params1);
-		String[] result1 = mmCtrl.getParams();
+		ArrayList<String> result1 = mmCtrl.getParams();
 		
-		assertEquals(3, result1.length);
-		assertEquals("-bar", result1[0]);
-		assertEquals("-foo", result1[1]);
-		assertEquals("0", result1[2]);
+		assertEquals(3, result1.size());
+		assertEquals("-bar", result1.get(0));
+		assertEquals("-foo", result1.get(1));
+		assertEquals("0", result1.get(2));
 		
 		HashMap<String, String> params2 = new HashMap<>();
+		params2.put("-foo", "0");
+		params2.put("-bar", "");
+		
+		mmCtrl.setParams(params2);
+		ArrayList<String> result2 = mmCtrl.getParams();
+		
+		assertEquals(3, result2.size());
+		assertEquals("-bar", result2.get(0));
+		assertEquals("-foo", result2.get(1));
+		assertEquals("0", result2.get(2));
+
+	}
+	
+	@Test
+	public void testSetValueWithoutCorrespondingParameter() throws IOException, InterruptedException, ExtractorExecutionException {
+		HashMap<String, String> params1 = new HashMap<>();
 		params1.put("-foo", "0");
-		params1.put("-bar", "");
+		params1.put(null, "1");
 		
 		mmCtrl.setParams(params1);
-		String[] result2 = mmCtrl.getParams();
+		ArrayList<String> result1 = mmCtrl.getParams();
 		
-		assertEquals(3, result2.length);
-		assertEquals("-bar", result2[0]);
-		assertEquals("-foo", result2[1]);
-		assertEquals("0", result2[2]);
+		assertEquals(3, result1.size());
+		assertEquals("1", result1.get(0));
+		assertEquals("-foo", result1.get(1));
+		assertEquals("0", result1.get(2));
+		
+		HashMap<String, String> params2 = new HashMap<>();
+		params2.put("-foo", "0");
+		params2.put("", "1");
+		
+		mmCtrl.setParams(params2);
+		ArrayList<String> result2 = mmCtrl.getParams();
+		
+		assertEquals(3, result2.size());
+		assertEquals("1", result2.get(0));
+		assertEquals("-foo", result2.get(1));
+		assertEquals("0", result2.get(2));
 
 	}
 
 	@Test
 	public void testSetParameterForXMLOutput() throws IOException, InterruptedException, ExtractorExecutionException {
 		HashMap<String, String> params = new HashMap<>();
-		params.put("-XMLn1", "");
-		mmCtrl.setParams(params);
-		mmCtrl.start(false);
-		assertTrue(outputFile.exists());
-		assertEquals("xml", outputFile.getName().substring(outputFile.getName().lastIndexOf(".") + 1));
+		params.put("--XMLn1", "");
+		MetaMapController mCtrlXml = (MetaMapController)ExtractorControllerFactory.getExtractor(Extractors.METAMAP, null, inputFile, outputFileXml, params);
+		
+		mCtrlXml.setParams(params);
+		mCtrlXml.start(false);
+		//String contents = new String(Files.readAllLines(outputFileXml.getP), StandardCharsets.UTF_8);
+		
+		
+		assertTrue(outputFileXml.exists());
+		
+		
 	}
+	
+	@Test
+	public void testScorrectExtractionInOutput() throws IOException, InterruptedException, ExtractorExecutionException {
+		fail("not implemented yet");
+	}
+	
+	@Test
+	public void testStartWithDisanbuguationServer()  {
+		fail("not implemented yet");
+	}
+	
+	@Test
+	public void testgetErrorWhileExecutingCommand()  {
+		fail("not implemented yet");
+	}
+	
 	
 	private ArrayList<String> getParams() {
 		ArrayList<String> params = new ArrayList<>();
 		params.add(inputFile.getAbsolutePath());
-		params.add(outputFile.getAbsolutePath());
+		params.add(outputFileTxt.getAbsolutePath());
 		
 		return params;
 	}
