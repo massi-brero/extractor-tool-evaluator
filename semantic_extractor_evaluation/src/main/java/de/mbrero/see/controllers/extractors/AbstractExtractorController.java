@@ -1,7 +1,10 @@
 package de.mbrero.see.controllers.extractors;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.ProcessBuilder.Redirect;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -18,6 +21,9 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
  *
  */
 public abstract class AbstractExtractorController implements ExtractorController {
+
+	private final int OUTPUT_TYPE_STDOUT = 0;
+	private final int OUTPUT_TYPE_STDERR = 1;
 
 	private Duration executionTime = null;
 	/**
@@ -41,6 +47,26 @@ public abstract class AbstractExtractorController implements ExtractorController
 	 */
 	private ArrayList<String> params = null;
 
+	/**
+	 * The started process {@link Process}
+	 */
+	private Process process = null;
+
+	/**
+	 * The started process {@link Process}
+	 */
+	private ProcessBuilder processBuilder = null;
+
+	/*
+	 * Process output as String
+	 */
+	private String processOutput = "";
+
+	/*
+	 * Process error messages as String
+	 */
+	private String processErrors = "";
+
 	public AbstractExtractorController(File inputFile, File outputFile, HashMap<String, String> params) {
 		setInputFile(inputFile);
 		setOutputFile(outputFile);
@@ -55,7 +81,7 @@ public abstract class AbstractExtractorController implements ExtractorController
 	protected abstract ArrayList<String> buildStartCommand();
 
 	/**
-	 * Returns  the params as a simple array to be used with the {@link Process#}
+	 * Returns the params as a simple array to be used with the {@link Process#}
 	 * 
 	 * @return the params
 	 */
@@ -64,18 +90,13 @@ public abstract class AbstractExtractorController implements ExtractorController
 	}
 
 	/**
-	 * The parameters are accepted as a key/value pair of a HashMap.
-	 * Example: key = "-output" / value = "file.txt" results to
-	 *  ... -output file.txt ...
+	 * The parameters are accepted as a key/value pair of a HashMap. Example:
+	 * key = "-output" / value = "file.txt" results to ... -output file.txt ...
 	 * <ol>
-	 * <li>
-	 * 		If the there is no value for a param like for "-XMLf"
-	 * 		leave the corresponding value null or set the blank string "";
-	 * </li>
-	 * <li>
-	 *		If the there is no key for a param like "/folder/file.txt"
-	 * 		leave the corresponding key null or set the blank string "";
-	 * </li>
+	 * <li>If the there is no value for a param like for "-XMLf" leave the
+	 * corresponding value null or set the blank string "";</li>
+	 * <li>If the there is no key for a param like "/folder/file.txt" leave the
+	 * corresponding key null or set the blank string "";</li>
 	 * </ol>
 	 * 
 	 * @Override
@@ -83,24 +104,26 @@ public abstract class AbstractExtractorController implements ExtractorController
 	 *            the params to set
 	 */
 	public void setParams(HashMap<String, String> params) {
-		
+
 		ArrayList<String> paramsAsArray = new ArrayList<>();
-		
-		params.forEach( (key, value) -> {
+
+		params.forEach((key, value) -> {
 			if (key != null && !key.isEmpty())
 				paramsAsArray.add(key);
-			
+
 			if (value != null && !value.isEmpty())
 				paramsAsArray.add(value);
 		});
-		
-		 this.params = paramsAsArray;
+
+		this.params = paramsAsArray;
 	}
 
 	/**
 	 * 
 	 * 
-	 * @param command {@link String} the Linux command to start the extraction process.
+	 * @param command
+	 *            {@link String} the Linux command to start the extraction
+	 *            process.
 	 * @return
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -109,38 +132,84 @@ public abstract class AbstractExtractorController implements ExtractorController
 	protected int runLinuxExec(ArrayList<String> command)
 			throws IOException, InterruptedException, ExtractorExecutionException {
 
-		
-		ArrayList<String> completeCommand = Stream.of(command, getParams()).collect(ArrayList::new, List::addAll, List::addAll);
+		ArrayList<String> completeCommand = Stream.of(command, getParams()).collect(ArrayList::new, List::addAll,
+				List::addAll);
 		String[] cmd = new String[completeCommand.size()];
 		completeCommand.toArray(cmd);
-		Process p = new ProcessBuilder(cmd).redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT).start();
 
-		int result = p.waitFor();
-		
-		/** 
+		if (getProcessBuilder() == null) {
+			setProcessBuilder(new ProcessBuilder().redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT));
+		}
+
+		process = getProcessBuilder().command(cmd).start();
+		writeOutput(OUTPUT_TYPE_STDOUT);
+		writeOutput(OUTPUT_TYPE_STDERR);
+
+		int result = process.waitFor();
+		/**
 		 * @todo: return error from process
 		 */
 		if (result != 0)
 			throw new ExtractorExecutionException();
-		
+
 		return result;
 
 	}
 
+	private void writeOutput(int type) {
+		StringBuilder output = new StringBuilder();
+
+		Thread ioThread = new Thread() {
+			@Override
+			public void run() {
+				try {
+					BufferedReader reader = null;
+					if (type == OUTPUT_TYPE_STDOUT)
+						reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+					else if (type == OUTPUT_TYPE_STDERR) {
+						reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+					}
+					String line = null;
+
+					while ((line = reader.readLine()) != null) {
+						output.append(line);
+					}
+					reader.close();
+
+					switch (type) {
+						case OUTPUT_TYPE_STDERR:
+							processErrors = output.toString();
+							break;
+						case OUTPUT_TYPE_STDOUT:
+						default:
+							processOutput = output.toString();
+					}
+
+				} catch (final Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		ioThread.start();
+
+	}
+
 	/**
-	 * @param executionTime the executionTime to set
+	 * @param executionTime
+	 *            the executionTime to set
 	 */
 	public void setExecutionTime(Duration executionTime) {
 		this.executionTime = executionTime;
 	}
-	
+
 	/**
-	 * @param executionTime get the executionTime
+	 * @param executionTime
+	 *            get the executionTime
 	 */
 	public Duration getExecutionTime() {
 		return executionTime;
 	}
-	
+
 	/**
 	 * @Override return the commandPath
 	 */
@@ -188,5 +257,40 @@ public abstract class AbstractExtractorController implements ExtractorController
 		this.outputFile = outputFile;
 	}
 
+	/**
+	 * @return the process
+	 */
+	public Process getProcess() {
+		return process;
+	}
+
+	/**
+	 * @return the processBuilder
+	 */
+	public ProcessBuilder getProcessBuilder() {
+		return processBuilder;
+	}
+
+	/**
+	 * @param processBuilder
+	 *            the processBuilder to set
+	 */
+	public void setProcessBuilder(ProcessBuilder processBuilder) {
+		this.processBuilder = processBuilder;
+	}
+
+	/**
+	 * @return the processOutput
+	 */
+	public String getProcessOutput() {
+		return processOutput;
+	}
+
+	/**
+	 * @return the processErrors
+	 */
+	public String getProcessErrors() {
+		return processErrors;
+	}
 
 }
