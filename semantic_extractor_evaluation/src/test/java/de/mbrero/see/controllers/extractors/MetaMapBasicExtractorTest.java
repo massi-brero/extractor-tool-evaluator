@@ -168,9 +168,9 @@ public class MetaMapBasicExtractorTest {
 		mmCtrl.setProcessBuilder(new ProcessBuilder());
 		mmCtrl.start(true);
 		String output = mmCtrl.getProcessOutput();
+		System.out.println();
 			
 		assertTrue(output.contains("Stopping wsdserverctl"));
-
 	}
 
 	@Test

@@ -60,12 +60,12 @@ public abstract class AbstractExtractorController implements ExtractorController
 	/*
 	 * Process output as String
 	 */
-	private String processOutput = "";
+	private StringBuilder processOutput = new StringBuilder();
 
 	/*
 	 * Process error messages as String
 	 */
-	private String processErrors = "";
+	private StringBuilder processErrors = new StringBuilder();
 
 	public AbstractExtractorController(File inputFile, File outputFile, HashMap<String, String> params) {
 		setInputFile(inputFile);
@@ -172,18 +172,16 @@ public abstract class AbstractExtractorController implements ExtractorController
 					String line = null;
 
 					while ((line = reader.readLine()) != null) {
-						output.append(line);
+						switch (type) {
+							case OUTPUT_TYPE_STDERR:
+								processErrors.append(line);
+								break;
+							case OUTPUT_TYPE_STDOUT:
+							default:
+								processOutput.append(line);
+						}
 					}
 					reader.close();
-
-					switch (type) {
-						case OUTPUT_TYPE_STDERR:
-							processErrors = output.toString();
-							break;
-						case OUTPUT_TYPE_STDOUT:
-						default:
-							processOutput = output.toString();
-					}
 
 				} catch (final Exception e) {
 					e.printStackTrace();
@@ -283,14 +281,14 @@ public abstract class AbstractExtractorController implements ExtractorController
 	 * @return the processOutput
 	 */
 	public String getProcessOutput() {
-		return processOutput;
+		return processOutput.toString();
 	}
 
 	/**
 	 * @return the processErrors
 	 */
 	public String getProcessErrors() {
-		return processErrors;
+		return processErrors.toString();
 	}
 
 }
