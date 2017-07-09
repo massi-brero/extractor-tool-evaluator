@@ -11,5 +11,7 @@
 		<property name="path" />
 		<property name="date" />
 		<property name="result" />
+		<property name="parameters" />
+		<property name="tester" />
 	</class>
 </hibernate-mapping>  
