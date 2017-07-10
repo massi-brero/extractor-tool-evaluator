@@ -2,6 +2,7 @@ package de.mbrero.see.persistance.dto;
 
 
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import de.mbrero.see.persistance.dto.types.TestRunResults;
-import de.mbrero.see.persistance.dto.SystemInformation;;
 
 
 /**
@@ -48,8 +48,8 @@ public class TestRun {
     @Column(name = "tester")
 	private String tester = "";
     
-    @Column(name = "system_information", columnDefinition="SystemInformation")
-	private SystemInformation systemInformation = null;
+    @Column(name = "system_info", columnDefinition="TEXT")
+	private String systemInformation = "";
     
 	public int getId() {
 		return id;
@@ -115,14 +115,14 @@ public class TestRun {
 	/**
 	 * @return the systemInformation
 	 */
-	public SystemInformation getSystemInformation() {
+	public String getSystemInformation() {
 		return systemInformation;
 	}
 
 	/**
 	 * @param systemInformation the systemInformation to set
 	 */
-	public void setSystemInformation(SystemInformation systemInformation) {
+	public void setSystemInformation(String systemInformation) {
 		this.systemInformation = systemInformation;
 	}
 	

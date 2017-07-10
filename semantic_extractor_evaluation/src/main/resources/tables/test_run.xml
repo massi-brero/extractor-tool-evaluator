@@ -13,5 +13,6 @@
 		<property name="result" />
 		<property name="parameters" />
 		<property name="tester" />
+		<property name="systemInformation" />
 	</class>
 </hibernate-mapping>  
