@@ -5,7 +5,8 @@ import exceptions.UnknownCommandException;
 
 public class CreateCommand implements ICommand {
 
-	public void execute() throws UnknownCommandException, ParameterException {
+	
+	public void execute(ConsoleCommand cmd) throws UnknownCommandException, ParameterException {
 		System.out.println("create new test run");
 	}
 

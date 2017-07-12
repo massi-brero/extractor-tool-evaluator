@@ -39,6 +39,7 @@ public class TestRun {
     @Temporal(TemporalType.TIMESTAMP)
 	private Date date = null;
 	
+    @Enumerated(EnumType.STRING)
     @Column(name="result")
 	private TestRunResults result = TestRunResults.PENDING;
     
@@ -75,7 +76,6 @@ public class TestRun {
 		this.date = date;
 	}
 
-    @Enumerated(EnumType.STRING)
 	public TestRunResults getResult() {
 		return result;
 	}

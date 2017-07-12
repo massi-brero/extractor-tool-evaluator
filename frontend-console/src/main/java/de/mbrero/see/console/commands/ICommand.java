@@ -5,6 +5,6 @@ import exceptions.UnknownCommandException;
 
 public interface ICommand {
 
-	public void execute() throws UnknownCommandException, ParameterException;
+	public void execute(ConsoleCommand cmd) throws Exception;
 		
 }

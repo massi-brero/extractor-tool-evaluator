@@ -32,12 +32,12 @@ public class TestRunModelTest {
 
 	@After
 	public void tearDown() throws Exception {
-//		Session session = this.conn.getNewSession();
-//		Transaction t = session.beginTransaction();
-//	    Query query = session.createQuery("delete from TestRun");
-//	    query.executeUpdate();
-//	    t.commit();
-//	    session.close();
+		Session session = this.conn.getNewSession();
+		Transaction t = session.beginTransaction();
+	    Query query = session.createQuery("delete from TestRun");
+	    query.executeUpdate();
+	    t.commit();
+	    session.close();
 	}
 
 
@@ -69,8 +69,8 @@ public class TestRunModelTest {
 		assertEquals(testParam, item.getParameters());
 		assertEquals(tester, item.getTester());
 		assertFalse(item.getSystemInformation().isEmpty());
-		//assertEquals("1.8", item.getSystemInformation().getJavaVersion());
-		
+		assertTrue(item.getSystemInformation().contains("java_vendor") 
+				&& item.getSystemInformation().contains("1.8"));
 	}
 	
 	public HashMap<String, String> getSystemInfoFixture()

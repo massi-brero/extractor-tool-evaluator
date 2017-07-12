@@ -20,6 +20,10 @@ public class CommandInterpreter {
 	 * corresponding arguments. It will use a {@link ConsoleCommand} object for
 	 * storing them.
 	 * 
+	 * The parameters are expected in the form
+	 * 
+	 * {command} -{param1} {valueForParam1} -{param1} {valueForParam1} [...]
+	 * 
 	 * @param str
 	 * @return {@link ConsoleCommand}
 	 * @throws ParameterException

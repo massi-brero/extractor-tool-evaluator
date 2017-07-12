@@ -2,8 +2,6 @@ package de.mbrero.see.console.controllers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -31,15 +29,11 @@ public class MainController {
 	 * @return {@link ConsoleCommand}
 	 * @throws ParameterException 
 	 */
-	public  ConsoleCommand readFromConsole() {
+	public ConsoleCommand readFromConsole() {
 
 		ConsoleCommand cmd = new ConsoleCommand();
-		BufferedReader br = null;
 		String input = "";
 		
-		br = new BufferedReader(new InputStreamReader(System.in));
-
-
 		while (true) {
 			
 			Scanner in;
@@ -48,7 +42,7 @@ public class MainController {
 			System.out.print("$see> ");
 			input = in.nextLine();
 
-			if ("quit".equals(input)) {
+			if ("quit".equals(input) || "q".equals(input)) {
 				System.out.println("Exit!");
 				in.close();
 				System.exit(0);
