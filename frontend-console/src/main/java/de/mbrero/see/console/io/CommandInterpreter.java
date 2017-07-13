@@ -1,9 +1,6 @@
 package de.mbrero.see.console.io;
 
-import java.util.List;
-
 import de.mbrero.see.console.commands.ConsoleCommand;
-import de.mbrero.see.console.controllers.CommandController;
 import exceptions.ParameterException;
 
 /**

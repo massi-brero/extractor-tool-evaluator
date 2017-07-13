@@ -32,14 +32,13 @@ public class GoldStandardController {
 	 * @param type
 	 * @throws FileNotFoundException 
 	 */
-	public void persistGoldStanstandard() throws FileNotFoundException, TypeConstraintException {
+	public void persistGoldStanstandard() throws FileNotFoundException {
 
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid goldstandard type");
 			
 			if (!path.exists())
 				throw new FileNotFoundException();
-			
 			
 			switch (type) {
 				case CRAFT:
