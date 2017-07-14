@@ -1,4 +1,5 @@
-package de.mbrero.see.console.io;
+package e2e;
+
 
 import static org.junit.Assert.*;
 
@@ -12,7 +13,7 @@ import de.mbrero.see.console.commands.ConsoleCommand;
 import de.mbrero.see.console.commands.ParsegoldCommand;
 import de.mbrero.see.console.controllers.MainController;
 
-public class TestParseGoldStandardCommand {
+public class TestEndToEndGoldStandard {
 
 	private ConsoleCommand cmd = new ConsoleCommand();
 
@@ -25,10 +26,11 @@ public class TestParseGoldStandardCommand {
 	}
 
 	@Test
-	public void testCommandAnalysis() {
+	public void endToEntTestParsing() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
-		params.put("path", getClass().getClassLoader().getResource("test.txt").getFile());
+		params.put("input", getClass().getClassLoader().getResource("test.txt").getFile());
+		params.put("output", getClass().getClassLoader().getResource("output/test2.txt").getPath());
 		cmd.setCommand("parsegold");
 		cmd.setParameters(params);
 

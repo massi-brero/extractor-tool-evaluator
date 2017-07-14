@@ -1,5 +1,6 @@
 package de.mbrero.see.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,13 +16,11 @@ public class AnnotationsController {
 	private TRECResultModel resultTrecModel = null;
 	private	DBAnnotationModel dbModel = null;
 	
-	public void saveAnnotationsToDatabase(Annotation annotation)
-	{
+	public void saveAnnotationsToDatabase(Annotation annotation) {
 		dbModel.saveEntity(annotation);
 	}
 	
-	public void saveAnnotationsToDatabase(ArrayList<Annotation> annotations)
-	{
+	public void saveAnnotationsToDatabase(ArrayList<Annotation> annotations) {
 		dbModel.saveEntityList(annotations);
 	}
 	
@@ -30,33 +29,33 @@ public class AnnotationsController {
 		dbModel.saveEntitiesInCorpus(annotations);
 	}
 	
-	public void saveAnnotationsToTRECResult(Annotation annotation) throws IOException
-	{
+	public void saveAnnotationsToTRECResult(Annotation annotation) throws IOException {
 		resultTrecModel.saveEntity(annotation);
 	}
 	
-	public void saveAnnotationsToTRECResult(ArrayList<Annotation> annotations) throws IOException
-	{
+	public void saveAnnotationsToTRECResult(ArrayList<Annotation> annotations) throws IOException {
 		resultTrecModel.saveEntityList(annotations);
 	}
 	
-	public void saveAnnotationsToTRECResult(HashMap<String, HashMap<String, Annotation>> annotations) throws IOException
-	{
+	public void saveAnnotationsToTRECResult(HashMap<String, HashMap<String, Annotation>> annotations) throws IOException {
 		resultTrecModel.saveEntitiesInCorpus(annotations);
 	}
 	
-	public void saveAnnotationsToTRECGoldStandard(Annotation annotation) throws IOException
-	{
+	public void saveAnnotationsToTRECGoldStandard(Annotation annotation,
+			File outputPath) throws IOException {
+		gsTrecModel.setResultFile(outputPath);
 		gsTrecModel.saveEntity(annotation);
 	}
 	
-	public void saveAnnotationsToTRECGoldStandard(ArrayList<Annotation> annotations) throws IOException
-	{
+	public void saveAnnotationsToTRECGoldStandard(ArrayList<Annotation> annotations,
+			File outputPath) throws IOException {
+		gsTrecModel.setResultFile(outputPath);
 		gsTrecModel.saveEntityList(annotations);
 	}
 	
-	public void saveAnnotationsToTRECGoldStandard(HashMap<String, HashMap<String, Annotation>> annotations) throws IOException
-	{
+	public void saveAnnotationsToTRECGoldStandard(HashMap<String, HashMap<String, Annotation>> annotations, 
+			File outputPath) throws IOException {
+		gsTrecModel.setResultFile(outputPath);
 		gsTrecModel.saveEntitiesInCorpus(annotations);
 	}
 	

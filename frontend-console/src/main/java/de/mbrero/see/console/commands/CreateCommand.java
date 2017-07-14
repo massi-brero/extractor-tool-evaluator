@@ -10,5 +10,11 @@ public class CreateCommand implements ICommand {
 		System.out.println("create new test run");
 	}
 
+	@Override
+	public void validateParameters() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

@@ -2,9 +2,16 @@ package de.mbrero.see.controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
 
 import javax.xml.bind.TypeConstraintException;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.xml.sax.SAXException;
+
+import de.mbrero.see.parser.CRAFTParser;
+import de.mbrero.see.persistance.dto.Annotation;
 import types.GoldStandardType;
 
 /**
@@ -16,12 +23,17 @@ import types.GoldStandardType;
  */
 public class GoldStandardController {
 
-	public GoldStandardType type = null;
-	public File path = new File("");
+	private GoldStandardType type = null;
+	private File inputPath = new File("");
+	private File outputPath = new File("");
+	private HashMap<String, HashMap<String, Annotation>>  annotations = new HashMap<>();
+	private AnnotationsController annCtrl;
 
-	public GoldStandardController(GoldStandardType type, File path) {
+	public GoldStandardController(GoldStandardType type, File input, File output) {
 		setType(type);
-		setPath(path);
+		setInputPath(input);
+		setOutputPath(output);
+		annCtrl = new AnnotationsController();
 	}
 
 	/**
@@ -30,65 +42,69 @@ public class GoldStandardController {
 	 * TREC tool evaluation.
 	 * 
 	 * @param type
-	 * @throws FileNotFoundException 
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
 	 */
-	public void persistGoldStanstandard() throws FileNotFoundException {
-
-		if (type == null)
-			throw new IllegalArgumentException("Not a valid goldstandard type");
-			
-			if (!path.exists())
-				throw new FileNotFoundException();
+	public void persistGoldStanstandard() throws SAXException, IOException, ParserConfigurationException {
 			
 			switch (type) {
 				case CRAFT:
 				default:
-					System.out.println("Starting Job");
+					System.out.println("Starting Job\n\n");
+					retrieveAnnotations();
+					annCtrl.saveAnnotationsToDatabase(annotations);
+					annCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
 					break;
 			}
 
-
 	}
 
-	public void getAnnotations() {
-
+	public void retrieveAnnotations() throws SAXException, IOException, ParserConfigurationException {
+		CRAFTParser crParser = new CRAFTParser();
+		crParser.parse(getInputPath());
+		annotations = crParser.getAnnotations();
 	}
 
-	public void saveAnnotationsToDataBase() {
-
-	}
-
-	public void saveAnnotationToTRECFile() {
-
-	}
-
-	/**
-	 * @return the type
-	 */
 	public GoldStandardType getType() {
 		return type;
 	}
 
-	/**
-	 * @param type
-	 *            the type to set
-	 */
 	public void setType(GoldStandardType type) {
 		this.type = type;
 	}
 
-	/**
-	 * @return the path
-	 */
-	public File getPath() {
-		return path;
+	public File getInputPath() {
+		return inputPath;
 	}
 
-	/**
-	 * @param path
-	 *            the path to set
-	 */
-	public void setPath(File path) {
-		this.path = path;
+	public void setInputPath(File inputPath) {
+		this.inputPath = inputPath;
 	}
+
+	public File getOutputPath() {
+		return outputPath;
+	}
+
+	public void setOutputPath(File outputPath) {
+		this.outputPath = outputPath;
+	}
+
+	public HashMap<String, HashMap<String, Annotation>> getAnnotations() {
+		return annotations;
+	}
+
+	public void setAnnotations(HashMap<String, HashMap<String, Annotation>> annotations) {
+		this.annotations = annotations;
+	}
+
+	public AnnotationsController getAnnCtrl() {
+		return annCtrl;
+	}
+
+	public void setAnnCtrl(AnnotationsController annCtrl) {
+		this.annCtrl = annCtrl;
+	}
+
+
 }
