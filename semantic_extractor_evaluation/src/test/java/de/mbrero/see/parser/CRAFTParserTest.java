@@ -40,7 +40,7 @@ public class CRAFTParserTest {
 	@Before
 	public void setUp()
 	{
-		parser = (CRAFTParser)ParserFactory.instantiateParser(ParserType.CRAFT);
+		parser = (CRAFTParser)ParserFactory.getInstance(ParserType.CRAFT);
 		workingFile = new File(getClass().getClassLoader().getResource("texts/craft/craft-1.xml").getFile());
 	}
 	

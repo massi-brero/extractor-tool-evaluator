@@ -19,7 +19,7 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
  * @author massi.brero@gmail.com
  *
  */
-public abstract class AbstractExtractorController implements ExtractorController {
+public abstract class AbstractExtractorController implements Extractor {
 
 	private final int OUTPUT_TYPE_STDOUT = 0;
 	private final int OUTPUT_TYPE_STDERR = 1;

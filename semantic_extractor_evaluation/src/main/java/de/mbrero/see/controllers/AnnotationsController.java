@@ -16,6 +16,11 @@ public class AnnotationsController {
 	private TRECResultModel resultTrecModel = null;
 	private	DBAnnotationModel dbModel = null;
 	
+	public AnnotationsController() {
+		gsTrecModel = new TRECGoldstandardModel();
+		resultTrecModel = new TRECResultModel();
+	}
+	
 	public void saveAnnotationsToDatabase(Annotation annotation) {
 		dbModel.saveEntity(annotation);
 	}

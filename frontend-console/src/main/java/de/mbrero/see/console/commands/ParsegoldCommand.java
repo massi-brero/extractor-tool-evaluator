@@ -45,7 +45,7 @@ public class ParsegoldCommand implements ICommand {
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
 
 		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
-		outputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
+		outputPath = new File(cmd.getParameters().get(OUTPUT_PATH_PARAMETER));
 		type = GoldStandardType.valueOf(cmd.getParameters().get(TYPE_PARAMETER).toUpperCase());
 
 		if (type == null)
@@ -53,9 +53,6 @@ public class ParsegoldCommand implements ICommand {
 
 		if (!inputPath.exists())
 			throw new FileNotFoundException("Path for input files does not exist");
-
-		if (!outputPath.exists())
-			throw new FileNotFoundException("Path for output files does not exist");
 
 	}
 

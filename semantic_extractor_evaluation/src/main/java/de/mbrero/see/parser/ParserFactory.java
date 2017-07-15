@@ -28,7 +28,7 @@ public class ParserFactory {
 	 * @return
 	 * @throws TypeConstraintException
 	 */
-	public static AnnotationParser instantiateParser(ParserType type) throws TypeConstraintException  {
+	public static AnnotationParser getInstance(ParserType type) throws TypeConstraintException  {
 		parserType = type;
 		return createParser();
 	}

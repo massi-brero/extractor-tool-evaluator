@@ -13,7 +13,7 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
  * @author massi.brero@gmail.com
  *
  */
-public interface ExtractorController {
+public interface Extractor {
 
 	void setParams(HashMap<String, String> params);
 	Duration getExecutionTime();

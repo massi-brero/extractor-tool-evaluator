@@ -1,18 +1,18 @@
 package de.mbrero.see.controllers;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.xml.bind.TypeConstraintException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
 import de.mbrero.see.parser.CRAFTParser;
+import de.mbrero.see.parser.ParserFactory;
 import de.mbrero.see.persistance.dto.Annotation;
 import types.GoldStandardType;
+import types.ParserType;
 
 /**
  * Parses the Goldstandard and saves the annotations to the satabase and creates
@@ -53,15 +53,18 @@ public class GoldStandardController {
 				default:
 					System.out.println("Starting Job\n\n");
 					retrieveAnnotations();
-					annCtrl.saveAnnotationsToDatabase(annotations);
+					writeToConsole("Starting Job...");
+					//annCtrl.saveAnnotationsToDatabase(annotations);
+					//writeToConsole("Saving annotations MySQL Database...");
 					annCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
+					writeToConsole("Saving annotations to TREC file...");
 					break;
 			}
 
 	}
 
 	public void retrieveAnnotations() throws SAXException, IOException, ParserConfigurationException {
-		CRAFTParser crParser = new CRAFTParser();
+		CRAFTParser crParser = (CRAFTParser)ParserFactory.getInstance(ParserType.CRAFT);
 		crParser.parse(getInputPath());
 		annotations = crParser.getAnnotations();
 	}
@@ -106,5 +109,9 @@ public class GoldStandardController {
 		this.annCtrl = annCtrl;
 	}
 
+	private void writeToConsole(String msg) {
+		msg = ">>> " + msg + "\n";
+		System.out.println(msg);
+	}
 
 }

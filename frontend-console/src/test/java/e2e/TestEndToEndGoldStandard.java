@@ -1,8 +1,9 @@
 package e2e;
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.HashMap;
 
 import org.junit.After;
@@ -26,11 +27,11 @@ public class TestEndToEndGoldStandard {
 	}
 
 	@Test
-	public void endToEntTestParsing() {
+	public void endToEntTestTRECWritingWithoutErrors() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
-		params.put("input", getClass().getClassLoader().getResource("test.txt").getFile());
-		params.put("output", getClass().getClassLoader().getResource("output/test2.txt").getPath());
+		params.put("input", getClass().getClassLoader().getResource("test1.txt").getFile());
+		params.put("output", (new File("src/test/resources/output/qrel_test")).getAbsolutePath());
 		cmd.setCommand("parsegold");
 		cmd.setParameters(params);
 
@@ -39,6 +40,23 @@ public class TestEndToEndGoldStandard {
 		int result = ctrl.executeCommand(cmd);
 		assertTrue(ctrl.getCommandObject() instanceof ParsegoldCommand);
 		assertTrue(result == 0);
+
+	}
+	
+	@Test
+	public void endToEntTestTRECFileWritten() {
+		HashMap<String, String> params = new HashMap<>();
+		params.put("type", "craft");
+		params.put("input", getClass().getClassLoader().getResource("craft-test.xmi").getFile());
+		File trecFile = new File("src/test/resources/output/qrel_test");
+		params.put("output", trecFile.getAbsolutePath());
+		cmd.setCommand("parsegold");
+		cmd.setParameters(params);
+
+		MainController ctrl = new MainController();	
+
+		ctrl.executeCommand(cmd);
+		assertTrue(trecFile.exists());
 
 	}
 

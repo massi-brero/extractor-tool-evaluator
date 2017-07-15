@@ -144,10 +144,11 @@ public abstract class AbstractParser implements AnnotationParser {
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		dBuilder.reset();
 		Document doc = dBuilder.parse(getSourceFile());
 		doc.getDocumentElement().normalize();
 		NodeList nList = doc.getElementsByTagName(tagName);
-
+				
 		return nList;
 	}
 

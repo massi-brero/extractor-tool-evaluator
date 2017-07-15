@@ -99,7 +99,7 @@ public class MainController {
 				return 0;
 			}
 		} catch (InvocationTargetException e1) {
-			System.out.println(e1.getCause());
+			e1.printStackTrace();
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}

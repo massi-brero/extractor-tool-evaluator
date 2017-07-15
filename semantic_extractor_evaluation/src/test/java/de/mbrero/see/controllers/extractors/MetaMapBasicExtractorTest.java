@@ -43,7 +43,7 @@ public class MetaMapBasicExtractorTest {
 		outputFileTxt = new File(System.getProperty("user.dir") + "/src/test/resources/mm_test/output/output.txt");
 		outputFileXml = new File(System.getProperty("user.dir") + "/src/test/resources/mm_test/output/output.xml");
 		HashMap<String, String> params = new HashMap<>();
-		mmCtrl = (MetaMapController) ExtractorControllerFactory.getExtractor(Extractors.METAMAP, null, inputFile,
+		mmCtrl = (MetaMapController) ExtractorFactory.getExtractor(Extractors.METAMAP, null, inputFile,
 				outputFileTxt, params);
 	}
 
@@ -144,7 +144,7 @@ public class MetaMapBasicExtractorTest {
 	public void testSetParameterForXMLOutput() throws IOException, InterruptedException, ExtractorExecutionException {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("--XMLn1", "");
-		MetaMapController mCtrlXml = (MetaMapController) ExtractorControllerFactory.getExtractor(Extractors.METAMAP,
+		MetaMapController mCtrlXml = (MetaMapController) ExtractorFactory.getExtractor(Extractors.METAMAP,
 				null, inputFile, outputFileXml, params);
 
 		mCtrlXml.setParams(params);
@@ -174,7 +174,7 @@ public class MetaMapBasicExtractorTest {
 	public void testgetErrorWhileExecutingCommand() throws IOException, InterruptedException, ExtractorExecutionException {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("--ABCDE", "");
-		MetaMapController mCtrlXml = (MetaMapController) ExtractorControllerFactory.getExtractor(Extractors.METAMAP,
+		MetaMapController mCtrlXml = (MetaMapController) ExtractorFactory.getExtractor(Extractors.METAMAP,
 				null, inputFile, outputFileXml, params);
 
 		mCtrlXml.setProcessBuilder(new ProcessBuilder());

@@ -24,7 +24,6 @@ public class CTakesParser extends AbstractParser {
 
 		String filename = "";
 		
-
 		NodeList nList = getNodeList(DOCUMENT_ID_TAG);
 		Node node = nList.item(0);
 

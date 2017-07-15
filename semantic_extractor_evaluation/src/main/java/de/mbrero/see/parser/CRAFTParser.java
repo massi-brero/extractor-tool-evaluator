@@ -14,8 +14,13 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class CRAFTParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "annotations";
 	private final String DOCUMENT_ID_NODE = "textSource";
-	private final String PREFERRED_TEXT_TAG = "preferredText";
-	private final String MATCHED_CHUNK_TAG = "mentionClass";
+	//private final String PREFERRED_TEXT_TAG = "preferredText";
+	//private final String MATCHED_CHUNK_TAG = "mentionClass";
+	
+	public CRAFTParser() {
+		setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
+		setConceptIdentifierNode("code");
+	}
 	
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {

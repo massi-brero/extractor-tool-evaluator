@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import types.Extractors;
 
-public class ExtractorControllerFactory {
+public class ExtractorFactory {
 
 	private final static String STANDARD_METAMAP_PATH = System.getProperty("user.dir")
 			+ "/../../resources/extractors/metamap/public_mm";
@@ -14,16 +14,16 @@ public class ExtractorControllerFactory {
 	private static File basePath = null;
 	private static HashMap<String, String> params = null;
 
-	public static ExtractorController getExtractor(Extractors extractor, File bPath, File input, File output,
+	public static Extractor getExtractor(Extractors extractor, File bPath, File input, File output,
 			HashMap<String, String> parameters) throws IllegalArgumentException {
 		basePath = bPath;
 		inputFile = input;
 		outputFile = output;
 		params = parameters;
-		return buildExtractorController(extractor);
+		return buildExtractor(extractor);
 	}
 
-	private static ExtractorController buildExtractorController(Extractors extractor) throws IllegalArgumentException {
+	private static Extractor buildExtractor(Extractors extractor) throws IllegalArgumentException {
 		switch (extractor) {
 		case METAMAP:
 			File path = basePath == null || !basePath.isFile() ? new File(STANDARD_METAMAP_PATH) : basePath;
