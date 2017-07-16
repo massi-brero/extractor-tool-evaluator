@@ -45,7 +45,7 @@ public class CRAFTParserTest {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		
 		assertEquals(1, allAnnotations.size());
-		assertNotNull(allAnnotations.get("11597317.txt"));
+		assertNotNull(allAnnotations.get("11532192.txt"));
 	}
 		
 		
@@ -55,19 +55,19 @@ public class CRAFTParserTest {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
-		HashMap<String, Annotation> annotations = allAnnotations.get("11597317.txt");
+		HashMap<String, Annotation> annotations = allAnnotations.get("11532192.txt");
 		
-		Annotation annotation = annotations.get("GO:0005634");
+		Annotation annotation = annotations.get("10088");
 		
-		assertEquals(2, annotations.size());
-		assertEquals("error matching cui", "GO:0005634", annotation.getConceptId());
-		assertEquals("error matching ontology", Ontology.GO.name(), annotation.getOntology());
+		assertEquals(8, annotations.size());
+		assertEquals("error matching cui", "10088", annotation.getConceptId());
+		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "", annotation.getPreferredText());
-		assertEquals("error matching file", "11597317.txt", annotation.getDocumentID());
+		assertEquals("error matching file", "11532192.txt", annotation.getDocumentID());
 		assertEquals("error matching extractor", ParserType.CRAFT.toString(), annotation.getExtractor());
-		assertEquals("error matching count", 2, annotation.getCount());
+		assertEquals("error matching count", 148, annotation.getCount());
 		
-		Annotation annotation2 = annotations.get("GO:0005737");
+		Annotation annotation2 = annotations.get("960666");
 		assertEquals("error matching count annotation2", 1, annotation2.getCount());
 		
 	}

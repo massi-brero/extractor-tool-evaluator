@@ -111,7 +111,7 @@ public class TRECGoldstandardResultWriterTest {
 		
 		annotation1 = new Annotation();
 		annotation1.setCount(1);
-		annotation1.setConceptId(Ontology.NCBI.name() + "_" + "CUI001");
+		annotation1.setConceptId("CUI001");
 		annotation1.setDocumentID(document1);
 		annotation1.setMatchedChunk("test text");
 		annotation1.setOntology(Ontology.NCBI.name());
@@ -119,7 +119,7 @@ public class TRECGoldstandardResultWriterTest {
 		
 		annotation2 = new Annotation();
 		annotation2.setCount(2);
-		annotation2.setConceptId(Ontology.NCBI.name() + "_" + "CUI002");
+		annotation2.setConceptId("CUI002");
 		annotation2.setDocumentID(document2);
 		annotation2.setMatchedChunk("test text");
 		annotation2.setOntology(Ontology.NCBI.name());

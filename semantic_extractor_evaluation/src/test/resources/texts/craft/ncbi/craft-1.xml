@@ -3280,7 +3280,7 @@
   </booleanSlotMention>
   <integerSlotMention id="organism_Instance_80121">
     <mentionSlot id="taxonomy ID" />
-    <integerSlotMentionValue value="9606" />
+    <integerSlotMentionValue value="960666" />
   </integerSlotMention>
   <classMention id="organism_Instance_20555">
     <mentionClass id="organism">organism</mentionClass>

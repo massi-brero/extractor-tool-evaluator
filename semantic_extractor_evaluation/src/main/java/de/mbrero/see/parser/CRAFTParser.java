@@ -64,7 +64,7 @@ public class CRAFTParser extends AbstractParser {
 
 		String ontology = extractOntology(conceptId);
 		annotation.setOntology(ontology);
-		annotation.setConceptId(ontology + "_" + conceptId);
+		annotation.setConceptId(conceptId);
 		annotation.setPreferredText(elem.getAttribute(""));
 		annotation.setDocumentID(getAnnotatedFileName());
 		//annotation.setMatchedChunk(matchedChunk);

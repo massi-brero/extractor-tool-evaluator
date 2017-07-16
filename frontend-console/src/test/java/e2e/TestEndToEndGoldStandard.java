@@ -29,7 +29,7 @@ public class TestEndToEndGoldStandard {
 
 	@After
 	public void tearDown() throws Exception {
-		//recFile.delete();
+		trecFile.delete();
 	}
 
 	@Test
