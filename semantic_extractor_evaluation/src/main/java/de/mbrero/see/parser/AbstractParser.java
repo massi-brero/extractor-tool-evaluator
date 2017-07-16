@@ -70,7 +70,7 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	public AbstractParser() {
 		annotations = new HashMap<>();
-		setSourceFile(new File(""));
+		setInputFile(new File(""));
 	}
 
 	@Override
@@ -80,23 +80,20 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	/**
 	 * Runs through the result xml file to find the tags containing the UMLS
-	 * concet information.
-	 * 
-	 * @throws ParserConfigurationException
-	 * @throws IOException
-	 * @throws SAXException
+	 * concept information.
+	 * @throws Exception 
 	 */
 	@Override
-	public void parse(File source) throws SAXException, IOException, ParserConfigurationException {
-		setSourceFile(source);
+	public void parse(File source) throws Exception {
+		setInputFile(source);
 
-		if (getSourceFile().isFile()) {
+		if (getInputFile().isFile()) {
 
 			getAnnotations().put(getAnnotatedFileName(), parseFile());
 
-		} else if (getSourceFile().isDirectory()) {
+		} else if (getInputFile().isDirectory()) {
 
-			File[] files = getSourceFile().listFiles();
+			File[] files = getInputFile().listFiles();
 
 			for (File file : files) {
 				parse(file);
@@ -108,7 +105,7 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	}
 
-	protected HashMap<String, Annotation> parseFile() throws SAXException, IOException, ParserConfigurationException {
+	protected HashMap<String, Annotation> parseFile() throws Exception {
 
 		NodeList nList = getNodeList(umlsInformationTag);
 		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
@@ -145,7 +142,7 @@ public abstract class AbstractParser implements AnnotationParser {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		dBuilder.reset();
-		Document doc = dBuilder.parse(getSourceFile());
+		Document doc = dBuilder.parse(getInputFile());
 		doc.getDocumentElement().normalize();
 		NodeList nList = doc.getElementsByTagName(tagName);
 				
@@ -153,7 +150,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	}
 
 	protected abstract Annotation buildAnnotation(Element elem, String cui) 
-			throws ParserConfigurationException, SAXException, IOException;
+			throws ParserConfigurationException, SAXException, IOException, Exception;
 
 	protected abstract String getAnnotatedFileName() 
 			throws ParserConfigurationException, SAXException, IOException;
@@ -217,17 +214,17 @@ public abstract class AbstractParser implements AnnotationParser {
 	}
 
 	/**
-	 * @return the sourceFile
+	 * @return the inputFile
 	 */
-	public File getSourceFile() {
+	public File getInputFile() {
 		return sourceFile;
 	}
 
 	/**
 	 * @param sourceFile
-	 *            the sourceFile to set
+	 *            the inputFile to set
 	 */
-	public void setSourceFile(File sourceFile) {
+	public void setInputFile(File sourceFile) {
 		this.sourceFile = sourceFile;
 	}
 

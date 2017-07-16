@@ -41,8 +41,9 @@ public class CTakesParser extends AbstractParser {
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
-		annotation.setOntology((elem.getAttribute(ONTOLOGY_NODE).toUpperCase()));
-		annotation.setConceptId(cui);
+		String ontology = elem.getAttribute(ONTOLOGY_NODE).toUpperCase();
+		annotation.setOntology(ontology);
+		annotation.setConceptId(ontology + "_" +cui);
 		annotation.setPreferredText(""); //not used at the moment
 		annotation.setDocumentID(getAnnotatedFileName());
 		annotation.setExtractor(extractorName);

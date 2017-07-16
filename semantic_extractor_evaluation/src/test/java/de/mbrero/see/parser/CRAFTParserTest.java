@@ -5,20 +5,14 @@ package de.mbrero.see.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
 import types.Ontology;
@@ -41,11 +35,11 @@ public class CRAFTParserTest {
 	public void setUp()
 	{
 		parser = (CRAFTParser)ParserFactory.getInstance(ParserType.CRAFT);
-		workingFile = new File(getClass().getClassLoader().getResource("texts/craft/craft-1.xml").getFile());
+		workingFile = new File(getClass().getClassLoader().getResource("texts/craft/ncbi/craft-1.xml").getFile());
 	}
 	
 	@Test
-	public void test_2_textFileIsProcessed() throws SAXException, IOException, ParserConfigurationException {
+	public void test_2_textFileIsProcessed() throws Exception {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -57,7 +51,7 @@ public class CRAFTParserTest {
 		
 	
 	@Test
-	public void test_3_parseTinyXMLResult() throws SAXException, IOException, ParserConfigurationException {
+	public void test_3_parseTinyXMLResult() throws Exception {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();

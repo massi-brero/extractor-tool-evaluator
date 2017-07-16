@@ -42,11 +42,9 @@ public class GoldStandardController {
 	 * TREC tool evaluation.
 	 * 
 	 * @param type
-	 * @throws ParserConfigurationException 
-	 * @throws IOException 
-	 * @throws SAXException 
+	 * @throws Exception 
 	 */
-	public void persistGoldStanstandard() throws SAXException, IOException, ParserConfigurationException {
+	public void persistGoldStanstandard() throws Exception {
 			
 			switch (type) {
 				case CRAFT:
@@ -63,7 +61,7 @@ public class GoldStandardController {
 
 	}
 
-	public void retrieveAnnotations() throws SAXException, IOException, ParserConfigurationException {
+	public void retrieveAnnotations() throws Exception {
 		CRAFTParser crParser = (CRAFTParser)ParserFactory.getInstance(ParserType.CRAFT);
 		crParser.parse(getInputPath());
 		annotations = crParser.getAnnotations();

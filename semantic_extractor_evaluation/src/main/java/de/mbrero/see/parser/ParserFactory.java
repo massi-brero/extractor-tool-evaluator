@@ -17,8 +17,8 @@ public class ParserFactory {
 	/*
 	 * CRAFT parameters
 	 */
-	private final static String CRAFT_UMLS_INFORMATION_TAG = "mentionClass";
-	private final static String CRAFT_CONCEPT_NODE = "id";
+	private final static String CRAFT_UMLS_INFORMATION_TAG = "integerSlotMentionValue";
+	private final static String CRAFT_CONCEPT_NODE = "value";
 
 
 	/**

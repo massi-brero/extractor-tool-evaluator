@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,7 +17,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
 import types.Ontology;
@@ -59,7 +57,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test
-	public void test_2_textFileIsProcessed() throws SAXException, IOException, ParserConfigurationException {
+	public void test_2_textFileIsProcessed() throws Exception {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -71,7 +69,7 @@ public class CTakesParserTest {
 		
 	
 	@Test
-	public void test_3_parseTinyXMLResult() throws SAXException, IOException, ParserConfigurationException {
+	public void test_3_parseTinyXMLResult() throws Exception {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -91,7 +89,7 @@ public class CTakesParserTest {
 
 	
 	@Test
-	public void test_4_parseResultWithDuplicateAnnotations() throws SAXException, IOException, ParserConfigurationException {
+	public void test_4_parseResultWithDuplicateAnnotations() throws Exception {
 		parser.parse(multipleAnnotationsFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations = allAnnotations.get("test-input_m.txt");
@@ -104,7 +102,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test 
-	public void test_5_parseAllFilesInDirectory() throws SAXException, IOException, ParserConfigurationException {
+	public void test_5_parseAllFilesInDirectory() throws Exception {
 		parser.parse(folder);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
@@ -122,7 +120,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test 
-	public void test_6_parseFilesInNestedDirectory() throws SAXException, IOException, ParserConfigurationException {
+	public void test_6_parseFilesInNestedDirectory() throws Exception {
 		parser.parse(nestedFolder);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
@@ -140,7 +138,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test 
-	public void test_7_parseFilesInNestedDirectoryWithDuplicateCui() throws SAXException, IOException, ParserConfigurationException {
+	public void test_7_parseFilesInNestedDirectoryWithDuplicateCui() throws Exception {
 		parser.parse(nestedFolderWithDuplicates);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
@@ -158,7 +156,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test (expected = ParserConfigurationException.class)
-	public void test_8_errorThrownWhenNoTagForTheConceptIdIsSet() throws SAXException, IOException, ParserConfigurationException {
+	public void test_8_errorThrownWhenNoTagForTheConceptIdIsSet() throws Exception {
 		CTakesParser parser = new CTakesParser();
 		parser.setExtractorName("GO");
 		parser.setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");

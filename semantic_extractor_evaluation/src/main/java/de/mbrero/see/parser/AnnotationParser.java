@@ -12,7 +12,7 @@ import types.OutputType;
 
 public interface AnnotationParser {
 	
-	public void parse(File source) throws SAXException, IOException, ParserConfigurationException;
+	public void parse(File source) throws Exception;
 	public void read() throws FileNotFoundException;
 	public void setOutputType(OutputType type);
 	
