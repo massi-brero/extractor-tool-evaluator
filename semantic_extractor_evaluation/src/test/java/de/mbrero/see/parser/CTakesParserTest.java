@@ -108,13 +108,13 @@ public class CTakesParserTest {
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
 		HashMap<String, Annotation> annotations2 = allAnnotations.get("test-input2.txt");
 		Annotation annotation1 = annotations1.get("GO:0043336");
-		Annotation annotation2 = annotations2.get("GO:0043336");
+		Annotation annotation2 = annotations2.get("9606");
 		
 		assertEquals(2, allAnnotations.size());
 		assertEquals("error matching cui", "GO:0043336", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "GO:0043336", annotation2.getConceptId());
+		assertEquals("error matching cui", "9606", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input2.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 1, annotation2.getCount());
 	}
@@ -126,13 +126,13 @@ public class CTakesParserTest {
 		HashMap<String, Annotation> annotations1 = allAnnotations.get("test-input1.txt");
 		HashMap<String, Annotation> annotations2 = allAnnotations.get("test-input2.txt");
 		Annotation annotation1 = annotations1.get("GO:0043336");
-		Annotation annotation2 = annotations2.get("GO:0043336");
+		Annotation annotation2 = annotations2.get("9606");
 		
 		assertEquals(2, allAnnotations.size());
 		assertEquals("error matching cui", "GO:0043336", annotation1.getConceptId());
 		assertEquals("error matching file", "test-input1.txt", annotation1.getDocumentID());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching cui", "GO:0043336", annotation2.getConceptId());
+		assertEquals("error matching cui", "9606", annotation2.getConceptId());
 		assertEquals("error matching file", "test-input2.txt", annotation2.getDocumentID());
 		assertEquals("error matching count", 1, annotation2.getCount());
 	}

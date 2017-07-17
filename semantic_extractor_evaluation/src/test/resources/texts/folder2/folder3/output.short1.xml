@@ -1982,7 +1982,7 @@
     <uima.cas.FSArray _id="3125" size="1">
         <i>3115</i>
     </uima.cas.FSArray>
-    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3083" codingScheme="NCBI" code="9606" oid="9606#NCBI" score="0.0" disambiguated="false" cui="C0086418" tui="T016" preferredText="Homo sapiens"/>
+    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3083" codingScheme="NCBI" code="GO:0043388" oid="9606#NCBI" score="0.0" disambiguated="false" cui="C0086418" tui="T016" preferredText="Homo sapiens"/>
     <uima.cas.FSArray _id="3093" size="1">
         <i>3083</i>
     </uima.cas.FSArray>

@@ -11,7 +11,7 @@
 		<property name="count" />
 		<property name="extractor" />
 		<property name="documentID" />
-		<property name="cui" />
+		<property name="conceptId" />
 		<property name="matchedChunk" />
 		<property name="preferredText" />
 		<property name="ontology" />

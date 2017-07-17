@@ -27,13 +27,13 @@ public class GoldStandardController {
 	private File inputPath = new File("");
 	private File outputPath = new File("");
 	private HashMap<String, HashMap<String, Annotation>>  annotations = new HashMap<>();
-	private AnnotationsController annCtrl;
+	private AnnotationsController annotationsCtrl;
 
 	public GoldStandardController(GoldStandardType type, File input, File output) {
 		setType(type);
 		setInputPath(input);
 		setOutputPath(output);
-		annCtrl = new AnnotationsController();
+		annotationsCtrl = new AnnotationsController();
 	}
 
 	/**
@@ -50,12 +50,25 @@ public class GoldStandardController {
 				case CRAFT:
 				default:
 					System.out.println("Starting Job\n\n");
-					retrieveAnnotations();
+					
+					/*
+					 * Get the annotations
+					 */
 					writeToConsole("Starting Job...");
-					//annCtrl.saveAnnotationsToDatabase(annotations);
-					//writeToConsole("Saving annotations MySQL Database...");
-					annCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
+					retrieveAnnotations();
+					
+					/*
+					 * Write the parsed results to the database
+					 */
+					writeToConsole("Saving annotations to MySQL Database...");
+					annotationsCtrl.saveAnnotationsToDatabase(annotations);
+					
+					/*
+					 * Write the annotations to the TREC qrel files
+					 */
 					writeToConsole("Saving annotations to TREC file...");
+					annotationsCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
+					
 					break;
 			}
 
@@ -100,11 +113,11 @@ public class GoldStandardController {
 	}
 
 	public AnnotationsController getAnnCtrl() {
-		return annCtrl;
+		return annotationsCtrl;
 	}
 
 	public void setAnnCtrl(AnnotationsController annCtrl) {
-		this.annCtrl = annCtrl;
+		this.annotationsCtrl = annCtrl;
 	}
 
 	private void writeToConsole(String msg) {

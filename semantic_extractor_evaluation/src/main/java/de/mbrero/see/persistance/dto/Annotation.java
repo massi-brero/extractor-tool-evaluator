@@ -105,16 +105,16 @@ public class Annotation {
 		this.documentID = documentID;
 	}
 	/**
-	 * @return the cui
+	 * @return the conceptId
 	 */
 	public String getConceptId() {
 		return conceptId;
 	}
 	/**
-	 * @param cui the cui to set
+	 * @param cuconceptId the conceptId to set
 	 */
-	public void setConceptId(String cui) {
-		this.conceptId = cui;
+	public void setConceptId(String conceptId) {
+		this.conceptId = conceptId;
 	}
 	/**
 	 * @return the matchedChunk

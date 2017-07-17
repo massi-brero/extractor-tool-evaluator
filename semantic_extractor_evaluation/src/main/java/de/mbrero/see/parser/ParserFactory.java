@@ -4,6 +4,14 @@ import javax.xml.bind.TypeConstraintException;
 
 import types.ParserType;
 
+/**
+ * This factory "produces" various extractor and goldstandard parsers
+ * to extract the annotations from the result files of an extractor run 
+ * on an biomedical text.
+ * 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class ParserFactory {
 	
 	private static ParserType parserType = null;

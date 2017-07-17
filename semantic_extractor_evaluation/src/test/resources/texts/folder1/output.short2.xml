@@ -1978,7 +1978,7 @@
     <uima.cas.EmptyFSList _id="6174"/>
     <uima.cas.EmptyFSList _id="6082"/>
     <uima.cas.EmptyFSList _id="6068"/>
-    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043336" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C2222222" tui="T044" preferredText="test"/>
+    <org.apache.ctakes.typesystem.type.refsem.UmlsConcept _id="3115" codingScheme="GO" code="GO:0043388" oid="GO:0043336#GO" score="0.0" disambiguated="false" cui="C2222222" tui="T044" preferredText="test"/>
     <uima.cas.FSArray _id="3125" size="1">
         <i>3115</i>
     </uima.cas.FSArray>

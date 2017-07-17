@@ -50,7 +50,7 @@ public class TestEndToEndGoldStandard {
 	}
 	
 	@Test
-	public void endToEntTestTRECFilWritten() {
+	public void endToEntTestTRECFileANDatabaseRowsWritten() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
 		params.put("input", getClass().getClassLoader().getResource("input/ncbi/craft-test.xmi").getFile());
