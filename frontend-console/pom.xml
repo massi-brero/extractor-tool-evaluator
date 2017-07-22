@@ -6,11 +6,10 @@
 	<parent>
 		<groupId>de.mbrero.see</groupId>
 		<artifactId>seeparent</artifactId>
-		<version>0.0.2</version>
+		<version>0.0.1</version>
 	</parent>
-	<groupId>${parent.groupId}</groupId>
+	
 	<artifactId>frontend-console</artifactId>
-	<version>${parent.version}</version>
 	<name>frontend-console</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -21,13 +20,7 @@
 		<dependency>
 			<groupId>de.mbrero.see</groupId>
 			<artifactId>semantic_extractor_evaluation</artifactId>
-			<version>${parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
+			<version>0.0.2</version>
 		</dependency>
 	</dependencies>
 
@@ -35,9 +28,6 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<includes>
-					<include>Beans.xml</include>
-				</includes>
 			</resource>
 		</resources>
 		<plugins>

@@ -12,8 +12,8 @@
 		<property name="connection.password">123456</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-		<mapping resource="de/mbrero/see/persistance/tables/article.xml" />
-		<mapping resource="de/mbrero/see/persistance/tables/test_run.xml" />
+		<mapping resource="tables/article.xml" />
+		<mapping resource="tables/test_run.xml" />
 		<mapping resource="tables/annotation.xml" />
 	</session-factory>
 </hibernate-configuration>  
