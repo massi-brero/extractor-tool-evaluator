@@ -26,10 +26,9 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	}
 
 	public void init() {
-		repo = new Repository<>(Annotation.class, conn);
-
 		URL url = getClass().getClassLoader().getResource(HBM_CONFIG_PATH);
 		conn = new DBConnection(url);
+		repo = new Repository<>(Annotation.class, conn);
 	}
 
 	@Override

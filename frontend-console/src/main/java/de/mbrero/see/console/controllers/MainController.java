@@ -13,6 +13,12 @@ import de.mbrero.see.console.io.CommandInterpreter;
 import exceptions.ParameterException;
 import exceptions.UnknownCommandException;
 
+/**
+ * Gets and prepares input for execution.
+ * 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class MainController {
 
 	CommandInterpreter interpreter;
@@ -48,7 +54,7 @@ public class MainController {
 			in = new Scanner(System.in);
 
 			System.out.print("$see> ");
-			input = in.nextLine();
+			input = in.nextLine().trim();
 
 			if ("quit".equals(input) || "q".equals(input)) {
 				System.out.println("Exit!");
@@ -64,6 +70,8 @@ public class MainController {
 				if (result > 0) {
 					throw new ExecutionException("Your command could not be executed.");
 				}
+				
+				output("Job done!");
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -76,7 +84,7 @@ public class MainController {
 	/**
 	 * Maps the console input to a Command class and tries to execute the command
 	 * with the given parameters.
-	 * Return 0 on succes or else 1.
+	 * Return 0 on success or else 1.
 	 * 
 	 * @param cmd
 	 * @return

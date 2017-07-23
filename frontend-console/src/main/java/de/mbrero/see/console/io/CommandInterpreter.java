@@ -35,7 +35,9 @@ public class CommandInterpreter {
 		String[] components = str.trim().split(" ");
 
 		for (String chunk : components) {
-
+			
+			if(chunk.isEmpty()) continue;
+			
 			if (cmd.getCommand().isEmpty()) {
 
 				if (chunk.charAt(0) == '-') {

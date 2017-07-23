@@ -1,13 +1,7 @@
 package de.mbrero.see.console.commands;
 
-import java.awt.image.IndexColorModel;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import de.mbrero.see.controllers.GoldStandardController;
 import types.GoldStandardType;
@@ -15,6 +9,8 @@ import types.GoldStandardType;
 /**
  * Triggers the parsing of a gold standard {@link GoldStandardType} so it can be
  * used for the extractor evaluation as reference resource.
+ * 
+ * parsegold -type craft -input /home/massi/projects/result_files/goldstandard/ncbi  -output /home/massi/projects/result_files/TREC/craft/qrel
  * 
  * @author massi.brero@gmail.com
  *
@@ -51,8 +47,14 @@ public class ParsegoldCommand implements ICommand {
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid goldstandard type");
 
-		if (!inputPath.exists())
-			throw new FileNotFoundException("Path for input files does not exist");
+		if (!inputPath.exists()) {
+			throw new FileNotFoundException("Path for input files does not exist");			
+		}
+		
+		if (outputPath.isDirectory()) {
+			throw new FileNotFoundException("Please specify a file name!");			
+		}
+		
 
 	}
 

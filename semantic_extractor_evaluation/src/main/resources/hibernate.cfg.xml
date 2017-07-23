@@ -12,8 +12,14 @@
 		<property name="connection.password">123456</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.connection.release_mode">on_close</property>
+		<property name="connection.pool_size">100</property>
+		<property name="hibernate.jdbc.batch_size">30</property>
+		<property name="hibernate.order_inserts">true</property>
+		<property name="hibernate.order_updates">true</property>
+		<property name="hibernate.jdbc.batch_versioned_data">true</property>
 		<mapping resource="tables/article.xml" />
 		<mapping resource="tables/test_run.xml" />
 		<mapping resource="tables/annotation.xml" />
 	</session-factory>
-</hibernate-configuration>  
+</hibernate-configuration>

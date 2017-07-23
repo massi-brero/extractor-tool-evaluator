@@ -43,6 +43,7 @@ public class DBConnection {
 		SessionFactory factory = this.config.buildSessionFactory();
 		session = factory.openSession();
 		session.setFlushMode(FlushMode.COMMIT);
+		factory.close();
 		
 		return session;
 	}

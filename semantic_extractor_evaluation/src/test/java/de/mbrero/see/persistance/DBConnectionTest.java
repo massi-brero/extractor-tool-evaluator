@@ -19,7 +19,7 @@ public class DBConnectionTest
 {
 
 	/**
-	 * Test method for {@link de.mbrero.see.persistance.DBConnection#getNewSession()}.
+	 * Test method for {@link de.mbrero.see.persistance.DBConnection#getSession()}.
 	 */
 	@Test
 	public void testGetNewSessionStandardPath() {

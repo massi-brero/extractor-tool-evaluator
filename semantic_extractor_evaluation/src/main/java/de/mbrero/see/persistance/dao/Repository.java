@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import de.mbrero.see.persistance.DBConnection;
+import types.OutputType;
 
 /**
  * 
@@ -31,18 +32,18 @@ public class Repository<T> implements IRepository<T> {
 	
 	public Repository(Class<T> cl) {
 		CLASS_TYPE = cl;
-		this.init();
+		init();
 	}
 	
 	public Repository(Class<T> cl, DBConnection c) {
 		CLASS_TYPE = cl;
-		this.conn = c;
-		this.init();
+		conn = c;
+		init();
 	}
 
 	private void init() {
 		if (conn == null)
-			this.conn = new DBConnection();
+			conn = new DBConnection();
 	}
 
 	@Override
@@ -50,13 +51,14 @@ public class Repository<T> implements IRepository<T> {
 	public T get(int id) {
 		T item = null;
         try {
-        	Transaction t = this.getSession().beginTransaction();
-            item = (T) this.getSession().get(CLASS_TYPE, id);
+        	Transaction t = getSession().beginTransaction();
+            item = (T) getSession().get(CLASS_TYPE, id);
             t.commit();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
-            this.getSession().close();
+            getSession().flush();
+            getSession().close();
         }
         return item;
 	}
@@ -66,14 +68,14 @@ public class Repository<T> implements IRepository<T> {
 	public List<T> getAll() {
         List<T> items = new ArrayList<T>();
         try {
-        	Transaction t = this.getSession().beginTransaction();
-            items = this.getSession().createCriteria(CLASS_TYPE).list();
+        	Transaction t = getSession().beginTransaction();
+            items = getSession().createCriteria(CLASS_TYPE).list();
             t.commit();
         } catch (RuntimeException e) {
             e.printStackTrace();
         } finally {
-            this.getSession().flush();
-            this.getSession().close();
+            getSession().flush();
+            getSession().close();
         }
         return items;
 	}
@@ -86,8 +88,8 @@ public class Repository<T> implements IRepository<T> {
 	public void save(T item) {
         Transaction t = null;
         try {
-            t = this.getSession().beginTransaction();
-			this.getSession().save(item);
+            t = getSession().beginTransaction();
+			getSession().save(item);
             t.commit();
 	        } catch (RuntimeException e) {
             if (t != null) {
@@ -95,15 +97,15 @@ public class Repository<T> implements IRepository<T> {
             }
             e.printStackTrace();
         } finally {
-            this.closeSession();
+            closeSession();
         }
 	}
 
 	public void delete(T item) {
         Transaction t = null;
         try {
-            t = this.getSession().beginTransaction();
-            this.getSession().delete(item);
+            t = getSession().beginTransaction();
+            getSession().delete(item);
             t.commit();
         } 
         catch (RuntimeException e) {
@@ -112,22 +114,22 @@ public class Repository<T> implements IRepository<T> {
             e.printStackTrace();
         } 
         finally {
-            this.getSession().flush();
-            this.getSession().close();
+            getSession().flush();
+            getSession().close();
         }
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void delete(int id) {
-		T item = (T) this.getSession().load(CLASS_TYPE, new Integer(id));
-		this.delete(item);
+		T item = (T) getSession().load(CLASS_TYPE, new Integer(id));
+		delete(item);
 	}
 
 	public void update(T item) {
 
         try {
-        	Transaction t = this.getSession().beginTransaction();
-            this.getSession().update(item);
+        	Transaction t = getSession().beginTransaction();
+            getSession().update(item);
             t.commit();
         } 
         catch (RuntimeException e) {
@@ -141,16 +143,20 @@ public class Repository<T> implements IRepository<T> {
 	}
 	
 	public void closeSession() {
-		if (this.session != null)
-			this.session.close();
+		if (session != null)
+			session.close();
 	}
 	
 	private Session getSession() {
-
-		if (this.session == null || !this.session.isConnected())
-			this.session = conn.getNewSession();
+		outputProgress();
+		if (session == null || !session.isConnected())
+			session = conn.getNewSession();
 		
-		return this.session;
+		return session;
+	}
+	
+	private void outputProgress() {
+		System.out.print(".");
 	}
 
 	
