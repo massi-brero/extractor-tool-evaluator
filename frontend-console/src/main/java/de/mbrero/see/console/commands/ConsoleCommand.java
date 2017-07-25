@@ -28,7 +28,7 @@ public class ConsoleCommand {
 	}
 	/**
 	 * 
-	 * @return {@link String}
+	 * @return {@link HashMap}
 	 */
 	public HashMap<String, String> getParameters() {
 		return parameters;
