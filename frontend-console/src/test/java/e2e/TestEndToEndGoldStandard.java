@@ -24,7 +24,7 @@ public class TestEndToEndGoldStandard {
 
 	@Before
 	public void setUp() throws Exception {
-		trecFile = new File("src/test/resources/output/qrel_test");
+		trecFile = new File(getClass().getClassLoader().getResource("output").getFile() + "qrel_test");
 	}
 
 	@After

@@ -60,8 +60,6 @@ public class TestRunModelTest {
 		model.save(run);
 		ArrayList<TestRun> items = (ArrayList<TestRun>) repo.getAll();
 		TestRun item = items.get(0);
-		
-		System.out.println();
 
 		assertEquals(1, items.size());
 		assertEquals(path, item.getPath());

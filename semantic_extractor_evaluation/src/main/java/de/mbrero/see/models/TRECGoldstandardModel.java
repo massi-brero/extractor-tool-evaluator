@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import antlr.collections.List;
 import de.mbrero.see.persistance.dto.Annotation;
 
 /**
@@ -39,6 +38,7 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 			for (int idx = 0; idx < annotation.getCount(); idx++) {
 				String line = String.format(trecLine, 
 						annotation.getDocumentID(), annotation.getOntology() + "_" + annotation.getConceptId() + "_" + idx);
+
 				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
 			}
 

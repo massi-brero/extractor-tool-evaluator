@@ -16,7 +16,7 @@ import types.ParserType;
 
 /**
  * Parses the Goldstandard and saves the annotations to the satabase and creates
- * a qrel File for the TREK tool
+ * a qrel File for the TREC tool
  * 
  * @author massi.brero@gmail.com
  *
@@ -26,7 +26,7 @@ public class GoldStandardController {
 	private GoldStandardType type = null;
 	private File inputPath = new File("");
 	private File outputPath = new File("");
-	private HashMap<String, HashMap<String, Annotation>>  annotations = new HashMap<>();
+	private HashMap<String, HashMap<String, Annotation>> annotations = new HashMap<>();
 	private AnnotationsController annotationsCtrl;
 
 	public GoldStandardController(GoldStandardType type, File input, File output) {
@@ -42,40 +42,22 @@ public class GoldStandardController {
 	 * TREC tool evaluation.
 	 * 
 	 * @param type
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public void persistGoldStanstandard() throws Exception {
-			
-			switch (type) {
-				case CRAFT:
-				default:
-					System.out.println("Starting Job\n\n");
-					
-					/*
-					 * Get the annotations
-					 */
-					writeToConsole("Starting Job...");
-					retrieveAnnotations();
-					
-					/*
-					 * Write the parsed results to the database
-					 */
-					writeToConsole("Saving annotations to MySQL Database...");
-					annotationsCtrl.saveAnnotationsToDatabase(annotations);
-					
-					/*
-					 * Write the annotations to the TREC qrel files
-					 */
-					writeToConsole("Saving annotations to TREC file...");
-					annotationsCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
-					
-					break;
-			}
+		System.out.println("Starting Job\n\n");
+
+		switch (type) {
+		case CRAFT:
+		default:
+			runGoldStandardJob();
+			break;
+		}
 
 	}
 
 	public void retrieveAnnotations() throws Exception {
-		CRAFTParser crParser = (CRAFTParser)ParserFactory.getInstance(ParserType.CRAFT);
+		CRAFTParser crParser = (CRAFTParser) ParserFactory.getInstance(ParserType.CRAFT);
 		crParser.parse(getInputPath());
 		annotations = crParser.getAnnotations();
 	}
@@ -118,6 +100,26 @@ public class GoldStandardController {
 
 	public void setAnnCtrl(AnnotationsController annCtrl) {
 		this.annotationsCtrl = annCtrl;
+	}
+	
+	private void runGoldStandardJob() throws Exception, IOException {
+		/*
+		 * Get the annotations
+		 */
+		writeToConsole("Starting Job...");
+		retrieveAnnotations();
+
+		/*
+		 * Write the parsed results to the database
+		 */
+		writeToConsole("Saving annotations to MySQL Database...");
+		annotationsCtrl.saveAnnotationsToDatabase(annotations);
+
+		/*
+		 * Write the annotations to the TREC qrel files
+		 */
+		writeToConsole("Saving annotations to TREC file...");
+		annotationsCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
 	}
 
 	private void writeToConsole(String msg) {

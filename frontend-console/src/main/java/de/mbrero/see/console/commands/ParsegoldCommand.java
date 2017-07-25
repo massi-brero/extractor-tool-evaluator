@@ -28,10 +28,10 @@ public class ParsegoldCommand implements ICommand {
 	public void execute(ConsoleCommand command) throws Exception {
 
 		cmd = command;
-		GoldStandardType gsType = GoldStandardType.valueOf(cmd.getParameters().get(TYPE_PARAMETER).toUpperCase());
+		type = GoldStandardType.valueOf(cmd.getParameters().get(TYPE_PARAMETER).toUpperCase());
 
 		validateParameters();
-		GoldStandardController ctrl = new GoldStandardController(gsType, inputPath, outputPath);
+		GoldStandardController ctrl = new GoldStandardController(type, inputPath, outputPath);
 
 		ctrl.persistGoldStanstandard();
 
@@ -42,7 +42,6 @@ public class ParsegoldCommand implements ICommand {
 
 		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
 		outputPath = new File(cmd.getParameters().get(OUTPUT_PATH_PARAMETER));
-		type = GoldStandardType.valueOf(cmd.getParameters().get(TYPE_PARAMETER).toUpperCase());
 
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid goldstandard type");
@@ -52,7 +51,7 @@ public class ParsegoldCommand implements ICommand {
 		}
 		
 		if (outputPath.isDirectory()) {
-			throw new FileNotFoundException("Please specify a file name!");			
+			throw new FileNotFoundException("Please specify a file name in an existing directory!");			
 		}
 		
 
