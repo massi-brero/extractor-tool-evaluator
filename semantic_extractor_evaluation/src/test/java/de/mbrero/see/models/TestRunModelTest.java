@@ -45,13 +45,15 @@ public class TestRunModelTest {
 	public void save() {
 		String testParam = "-param test";
 		String inPath = "foo/test.xml";
-		String outPath = "foo/test.xml";
+		String outPathEx = "foo/testEx.xml";
+		String outPathTrec = "foo/testTr.xml";
 		TestRunResults result = TestRunResults.SUCCESS;
 		String tester = "m@b.de";
 		
 		TestRun run = new TestRun();
 		run.setInputPath(inPath);
-		run.setOutputPath(outPath);
+		run.setOutputPathExtractorResult(outPathEx);
+		run.setOutputPathTRECFile(outPathTrec);
 		run.setDate(new Date());
 		run.setResult(result);
 		run.setParameters(testParam);
@@ -65,7 +67,8 @@ public class TestRunModelTest {
 
 		assertEquals(1, items.size());
 		assertEquals(inPath, item.getInputPath());
-		assertEquals(outPath, item.getOutputPath());
+		assertEquals(outPathEx, item.getOutputPathExtractorResult());
+		assertEquals(outPathTrec, item.getOutputPathTRECFile());
 		assertEquals(result, item.getResult());	
 		assertEquals(testParam, item.getParameters());
 		assertEquals(tester, item.getTester());

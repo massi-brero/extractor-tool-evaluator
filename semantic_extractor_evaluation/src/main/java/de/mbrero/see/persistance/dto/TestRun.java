@@ -35,8 +35,11 @@ public class TestRun {
     @Column(name = "input_path")
 	private String inputPath = "";
     
-    @Column(name = "output_path")
-	private String outputPath = "";
+    @Column(name = "output_path_extractor_result")
+	private String outputPathExtractorResult = "";
+    
+    @Column(name = "output_path_trec_file")
+	private String outputPathTRECFile = "";
 	
     @Column(name="date", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -71,12 +74,20 @@ public class TestRun {
 		this.inputPath = path;
 	}
 
-	public String getOutputPath() {
-		return outputPath;
+	public String getOutputPathExtractorResult() {
+		return outputPathExtractorResult;
 	}
 
-	public void setOutputPath(String outPath) {
-		this.outputPath = outPath;
+	public void setOutputPathExtractorResult(String outPath) {
+		this.outputPathExtractorResult = outPath;
+	}
+
+	public String getOutputPathTRECFile() {
+		return outputPathTRECFile;
+	}
+
+	public void setOutputPathTRECFile(String outputPathTRECFile) {
+		this.outputPathTRECFile = outputPathTRECFile;
 	}
 
 	public Date getDate() {

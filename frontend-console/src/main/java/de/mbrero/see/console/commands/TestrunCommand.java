@@ -11,7 +11,7 @@ import types.Extractors;
  * Triggers the execution of a semantic extractor. The Type supported can be
  * found in {@link Extractors}.<br>
  * A valid call from the console may look like this<br>
- * * testrun -type metamap -tester massi@gmail.com -input xxx -output xxx
+ * testrun -type metamap -tester massi@gmail.com -input xxx -output xxx
  * -params [a=b,c=d,e=f]
  * 
  * The "tester" parameter is mandatory for reproduction reasons. Input folder or
@@ -30,11 +30,13 @@ public class TestrunCommand implements ICommand {
 	public final String TYPE_PARAMETER = "type";
 	public final String EXTRACTOR_PARAMS_PARAMETER = "type";
 	public final String INPUT_PATH_PARAMETER = "input";
-	public final String OUTPUT_PATH_PARAMETER = "output";
+	public final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
+	public final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
 	private String paramsString = null;
 	private ConsoleCommand cmd = new ConsoleCommand();
 	File inputPath = null;
-	File outputPath = null;
+	File outputPathExtractorResult = null;
+	File outputPathTRECFile = null;
 	Extractors type = null;
 
 	public void execute(ConsoleCommand command) throws Exception {
@@ -78,7 +80,7 @@ public class TestrunCommand implements ICommand {
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
 
 		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
-		outputPath = new File(cmd.getParameters().get(OUTPUT_PATH_PARAMETER));
+		outputPathExtractorResult = new File(cmd.getParameters().get(OUTPUT_PATH_PARAMETER));
 
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid extractor type");
@@ -87,8 +89,14 @@ public class TestrunCommand implements ICommand {
 			throw new FileNotFoundException("Path for input files does not exist");
 		}
 
-		if (!outputPath.exists() || outputPath.isDirectory()) {
-			throw new FileNotFoundException("Please specify a file name in an existing directory!");
+		if (!outputPathExtractorResult.exists() || outputPathExtractorResult.isDirectory()) {
+			throw new FileNotFoundException("Please specify a file name in an existing "
+					+ "directory for the extractor result!");
+		}
+		
+		if (!outputPathTRECFile.exists() || outputPathTRECFile.isDirectory()) {
+			throw new FileNotFoundException("Please specify a file name in an existing "
+					+ "directory for the TREC result file!");
 		}
 
 		if (paramsString.length() > 0) {

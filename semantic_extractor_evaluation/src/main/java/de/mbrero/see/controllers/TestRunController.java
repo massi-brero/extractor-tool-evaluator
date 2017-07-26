@@ -19,7 +19,8 @@ public class TestRunController {
 	TestRun run = new TestRun();
 	TestRunModel model = new TestRunModel();
 	File input = null;
-	File output = null;
+	File outputExtractorResult = null;
+	File outputTRECFile = null;
 	String tester = "";
 	String params = "";
 
@@ -30,9 +31,10 @@ public class TestRunController {
 	 * @param tester String Email of the person doing the extraction test.
 	 * @param params String Paramaters that have to be used with the extractor call.
 	 */
-	public TestRunController(File input, File output, String tester, String params) {
+	public TestRunController(File input, File outputExtractorResult, File outputTRECFile, String tester, String params) {
 		this.input = input;
-		this.output = output;
+		this.outputExtractorResult = outputExtractorResult;
+		this.outputTRECFile = outputTRECFile;
 		this.tester = tester;
 		this.params = params;
 	}
@@ -41,7 +43,8 @@ public class TestRunController {
 		
 
 		run.setInputPath(input.getAbsolutePath());
-		run.setOutputPath(output.getAbsolutePath());
+		run.setOutputPathExtractorResult(outputExtractorResult.getAbsolutePath());
+		run.setOutputPathTRECFile(outputTRECFile.getAbsolutePath());
 		run.setDate(new Date());
 		run.setResult(TestRunResults.PENDING);
 		run.setParameters(params);

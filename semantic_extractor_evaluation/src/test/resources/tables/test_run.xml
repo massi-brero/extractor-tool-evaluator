@@ -9,7 +9,8 @@
 			<generator class="increment" />
 		</id>
 		<property name="inputPath" />
-		<property name="outputPath" />
+		<property name="outputPathExtractorResult" />
+		<property name="outputPathTRECFile" />
 		<property name="date" />
 		<property name="result" />
 		<property name="parameters" />
