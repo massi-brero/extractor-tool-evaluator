@@ -9,7 +9,7 @@ import org.junit.Test;
 import de.mbrero.see.console.commands.ConsoleCommand;
 import exceptions.ParameterException;
 
-public class ConsoleCommandReaderTest {
+public class TestRunCommand {
 
 	private CommandInterpreter reader;
 

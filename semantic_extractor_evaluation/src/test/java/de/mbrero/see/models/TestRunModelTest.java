@@ -44,25 +44,28 @@ public class TestRunModelTest {
 	@Test
 	public void save() {
 		String testParam = "-param test";
-		String path = "foo/test.xml";
+		String inPath = "foo/test.xml";
+		String outPath = "foo/test.xml";
 		TestRunResults result = TestRunResults.SUCCESS;
 		String tester = "m@b.de";
 		
 		TestRun run = new TestRun();
-		run.setPath(path);
+		run.setInputPath(inPath);
+		run.setOutputPath(outPath);
 		run.setDate(new Date());
 		run.setResult(result);
 		run.setParameters(testParam);
 		run.setTester(tester);
 		run.setSystemInformation(getSystemInfoFixture().toString());
 		TestRunModel model = new TestRunModel();
-		
 		model.save(run);
+		
 		ArrayList<TestRun> items = (ArrayList<TestRun>) repo.getAll();
 		TestRun item = items.get(0);
 
 		assertEquals(1, items.size());
-		assertEquals(path, item.getPath());
+		assertEquals(inPath, item.getInputPath());
+		assertEquals(outPath, item.getOutputPath());
 		assertEquals(result, item.getResult());	
 		assertEquals(testParam, item.getParameters());
 		assertEquals(tester, item.getTester());

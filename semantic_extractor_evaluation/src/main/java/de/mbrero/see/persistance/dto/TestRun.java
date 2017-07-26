@@ -32,8 +32,11 @@ public class TestRun {
     @Column(name = "id")
 	private int id;  
     
-    @Column(name = "path")
-	private String path = "";
+    @Column(name = "input_path")
+	private String inputPath = "";
+    
+    @Column(name = "output_path")
+	private String outputPath = "";
 	
     @Column(name="date", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
@@ -60,12 +63,20 @@ public class TestRun {
 		this.id = id;
 	}
 
-	public String getPath() {
-		return path;
+	public String getInputPath() {
+		return inputPath;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setInputPath(String path) {
+		this.inputPath = path;
+	}
+
+	public String getOutputPath() {
+		return outputPath;
+	}
+
+	public void setOutputPath(String outPath) {
+		this.outputPath = outPath;
 	}
 
 	public Date getDate() {

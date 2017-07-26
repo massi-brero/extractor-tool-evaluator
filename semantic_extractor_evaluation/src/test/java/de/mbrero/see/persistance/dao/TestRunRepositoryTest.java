@@ -41,7 +41,7 @@ public class TestRunRepositoryTest {
 	@Test
 	public void testSave() {
 		TestRun run = new TestRun();
-		run.setPath("foo/test.xml");
+		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS);
 		
@@ -54,14 +54,14 @@ public class TestRunRepositoryTest {
 	@Test
 	public void testGet() {
 		TestRun run = new TestRun();
-		run.setPath("foo/test.xml");
+		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS);
 		
 		repo.save(run);
 		TestRun item = (TestRun) repo.get(1);
 
-		assertEquals("foo/test.xml", item.getPath());
+		assertEquals("foo/test.xml", item.getInputPath());
 	}
 
 	@Test
@@ -74,7 +74,7 @@ public class TestRunRepositoryTest {
 	@Test
 	public void testDeleteById() {
 		TestRun run = new TestRun();
-		run.setPath("foo/test.xml");
+		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS);
 		
@@ -88,7 +88,7 @@ public class TestRunRepositoryTest {
 	@Test
 	public void testDeleteByEntity() {
 		TestRun run = new TestRun();
-		run.setPath("foo/test.xml");
+		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS);
 		
@@ -104,17 +104,17 @@ public class TestRunRepositoryTest {
 	@Test
 	public void testUpdate() {
 		TestRun run = new TestRun();
-		run.setPath("foo/test.xml");
+		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS);
 		
 		repo.save(run);
 		
 		TestRun item = (TestRun) repo.get(1);
-		item.setPath("foo/test2.xml");
+		item.setInputPath("foo/test2.xml");
 		repo.update(item);
 
-		assertEquals("foo/test2.xml", item.getPath());
+		assertEquals("foo/test2.xml", item.getInputPath());
 	}
 
 }

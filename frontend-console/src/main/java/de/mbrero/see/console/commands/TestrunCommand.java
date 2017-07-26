@@ -3,15 +3,12 @@ package de.mbrero.see.console.commands;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.HashMap;
 
-import de.mbrero.see.controllers.GoldStandardController;
 import de.mbrero.see.controllers.TestRunController;
 import types.Extractors;
-import types.GoldStandardType;
 
 /**
- * Triggers the execution of a semantic extractor. The Type supported cn be
+ * Triggers the execution of a semantic extractor. The Type supported can be
  * found in {@link Extractors}.<br>
  * A valid call from the console may look like this<br>
  * * testrun -type metamap -tester massi@gmail.com -input xxx -output xxx
@@ -52,9 +49,28 @@ public class TestrunCommand implements ICommand {
 			parseExtractorParameters();
 		}
 
-		TestRunController ctrl = new TestRunController();
+		//TestRunController ctrl = new TestRunController();
+		
+		/*
+		 * Initiallize Test run
+		 */
+		System.out.println(">>>Initiallize Test run...");
+		
+		/*
+		 * Start extractor with given parameters
+		 */
+		System.out.println(">>>Start extractor with given parameters...");
+		
+		/*
+		 * Save annotations to database
+		 */
+		System.out.println(">>>Save annotations to database...");
+		
+		/*
+		 * Save annotationsto TREC file
+		 */
+		System.out.println(">>>Save annotationsto TREC file...");
 
-		// ctrl.persistGoldStanstandard();
 
 	}
 
@@ -84,16 +100,62 @@ public class TestrunCommand implements ICommand {
 
 	}
 
-	private void parseExtractorParameters() {
+	public void parseExtractorParameters() {
 
-		paramsString = paramsString.replace("[[|]]", "");
+		paramsString = paramsString.replaceAll("[\\[|\\]]", "");
+		StringBuffer result = new StringBuffer();
 
 		String[] paramsArray = paramsString.split(",");
 
 		Arrays.stream(paramsArray).forEach(paramsPair -> {
-			
+			paramsPair = "-" + paramsPair;
+			Arrays.stream(paramsPair.split("=")).forEach(value -> {
+				result.append(value).append(" ");
+			});
 		});
+		
+		setParamsString(result.toString());
 
+	}
+
+	public String getParamsString() {
+		return paramsString;
+	}
+
+	public void setParamsString(String paramsString) {
+		this.paramsString = paramsString;
+	}
+
+	public ConsoleCommand getCmd() {
+		return cmd;
+	}
+
+	public void setCmd(ConsoleCommand cmd) {
+		this.cmd = cmd;
+	}
+
+	public File getInputPath() {
+		return inputPath;
+	}
+
+	public void setInputPath(File inputPath) {
+		this.inputPath = inputPath;
+	}
+
+	public File getOutputPath() {
+		return outputPath;
+	}
+
+	public void setOutputPath(File outputPath) {
+		this.outputPath = outputPath;
+	}
+
+	public Extractors getType() {
+		return type;
+	}
+
+	public void setType(Extractors type) {
+		this.type = type;
 	}
 
 }
