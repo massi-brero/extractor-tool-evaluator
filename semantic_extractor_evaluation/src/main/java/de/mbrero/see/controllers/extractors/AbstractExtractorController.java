@@ -116,7 +116,7 @@ public abstract class AbstractExtractorController implements Extractor {
 
 		this.params = paramsAsArray;
 	}
-
+	
 	/**
 	 * 
 	 * 

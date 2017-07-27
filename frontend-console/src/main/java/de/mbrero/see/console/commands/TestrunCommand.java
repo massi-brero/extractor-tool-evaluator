@@ -3,8 +3,8 @@ package de.mbrero.see.console.commands;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashMap;
 
-import de.mbrero.see.controllers.TestRunController;
 import types.Extractors;
 
 /**
@@ -33,6 +33,7 @@ public class TestrunCommand implements ICommand {
 	public final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
 	public final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
 	private String paramsString = null;
+	private HashMap<String, String> params = new HashMap<>();
 	private ConsoleCommand cmd = new ConsoleCommand();
 	File inputPath = null;
 	File outputPathExtractorResult = null;
@@ -80,7 +81,8 @@ public class TestrunCommand implements ICommand {
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
 
 		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
-		outputPathExtractorResult = new File(cmd.getParameters().get(OUTPUT_PATH_PARAMETER));
+		outputPathExtractorResult = new File(cmd.getParameters().get(OUTPUT_PATH_EXTRACTOR_PARAMETER));
+		outputPathTRECFile = new File(cmd.getParameters().get(OUTPUT_PATH_TREC_PARAMETER));
 
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid extractor type");
@@ -108,30 +110,27 @@ public class TestrunCommand implements ICommand {
 
 	}
 
-	public void parseExtractorParameters() {
+	public void parseExtractorParameters() throws IllegalArgumentException {
 
 		paramsString = paramsString.replaceAll("[\\[|\\]]", "");
-		StringBuffer result = new StringBuffer();
 
 		String[] paramsArray = paramsString.split(",");
 
 		Arrays.stream(paramsArray).forEach(paramsPair -> {
-			paramsPair = "-" + paramsPair;
-			Arrays.stream(paramsPair.split("=")).forEach(value -> {
-				result.append(value).append(" ");
-			});
+			String[] paramsPairAsArray = paramsPair.split("=");
+			
+			if(paramsArray.length == 1) {
+				params.put(paramsPairAsArray[0], "");				
+			}
+			else if (paramsPairAsArray.length == 2) {
+				params.put(paramsPairAsArray[0], paramsPairAsArray[1]);				
+			}
+			else {
+				throw new IllegalArgumentException("The paramater syntax is: "
+						+ "[-param1 value1 -param2 ....]");				
+			}
+
 		});
-		
-		setParamsString(result.toString());
-
-	}
-
-	public String getParamsString() {
-		return paramsString;
-	}
-
-	public void setParamsString(String paramsString) {
-		this.paramsString = paramsString;
 	}
 
 	public ConsoleCommand getCmd() {
@@ -150,12 +149,20 @@ public class TestrunCommand implements ICommand {
 		this.inputPath = inputPath;
 	}
 
-	public File getOutputPath() {
-		return outputPath;
+	public File getOutputPathExtractorResult() {
+		return outputPathExtractorResult;
 	}
 
-	public void setOutputPath(File outputPath) {
-		this.outputPath = outputPath;
+	public void setOutputPathExtractorResult(File outputPathExtractorResult) {
+		this.outputPathExtractorResult = outputPathExtractorResult;
+	}
+
+	public File getOutputPathTRECFile() {
+		return outputPathTRECFile;
+	}
+
+	public void setOutputPathTRECFile(File outputPathTRECFile) {
+		this.outputPathTRECFile = outputPathTRECFile;
 	}
 
 	public Extractors getType() {
@@ -164,6 +171,22 @@ public class TestrunCommand implements ICommand {
 
 	public void setType(Extractors type) {
 		this.type = type;
+	}
+
+	public HashMap<String, String> getParams() {
+		return params;
+	}
+
+	public void setParams(HashMap<String, String> params) {
+		this.params = params;
+	}
+
+	public String getParamsString() {
+		return paramsString;
+	}
+
+	public void setParamsString(String paramsString) {
+		this.paramsString = paramsString;
 	}
 
 }

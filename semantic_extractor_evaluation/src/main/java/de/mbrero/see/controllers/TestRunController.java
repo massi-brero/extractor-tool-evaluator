@@ -57,5 +57,9 @@ public class TestRunController {
 	public void setResult(TestRunResults result) {
 		run.setResult(result);
 	}
+	
+	public void setDuration(TestRunResults result) {
+		//run.setDuration(result);
+	}
 
 }
