@@ -43,7 +43,7 @@ public class TestRunRepositoryTest {
 		TestRun run = new TestRun();
 		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
-		run.setResult(TestRunResults.SUCCESS);
+		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(run);
 		ArrayList<TestRun> items = (ArrayList<TestRun>) repo.getAll();
@@ -56,7 +56,7 @@ public class TestRunRepositoryTest {
 		TestRun run = new TestRun();
 		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
-		run.setResult(TestRunResults.SUCCESS);
+		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(run);
 		TestRun item = (TestRun) repo.get(1);
@@ -76,7 +76,7 @@ public class TestRunRepositoryTest {
 		TestRun run = new TestRun();
 		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
-		run.setResult(TestRunResults.SUCCESS);
+		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(run);
 		repo.delete(1);
@@ -90,7 +90,7 @@ public class TestRunRepositoryTest {
 		TestRun run = new TestRun();
 		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
-		run.setResult(TestRunResults.SUCCESS);
+		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(new TestRun());
 		TestRun item = repo.get(1);
@@ -106,7 +106,7 @@ public class TestRunRepositoryTest {
 		TestRun run = new TestRun();
 		run.setInputPath("foo/test.xml");
 		run.setDate(new Date());
-		run.setResult(TestRunResults.SUCCESS);
+		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(run);
 		

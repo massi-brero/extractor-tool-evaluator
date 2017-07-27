@@ -50,7 +50,7 @@ public class TestRunController {
 		run.setOutputPathExtractorResult(outputExtractorResult.getAbsolutePath());
 		run.setOutputPathTRECFile(outputTRECFile.getAbsolutePath());
 		run.setDate(new Date());
-		run.setResult(TestRunResults.PENDING);
+		run.setResult(TestRunResults.PENDING.toString());
 		run.setParameters(params.toString());
 		run.setTester(tester);
 		run.setSystemInformation(model.getSystemInformation().toString());
@@ -59,7 +59,7 @@ public class TestRunController {
 	}
 	
 	public void setResult(TestRunResults result) {
-		run.setResult(result);
+		run.setResult(result.toString());
 	}
 	
 	public void setDuration(TestRunResults result) {

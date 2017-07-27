@@ -45,9 +45,8 @@ public class TestRun {
     @Temporal(TemporalType.TIMESTAMP)
 	private Date date = null;
 	
-    @Enumerated(EnumType.STRING)
     @Column(name="result")
-	private TestRunResults result = TestRunResults.PENDING;
+	private String result = "PENDING";
     
     @Column(name = "parameters")
 	private String parameters = "";
@@ -101,11 +100,11 @@ public class TestRun {
 		this.date = date;
 	}
 
-	public TestRunResults getResult() {
+	public String getResult() {
 		return result;
 	}
 
-	public void setResult(TestRunResults result) {
+	public void setResult(String result) {
 		this.result = result;
 	}
 

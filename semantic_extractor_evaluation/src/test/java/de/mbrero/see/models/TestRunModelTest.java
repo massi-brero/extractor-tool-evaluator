@@ -64,7 +64,7 @@ public class TestRunModelTest {
 		run.setOutputPathExtractorResult(outPathEx);
 		run.setOutputPathTRECFile(outPathTrec);
 		run.setDate(new Date());
-		run.setResult(result);
+		run.setResult(result.toString());
 		run.setDuration(duration.getNano());
 		run.setParameters(testParam);
 		run.setTester(tester);
@@ -79,7 +79,7 @@ public class TestRunModelTest {
 		assertEquals(inPath, item.getInputPath());
 		assertEquals(outPathEx, item.getOutputPathExtractorResult());
 		assertEquals(outPathTrec, item.getOutputPathTRECFile());
-		assertEquals(result, item.getResult());	
+		assertEquals(result, TestRunResults.valueOf(item.getResult()));	
 		assertEquals(testParam, item.getParameters());
 		assertEquals(tester, item.getTester());
 		assertTrue(item.getDuration() > 0);
