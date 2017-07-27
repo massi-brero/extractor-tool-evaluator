@@ -5,14 +5,15 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import de.mbrero.see.controllers.TestRunController;
 import types.Extractors;
 
 /**
  * Triggers the execution of a semantic extractor. The Type supported can be
  * found in {@link Extractors}.<br>
  * A valid call from the console may look like this<br>
- * testrun -type metamap -tester massi@gmail.com -input xxx -output xxx
- * -params [a=b,c=d,e=f]
+ * testrun -type metamap -tester massi@gmail.com -input /home/massi/projects/result_files/txt_test -outTrec /home/massi/projects/result_files/TREC/mm_test
+ * -outEx /home/massi/projects/result_files/extractor_results/mm/res1.xml -params [a=b,c=d,e=f]
  * 
  * The "tester" parameter is mandatory for reproduction reasons. Input folder or
  * file and output file<br>
@@ -52,12 +53,16 @@ public class TestrunCommand implements ICommand {
 			parseExtractorParameters();
 		}
 
-		//TestRunController ctrl = new TestRunController();
+//		TestRunController ctrl = new TestRunController(inputPath, 
+//														outputPathTRECFile, 
+//														outputPathExtractorResult, 
+//														, EXTRACTOR_PARAMS_PARAMETER);
 		
 		/*
 		 * Initiallize Test run
 		 */
 		System.out.println(">>>Initiallize Test run...");
+		//ctrl.initializeTestRun();
 		
 		/*
 		 * Start extractor with given parameters
@@ -91,12 +96,12 @@ public class TestrunCommand implements ICommand {
 			throw new FileNotFoundException("Path for input files does not exist");
 		}
 
-		if (!outputPathExtractorResult.exists() || outputPathExtractorResult.isDirectory()) {
+		if (outputPathExtractorResult.isDirectory()) {
 			throw new FileNotFoundException("Please specify a file name in an existing "
 					+ "directory for the extractor result!");
 		}
 		
-		if (!outputPathTRECFile.exists() || outputPathTRECFile.isDirectory()) {
+		if (outputPathTRECFile.isDirectory()) {
 			throw new FileNotFoundException("Please specify a file name in an existing "
 					+ "directory for the TREC result file!");
 		}
@@ -104,7 +109,7 @@ public class TestrunCommand implements ICommand {
 		if (paramsString.length() > 0) {
 			if (paramsString.charAt(0) != '[' || paramsString.charAt(paramsString.length() - 1) != ']') {
 				throw new IllegalArgumentException(
-						"The parameter list for the cosen extracot must start with '[' " + "and end with ']'");
+						"The parameter list for the chosen extractor must start with '[' " + "and end with ']'");
 			}
 		}
 

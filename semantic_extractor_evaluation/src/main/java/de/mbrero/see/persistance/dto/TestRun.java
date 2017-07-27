@@ -55,6 +55,9 @@ public class TestRun {
     @Column(name = "tester")
 	private String tester = "";
     
+    @Column(name = "duration")
+	private long duration = 0;
+    
     @Column(name = "system_info", columnDefinition="TEXT")
 	private String systemInformation = "";
     
@@ -146,6 +149,14 @@ public class TestRun {
 	 */
 	public void setSystemInformation(String systemInformation) {
 		this.systemInformation = systemInformation;
+	}
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
 	}
 	
 }

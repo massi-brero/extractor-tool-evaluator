@@ -14,6 +14,7 @@
 		<property name="date" />
 		<property name="result" />
 		<property name="parameters" />
+		<property name="duration" />
 		<property name="tester" />
 		<property name="systemInformation" />
 	</class>

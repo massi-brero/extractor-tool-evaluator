@@ -1,11 +1,16 @@
 package de.mbrero.see.models;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import java.time.Duration;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,9 +27,11 @@ import de.mbrero.see.persistance.dto.types.TestRunResults;
 public class TestRunModelTest {
 	private Repository<TestRun> repo = null;
 	private DBConnection conn = null;
+	Instant start = null;
 	
 	@Before
 	public void setUp() throws Exception {
+		start = Instant.now();
 		URL url = getClass().getClassLoader().getResource("hibernate.cfg.xml");
 		conn = new DBConnection(url);
 		this.repo = new Repository<>(TestRun.class, conn);
@@ -49,6 +56,8 @@ public class TestRunModelTest {
 		String outPathTrec = "foo/testTr.xml";
 		TestRunResults result = TestRunResults.SUCCESS;
 		String tester = "m@b.de";
+		Instant end = Instant.now();
+		Duration duration = Duration.between(start, end);
 		
 		TestRun run = new TestRun();
 		run.setInputPath(inPath);
@@ -56,6 +65,7 @@ public class TestRunModelTest {
 		run.setOutputPathTRECFile(outPathTrec);
 		run.setDate(new Date());
 		run.setResult(result);
+		run.setDuration(duration.getNano());
 		run.setParameters(testParam);
 		run.setTester(tester);
 		run.setSystemInformation(getSystemInfoFixture().toString());
@@ -72,6 +82,7 @@ public class TestRunModelTest {
 		assertEquals(result, item.getResult());	
 		assertEquals(testParam, item.getParameters());
 		assertEquals(tester, item.getTester());
+		assertTrue(item.getDuration() > 0);
 		assertFalse(item.getSystemInformation().isEmpty());
 		assertTrue(item.getSystemInformation().contains("java_vendor") 
 				&& item.getSystemInformation().contains("1.8"));
