@@ -155,7 +155,7 @@ public class TestrunCommand implements ICommand {
 		Arrays.stream(paramsArray).forEach(paramsPair -> {
 			String[] paramsPairAsArray = paramsPair.split("=");
 			
-			if(paramsArray.length == 1) {
+			if(paramsPairAsArray.length == 1) {
 				params.put(paramsPairAsArray[0], "");				
 			}
 			else if (paramsPairAsArray.length == 2) {
