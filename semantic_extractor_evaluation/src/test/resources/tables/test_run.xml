@@ -12,7 +12,12 @@
 		<property name="outputPathExtractorResult" />
 		<property name="outputPathTRECFile" />
 		<property name="date" />
-		<property name="result" />
+		<property name="result" column="result">
+		    <type name="org.hibernate.type.EnumType.String">
+		        <param name="enumClass">de.mbrero.see.persistance.dto.types.TestRunResults.java</param>
+                <param name="useNamed">false</param>
+		    </type>
+		</property>
 		<property name="parameters" />
 		<property name="duration" />
 		<property name="tester" />

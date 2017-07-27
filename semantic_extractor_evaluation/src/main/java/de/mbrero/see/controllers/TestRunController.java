@@ -1,8 +1,8 @@
 package de.mbrero.see.controllers;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.Date;
+import java.util.HashMap;
 
 import de.mbrero.see.models.TestRunModel;
 import de.mbrero.see.persistance.dto.TestRun;
@@ -22,7 +22,7 @@ public class TestRunController {
 	File outputExtractorResult = null;
 	File outputTRECFile = null;
 	String tester = "";
-	String params = "";
+	HashMap<String, String> params = new HashMap<>();
 
 	/**
 	 * 
@@ -31,7 +31,11 @@ public class TestRunController {
 	 * @param tester String Email of the person doing the extraction test.
 	 * @param params String Paramaters that have to be used with the extractor call.
 	 */
-	public TestRunController(File input, File outputExtractorResult, File outputTRECFile, String tester, String params) {
+	public TestRunController(File input, 
+							 File outputExtractorResult, 
+							 File outputTRECFile, 
+							 String tester, 
+							 HashMap<String, String> params) {
 		this.input = input;
 		this.outputExtractorResult = outputExtractorResult;
 		this.outputTRECFile = outputTRECFile;
@@ -47,7 +51,7 @@ public class TestRunController {
 		run.setOutputPathTRECFile(outputTRECFile.getAbsolutePath());
 		run.setDate(new Date());
 		run.setResult(TestRunResults.PENDING);
-		run.setParameters(params);
+		run.setParameters(params.toString());
 		run.setTester(tester);
 		run.setSystemInformation(model.getSystemInformation().toString());
 		

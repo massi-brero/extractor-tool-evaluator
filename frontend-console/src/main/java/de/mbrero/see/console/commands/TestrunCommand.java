@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import de.mbrero.see.controllers.TestRunController;
+import de.mbrero.see.persistance.dto.types.TestRunResults;
 import types.Extractors;
 
 /**
@@ -28,19 +29,40 @@ import types.Extractors;
  */
 public class TestrunCommand implements ICommand {
 
+	/*
+	 * constants for received parameters. These have to be validated
+	 */
 	public final String TYPE_PARAMETER = "type";
-	public final String EXTRACTOR_PARAMS_PARAMETER = "type";
+	public final String EXTRACTOR_PARAMS_PARAMETER = "params";
+	public final String TESTER_PARAMETER = "tester";
 	public final String INPUT_PATH_PARAMETER = "input";
 	public final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
 	public final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
+	
 	private String paramsString = null;
 	private HashMap<String, String> params = new HashMap<>();
 	private ConsoleCommand cmd = new ConsoleCommand();
+	
+	/*
+	 * Paths for input and output validation.
+	 */
 	File inputPath = null;
 	File outputPathExtractorResult = null;
 	File outputPathTRECFile = null;
 	Extractors type = null;
 
+	/**
+	 * Triggers the whole test run for an extractor, including:
+	 * <ol>
+	 * 	<li>Initializing the test and storing enveronment data for reproducibility purposes.</li>
+	 * <li>Starting the extractor with the given parameters.</li>
+	 * <li>Saving the result file from the extraction process.</li>
+	 * <li>Saving the annotations to a SQL database</li>
+	 * <li>Saving the annotation in a TREC result file</li>
+	 * </ol> 
+	 * 
+	 * @params {@link ConsoleCommand} The command receiced from the command line including parameters.
+	 */
 	public void execute(ConsoleCommand command) throws Exception {
 
 		cmd = command;
@@ -53,21 +75,23 @@ public class TestrunCommand implements ICommand {
 			parseExtractorParameters();
 		}
 
-//		TestRunController ctrl = new TestRunController(inputPath, 
-//														outputPathTRECFile, 
-//														outputPathExtractorResult, 
-//														, EXTRACTOR_PARAMS_PARAMETER);
+		TestRunController ctrl = new TestRunController(inputPath, 
+													   outputPathExtractorResult, 
+													   outputPathTRECFile, 
+													   cmd.getParameters().get(TESTER_PARAMETER),
+													   getParams());
 		
 		/*
 		 * Initiallize Test run
 		 */
 		System.out.println(">>>Initiallize Test run...");
-		//ctrl.initializeTestRun();
+		ctrl.initializeTestRun();
 		
 		/*
 		 * Start extractor with given parameters
 		 */
 		System.out.println(">>>Start extractor with given parameters...");
+		//TODO save duration
 		
 		/*
 		 * Save annotations to database
@@ -78,6 +102,8 @@ public class TestrunCommand implements ICommand {
 		 * Save annotationsto TREC file
 		 */
 		System.out.println(">>>Save annotationsto TREC file...");
+		
+		ctrl.setResult(TestRunResults.SUCCESS);
 
 
 	}
@@ -94,6 +120,11 @@ public class TestrunCommand implements ICommand {
 
 		if (!inputPath.exists()) {
 			throw new FileNotFoundException("Path for input files does not exist");
+		}
+		
+		if (getCmd().getParameters().get(TESTER_PARAMETER) == null 
+			|| getCmd().getParameters().get(TESTER_PARAMETER) == "") {
+				throw new FileNotFoundException("Please enter the email of the tester!");	
 		}
 
 		if (outputPathExtractorResult.isDirectory()) {
