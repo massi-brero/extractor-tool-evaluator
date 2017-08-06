@@ -56,13 +56,13 @@ Please take a look at the following tips and cavears when installing the current
 
 Most extractors can be customized to use a limited set of (mostly) UMLS ontologies. The current SEE version uses the NBCI taxonomy which was also used in the CRAFT gold standard corpus.
 
-###### UMLS installation #####
+##### ++UMLS installation++ #####
 
 MetaMap, QuickUMLS and cTakes need a UMLS installation of the ontologies that the extractors will use for the parsing process.
 You can find a How-to and some basic instructions at the [UMLS site](https://www.nlm.nih.gov/research/umls/quickstart.html);
 You need a NIH account to use UMLS (and some extractors will also ask you for those credentials).
 
-###### QuickUMLS ######
+##### ++QuickUMLS++ #####
 
 Quick UMLS is based on python and you will have to install some additional libraries dealing with language processing (most importantly [Simstring](http://www.chokkan.org/software/simstring)):
 
@@ -71,12 +71,12 @@ Quick UMLS is based on python and you will have to install some additional libra
 
 [...]
 
-###### **bold** cTakes **bold** ######
+##### ++cTakes++ #####
 
 [cTakes](http://ctakes.apache.org/) is quite a complex software for analyzing biomedical texts. It can do much more than extracting concepts from UMLS vocabularies.
 First you have to [download](http://ctakes.apache.org/downloads.cgi) and install cTakes (version 4.x). Please follow the installation [instructions](https://cwiki.apache.org/confluence/display/CTAKES/cTAKES+4.0+User+Install+Guide) for users.
 
-*italic* Customizing ctakes with own ontologies *italic*
+###### Customizing ctakes with own ontologies ######
 
 1. You need a UMLS installation consisting of RFF files.
 2. Create custom dictionary with your ontology. use cTakes Dictionary Creator for that. See here for [details]( https://cwiki.apache.org/confluence/display/CTAKES/Dictionary+Creator+GUI).
