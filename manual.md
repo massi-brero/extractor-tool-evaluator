@@ -9,7 +9,7 @@ The software named in the title of this manual is a part of a bachelor thesis de
 The goals of the SEE software are basically:
 1. Evaluate the results of concept extraction of a set of extractor software.
 2. Measure the performance of the extractors in an standarzised extraction process.
-3. Emphasize reproducibility for all experiments  based on the [PRIMAD](http://sigir.org/files/forum/2016J/p068.pdf) model .
+3. Emphasize reproducibility for all experiments  based on the [PRIMAD](http://sigir.org/files/forum/2016J/p068.pdf) model.
 
 ### 1.2 Requirements ###
 
@@ -25,14 +25,14 @@ The goals of the SEE software are basically:
 The currently used gold standard is the [CRAFT Corpus 2.0](http://bionlp-corpora.sourceforge.net/CRAFT/). consisting of 64 bio-medical full texts about genetic research. The publications used are taken from from the extensive source for scientific publications [PUBMED](https://www.ncbi.nlm.nih.gov/pubmed/).
 The corpus is used as a reference point for evaluating the results and the performance provided by the tested extractors. In the CRAFT Corpus concepts of 8 ontologies have  been extracted by domain experts. SEE currently uses the NCBI taxonomy results.
 The extraction results in the Craft corpus are wrapped in several document types. SEE uses the XML files. After [downloading](https://sourceforge.net/projects/bionlp-corpora/files/CRAFT/v2.0/craft-2.0.tar.gz/download) the Craft Corpus the result files should be unzipped in this directory (seen from the SEE source folder):
-|-- {SEE directory}
-|-- resources
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- goldstandard
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- craft
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- craft-2.0
+|-- {SEE directory} 
+|-- resources 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- goldstandard  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- craft 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- craft-2.0 
 
 
-####<a name="1.2.2"></a>1.2.2 The extractors####
+#### <a name="1.2.2"></a>1.2.2 The extractors ####
 
 At the moment SEE supports 3 extractors:
 * [MetaMap]
@@ -44,11 +44,11 @@ To add more extrators to test you simply have to extend the extractors factory c
 [...]
 
 To use the previously mentioned extractors please install them in this folders in the same directory as the SEE software:
-|-- {SEE directory}
-|-- extractors
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- metamap
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- ctakes
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- quickumls
+|-- {SEE directory} 
+|-- extractors 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- metamap 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- ctakes 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- quickumls 
 
 Please take a look at the following tips and cavears when installing the currently supported extractors.
 
@@ -93,7 +93,7 @@ Extremely important: Add the following type definition to the most primitive des
 &lt;/typeSystemDescription&gt;
 </pre>
 
-##2 Using the SEE##
+## 2 Using the SEE ##
 
 The SEE can be used via command line. The following sctions explain the possible commands and the parameters needed.
 
@@ -105,7 +105,7 @@ The gold standard can also be stores in the two ways mentioned above. But the an
 
 There is no need to create a tables or the database structure. This will be done automatically by the hibernate persistance module.
 
-###2.1 Set-up###
+### 2.1 Set-up ###
 If the requirements mentioned in the [according chapter]() are met there is only one more thing to do: entering the credentials for the MySQL database in the hibernate configuration file {your-SEE-project-root}/src/main/resources/hibernate.cfg.xml:
 <pre>
     &lt;session-factory&gt;
@@ -114,24 +114,25 @@ If the requirements mentioned in the [according chapter]() are met there is only
         &lt;property name="connection.password"&gt;123456&lt;/property&gt;
 
         ...
-        &lt;session-factory&gt;
+	&lt;session-factory&gt;
 </pre>
 
 Please repeat this for the test database for the unit and integration tests. The file structure is the same and the hibernate confug file can be found in {your-SEE-project-root}/src/test/resources/hibernate.cfg.xml
 
 
-###2.2 Reading a gold standard###
+### 2.2 Reading a gold standard###
 
-###2.3 Starting a test run###
+### 2.3 Starting a test run###
 
-####2.3.1 The test run pipeline####
+#### 2.3.1 The test run pipeline####
 
-####2.3.2 Starting individual tasks of the pipeline####
-
-### Executing and using the unit tests###
-
+#### 2.3.2 Starting individual tasks of the pipeline ####
 
 It is also possible to execute individual tasks of the pipeline described in 2.2.1(??).
+
+## 3. Executing and using the unit tests ##
+
+
 
 
 
