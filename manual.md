@@ -126,7 +126,7 @@ Please repeat this for the test database for the unit and integration tests. The
 
 The command _testrunn_ will start a complete test run, going through all steps of the test ru  pipeline:
 
-![Alt Test Run Pipeline](resources/test_run_pipeline.jpg)
+![Alt Test Run Pipeline](images/test_run_pipeline.jpg)
 
 The complete command may look like this:  
 testrun -type metamap -tester xxx@xxx.com -input {path-to-text-files} -outEx {destination-for-result-files-of-extractor} -outTrec {destination-for-TREC-result-files} -params [a=b,c=d,e=f]
