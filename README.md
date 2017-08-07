@@ -143,7 +143,7 @@ The parameters' meaning in detail:
 
 The command _testrun_ will start a complete test run, going through all steps of the test run pipeline:  
   
-![Alt Test Run Pipeline](images/test_run_pipeline.jpg)
+![Alt Test Run Pipeline](images/test_run_pipeline.jpg "Test Run Pipeline")
 
 #### 2.3.2 Starting the test run ####
 
