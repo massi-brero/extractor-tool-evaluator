@@ -123,7 +123,8 @@ Please repeat this for the test database for the unit and integration tests. The
 ### 2.2 Reading a gold standard ###
 
 To read and persist the concepts from a goldstandard, you will have to use the _parsegold_ command. Then the following tasks will be executed consecutively  
-![Alt Test Run Pipeline](images/goldstandard_pipeline.jpg)
+  
+![Alt Test Run Pipeline](images/goldstandard_pipeline.jpg "Gold Standard Pipeline" "height:200px")
 
 The syntax to start the goldstandard process is:  
 _parsegold -type craft -input {path-to-folder}  -output {path-with-filename}_
@@ -141,6 +142,7 @@ The parameters' meaning in detail:
 #### 2.3.1 The test run pipeline ####
 
 The command _testrun_ will start a complete test run, going through all steps of the test run pipeline:  
+  
 ![Alt Test Run Pipeline](images/test_run_pipeline.jpg)
 
 #### 2.3.2 Starting the test run ####
