@@ -124,7 +124,7 @@ Please repeat this for the test database for the unit and integration tests. The
 
 To read and persist the concepts from a goldstandard, you will have to use the _parsegold_ command. Then the following tasks will be executed consecutively  
   
-<img src="images/goldstandard_pipeline.jpg" height="250px" >
+<img src="images/goldstandard_pipeline.jpg" height="335px">
 
 
 The syntax to start the goldstandard process is:  
