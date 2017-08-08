@@ -92,6 +92,8 @@ Extremely important: Add the following type definition to the most primitive des
 &lt;/typeSystemDescription&gt;
 </pre>
 
+##### Extractor 3: _MetaMap_ #####
+
 ## 2 Using the SEE ##
 
 ### 2.1 Basics ###
