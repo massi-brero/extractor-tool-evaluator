@@ -2,6 +2,11 @@ package de.mbrero.see.console.commands;
 
 import java.util.HashMap;
 
+/**
+ * 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class ConsoleCommand {
 	
 	private String command;

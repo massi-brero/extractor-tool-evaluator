@@ -96,6 +96,9 @@ Extremely important: Add the following type definition to the most primitive des
 
 ## 2 Using the SEE ##
 
+### 2.0 Basics ###
+
+#### 2.0.1 General notes ####
 The SEE can be used via command line. The following sctions explain the possible commands and the parameters needed.
 
 The parsed concepts from an extractor result file stored can be stored in two different ways:
@@ -105,6 +108,17 @@ The parsed concepts from an extractor result file stored can be stored in two di
 The gold standard can also be stores in the two ways mentioned above. But the annotations will be stored in the TREC qrel file format.
 
 There is no need to create a tables or the database structure. This will be done automatically by the hibernate persistance module.
+
+#### 2.0.1 Start the application ####
+
+To start the application:
+1. Build Maven main module
+2. cd into ~/{path-to-the-project}/extractor_benchmarker/frontend-console
+3. Execute mvn exec:java -Dexec.mainClass=\"de.mbrero.see.console.App\
+
+Then the prompt _$ses_ will appear. You can axit the application with _exit_.
+
+(Note: This way to start the app is prone to changes).
 
 ### 2.1 Set-up ###
 If the requirements mentioned in the [according chapter]() are met there is only one more thing to do: entering the credentials for the MySQL database in the hibernate configuration file {your-SEE-project-root}/src/main/resources/hibernate.cfg.xml:
@@ -125,6 +139,14 @@ Please repeat this for the test database for the unit and integration tests. The
 To read and persist the concepts from a goldstandard, you will have to use the _parsegold_ command. Then the following tasks will be executed consecutively  
 ![Alt Test Run Pipeline](images/goldstandard_pipeline.jpg)
 
+Details for the pipeline stages:
+1. Start Parsing:
+[...]
+2. Save annotations
+The annotations will be saved to the table _annotations_ [...].
+3. Create TREC file:
+[...]
+
 The syntax to start the goldstandard process is:  
 _parsegold -type craft -input {path-to-folder}  -output {path-with-filename}_
 
@@ -141,6 +163,7 @@ The parameters' meaning in detail:
 #### 2.3.1 The test run pipeline ####
 
 The command _testrun_ will start a complete test run, going through all steps of the test run pipeline:  
+
 ![Alt Test Run Pipeline](images/test_run_pipeline.jpg)
 
 #### 2.3.2 Starting the test run ####
