@@ -93,6 +93,9 @@ Extremely important: Add the following type definition to the most primitive des
 </pre>
 
 ##### Extractor 3: _MetaMap_ #####
+[...]
+
+* * *
 
 ## 2 Using the SEE ##
 
@@ -210,6 +213,8 @@ _-paramname1 value1 -paramname2_
 #### 2.4.3 Starting individual tasks of the pipeline ####
 
 It is also possible to execute individual tasks of the pipeline described in 2.2.1(??).
+
+* * *
 
 ## 3. Executing and using the unit tests ##
 [...]
