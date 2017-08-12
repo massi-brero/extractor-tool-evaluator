@@ -31,7 +31,7 @@ public class ExtractorFactory {
 			mmCtrl.setBasePath(path);
 			return mmCtrl;
 		default:
-			throw new IllegalArgumentException("That Extractor is not possible.");
+			throw new IllegalArgumentException("That extractor is not possible.");
 		}
 
 	}

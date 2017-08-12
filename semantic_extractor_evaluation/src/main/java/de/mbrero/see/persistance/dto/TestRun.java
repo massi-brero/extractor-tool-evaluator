@@ -60,6 +60,9 @@ public class TestRun {
     @Column(name = "system_info", columnDefinition="TEXT")
 	private String systemInformation = "";
     
+    @Column(name = "extractor")
+	private String extractor = "";
+    
 	public int getId() {
 		return id;
 	}
@@ -156,6 +159,14 @@ public class TestRun {
 
 	public void setDuration(long duration) {
 		this.duration = duration;
+	}
+
+	public String getExtractor() {
+		return extractor;
+	}
+
+	public void setExtractor(String extractor) {
+		this.extractor = extractor;
 	}
 	
 }

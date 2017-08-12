@@ -139,6 +139,8 @@ public abstract class AbstractExtractorController implements Extractor {
 		if (getProcessBuilder() == null) {
 			setProcessBuilder(new ProcessBuilder().redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT));
 		}
+		
+		System.out.println(cmd.toString());
 
 		process = getProcessBuilder().command(cmd).start();
 		writeOutput(OUTPUT_TYPE_STDOUT);

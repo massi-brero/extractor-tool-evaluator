@@ -76,6 +76,7 @@ public class TestrunCommand implements ICommand {
 		}
 
 		TestRunController ctrl = new TestRunController(inputPath, 
+													   type,
 													   outputPathExtractorResult, 
 													   outputPathTRECFile, 
 													   cmd.getParameters().get(TESTER_PARAMETER),
@@ -92,6 +93,7 @@ public class TestrunCommand implements ICommand {
 		 */
 		System.out.println(">>>Start extractor with given parameters...");
 		//TODO save duration
+		ctrl.runExtractor();
 		
 		/*
 		 * Save annotations to database
@@ -99,7 +101,7 @@ public class TestrunCommand implements ICommand {
 		System.out.println(">>>Save annotations to database...");
 		
 		/*
-		 * Save annotationsto TREC file
+		 * Save annotations to TREC file
 		 */
 		System.out.println(">>>Save annotationsto TREC file...");
 		

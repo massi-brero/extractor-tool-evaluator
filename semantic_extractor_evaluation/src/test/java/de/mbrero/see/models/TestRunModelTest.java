@@ -23,6 +23,7 @@ import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.TestRun;
 import de.mbrero.see.persistance.dto.types.TestRunResults;
+import types.Extractors;
 
 public class TestRunModelTest {
 	private Repository<TestRun> repo = null;
@@ -52,6 +53,7 @@ public class TestRunModelTest {
 	public void save() {
 		String testParam = "-param test";
 		String inPath = "foo/test.xml";
+		String type = Extractors.METAMAP.toString();
 		String outPathEx = "foo/testEx.xml";
 		String outPathTrec = "foo/testTr.xml";
 		TestRunResults result = TestRunResults.SUCCESS;
@@ -61,6 +63,7 @@ public class TestRunModelTest {
 		
 		TestRun run = new TestRun();
 		run.setInputPath(inPath);
+		run.setExtractor(type);
 		run.setOutputPathExtractorResult(outPathEx);
 		run.setOutputPathTRECFile(outPathTrec);
 		run.setDate(new Date());
@@ -77,6 +80,7 @@ public class TestRunModelTest {
 
 		assertEquals(1, items.size());
 		assertEquals(inPath, item.getInputPath());
+		assertEquals(type, item.getExtractor());
 		assertEquals(outPathEx, item.getOutputPathExtractorResult());
 		assertEquals(outPathTrec, item.getOutputPathTRECFile());
 		assertEquals(result, TestRunResults.valueOf(item.getResult()));	
