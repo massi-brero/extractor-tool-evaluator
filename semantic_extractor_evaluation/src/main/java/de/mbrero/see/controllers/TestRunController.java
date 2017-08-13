@@ -67,7 +67,6 @@ public class TestRunController {
 		run.setTester(tester);
 		run.setSystemInformation(model.getSystemInformation().toString());
 
-		model.save(run);
 	}
 
 	public void saveAnnotationsToDatabase() {
@@ -82,14 +81,21 @@ public class TestRunController {
 		run.setResult(result.toString());
 	}
 
-	public void setDuration(TestRunResults result) {
-		// run.setDuration(result);
+	public void setDuration(long duration) {
+		run.setDuration(duration);
 	}
 
 	public void runExtractor() throws IllegalArgumentException, IOException, InterruptedException, ExtractorExecutionException {
 
 		Extractor extractorCtrl = ExtractorFactory.getExtractor(type, null, input, outputExtractorResult, params);
-		extractorCtrl.start();
+		int result = extractorCtrl.start();
+		
+		if (result == 0) {
+			setDuration(extractorCtrl.getExecutionTime().getSeconds());
+			model.save(run);
+		} else {
+			throw new ExtractorExecutionException("There was an error while executiong the extraction process.");
+		}
 
 	}
 

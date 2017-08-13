@@ -19,6 +19,6 @@ public interface Extractor {
 	Duration getExecutionTime();
 	void setInputFile(File inputFile);
 	void setOutputFile(File outputFile);
-	void start() throws IOException, InterruptedException, ExtractorExecutionException;
+	int start() throws IOException, InterruptedException, ExtractorExecutionException;
 	
 }

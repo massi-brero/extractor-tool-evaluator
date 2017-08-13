@@ -54,13 +54,13 @@ public class MetaMapBasicExtractorTest {
 
 	@Test
 	public void testStartExtractor() throws Exception {
-		mmCtrl.start(false);
+		mmCtrl.start();
 		assertTrue(outputFileTxt.exists());
 	}
 
 	@Test
 	public void testgetExecutionTime() throws IOException, InterruptedException, ExtractorExecutionException {
-		mmCtrl.start(false);
+		mmCtrl.start();
 		Duration duration = mmCtrl.getExecutionTime();
 
 		assertTrue(duration.getSeconds() > 0);
@@ -148,7 +148,7 @@ public class MetaMapBasicExtractorTest {
 				null, inputFile, outputFileXml, params);
 
 		mCtrlXml.setParams(params);
-		mCtrlXml.start(false);
+		mCtrlXml.start();
 		BufferedReader br = new BufferedReader(new FileReader(outputFileXml));
 		String text = new String(Files.readAllBytes(Paths.get(outputFileXml.getAbsolutePath())),
 				StandardCharsets.UTF_8);
@@ -163,7 +163,8 @@ public class MetaMapBasicExtractorTest {
 			throws IOException, InterruptedException, ExtractorExecutionException {
 
 		mmCtrl.setProcessBuilder(new ProcessBuilder());
-		mmCtrl.start(true);
+		mmCtrl.setWithDisambiguiation(true);
+		mmCtrl.start();
 		String output = mmCtrl.getProcessOutput();
 		System.out.println();
 			
@@ -179,7 +180,7 @@ public class MetaMapBasicExtractorTest {
 
 		mCtrlXml.setProcessBuilder(new ProcessBuilder());
 		mCtrlXml.setParams(params);
-		mCtrlXml.start(false);
+		mCtrlXml.start();
 		
 		String output = mCtrlXml.getProcessErrors();
 			

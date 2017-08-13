@@ -21,46 +21,41 @@ public class MetaMapController extends AbstractExtractorController {
 	private final String START_EXTRACTION_CMD = "/bin/metamap";
 	private final String TAGGER_CMD = "/bin/skrmedpostctl";
 	private final String DISMBIGUATION_SERVER_CMD = "/bin/wsdserverctl";
+	private boolean withDisambiguiation = false;
 
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
 		super(inputFile, outputFile, params);
 	}
 
+
 	/**
 	 * Starts all the server for an annotation run.
 	 * 
-	 * @param params
-	 *            HashMap<String, String> for the console run.
-	 * @param startDisambiguation
-	 *            This argument starts disambiguation server. This is optional.
+	 * It can be set if the disambiguation server has to be started first.
+	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
 	 * @throws ExtractorExecutionException 
 	 * 
 	 * @override
 	 */
-	public void start(Boolean startDisambiguation) throws IOException, InterruptedException, ExtractorExecutionException {
-
-		if (startDisambiguation)
-			startDisambiguationServer();
-
+	public int start() throws IOException, InterruptedException, ExtractorExecutionException {	
 		Instant start = Instant.now();
-		start();
+		
+		if (isWithDisambiguiation())
+			startDisambiguationServer();
+		startTagger();
+		int result = runLinuxExec(buildStartCommand());
+		stopTagger();
+		
 		Instant end = Instant.now();
 		setExecutionTime(Duration.between(start, end));
 
 		
-		if (startDisambiguation)
+		if (isWithDisambiguiation())
 			stopDisambiguationServer();
-	}
-
-	/**
-	 * 
-	 */
-	public void start() throws IOException, InterruptedException, ExtractorExecutionException {		
-		startTagger();
-		runLinuxExec(buildStartCommand());
-		stopTagger();
+		
+		return result;
 	}
 
 	/**
@@ -106,6 +101,14 @@ public class MetaMapController extends AbstractExtractorController {
 		command.add("stop");
 		runLinuxExec(command);
 
+	}
+
+	public boolean isWithDisambiguiation() {
+		return withDisambiguiation;
+	}
+
+	public void setWithDisambiguiation(boolean withDisambiguiation) {
+		this.withDisambiguiation = withDisambiguiation;
 	}
 
 }
