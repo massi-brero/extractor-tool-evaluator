@@ -13,8 +13,7 @@ import types.Extractors;
  * Triggers the execution of a semantic extractor. The Type supported can be
  * found in {@link Extractors}.<br>
  * A valid call from the console may look like this<br>
- * testrun -type metamap -tester massi@gmail.com -input /home/massi/projects/result_files/txt_test -outTrec /home/massi/projects/result_files/TREC/mm_test
- * -outEx /home/massi/projects/result_files/extractor_results/mm/res1.xml -params [a=b,c=d,e=f]
+ * testrun -type metamap -tester massi@gmail.com -input /home/massi/projects/result_files/txt_test/* -outTrec /home/massi/projects/result_files/TREC/mm_test -outEx /home/massi/projects/result_files/extractor_results/mm/res1.xml -params [--XMLf]
  * 
  * The "tester" parameter is mandatory for reproduction reasons. Input folder or
  * file and output file<br>
@@ -113,14 +112,16 @@ public class TestrunCommand implements ICommand {
 	@Override
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
 
+		String normalizedInputPathAsString = cmd.getParameters().get(INPUT_PATH_PARAMETER).replace("*", "");
 		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
+		
 		outputPathExtractorResult = new File(cmd.getParameters().get(OUTPUT_PATH_EXTRACTOR_PARAMETER));
 		outputPathTRECFile = new File(cmd.getParameters().get(OUTPUT_PATH_TREC_PARAMETER));
 
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid extractor type");
 
-		if (!inputPath.exists()) {
+		if (!(new File(normalizedInputPathAsString)).exists()) {
 			throw new FileNotFoundException("Path for input files does not exist");
 		}
 		
