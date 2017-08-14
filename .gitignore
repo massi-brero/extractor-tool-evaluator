@@ -30,5 +30,3 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
-
-src/main/resources/mapping/MRCONSO.RRF
