@@ -1,5 +1,6 @@
 package de.mbrero.see.parser;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.naming.ConfigurationException;
@@ -35,6 +36,9 @@ public class CRAFTParser extends AbstractParser {
 	//private final String PREFERRED_TEXT_TAG = "preferredText";
 	//private final String MATCHED_CHUNK_TAG = "mentionClass";
 	
+	/**
+	 * Initializes the parser. Defines where the concept Ids or the name of the vocabulary can be found.
+	 */
 	public CRAFTParser() {
 		setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
 		setConceptIdentifierNode("code");
@@ -65,6 +69,7 @@ public class CRAFTParser extends AbstractParser {
 		String ontology = extractOntology(conceptId);
 		annotation.setOntology(ontology);
 		annotation.setConceptId(conceptId);
+		annotation.setCui(ParserHelper.getCuiForOntologyId(conceptId, ontology));
 		annotation.setPreferredText(elem.getAttribute(""));
 		annotation.setDocumentID(getAnnotatedFileName());
 		//annotation.setMatchedChunk(matchedChunk);
@@ -89,5 +94,7 @@ public class CRAFTParser extends AbstractParser {
 		
 		return ontology;
 	}
+
+
 	
 }

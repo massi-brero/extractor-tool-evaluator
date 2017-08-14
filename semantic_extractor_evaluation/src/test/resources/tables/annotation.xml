@@ -12,9 +12,10 @@
 		<property name="extractor" />
 		<property name="documentID" />
 		<property name="conceptId" />
+		<property name="ontology" />
+		<property name="cui" />
 		<property name="matchedChunk" />
 		<property name="preferredText" />
-		<property name="ontology" />
 		<property name="testRunId" />
 	</class>
 </hibernate-mapping>

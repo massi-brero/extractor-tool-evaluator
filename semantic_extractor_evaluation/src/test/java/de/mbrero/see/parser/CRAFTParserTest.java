@@ -60,8 +60,9 @@ public class CRAFTParserTest {
 		Annotation annotation = annotations.get("10088");
 		
 		assertEquals(8, annotations.size());
-		assertEquals("error matching cui", "10088", annotation.getConceptId());
+		assertEquals("error matching concept id", "10088", annotation.getConceptId());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation.getOntology());
+		assertEquals("error matching umls cui", 100, annotation.getOntology());
 		assertEquals("error matching preferred text", "", annotation.getPreferredText());
 		assertEquals("error matching file", "11532192.txt", annotation.getDocumentID());
 		assertEquals("error matching extractor", ParserType.CRAFT.toString(), annotation.getExtractor());
@@ -70,6 +71,15 @@ public class CRAFTParserTest {
 		Annotation annotation2 = annotations.get("960666");
 		assertEquals("error matching count annotation2", 1, annotation2.getCount());
 		
+	}
+	
+	@Test
+	public void test_4_concepMapping() {
+		File mappingSource = new File(getClass().getClassLoader().getResource("mapping/MRCONSO.RRF").getFile());
+		String id = "10088";
+		String ontology = "NCBI";
+		
+		assertEquals("error mapping umls cui to source vocabulary id", "100", ParserHelper.getCuiForOntologyId(id, ontology));
 	}
 
 	

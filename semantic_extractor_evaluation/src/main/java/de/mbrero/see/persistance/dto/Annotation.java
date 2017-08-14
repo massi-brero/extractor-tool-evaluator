@@ -38,15 +38,18 @@ public class Annotation {
 	
     @Column(name="concept_id")
 	private String conceptId ="";
+    
+    @Column(name="ontology")
+	private String ontology = "";
+    
+    @Column(name="cui")
+	private String cui = "";
 	
     @Column(name="matched_chunk")
 	private String matchedChunk = "";
     
     @Column(name="preferred_text")
 	private String preferredText = "";
-	
-    @Column(name="ontology")
-	private String ontology = "";
 	
     @Column(name="test_run_id")
 	private int testRunId = 0;
@@ -152,6 +155,14 @@ public class Annotation {
 	public void setOntology(String ontology) {
 		this.ontology = ontology;
 	}
+	public String getCui() {
+		return cui;
+	}
+
+	public void setCui(String cui) {
+		this.cui = cui;
+	}
+
 	/**
 	 * @return the testRunId
 	 */
