@@ -25,7 +25,7 @@ public class TestEndToEndGoldStandard {
 
 	@Before
 	public void setUp() throws Exception {
-		trecFile = new File(getClass().getClassLoader().getResource("output").getFile() + "qrel_test");
+		trecFile = new File(getClass().getClassLoader().getResource("output").getFile() + "/qrel_test");
 	}
 
 	@After
@@ -50,7 +50,11 @@ public class TestEndToEndGoldStandard {
 
 	}
 	
+	/*
+	 * Please copy the MRCONSOLE.rff to the resources folder for this test
+	 */
 	@Test
+	//@Ignore
 	public void endToEndTestTRECFileANDatabaseRowsWritten() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
@@ -62,7 +66,7 @@ public class TestEndToEndGoldStandard {
 		MainController ctrl = new MainController();	
 
 		ctrl.executeCommand(cmd);
-		assertTrue(trecFile.exists());
+		assertTrue(trecFile.isFile());
 	}
 	
 	@Test
