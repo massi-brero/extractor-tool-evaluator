@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.mbrero.see.console.commands.ConsoleCommand;
@@ -29,11 +30,11 @@ public class TestEndToEndGoldStandard {
 
 	@After
 	public void tearDown() throws Exception {
-		trecFile.delete();
+		//trecFile.delete();
 	}
 
 	@Test
-	public void endToEntTestTRECWritingWithoutErrors() {
+	public void endToEndTestTRECWritingWithoutErrors() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
 		params.put("input", getClass().getClassLoader().getResource("input/ncbi/test1.txt").getFile());
@@ -50,7 +51,7 @@ public class TestEndToEndGoldStandard {
 	}
 	
 	@Test
-	public void endToEntTestTRECFileANDatabaseRowsWritten() {
+	public void endToEndTestTRECFileANDatabaseRowsWritten() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
 		params.put("input", getClass().getClassLoader().getResource("input/ncbi/craft-test.xmi").getFile());
@@ -65,7 +66,7 @@ public class TestEndToEndGoldStandard {
 	}
 	
 	@Test
-	public void endToEntTestTRECFileThrowsErrorBecauseOfWronOntologyNameOfFolder() {
+	public void endToEndTestTRECFileThrowsErrorBecauseOfWronOntologyNameOfFolder() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
 		params.put("input", getClass().getClassLoader().getResource("input/abcd/craft-test.xmi").getFile());

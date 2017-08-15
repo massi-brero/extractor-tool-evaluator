@@ -15,8 +15,8 @@ import java.util.stream.Stream;
  *
  */
 public final class ParserHelper {
-	private static File umlsMappingSource = null;
-	private final static int POS_CUI = 0;
+	private File umlsMappingSource = null;
+	private final int POS_CUI = 0;
 	
 	/**
 	 * Returns a UMLS ID (CUI) that maps the given id from the source <br>
@@ -30,7 +30,7 @@ public final class ParserHelper {
 	 * @throws IOException 
 	 */
 	@SuppressWarnings("resource")
-	public static String getCuiForOntologyId(String vid, String ontology) throws IOException {
+	public String getCuiForOntologyId(String vid, String ontology) throws IOException {
 		String id = "";
 		
 		if (!vid.isEmpty() && !ontology.isEmpty()) {
@@ -53,16 +53,16 @@ public final class ParserHelper {
 		
 	}
 	
-	public static File getUmlsMappingSource() {
+	public File getUmlsMappingSource() {
 		
 		if(umlsMappingSource == null) {
-			return new File((new Object()).getClass().getClassLoader().getResource("mapping/MRCONSO.RRF").getFile());			
+			return new File(getClass().getClassLoader().getResource("mapping/MRCONSO.RRF").getFile());			
 		} 
 		
 		return umlsMappingSource;
 	}
 
-	public static void setUmlsMappingSource(File mappingSource) {
+	public void setUmlsMappingSource(File mappingSource) {
 		umlsMappingSource = mappingSource;
 	}
 

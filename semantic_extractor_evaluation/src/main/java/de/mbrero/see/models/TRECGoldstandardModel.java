@@ -14,13 +14,15 @@ import de.mbrero.see.persistance.dto.Annotation;
 
 /**
  * Saves annotation to a database table defined by the annotate bean.
+ * The CRAFT gold standard uses the UMLS CUI as concept identifier.
+ * 
  * @author massi.brero@gmail.com
  *
  */
 public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 	
 	File resultFile = null;
-	private String trecLine = "%s 0 %s 1".concat(System.getProperty("line.separator"));
+	private String trecLine = "%s 0 CUI%s 1".concat(System.getProperty("line.separator"));
 
 	public TRECGoldstandardModel() {
 	}
@@ -37,7 +39,7 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 			
 			for (int idx = 0; idx < annotation.getCount(); idx++) {
 				String line = String.format(trecLine, 
-						annotation.getDocumentID(), annotation.getOntology() + "_" + annotation.getConceptId() + "_" + idx);
+						annotation.getDocumentID(), annotation.getConceptId() + "_" + idx);
 
 				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
 			}

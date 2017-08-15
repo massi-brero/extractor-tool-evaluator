@@ -33,6 +33,7 @@ public class CRAFTParser extends AbstractParser {
 	
 	private final String DOCUMENT_ID_TAG = "annotations";
 	private final String DOCUMENT_ID_NODE = "textSource";
+	private ParserHelper helper = new ParserHelper();
 	//private final String PREFERRED_TEXT_TAG = "preferredText";
 	//private final String MATCHED_CHUNK_TAG = "mentionClass";
 	
@@ -69,7 +70,7 @@ public class CRAFTParser extends AbstractParser {
 		String ontology = extractOntology(conceptId);
 		annotation.setOntology(ontology);
 		annotation.setConceptId(conceptId);
-		annotation.setCui(ParserHelper.getCuiForOntologyId(conceptId, ontology));
+		annotation.setCui(helper.getCuiForOntologyId(conceptId, ontology));
 		annotation.setPreferredText(elem.getAttribute(""));
 		annotation.setDocumentID(getAnnotatedFileName());
 		//annotation.setMatchedChunk(matchedChunk);
