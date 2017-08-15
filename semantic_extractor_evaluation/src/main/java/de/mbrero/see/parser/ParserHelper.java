@@ -1,6 +1,11 @@
 package de.mbrero.see.parser;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Contains some delegate methods that are useful for<br>
@@ -11,31 +16,46 @@ import java.io.File;
  */
 public final class ParserHelper {
 	private static File umlsMappingSource = null;
+	private final static int POS_CUI = 0;
 	
 	/**
 	 * Returns a UMLS ID (CUI) that maps the given id from the source <br>
-	 * ontology. Of courseit will only return a value if the given ontology is
+	 * ontology. Of course it will only return a value if the given ontology is
 	 * part of the metathesaurus.
 	 * 
 	 * Since the cardinality of UMLS id and vocabulary id is 1:n the result will<br>
 	 * be unambiguous.
 	 * 
 	 * @return String
+	 * @throws IOException 
 	 */
-	public static String getCuiForOntologyId(String vid, String ontology) {
+	@SuppressWarnings("resource")
+	public static String getCuiForOntologyId(String vid, String ontology) throws IOException {
 		String id = "";
 		
 		if (!vid.isEmpty() && !ontology.isEmpty()) {
+			Stream<String> stream = Files.lines(Paths.get(getUmlsMappingSource().getAbsolutePath()));
 			
+			String result = stream
+				    .filter(line -> line.contains(ontology) && line.contains(vid))
+				    .findFirst()
+				    .orElse("");
+	    	stream.close();
+	    	 
+	    	if(!result.isEmpty())
+	    	{
+	    		id = result.substring(1, result.indexOf("|"));	    		
+	    	}
+	    	
 		}
-		
+
 		return id;
 		
 	}
 	
 	public static File getUmlsMappingSource() {
 		
-		if(getUmlsMappingSource() == null) {
+		if(umlsMappingSource == null) {
 			return new File((new Object()).getClass().getClassLoader().getResource("mapping/MRCONSO.RRF").getFile());			
 		} 
 		

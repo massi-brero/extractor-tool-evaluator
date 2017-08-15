@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.junit.Before;
@@ -26,10 +27,7 @@ import types.ParserType;
 public class CRAFTParserTest {
 	private CRAFTParser parser = null;
 	private File workingFile = null;
-	private File multipleAnnotationsFile = null;
-	private File folder = null;
-	private File nestedFolder = null;
-	private File nestedFolderWithDuplicates = null;
+
 
 	@Before
 	public void setUp()
@@ -74,12 +72,15 @@ public class CRAFTParserTest {
 	}
 	
 	@Test
-	public void test_4_concepMapping() {
-		File mappingSource = new File(getClass().getClassLoader().getResource("mapping/MRCONSO.RRF").getFile());
+	public void test_4_concepMapping() throws IOException {
+		File mappingSource = new File(getClass().getClassLoader().getResource("mapping/mapping.rrf").getFile());
 		String id = "10088";
 		String ontology = "NCBI";
 		
-		assertEquals("error mapping umls cui to source vocabulary id", "100", ParserHelper.getCuiForOntologyId(id, ontology));
+		ParserHelper.setUmlsMappingSource(mappingSource);
+		
+		assertEquals("error mapping umls cui to source vocabulary id", "100", 
+				ParserHelper.getCuiForOntologyId(id, ontology));
 	}
 
 	
