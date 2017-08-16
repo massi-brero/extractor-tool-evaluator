@@ -12,7 +12,6 @@ import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -61,7 +60,7 @@ public class CRAFTParserTest {
 		Annotation annotation = annotations.get("10088");
 		
 		assertEquals(8, annotations.size());
-		assertEquals("error matching concept id", "10088", annotation.getConceptId());
+		assertEquals("error matching concept id", "10088", annotation.getSourceConceptId());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation.getOntology());
 		assertEquals("error matching preferred text", "", annotation.getPreferredText());
 		assertEquals("error matching file", "11532192.txt", annotation.getDocumentID());
@@ -84,9 +83,9 @@ public class CRAFTParserTest {
 		Annotation annotation = annotations.get("10088");
 		
 		assertEquals(8, annotations.size());
-		assertEquals("error matching concept id", "10088", annotation.getConceptId());
+		assertEquals("error matching concept id", "10088", annotation.getSourceConceptId());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation.getOntology());
-		assertEquals("error matching umls cui", "0026809", annotation.getCui());
+		assertEquals("error matching umls cui", "C0026809", annotation.getCui());
 		assertEquals("error matching preferred text", "", annotation.getPreferredText());
 		assertEquals("error matching file", "11532192.txt", annotation.getDocumentID());
 		assertEquals("error matching extractor", ParserType.CRAFT.toString(), annotation.getExtractor());
@@ -105,7 +104,7 @@ public class CRAFTParserTest {
 		
 		helper.setUmlsMappingSource(mappingSource);
 		
-		assertEquals("error mapping umls cui to source vocabulary id", "100", 
+		assertEquals("error mapping umls cui to source vocabulary id", "C100", 
 				helper.getCuiForOntologyId(id, ontology));
 	}
 

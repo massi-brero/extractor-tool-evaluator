@@ -26,13 +26,20 @@ import types.OutputType;
  */
 public abstract class AbstractParser implements AnnotationParser {
 
-	/**
+	/*
 	 * Tag name in the cTakes result xml where the umls concepts are displayed.
+	 * This class presumes the sxtractor result is in a well formed XML file.
 	 */
 	protected String umlsInformationTag = "";
 	
-	/**
-	 * The tag where the id of the concept is stored
+	/*
+	 * The tag where the id of the concept is stored.
+	 * Some extractors only deliver the UMLS id (CUI) of a concept.
+	 * Then this will be stored with {@link Annotation#setCui(String)}. Otherwise <br>
+	 * the source vocabulary id will be stored in {@link Annotation#setConceptId(String)}. Anyway
+	 * the ontology will and should for extending classes always be retrieved and stored.
+	 * 
+	 * With this attribute you define where the parser has to look for the id.
 	 */
 	protected String conceptIdentifierNode = "";
 	
@@ -81,6 +88,10 @@ public abstract class AbstractParser implements AnnotationParser {
 	/**
 	 * Runs through the result xml file to find the tags containing the UMLS
 	 * concept information.
+	 * 
+	 * If the path is pointing to a directory, all files in this folder will be<br>
+	 * parsed automatically
+	 * 
 	 * @throws Exception 
 	 */
 	@Override
@@ -149,7 +160,7 @@ public abstract class AbstractParser implements AnnotationParser {
 		return nList;
 	}
 
-	protected abstract Annotation buildAnnotation(Element elem, String cui) 
+	protected abstract Annotation buildAnnotation(Element elem, String id) 
 			throws ParserConfigurationException, SAXException, IOException, Exception;
 
 	protected abstract String getAnnotatedFileName() 
@@ -179,7 +190,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	/**
 	 * @return the umlsInformationTagreturn
 	 */
-	public String getUmlsInformationTag() {
+	public String getIdsInformationTag() {
 		return umlsInformationTag;
 	}
 	
@@ -187,7 +198,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * @param umlsInformationTag
 	 *            the umlsInformationTag to set
 	 */
-	public void setUmlsInformationTag(String umlsInformationTag) {
+	public void setIdInformationTag(String umlsInformationTag) {
 		this.umlsInformationTag = umlsInformationTag;
 	}
 

@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import de.mbrero.see.persistance.DBConnection;
-import types.OutputType;
 
 /**
  * 
@@ -17,6 +16,7 @@ import types.OutputType;
 
 public class Repository<T> implements IRepository<T> {
 
+	private static int counter = 0;
 	/*
 	 * Get the Connection to the database
 	 */
@@ -156,7 +156,15 @@ public class Repository<T> implements IRepository<T> {
 	}
 	
 	private void outputProgress() {
-		System.out.print(".");
+
+		if (Repository.counter <= 40) {
+			System.out.print(".");
+			Repository.counter++;
+		} else {
+			System.out.println(".");
+			Repository.counter = 0;
+		}
+		
 	}
 
 	

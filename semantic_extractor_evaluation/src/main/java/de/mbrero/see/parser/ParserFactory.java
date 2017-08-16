@@ -19,13 +19,13 @@ public class ParserFactory {
 	/*
 	 * cTakes parameters
 	 */
-	private final static String CTAKES_UMLS_INFORMATION_TAG = "org.apache.ctakes.typesystem.type.refsem.UmlsConcept";
-	private final static String CTAKES_CONCEPT_NODE = "code";
+	private final static String CTAKES_ID_INFORMATION_TAG = "org.apache.ctakes.typesystem.type.refsem.UmlsConcept";
+	private final static String CTAKES_CONCEPT_NODE = "cui";
 	
 	/*
 	 * CRAFT parameters
 	 */
-	private final static String CRAFT_UMLS_INFORMATION_TAG = "integerSlotMentionValue";
+	private final static String CRAFT_ID_INFORMATION_TAG = "integerSlotMentionValue";
 	private final static String CRAFT_CONCEPT_NODE = "value";
 
 
@@ -68,7 +68,7 @@ public class ParserFactory {
 	private static CTakesParser setUpCTakesParser() {
 		CTakesParser parser = new CTakesParser();
 		parser.setExtractorName(parserType.toString());
-		parser.setUmlsInformationTag(CTAKES_UMLS_INFORMATION_TAG);
+		parser.setIdInformationTag(CTAKES_ID_INFORMATION_TAG);
 		parser.setConceptIdentifierNode(CTAKES_CONCEPT_NODE);
 		
 		return parser;
@@ -77,7 +77,7 @@ public class ParserFactory {
 	private static CRAFTParser setUpCRAFTParser() {
 		CRAFTParser parser = new CRAFTParser();
 		parser.setExtractorName(parserType.name());
-		parser.setUmlsInformationTag(CRAFT_UMLS_INFORMATION_TAG);
+		parser.setIdInformationTag(CRAFT_ID_INFORMATION_TAG);
 		parser.setConceptIdentifierNode(CRAFT_CONCEPT_NODE);
 		
 		return parser;

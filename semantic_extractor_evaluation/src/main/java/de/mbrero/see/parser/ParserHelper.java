@@ -29,7 +29,6 @@ public final class ParserHelper {
 	 * @return String
 	 * @throws IOException 
 	 */
-	@SuppressWarnings("resource")
 	public String getCuiForOntologyId(String vid, String ontology) throws IOException {
 		String id = "";
 		
@@ -37,14 +36,14 @@ public final class ParserHelper {
 			Stream<String> stream = Files.lines(Paths.get(getUmlsMappingSource().getAbsolutePath()));
 			
 			String result = stream
-				    .filter(line -> line.contains(ontology) && line.contains(vid))
-				    .findFirst()
-				    .orElse("");
+						    .filter(line -> line.contains(ontology) && line.contains(vid))
+						    .findFirst()
+						    .orElse("");
 	    	stream.close();
 	    	 
 	    	if(!result.isEmpty())
 	    	{
-	    		id = result.substring(1, result.indexOf("|"));	    		
+	    		id = result.substring(0, result.indexOf("|"));	    		
 	    	}
 	    	
 		}

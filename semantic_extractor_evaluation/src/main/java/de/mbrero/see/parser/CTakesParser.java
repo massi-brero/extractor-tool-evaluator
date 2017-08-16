@@ -43,7 +43,7 @@ public class CTakesParser extends AbstractParser {
 
 		String ontology = elem.getAttribute(ONTOLOGY_NODE).toUpperCase();
 		annotation.setOntology(ontology);
-		annotation.setConceptId(conceptId);
+		annotation.setCui(conceptId);
 		annotation.setPreferredText(""); //not used at the moment
 		annotation.setDocumentID(getAnnotatedFileName());
 		annotation.setExtractor(extractorName);

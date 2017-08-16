@@ -41,7 +41,7 @@ public class CRAFTParser extends AbstractParser {
 	 * Initializes the parser. Defines where the concept Ids or the name of the vocabulary can be found.
 	 */
 	public CRAFTParser() {
-		setUmlsInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
+		setIdInformationTag("org.apache.ctakes.typesystem.type.refsem.UmlsConcept");
 		setConceptIdentifierNode("code");
 	}
 	
@@ -69,7 +69,7 @@ public class CRAFTParser extends AbstractParser {
 
 		String ontology = extractOntology(conceptId);
 		annotation.setOntology(ontology);
-		annotation.setConceptId(conceptId);
+		annotation.setSourceConceptId(conceptId);
 		annotation.setCui(helper.getCuiForOntologyId(conceptId, ontology));
 		annotation.setPreferredText(elem.getAttribute(""));
 		annotation.setDocumentID(getAnnotatedFileName());

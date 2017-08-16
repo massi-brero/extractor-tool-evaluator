@@ -140,8 +140,6 @@ public abstract class AbstractExtractorController implements Extractor {
 			setProcessBuilder(new ProcessBuilder().redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT));
 		}
 		
-		System.out.println(cmd.toString());
-
 		process = getProcessBuilder().command(cmd).start();
 		writeOutput(OUTPUT_TYPE_STDOUT);
 		writeOutput(OUTPUT_TYPE_STDERR);
@@ -161,10 +159,10 @@ public abstract class AbstractExtractorController implements Extractor {
 		StringBuilder output = new StringBuilder();
 
 		Thread ioThread = new Thread() {
+			BufferedReader reader = null;
 			@Override
 			public void run() {
 				try {
-					BufferedReader reader = null;
 					if (type == OUTPUT_TYPE_STDOUT)
 						reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 					else if (type == OUTPUT_TYPE_STDERR) {
@@ -182,10 +180,16 @@ public abstract class AbstractExtractorController implements Extractor {
 								processOutput.append(line);
 						}
 					}
-					reader.close();
-
+					
 				} catch (final Exception e) {
 					e.printStackTrace();
+				} finally {
+					//TODO: avoid this nested error handling
+					try {
+						reader.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		};

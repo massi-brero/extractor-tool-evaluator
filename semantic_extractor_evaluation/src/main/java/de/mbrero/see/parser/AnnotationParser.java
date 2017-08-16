@@ -2,11 +2,6 @@ package de.mbrero.see.parser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 import types.OutputType;
 

@@ -7,8 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import types.Ontology;
-
 /**
  * Table representation for annotation entity.
  * This class is meant as a bean to store detailed information about a concept found in a given 
@@ -36,8 +34,8 @@ public class Annotation {
     @Column(name="document_id")
 	private String documentID = null;
 	
-    @Column(name="concept_id")
-	private String conceptId ="";
+    @Column(name="source_concept_id")
+	private String sourceConceptId ="";
     
     @Column(name="ontology")
 	private String ontology = "";
@@ -110,14 +108,14 @@ public class Annotation {
 	/**
 	 * @return the conceptId
 	 */
-	public String getConceptId() {
-		return conceptId;
+	public String getSourceConceptId() {
+		return sourceConceptId;
 	}
 	/**
 	 * @param cuconceptId the conceptId to set
 	 */
-	public void setConceptId(String conceptId) {
-		this.conceptId = conceptId;
+	public void setSourceConceptId(String id) {
+		this.sourceConceptId = id;
 	}
 	/**
 	 * @return the matchedChunk
