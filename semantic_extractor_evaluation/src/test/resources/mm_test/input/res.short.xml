@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MMOs>
+ <MMO>
+  <CmdLine>
+   <Command>metamap16.BINARY.Linux --lexicon db -Z 2016AA --XMLf -R NCBI</Command>
+   <Options Count="6">
+    <Option>
+     <OptName>lexicon</OptName>
+     <OptValue>db</OptValue>
+    </Option>
+    <Option>
+     <OptName>mm_data_year</OptName>
+     <OptValue>2016AA</OptValue>
+    </Option>
+    <Option>
+     <OptName>XMLf</OptName>
+    </Option>
+    <Option>
+     <OptName>restrict_to_sources</OptName>
+     <OptValue>NCBI</OptValue>
+    </Option>
+    <Option>
+     <OptName>infile</OptName>
+     <OptValue>user_input</OptValue>
+    </Option>
+    <Option>
+     <OptName>outfile</OptName>
+     <OptValue>user_output</OptValue>
+    </Option>
+   </Options>
+  </CmdLine>
+  <AAs Count="0" />
+  <Negations Count="0" />
+  <Utterances Count="1">
+   <Utterance>
+    <PMID>00000000</PMID>
+    <UttSection>tx</UttSection>
+    <UttNum>1</UttNum>
+    <UttText>mouse</UttText>
+    <UttStartPos>0</UttStartPos>
+    <UttLength>5</UttLength>
+    <Phrases Count="1">
+     <Phrase>
+      <PhraseText>mouse</PhraseText>
+      <SyntaxUnits Count="1">
+       <SyntaxUnit>
+        <SyntaxType>head</SyntaxType>
+        <LexMatch>mouse</LexMatch>
+        <InputMatch>mouse</InputMatch>
+        <LexCat>noun</LexCat>
+        <Tokens Count="1">
+         <Token>mouse</Token>
+        </Tokens>
+       </SyntaxUnit>
+      </SyntaxUnits>
+      <PhraseStartPos>0</PhraseStartPos>
+      <PhraseLength>5</PhraseLength>
+      <Candidates Total="2" Excluded="0" Pruned="0" Remaining="2" />
+      <Mappings Count="2">
+       <Mapping>
+        <MappingScore>-1000</MappingScore>
+        <MappingCandidates Total="1">
+         <Candidate>
+          <CandidateScore>-1000</CandidateScore>
+          <CandidateCUI>C0025914</CandidateCUI>
+          <CandidateMatched>mouse</CandidateMatched>
+          <CandidatePreferred>House mice</CandidatePreferred>
+          <MatchedWords Count="1">
+           <MatchedWord>mouse</MatchedWord>
+          </MatchedWords>
+          <SemTypes Count="1">
+           <SemType>mamm</SemType>
+          </SemTypes>
+          <MatchMaps Count="1">
+           <MatchMap>
+            <TextMatchStart>1</TextMatchStart>
+            <TextMatchEnd>1</TextMatchEnd>
+            <ConcMatchStart>1</ConcMatchStart>
+            <ConcMatchEnd>1</ConcMatchEnd>
+            <LexVariation>0</LexVariation>
+           </MatchMap>
+          </MatchMaps>
+          <IsHead>yes</IsHead>
+          <IsOverMatch>no</IsOverMatch>
+          <Sources Count="1">
+           <Source>NCBI</Source>
+          </Sources>
+          <ConceptPIs Count="1">
+           <ConceptPI>
+            <StartPos>0</StartPos>
+            <Length>5</Length>
+           </ConceptPI>
+          </ConceptPIs>
+          <Status>0</Status>
+          <Negated>0</Negated>
+         </Candidate>
+        </MappingCandidates>
+       </Mapping>
+       <Mapping>
+        <MappingScore>-1000</MappingScore>
+        <MappingCandidates Total="1">
+         <Candidate>
+          <CandidateScore>-1000</CandidateScore>
+          <CandidateCUI>C0026809</CandidateCUI>
+          <CandidateMatched>Mus</CandidateMatched>
+          <CandidatePreferred>Mus</CandidatePreferred>
+          <MatchedWords Count="1">
+           <MatchedWord>mouse</MatchedWord>
+          </MatchedWords>
+          <SemTypes Count="1">
+           <SemType>mamm</SemType>
+          </SemTypes>
+          <MatchMaps Count="1">
+           <MatchMap>
+            <TextMatchStart>1</TextMatchStart>
+            <TextMatchEnd>1</TextMatchEnd>
+            <ConcMatchStart>1</ConcMatchStart>
+            <ConcMatchEnd>1</ConcMatchEnd>
+            <LexVariation>0</LexVariation>
+           </MatchMap>
+          </MatchMaps>
+          <IsHead>yes</IsHead>
+          <IsOverMatch>no</IsOverMatch>
+          <Sources Count="1">
+           <Source>NCBI</Source>
+          </Sources>
+          <ConceptPIs Count="1">
+           <ConceptPI>
+            <StartPos>0</StartPos>
+            <Length>5</Length>
+           </ConceptPI>
+          </ConceptPIs>
+          <Status>0</Status>
+          <Negated>0</Negated>
+         </Candidate>
+        </MappingCandidates>
+       </Mapping>
+      </Mappings>
+     </Phrase>
+    </Phrases>
+   </Utterance>
+  </Utterances>
+ </MMO>
+</MMOs>

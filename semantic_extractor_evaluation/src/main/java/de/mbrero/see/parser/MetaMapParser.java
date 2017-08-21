@@ -15,11 +15,12 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class MetaMapParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "org.apache.ctakes.typesystem.type.structured.DocumentID";
 	private final String DOCUMENT_ID_NODE = "documentID";
-	private final String ONTOLOGY_NODE = "codingScheme";
+	private final String ONTOLOGY_NODE = "Sources";
 	private final String SCORE_TAG = "CandidateScore";
+	private final String CANDIDATE_MATCHED = "CandidateMatched";
 	// private final String PREFERRED_TEXT_TAG = "preferredText";
 
-	private int scoreThreshHold = -1000;
+	private int scoreThreshHold = 1000;
 
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
@@ -36,23 +37,27 @@ public class MetaMapParser extends AbstractParser {
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
 
-			Node conceptNode = nList.item(idx);
+			Element conceptElement = (Element)nList.item(idx);
 
-			if (conceptNode.getNodeType() == Node.ELEMENT_NODE) {
+			if (conceptElement.getNodeType() == Node.ELEMENT_NODE) {
 
-				Element elem = (Element) conceptNode;
+				Element elem = (Element) conceptElement;
 
 				if (getConceptIdentifierNode().isEmpty())
 					throw new ParserConfigurationException("No tag where the concept id can be found was set");
 
-				String conceptIdNode = elem.getAttribute(getConceptIdentifierNode());
+				String conceptId = elem.getElementsByTagName(getConceptIdentifierNode()).item(0).getTextContent();
+				String score = elem.getElementsByTagName(SCORE_TAG).item(0).getTextContent();
 
-				annotation = buildAnnotation(elem, conceptIdNode);
+				if (Math.abs(Integer.parseInt(score)) > getScoreThreshHold())
+				{
+					annotation = buildAnnotation(elem, conceptId);
 
-				if (fileAnnotations.get(conceptIdNode) == null) {
-					fileAnnotations.put(conceptIdNode, annotation);
-				} else {
-					fileAnnotations.get(conceptIdNode).incrementCounter();
+					if (fileAnnotations.get(conceptId) == null) {
+						fileAnnotations.put(conceptId, annotation);
+					} else {
+						fileAnnotations.get(conceptId).incrementCounter();
+					}
 				}
 			}
 		}
@@ -64,14 +69,15 @@ public class MetaMapParser extends AbstractParser {
 	protected Annotation buildAnnotation(Element elem, String conceptId)
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
-
-		String ontology = elem.getAttribute(ONTOLOGY_NODE).toUpperCase();
-		annotation.setOntology(ontology);
+		
+		NodeList ontologies = elem.getElementsByTagName(ONTOLOGY_NODE);
+		String candidateMatched = elem.getElementsByTagName(CANDIDATE_MATCHED).item(0).getTextContent();
+		annotation.setOntology(ontologies.toString());
 		annotation.setCui(conceptId);
 		annotation.setPreferredText(""); // not used at the moment
 		annotation.setDocumentID(getAnnotatedFileName());
 		annotation.setExtractor(extractorName);
-		annotation.setMatchedChunk(elem.getTextContent());
+		annotation.setMatchedChunk(candidateMatched);
 		annotation.setCount(1);
 
 		return annotation;

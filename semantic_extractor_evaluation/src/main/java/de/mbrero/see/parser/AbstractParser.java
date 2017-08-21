@@ -133,14 +133,14 @@ public abstract class AbstractParser implements AnnotationParser {
 				if (getConceptIdentifierNode().isEmpty())
 					throw new ParserConfigurationException("No tag where the concept id can be found was set");
 				
-				String conceptIdNode = elem.getAttribute(getConceptIdentifierNode());
+				String conceptId = elem.getAttribute(getConceptIdentifierNode());
 								
-				annotation = buildAnnotation(elem, conceptIdNode);
+				annotation = buildAnnotation(elem, conceptId);
 
-				if (fileAnnotations.get(conceptIdNode) == null) {
-					fileAnnotations.put(conceptIdNode, annotation);
+				if (fileAnnotations.get(conceptId) == null) {
+					fileAnnotations.put(conceptId, annotation);
 				} else {
-					fileAnnotations.get(conceptIdNode).incrementCounter();
+					fileAnnotations.get(conceptId).incrementCounter();
 				}
 			}
 		}
