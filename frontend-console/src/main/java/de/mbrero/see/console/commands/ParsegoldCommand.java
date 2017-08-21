@@ -10,7 +10,7 @@ import types.GoldStandardType;
  * Triggers the parsing of a gold standard {@link GoldStandardType} so it can be
  * used for the extractor evaluation as reference resource.
  * 
- * parsegold -type craft -input /home/massi/projects/result_files/goldstandard/ncbi  -output /home/massi/projects/result_files/TREC/craft/qrel
+ * parsegold -type craft -input /home/massi/projects/result_files/goldstandard/ncbi -output /home/massi/projects/result_files/TREC/craft/qrel
  * 
  * @author massi.brero@gmail.com
  *

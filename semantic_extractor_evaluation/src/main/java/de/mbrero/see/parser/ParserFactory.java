@@ -23,6 +23,12 @@ public class ParserFactory {
 	private final static String CTAKES_CONCEPT_NODE = "cui";
 	
 	/*
+	 * MetaMap parameters
+	 */
+	private final static String METAMAP_ID_INFORMATION_TAG = "Candidate";
+	private final static String METAMAP_CONCEPT_NODE = "CandidateCUI";
+	
+	/*
 	 * CRAFT parameters
 	 */
 	private final static String CRAFT_ID_INFORMATION_TAG = "integerSlotMentionValue";
@@ -52,6 +58,7 @@ public class ParserFactory {
 		case QUICKUMLS:
 			break;
 		case METAMAP:
+			setUpMetaMapParser();
 			break;
 		case CRAFT:
 			parser = setUpCRAFTParser();
@@ -79,6 +86,15 @@ public class ParserFactory {
 		parser.setExtractorName(parserType.name());
 		parser.setIdInformationTag(CRAFT_ID_INFORMATION_TAG);
 		parser.setConceptIdentifierNode(CRAFT_CONCEPT_NODE);
+		
+		return parser;
+	}
+	
+	private static MetaMapParser setUpMetaMapParser() {
+		MetaMapParser parser = new MetaMapParser();
+		parser.setExtractorName(parserType.name());
+		parser.setIdInformationTag(METAMAP_ID_INFORMATION_TAG);
+		parser.setConceptIdentifierNode(METAMAP_CONCEPT_NODE);
 		
 		return parser;
 	}

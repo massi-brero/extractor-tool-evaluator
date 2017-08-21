@@ -27,10 +27,10 @@ import types.OutputType;
 public abstract class AbstractParser implements AnnotationParser {
 
 	/*
-	 * Tag name in the cTakes result xml where the umls concepts are displayed.
-	 * This class presumes the sxtractor result is in a well formed XML file.
+	 * Tag name in the result xml where the umls concepts are displayed.
+	 * This class presumes the extractor result is in a well formed XML file.
 	 */
-	protected String umlsInformationTag = "";
+	protected String conceptInformationTag = "";
 	
 	/*
 	 * The tag where the id of the concept is stored.
@@ -118,7 +118,7 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	protected HashMap<String, Annotation> parseFile() throws Exception {
 
-		NodeList nList = getNodeList(umlsInformationTag);
+		NodeList nList = getNodeList(conceptInformationTag);
 		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
 
 		for (int idx = 0; idx < nList.getLength(); idx++) {
@@ -191,7 +191,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * @return the umlsInformationTagreturn
 	 */
 	public String getIdsInformationTag() {
-		return umlsInformationTag;
+		return conceptInformationTag;
 	}
 	
 	/**
@@ -199,7 +199,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	 *            the umlsInformationTag to set
 	 */
 	public void setIdInformationTag(String umlsInformationTag) {
-		this.umlsInformationTag = umlsInformationTag;
+		this.conceptInformationTag = umlsInformationTag;
 	}
 
 	/**
