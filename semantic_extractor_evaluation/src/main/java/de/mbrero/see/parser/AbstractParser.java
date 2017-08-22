@@ -26,6 +26,11 @@ import types.OutputType;
  */
 public abstract class AbstractParser implements AnnotationParser {
 
+	/**
+	 * The document to be parsed.
+	 */
+	private Document document = null;
+	
 	/*
 	 * Tag name in the result xml where the umls concepts are displayed.
 	 * This class presumes the extractor result is in a well formed XML file.
@@ -150,12 +155,15 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
 
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		dBuilder.reset();
-		Document doc = dBuilder.parse(getInputFile());
-		doc.getDocumentElement().normalize();
-		NodeList nList = doc.getElementsByTagName(tagName);
+		if (document == null) {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			dBuilder.reset();
+			document = dBuilder.parse(getInputFile());
+			document.getDocumentElement().normalize();
+		}
+		
+		NodeList nList = document.getElementsByTagName(tagName);
 				
 		return nList;
 	}

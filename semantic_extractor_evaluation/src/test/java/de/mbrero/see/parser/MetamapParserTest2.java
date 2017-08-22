@@ -75,7 +75,7 @@ public class MetamapParserTest2 {
 		assertEquals("error matching cui", "C0025914", annotation1.getCui());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation1.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation1.getExtractor());
-		assertEquals("error matching count", 2, annotation1.getCount());
+		assertEquals("error matching count", 1, annotation1.getCount());
 		assertEquals("error matching file", "11532192.txt", annotation1.getDocumentID());
 		
 		Annotation annotation2 = annotations.get("C0026809");
@@ -97,7 +97,7 @@ public class MetamapParserTest2 {
 		
 		Annotation annotation1 = annotations.get("C0025914");
 		
-		assertEquals(3, annotations.size());
+		assertEquals(2, annotations.size());
 		assertEquals("error matching cui", "C0025914", annotation1.getCui());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation1.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation1.getExtractor());

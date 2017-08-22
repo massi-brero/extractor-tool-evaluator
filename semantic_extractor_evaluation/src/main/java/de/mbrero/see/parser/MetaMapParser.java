@@ -3,8 +3,11 @@ package de.mbrero.see.parser;
 import java.io.IOException;
 import java.util.HashMap;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -23,6 +26,17 @@ public class MetaMapParser extends AbstractParser {
 	// private final String PREFERRED_TEXT_TAG = "preferredText";
 
 	private int scoreThreshHold = 1000;
+	private NodeList nodeList = null;
+	
+	/**
+	 * Return the lower limit from which on the candidates in the MetaMap output
+	 * xml file<br /> shall be considered.
+	 * 
+	 * @return int
+	 */
+	public int getScoreThreshHold() {
+		return scoreThreshHold;
+	}
 
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
@@ -107,25 +121,10 @@ public class MetaMapParser extends AbstractParser {
 
 		return annotation;
 	}
-
-	/**
-	 * Return the lower limit from which on the candidates in the MetaMap output
-	 * xml file<br /> shall be considered.
-	 * 
-	 * @return int
-	 */
-	public int getScoreThreshHold() {
-		return scoreThreshHold;
-	}
-
-	/**
-	 * Return the lower limit from which on the candidates in the MetaMap output
-	 * xml file<br />shall be considered.
-	 * 
-	 * @param scoreThreshHold int
-	 */
-	public void setScoreThreshHold(int scoreThreshHold) {
-		this.scoreThreshHold = scoreThreshHold;
+	
+	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
+				
+		return super.getNodeList(tagName);
 	}
 
 }
