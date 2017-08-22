@@ -30,29 +30,30 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * The document to be parsed.
 	 */
 	protected Document document = null;
-	
+
 	/*
-	 * Tag name in the result xml where the umls concepts are displayed.
-	 * This class presumes the extractor result is in a well formed XML file.
+	 * Tag name in the result xml where the umls concepts are displayed. This
+	 * class presumes the extractor result is in a well formed XML file.
 	 */
 	protected String conceptInformationTag = "";
-	
+
 	/*
-	 * The tag where the id of the concept is stored.
-	 * Some extractors only deliver the UMLS id (CUI) of a concept.
-	 * Then this will be stored with {@link Annotation#setCui(String)}. Otherwise <br>
-	 * the source vocabulary id will be stored in {@link Annotation#setConceptId(String)}. Anyway
-	 * the ontology will and should for extending classes always be retrieved and stored.
+	 * The tag where the id of the concept is stored. Some extractors only
+	 * deliver the UMLS id (CUI) of a concept. Then this will be stored with
+	 * {@link Annotation#setCui(String)}. Otherwise <br> the source vocabulary
+	 * id will be stored in {@link Annotation#setConceptId(String)}. Anyway the
+	 * ontology will and should for extending classes always be retrieved and
+	 * stored.
 	 * 
 	 * With this attribute you define where the parser has to look for the id.
 	 */
 	protected String conceptIdentifierNode = "";
-	
+
 	/**
 	 * The result xml from the cTakes run.
 	 */
 	protected File sourceFile;
-	
+
 	/**
 	 * All annotations for every parsed result file. Structure
 	 * {@link Annotation}:
@@ -68,7 +69,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * <li>...</li>
 	 */
 	protected HashMap<String, HashMap<String, Annotation>> annotations;
-	
+
 	/*
 	 * File for the parsed concepts.
 	 */
@@ -94,10 +95,11 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * Runs through the result xml file to find the tags containing the UMLS
 	 * concept information.
 	 * 
-	 * If the path is pointing to a directory, all files in this folder will be<br>
+	 * If the path is pointing to a directory, all files in this folder will
+	 * be<br>
 	 * parsed automatically
 	 * 
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@Override
 	public void parse(File source) throws Exception {
@@ -134,12 +136,12 @@ public abstract class AbstractParser implements AnnotationParser {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 
 				Element elem = (Element) node;
-				
+
 				if (getConceptIdentifierNode().isEmpty())
 					throw new ParserConfigurationException("No tag where the concept id can be found was set");
-				
+
 				String conceptId = elem.getAttribute(getConceptIdentifierNode());
-								
+
 				annotation = buildAnnotation(elem, conceptId);
 
 				if (fileAnnotations.get(conceptId) == null) {
@@ -155,24 +157,21 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
 
-		if (document == null) {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			dBuilder.reset();
-			document = dBuilder.parse(getInputFile());
-			document.getDocumentElement().normalize();
-		}
-		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		dBuilder.reset();
+		document = dBuilder.parse(getInputFile());
+		document.getDocumentElement().normalize();
+
 		NodeList nList = document.getElementsByTagName(tagName);
-				
+
 		return nList;
 	}
 
-	protected abstract Annotation buildAnnotation(Element elem, String id) 
+	protected abstract Annotation buildAnnotation(Element elem, String id)
 			throws ParserConfigurationException, SAXException, IOException, Exception;
 
-	protected abstract String getAnnotatedFileName() 
-			throws ParserConfigurationException, SAXException, IOException;
+	protected abstract String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException;
 
 	/**
 	 * 
@@ -188,7 +187,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	public String getExtractorName() {
 		return extractorName;
 	}
-	
+
 	@Override
 	public void setOutputType(OutputType type) {
 		// TODO Auto-generated method stub
@@ -201,7 +200,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	public String getIdsInformationTag() {
 		return conceptInformationTag;
 	}
-	
+
 	/**
 	 * @param umlsInformationTag
 	 *            the umlsInformationTag to set
@@ -263,7 +262,8 @@ public abstract class AbstractParser implements AnnotationParser {
 	}
 
 	/**
-	 * @param conceptIdTag the conceptIdTag to set
+	 * @param conceptIdTag
+	 *            the conceptIdTag to set
 	 */
 	public void setConceptIdentifierNode(String node) {
 		this.conceptIdentifierNode = node;

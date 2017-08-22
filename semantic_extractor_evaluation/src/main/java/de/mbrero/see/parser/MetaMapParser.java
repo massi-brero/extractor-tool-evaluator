@@ -30,10 +30,11 @@ public class MetaMapParser extends AbstractParser {
 
 	private int scoreThreshHold = 1000;
 	private NodeList nodeList = null;
-	
+
 	/**
 	 * Return the lower limit from which on the candidates in the MetaMap output
-	 * xml file<br /> shall be considered.
+	 * xml file<br />
+	 * shall be considered.
 	 * 
 	 * @return int
 	 */
@@ -45,18 +46,18 @@ public class MetaMapParser extends AbstractParser {
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
 
 		String filename = "";
-		
+
 		NodeList nList = getNodeList(OPTION_TAG);
-		
+
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Element elem = (Element) nList.item(idx);
-			
+
 			String optname = elem.getElementsByTagName(OPTION_NAME_TAG).item(0).getTextContent();
-			
+
 			if (optname.equals(OPTION_NAME_INPUT_FILE)) {
 				String path = elem.getElementsByTagName(OPTION_VALUE_TAG).item(0).getTextContent();
 				String[] pathComponents = path.split("/");
-				filename = pathComponents[pathComponents.length-1];
+				filename = pathComponents[pathComponents.length - 1];
 			}
 		}
 
@@ -72,7 +73,7 @@ public class MetaMapParser extends AbstractParser {
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
 
-			Element conceptElement = (Element)nList.item(idx);
+			Element conceptElement = (Element) nList.item(idx);
 
 			if (conceptElement.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -84,8 +85,7 @@ public class MetaMapParser extends AbstractParser {
 				String conceptId = elem.getElementsByTagName(getConceptIdentifierNode()).item(0).getTextContent();
 				String score = elem.getElementsByTagName(SCORE_TAG).item(0).getTextContent();
 
-				if (Math.abs(Integer.parseInt(score)) >= getScoreThreshHold())
-				{
+				if (Math.abs(Integer.parseInt(score)) >= getScoreThreshHold()) {
 					annotation = buildAnnotation(elem, conceptId);
 
 					if (fileAnnotations.get(conceptId) == null) {
@@ -104,15 +104,15 @@ public class MetaMapParser extends AbstractParser {
 	protected Annotation buildAnnotation(Element elem, String conceptId)
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
-		
+
 		NodeList ontologies = elem.getElementsByTagName(ONTOLOGY_NODE);
 		StringBuffer ontology = new StringBuffer();
-		
+
 		for (int idx = 0; idx < ontologies.getLength(); idx++) {
 			Element ontologyElem = (Element) ontologies.item(idx);
 			ontology.append(ontologyElem.getTextContent() + " ");
 		}
-		
+
 		String candidateMatched = elem.getElementsByTagName(CANDIDATE_MATCHED).item(0).getTextContent();
 		annotation.setOntology(ontology.toString().trim());
 		annotation.setCui(conceptId);
@@ -124,26 +124,23 @@ public class MetaMapParser extends AbstractParser {
 
 		return annotation;
 	}
-	
+
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
-		
-		if (document == null) {
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			dBuilder.reset();
-			dBuilder.setEntityResolver(new EntityResolver()
-	        {
-	            public InputSource resolveEntity(String publicId, String systemId)
-	                throws SAXException, IOException
-	            {
-	                return new InputSource(new StringReader(""));
-	            }
-	        });
-			document = dBuilder.parse(getInputFile());
-			document.getDocumentElement().normalize();
-		}
-		
-		return super.getNodeList(tagName);
+
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		dBuilder.reset();
+		dBuilder.setEntityResolver(new EntityResolver() {
+			public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+				return new InputSource(new StringReader(""));
+			}
+		});
+		document = dBuilder.parse(getInputFile());
+		document.getDocumentElement().normalize();
+
+		NodeList nList = document.getElementsByTagName(tagName);
+
+		return nList;
 	}
 
 }
