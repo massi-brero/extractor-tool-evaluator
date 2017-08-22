@@ -29,7 +29,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	/**
 	 * The document to be parsed.
 	 */
-	private Document document = null;
+	protected Document document = null;
 	
 	/*
 	 * Tag name in the result xml where the umls concepts are displayed.

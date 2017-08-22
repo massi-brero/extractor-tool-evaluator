@@ -1,6 +1,7 @@
 package de.mbrero.see.parser;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -11,6 +12,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
@@ -123,7 +126,23 @@ public class MetaMapParser extends AbstractParser {
 	}
 	
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
-				
+		
+		if (document == null) {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			dBuilder.reset();
+			dBuilder.setEntityResolver(new EntityResolver()
+	        {
+	            public InputSource resolveEntity(String publicId, String systemId)
+	                throws SAXException, IOException
+	            {
+	                return new InputSource(new StringReader(""));
+	            }
+	        });
+			document = dBuilder.parse(getInputFile());
+			document.getDocumentElement().normalize();
+		}
+		
 		return super.getNodeList(tagName);
 	}
 
