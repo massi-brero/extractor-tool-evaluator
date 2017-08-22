@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MMOs PUBLIC "-//NLM//DTD MetaMap Machine Output//EN" "http://metamap.nlm.nih.gov/DTD/MMOtoXML_v5.dtd">
 <MMOs>
  <MMO>
   <CmdLine>
@@ -56,8 +55,8 @@
       </SyntaxUnits>
       <PhraseStartPos>0</PhraseStartPos>
       <PhraseLength>5</PhraseLength>
-      <Candidates Total="3" Excluded="0" Pruned="0" Remaining="2" />
-      <Mappings Count="2">
+      <Candidates Total="2" Excluded="0" Pruned="0" Remaining="2" />
+            <Mappings Count="2">
        <Mapping>
         <MappingScore>-1000</MappingScore>
         <MappingCandidates Total="1">
@@ -97,7 +96,10 @@
          </Candidate>
         </MappingCandidates>
        </Mapping>
-              <MappingScore>-1000</MappingScore>
+      </Mappings>
+      <Mappings Count="2">
+       <Mapping>
+        <MappingScore>-1000</MappingScore>
         <MappingCandidates Total="1">
          <Candidate>
           <CandidateScore>-1000</CandidateScore>

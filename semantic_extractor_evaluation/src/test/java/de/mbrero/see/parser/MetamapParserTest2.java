@@ -33,6 +33,7 @@ import types.ParserType;
 public class MetamapParserTest2 {
 	private MetaMapParser parser = null;
 	private File workingFile = null;
+	private File multipleFile = null;
 
 	@Before
 	public void setUp()
@@ -45,6 +46,7 @@ public class MetamapParserTest2 {
 		
 		//set up working files
 		workingFile = new File(getClass().getClassLoader().getResource("mm_test/input/res.short.xml").getFile());
+		multipleFile = new File(getClass().getClassLoader().getResource("mm_test/input/res.multiple.xml").getFile());
 			
 	}
 	
@@ -73,13 +75,11 @@ public class MetamapParserTest2 {
 		assertEquals("error matching cui", "C0025914", annotation1.getCui());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation1.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation1.getExtractor());
-		assertEquals("error matching count", 1, annotation1.getCount());
+		assertEquals("error matching count", 2, annotation1.getCount());
 		assertEquals("error matching file", "11532192.txt", annotation1.getDocumentID());
 		
 		Annotation annotation2 = annotations.get("C0026809");
 
-		
-		assertEquals(2, annotations.size());
 		assertEquals("error matching cui", "C0026809", annotation2.getCui());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation2.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation2.getExtractor());
@@ -91,28 +91,26 @@ public class MetamapParserTest2 {
 	@Test
 	public void test_3_parseMUltipleConceptXMLResult() throws Exception {
 		
-		parser.parse(workingFile);
+		parser.parse(multipleFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
-		HashMap<String, Annotation> annotations = allAnnotations.get("test-input.txt");
+		HashMap<String, Annotation> annotations = allAnnotations.get("11532192.txt");
 		
 		Annotation annotation1 = annotations.get("C0025914");
 		
-		assertEquals(2, annotations.size());
+		assertEquals(3, annotations.size());
 		assertEquals("error matching cui", "C0025914", annotation1.getCui());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation1.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation1.getExtractor());
 		assertEquals("error matching count", 2, annotation1.getCount());
-		assertEquals("error matching file", "test-input.txt", annotation1.getDocumentID());
+		assertEquals("error matching file", "11532192.txt", annotation1.getDocumentID());
 		
 		Annotation annotation2 = annotations.get("C0026809");
 
-		
-		assertEquals(2, annotations.size());
 		assertEquals("error matching cui", "C0026809", annotation2.getCui());
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation2.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation2.getExtractor());
 		assertEquals("error matching count", 1, annotation2.getCount());
-		assertEquals("error matching file", "test-input.txt", annotation2.getDocumentID());
+		assertEquals("error matching file", "11532192.txt", annotation2.getDocumentID());
 	}
 		
 	
