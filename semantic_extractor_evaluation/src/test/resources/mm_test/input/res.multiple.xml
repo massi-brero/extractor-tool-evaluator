@@ -22,7 +22,7 @@
     </Option>
     <Option>
      <OptName>infile</OptName>
-     <OptValue>user_input</OptValue>
+     <OptValue>/home/massi/projects/result_files/txt_test/11532192.txt</OptValue>
     </Option>
     <Option>
      <OptName>outfile</OptName>

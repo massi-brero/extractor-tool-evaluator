@@ -13,9 +13,11 @@ import org.xml.sax.SAXException;
 import de.mbrero.see.persistance.dto.Annotation;
 
 public class MetaMapParser extends AbstractParser {
-	private final String DOCUMENT_ID_TAG = "org.apache.ctakes.typesystem.type.structured.DocumentID";
-	private final String DOCUMENT_ID_NODE = "documentID";
-	private final String ONTOLOGY_NODE = "Sources";
+	private final String OPTION_TAG = "Option";
+	private final String OPTION_NAME_TAG = "OptName";
+	private final String OPTION_VALUE_TAG = "OptValue";
+	private final String OPTION_NAME_INPUT_FILE = "infile";
+	private final String ONTOLOGY_NODE = "Source";
 	private final String SCORE_TAG = "CandidateScore";
 	private final String CANDIDATE_MATCHED = "CandidateMatched";
 	// private final String PREFERRED_TEXT_TAG = "preferredText";
@@ -25,7 +27,23 @@ public class MetaMapParser extends AbstractParser {
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
 
-		return "implement.this";
+		String filename = "";
+		
+		NodeList nList = getNodeList(OPTION_TAG);
+		
+		for (int idx = 0; idx < nList.getLength(); idx++) {
+			Element elem = (Element) nList.item(idx);
+			
+			String optname = elem.getElementsByTagName(OPTION_NAME_TAG).item(0).getTextContent();
+			
+			if (optname.equals(OPTION_NAME_INPUT_FILE)) {
+				String path = elem.getElementsByTagName(OPTION_VALUE_TAG).item(0).getTextContent();
+				String[] pathComponents = path.split("/");
+				filename = pathComponents[pathComponents.length-1];
+			}
+		}
+
+		return filename;
 
 	}
 
@@ -49,7 +67,7 @@ public class MetaMapParser extends AbstractParser {
 				String conceptId = elem.getElementsByTagName(getConceptIdentifierNode()).item(0).getTextContent();
 				String score = elem.getElementsByTagName(SCORE_TAG).item(0).getTextContent();
 
-				if (Math.abs(Integer.parseInt(score)) > getScoreThreshHold())
+				if (Math.abs(Integer.parseInt(score)) >= getScoreThreshHold())
 				{
 					annotation = buildAnnotation(elem, conceptId);
 
@@ -71,8 +89,15 @@ public class MetaMapParser extends AbstractParser {
 		Annotation annotation = new Annotation();
 		
 		NodeList ontologies = elem.getElementsByTagName(ONTOLOGY_NODE);
+		StringBuffer ontology = new StringBuffer();
+		
+		for (int idx = 0; idx < ontologies.getLength(); idx++) {
+			Element ontologyElem = (Element) ontologies.item(idx);
+			ontology.append(ontologyElem.getTextContent() + " ");
+		}
+		
 		String candidateMatched = elem.getElementsByTagName(CANDIDATE_MATCHED).item(0).getTextContent();
-		annotation.setOntology(ontologies.toString());
+		annotation.setOntology(ontology.toString().trim());
 		annotation.setCui(conceptId);
 		annotation.setPreferredText(""); // not used at the moment
 		annotation.setDocumentID(getAnnotatedFileName());

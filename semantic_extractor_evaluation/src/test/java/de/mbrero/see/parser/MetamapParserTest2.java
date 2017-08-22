@@ -55,7 +55,7 @@ public class MetamapParserTest2 {
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
 		
 		assertEquals(1, allAnnotations.size());
-		assertNotNull(allAnnotations.get("mm-input.txt"));
+		assertNotNull(allAnnotations.get("11532192.txt"));
 	}
 		
 		
@@ -65,7 +65,7 @@ public class MetamapParserTest2 {
 		
 		parser.parse(workingFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
-		HashMap<String, Annotation> annotations = allAnnotations.get("test-input.txt");
+		HashMap<String, Annotation> annotations = allAnnotations.get("11532192.txt");
 		
 		Annotation annotation1 = annotations.get("C0025914");
 		
@@ -74,7 +74,7 @@ public class MetamapParserTest2 {
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation1.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation1.getExtractor());
 		assertEquals("error matching count", 1, annotation1.getCount());
-		assertEquals("error matching file", "test-input.txt", annotation1.getDocumentID());
+		assertEquals("error matching file", "11532192.txt", annotation1.getDocumentID());
 		
 		Annotation annotation2 = annotations.get("C0026809");
 
@@ -84,10 +84,11 @@ public class MetamapParserTest2 {
 		assertEquals("error matching ontology", Ontology.NCBI.name(), annotation2.getOntology());
 		assertEquals("error matching extractor", ParserType.METAMAP.toString(), annotation2.getExtractor());
 		assertEquals("error matching count", 1, annotation2.getCount());
-		assertEquals("error matching file", "test-input.txt", annotation2.getDocumentID());
+		assertEquals("error matching file", "11532192.txt", annotation2.getDocumentID());
 		
 	}
 	
+	@Test
 	public void test_3_parseMUltipleConceptXMLResult() throws Exception {
 		
 		parser.parse(workingFile);
