@@ -1,11 +1,15 @@
 package de.mbrero.see.controllers.extractors;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.stream.Stream;
 
 import de.mbrero.see.exceptions.ExtractorExecutionException;
 
@@ -21,10 +25,14 @@ public class MetaMapController extends AbstractExtractorController {
 	private final String START_EXTRACTION_CMD = "/bin/metamap";
 	private final String TAGGER_CMD = "/bin/skrmedpostctl";
 	private final String DISMBIGUATION_SERVER_CMD = "/bin/wsdserverctl";
+	private final String OUTPUT_SUFFIX = ".out";
 	private boolean withDisambiguiation = false;
 
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
-		super(inputFile, outputFile, params);
+		super(inputFile, outputFile, new HashMap<String, String>());
+		params.put(inputFile.getAbsolutePath(), "");
+		params.put(outputFile.getAbsolutePath(), "");
+		setParams(params);
 	}
 
 
@@ -45,7 +53,7 @@ public class MetaMapController extends AbstractExtractorController {
 		if (isWithDisambiguiation())
 			startDisambiguationServer();
 		startTagger();
-		int result = runLinuxExec(buildStartCommand());
+		int result = runExtractionProcess();
 		stopTagger();
 		
 		Instant end = Instant.now();
@@ -58,24 +66,82 @@ public class MetaMapController extends AbstractExtractorController {
 		return result;
 	}
 
+
+	private int runExtractionProcess() throws IOException, InterruptedException, ExtractorExecutionException {
+		int result = 0;
+		
+		if (getInputFile().isFile()) {
+
+			result = runLinuxExec(buildStartCommand(), true);
+
+		} else if (getInputFile().isDirectory()) {
+
+			File[] files = getInputFile().listFiles();
+
+			for (File file : files) {
+				setInputFile(file);
+				
+				if(getOutputFile().isDirectory()) {
+					File outputFile = new File(
+							getOutputFile().getAbsolutePath()
+							.concat(getInputFile().getName())
+							.concat(OUTPUT_SUFFIX)
+							);
+					setOutputFile(outputFile);
+				}
+				
+				result = runLinuxExec(buildStartCommand(), true);
+				
+				if (result != 0) break;
+			}
+
+		} else {
+			throw new FileNotFoundException("Could not parse given path!");
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * For Metamap the input and output paths must be placed at the end of the parameter list.
+	 */
+	public void setParams(HashMap<String, String> params) {
+
+		ArrayList<String> paramsAsArray = new ArrayList<>();
+
+		if (params != null) {
+			params.forEach((key, value) -> {
+				if (key != null && !key.isEmpty() && !key.contains("/"))
+					paramsAsArray.add(key);
+				
+				//the paths have to be filtered in order to put them after the other parameter calls
+				if (value != null && !value.isEmpty())
+					paramsAsArray.add(value);
+				
+			});			
+		}
+		
+		paramsAsArray.add(getInputFile().getAbsolutePath());
+		paramsAsArray.add(getOutputFile().getAbsolutePath());
+
+		this.params = paramsAsArray;
+	}
+
 	/**
 	 * @todo add params
 	 */
 	protected ArrayList<String> buildStartCommand() {
 		ArrayList<String> startCmd = new ArrayList<>();
 		startCmd.add(getBasePath() + START_EXTRACTION_CMD);
-		startCmd.add(getInputFile().getAbsolutePath());
-		startCmd.add(getOutputFile().getAbsolutePath());
 		
 		return startCmd;
-		
 	}
 
 	private void startDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + DISMBIGUATION_SERVER_CMD);
 		command.add("start");
-		runLinuxExec(command);
+		runLinuxExec(command, false);
 
 	}
 
@@ -83,7 +149,7 @@ public class MetaMapController extends AbstractExtractorController {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + DISMBIGUATION_SERVER_CMD);
 		command.add("stop");
-		runLinuxExec(command);
+		runLinuxExec(command, false);
 
 	}
 
@@ -91,7 +157,7 @@ public class MetaMapController extends AbstractExtractorController {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + TAGGER_CMD);
 		command.add("start");
-		runLinuxExec(command);
+		runLinuxExec(command, false);
 
 	}
 
@@ -99,7 +165,7 @@ public class MetaMapController extends AbstractExtractorController {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + TAGGER_CMD);
 		command.add("stop");
-		runLinuxExec(command);
+		runLinuxExec(command, false);
 
 	}
 

@@ -60,7 +60,7 @@ public class TestrunCommand implements ICommand {
 	 * <li>Saving the annotation in a TREC result file</li>
 	 * </ol> 
 	 * 
-	 * @params {@link ConsoleCommand} The command receiced from the command line including parameters.
+	 * @params {@link ConsoleCommand} The command received from the command line including parameters.
 	 */
 	public void execute(ConsoleCommand command) throws Exception {
 
@@ -130,10 +130,10 @@ public class TestrunCommand implements ICommand {
 				throw new FileNotFoundException("Please enter the email of the tester!");	
 		}
 
-		if (outputPathExtractorResult.isDirectory()) {
-			throw new FileNotFoundException("Please specify a file name in an existing "
-					+ "directory for the extractor result!");
-		}
+//		if (outputPathExtractorResult.isDirectory()) {
+//			throw new FileNotFoundException("Please specify a file name in an existing "
+//					+ "directory for the extractor result!");
+//		}
 		
 		if (outputPathTRECFile.isDirectory()) {
 			throw new FileNotFoundException("Please specify a file name in an existing "

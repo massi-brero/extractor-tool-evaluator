@@ -75,7 +75,7 @@ public class MetaMapBasicExtractorTest {
 		mmCtrl.setParams(params1);
 		ArrayList<String> result1 = mmCtrl.getParams();
 
-		assertEquals(4, result1.size());
+		assertEquals(6, result1.size());
 		assertEquals("-bar", result1.get(0));
 		assertEquals("1", result1.get(1));
 		assertEquals("-foo", result1.get(2));
@@ -92,7 +92,7 @@ public class MetaMapBasicExtractorTest {
 		mmCtrl.setParams(params1);
 		ArrayList<String> result1 = mmCtrl.getParams();
 
-		assertEquals(3, result1.size());
+		assertEquals(5, result1.size());
 		assertEquals("-bar", result1.get(0));
 		assertEquals("-foo", result1.get(1));
 		assertEquals("0", result1.get(2));
@@ -104,7 +104,7 @@ public class MetaMapBasicExtractorTest {
 		mmCtrl.setParams(params2);
 		ArrayList<String> result2 = mmCtrl.getParams();
 
-		assertEquals(3, result2.size());
+		assertEquals(5, result2.size());
 		assertEquals("-bar", result2.get(0));
 		assertEquals("-foo", result2.get(1));
 		assertEquals("0", result2.get(2));
@@ -121,7 +121,8 @@ public class MetaMapBasicExtractorTest {
 		mmCtrl.setParams(params1);
 		ArrayList<String> result1 = mmCtrl.getParams();
 
-		assertEquals(3, result1.size());
+		//should be 5 because it also contains input and output path
+		assertEquals(5, result1.size());
 		assertEquals("1", result1.get(0));
 		assertEquals("-foo", result1.get(1));
 		assertEquals("0", result1.get(2));
@@ -133,7 +134,7 @@ public class MetaMapBasicExtractorTest {
 		mmCtrl.setParams(params2);
 		ArrayList<String> result2 = mmCtrl.getParams();
 
-		assertEquals(3, result2.size());
+		assertEquals(5, result2.size());
 		assertEquals("1", result2.get(0));
 		assertEquals("-foo", result2.get(1));
 		assertEquals("0", result2.get(2));

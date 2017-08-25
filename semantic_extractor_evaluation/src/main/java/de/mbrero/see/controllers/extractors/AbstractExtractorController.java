@@ -42,11 +42,6 @@ public abstract class AbstractExtractorController implements Extractor {
 	 */
 	private File outputFile = null;
 	/**
-	 * Parameters the extractors allows when started from the command line.
-	 */
-	private ArrayList<String> params = null;
-
-	/**
 	 * The started process {@link Process}
 	 */
 	private Process process = null;
@@ -60,11 +55,14 @@ public abstract class AbstractExtractorController implements Extractor {
 	 * Process output as String
 	 */
 	private StringBuilder processOutput = new StringBuilder();
-
 	/*
 	 * Process error messages as String
 	 */
 	private StringBuilder processErrors = new StringBuilder();
+	/**
+	 * Parameters the extractors allows when started from the command line.
+	 */
+	protected ArrayList<String> params = null;
 
 	public AbstractExtractorController(File inputFile, File outputFile, HashMap<String, String> params) {
 		setInputFile(inputFile);
@@ -106,19 +104,21 @@ public abstract class AbstractExtractorController implements Extractor {
 
 		ArrayList<String> paramsAsArray = new ArrayList<>();
 
-		params.forEach((key, value) -> {
-			if (key != null && !key.isEmpty())
-				paramsAsArray.add(key);
-
-			if (value != null && !value.isEmpty())
-				paramsAsArray.add(value);
-		});
+		if (params != null) {
+			params.forEach((key, value) -> {
+				if (key != null && !key.isEmpty())
+					paramsAsArray.add(key);
+				
+				if (value != null && !value.isEmpty())
+					paramsAsArray.add(value);
+			});			
+		}
 
 		this.params = paramsAsArray;
 	}
 	
 	/**
-	 * 
+	 * Runs the command to start the extract on an Linux OS.
 	 * 
 	 * @param command
 	 *            {@link String} the Linux command to start the extraction
@@ -128,19 +128,19 @@ public abstract class AbstractExtractorController implements Extractor {
 	 * @throws InterruptedException
 	 * @throws ExtractorExecutionException
 	 */
-	protected int runLinuxExec(ArrayList<String> command)
+	protected int runLinuxExec(ArrayList<String> command, boolean addParams)
 			throws IOException, InterruptedException, ExtractorExecutionException {
 
-		ArrayList<String> completeCommand = Stream.of(command, getParams()).collect(ArrayList::new, List::addAll,
-				List::addAll);
-		String[] cmd = new String[completeCommand.size()];
-		completeCommand.toArray(cmd);
 
+		if (addParams) {
+			command.addAll(getParams());
+		}
+	
 		if (getProcessBuilder() == null) {
 			setProcessBuilder(new ProcessBuilder().redirectError(Redirect.INHERIT).redirectOutput(Redirect.INHERIT));
 		}
 		
-		process = getProcessBuilder().command(cmd).start();
+		process = getProcessBuilder().command(command).start();
 		writeOutput(OUTPUT_TYPE_STDOUT);
 		writeOutput(OUTPUT_TYPE_STDERR);
 

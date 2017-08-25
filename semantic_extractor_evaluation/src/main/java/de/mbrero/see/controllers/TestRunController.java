@@ -22,6 +22,7 @@ import types.Extractors;
  *
  */
 public class TestRunController {
+	
 	private TestRun run = new TestRun();
 	private TestRunModel model = new TestRunModel();
 	private File input = null;
@@ -35,7 +36,7 @@ public class TestRunController {
 	/**
 	 * 
 	 * @param input
-	 *            Path where the text for the extraction process are stored.
+	 *            Path where the texts for the extraction process are stored.
 	 * @param output
 	 *            Path Path and filename for the TREC result file of the
 	 *            annotation process.

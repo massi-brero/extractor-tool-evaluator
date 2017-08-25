@@ -14,6 +14,16 @@ public class ExtractorFactory {
 	private static File basePath = null;
 	private static HashMap<String, String> params = null;
 
+	/**
+	 * 
+	 * @param extractor
+	 * @param bPath
+	 * @param input
+	 * @param output
+	 * @param parameters
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public static Extractor getExtractor(Extractors extractor, File bPath, File input, File output,
 			HashMap<String, String> parameters) throws IllegalArgumentException {
 		basePath = bPath;
@@ -23,6 +33,12 @@ public class ExtractorFactory {
 		return buildExtractor(extractor);
 	}
 
+	/**
+	 * 
+	 * @param extractor
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	private static Extractor buildExtractor(Extractors extractor) throws IllegalArgumentException {
 		switch (extractor) {
 		case METAMAP:
