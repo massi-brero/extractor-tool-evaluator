@@ -58,7 +58,7 @@ public class ParserFactory {
 		case QUICKUMLS:
 			break;
 		case METAMAP:
-			setUpMetaMapParser();
+			parser = setUpMetaMapParser();
 			break;
 		case CRAFT:
 			parser = setUpCRAFTParser();

@@ -92,12 +92,13 @@ public class TestrunCommand implements ICommand {
 		 */
 		System.out.println(">>>Start extractor with given parameters...");
 		//TODO save duration
-		ctrl.runExtractor();
+		//ctrl.runExtractor();
 		
 		/*
 		 * Save annotations to database
 		 */
 		System.out.println(">>>Save annotations to database...");
+		ctrl.getAnnotationsFromExtractorResult();
 		
 		/*
 		 * Save annotations to TREC file

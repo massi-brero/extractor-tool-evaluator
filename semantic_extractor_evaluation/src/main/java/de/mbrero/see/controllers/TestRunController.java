@@ -9,10 +9,14 @@ import de.mbrero.see.controllers.extractors.Extractor;
 import de.mbrero.see.controllers.extractors.ExtractorFactory;
 import de.mbrero.see.exceptions.ExtractorExecutionException;
 import de.mbrero.see.models.TestRunModel;
+import de.mbrero.see.parser.CRAFTParser;
+import de.mbrero.see.parser.MetaMapParser;
+import de.mbrero.see.parser.ParserFactory;
 import de.mbrero.see.persistance.dto.Annotation;
 import de.mbrero.see.persistance.dto.TestRun;
 import de.mbrero.see.persistance.dto.types.TestRunResults;
 import types.Extractors;
+import types.ParserType;
 
 /**
  * This class initializes the test run for an extraction experiment. It stores
@@ -22,10 +26,10 @@ import types.Extractors;
  *
  */
 public class TestRunController {
-	
+
 	private TestRun run = new TestRun();
 	private TestRunModel model = new TestRunModel();
-	private File input = null;
+	private File inputPath = null;
 	private File outputExtractorResult = null;
 	private File outputTRECFile = null;
 	private String tester = "";
@@ -48,7 +52,7 @@ public class TestRunController {
 	 */
 	public TestRunController(File input, Extractors type, File outputExtractorResult, File outputTRECFile,
 			String tester, HashMap<String, String> params) {
-		this.input = input;
+		this.inputPath = input;
 		this.type = type;
 		this.outputExtractorResult = outputExtractorResult;
 		this.outputTRECFile = outputTRECFile;
@@ -58,7 +62,7 @@ public class TestRunController {
 
 	public void initializeTestRun() {
 
-		run.setInputPath(input.getAbsolutePath());
+		run.setInputPath(inputPath.getAbsolutePath());
 		run.setOutputPathExtractorResult(outputExtractorResult.getAbsolutePath());
 		run.setOutputPathTRECFile(outputTRECFile.getAbsolutePath());
 		run.setExtractor(type.toString());
@@ -70,7 +74,18 @@ public class TestRunController {
 
 	}
 
-	public void saveAnnotationsToDatabase() {
+	public void getAnnotationsFromExtractorResult() throws Exception {
+		switch (type) {
+			case METAMAP:
+				MetaMapParser mmParser = (MetaMapParser) ParserFactory.getInstance(ParserType.METAMAP);
+				mmParser.parse(outputExtractorResult);
+				annotations = mmParser.getAnnotations();
+			default:
+				throw new ExtractorExecutionException("This extractor is currently not supported.");
+		}
+	}
+
+	public void saveAnnotationsToDatabase() throws Exception {
 
 	}
 
@@ -86,11 +101,12 @@ public class TestRunController {
 		run.setDuration(duration);
 	}
 
-	public void runExtractor() throws IllegalArgumentException, IOException, InterruptedException, ExtractorExecutionException {
+	public void runExtractor()
+			throws IllegalArgumentException, IOException, InterruptedException, ExtractorExecutionException {
 
-		Extractor extractorCtrl = ExtractorFactory.getExtractor(type, null, input, outputExtractorResult, params);
+		Extractor extractorCtrl = ExtractorFactory.getExtractor(type, null, inputPath, outputExtractorResult, params);
 		int result = extractorCtrl.start();
-		
+
 		if (result == 0) {
 			setDuration(extractorCtrl.getExecutionTime().getSeconds());
 			model.save(run);

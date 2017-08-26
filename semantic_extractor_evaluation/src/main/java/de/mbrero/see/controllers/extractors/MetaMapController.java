@@ -26,13 +26,12 @@ public class MetaMapController extends AbstractExtractorController {
 	private final String TAGGER_CMD = "/bin/skrmedpostctl";
 	private final String DISMBIGUATION_SERVER_CMD = "/bin/wsdserverctl";
 	private final String OUTPUT_SUFFIX = ".out";
+	private final HashMap<String, String> PARAMS_FROM_USER_INPUT;
 	private boolean withDisambiguiation = false;
 
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
 		super(inputFile, outputFile, new HashMap<String, String>());
-		params.put(inputFile.getAbsolutePath(), "");
-		params.put(outputFile.getAbsolutePath(), "");
-		setParams(params);
+		PARAMS_FROM_USER_INPUT = params;
 	}
 
 
@@ -69,27 +68,30 @@ public class MetaMapController extends AbstractExtractorController {
 
 	private int runExtractionProcess() throws IOException, InterruptedException, ExtractorExecutionException {
 		int result = 0;
+		File inputPathFromUser = getInputFile();
+		File outputPathFromUser = getOutputFile();
 		
-		if (getInputFile().isFile()) {
-
+		if (inputPathFromUser.isFile()) {
+			adaptParamsForMetaMap();
 			result = runLinuxExec(buildStartCommand(), true);
 
-		} else if (getInputFile().isDirectory()) {
+		} else if (inputPathFromUser.isDirectory()) {
 
-			File[] files = getInputFile().listFiles();
+			File[] files = inputPathFromUser.listFiles();
 
 			for (File file : files) {
 				setInputFile(file);
 				
-				if(getOutputFile().isDirectory()) {
-					File outputFile = new File(
-							getOutputFile().getAbsolutePath()
-							.concat(getInputFile().getName())
+				if(outputPathFromUser.isDirectory()) {
+					File newOutputFile = new File(
+							outputPathFromUser.getAbsolutePath()
+							.concat("/")
+							.concat(file.getName())
 							.concat(OUTPUT_SUFFIX)
 							);
-					setOutputFile(outputFile);
+					setOutputFile(newOutputFile);
 				}
-				
+				adaptParamsForMetaMap();
 				result = runLinuxExec(buildStartCommand(), true);
 				
 				if (result != 0) break;
@@ -105,12 +107,12 @@ public class MetaMapController extends AbstractExtractorController {
 	/**
 	 * For Metamap the input and output paths must be placed at the end of the parameter list.
 	 */
-	public void setParams(HashMap<String, String> params) {
+	public void adaptParamsForMetaMap() {
 
 		ArrayList<String> paramsAsArray = new ArrayList<>();
 
-		if (params != null) {
-			params.forEach((key, value) -> {
+		if (PARAMS_FROM_USER_INPUT != null) {
+			PARAMS_FROM_USER_INPUT.forEach((key, value) -> {
 				if (key != null && !key.isEmpty() && !key.contains("/"))
 					paramsAsArray.add(key);
 				
