@@ -9,7 +9,7 @@ import de.mbrero.see.controllers.extractors.Extractor;
 import de.mbrero.see.controllers.extractors.ExtractorFactory;
 import de.mbrero.see.exceptions.ExtractorExecutionException;
 import de.mbrero.see.models.TestRunModel;
-import de.mbrero.see.parser.CRAFTParser;
+import de.mbrero.see.parser.AbstractParser;
 import de.mbrero.see.parser.MetaMapParser;
 import de.mbrero.see.parser.ParserFactory;
 import de.mbrero.see.persistance.dto.Annotation;
@@ -36,6 +36,8 @@ public class TestRunController {
 	private Extractors type;
 	private HashMap<String, String> params = new HashMap<>();
 	private HashMap<String, HashMap<String, Annotation>> annotations;
+	private AnnotationsController annotationsCtrl;
+	private AbstractParser parser = null;
 
 	/**
 	 * 
@@ -52,6 +54,7 @@ public class TestRunController {
 	 */
 	public TestRunController(File input, Extractors type, File outputExtractorResult, File outputTRECFile,
 			String tester, HashMap<String, String> params) {
+		annotationsCtrl = new AnnotationsController();
 		this.inputPath = input;
 		this.type = type;
 		this.outputExtractorResult = outputExtractorResult;
@@ -77,16 +80,17 @@ public class TestRunController {
 	public void getAnnotationsFromExtractorResult() throws Exception {
 		switch (type) {
 			case METAMAP:
-				MetaMapParser mmParser = (MetaMapParser) ParserFactory.getInstance(ParserType.METAMAP);
-				mmParser.parse(outputExtractorResult);
-				annotations = mmParser.getAnnotations();
+				parser = (MetaMapParser) ParserFactory.getInstance(ParserType.METAMAP);
+				parser.parse(outputExtractorResult);
+				annotations = parser.getAnnotations();
+				break;
 			default:
 				throw new ExtractorExecutionException("This extractor is currently not supported.");
 		}
 	}
 
 	public void saveAnnotationsToDatabase() throws Exception {
-
+		annotationsCtrl.saveAnnotationsToDatabase(annotations);
 	}
 
 	public void saveAnnotationsToTrecFile() {
