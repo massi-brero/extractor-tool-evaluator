@@ -28,7 +28,7 @@ public class MetaMapParser extends AbstractParser {
 	private final String CANDIDATE_MATCHED = "CandidateMatched";
 	// private final String PREFERRED_TEXT_TAG = "preferredText";
 
-	private int scoreThreshHold = 1000;
+	private int scoreThreshHold = 500;
 	private NodeList nodeList = null;
 
 	/**

@@ -93,8 +93,8 @@ public class TestRunController {
 		annotationsCtrl.saveAnnotationsToDatabase(annotations);
 	}
 
-	public void saveAnnotationsToTrecFile() {
-
+	public void saveAnnotationsToTrecFile() throws IOException {
+		annotationsCtrl.saveAnnotationsToTRECResultUsingCUI(annotations, outputTRECFile);
 	}
 
 	public void setResult(TestRunResults result) {

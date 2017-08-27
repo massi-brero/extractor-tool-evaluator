@@ -21,6 +21,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class TRECResultModel implements IEntityWriter<Annotation> {
 	File resultFile = null;
 	private String trecLine = "%s 0 %s 0 0 0".concat(System.getProperty("line.separator"));
+	private boolean useSourceId;
 
 	public TRECResultModel() {
 	}
@@ -28,16 +29,18 @@ public class TRECResultModel implements IEntityWriter<Annotation> {
 	public TRECResultModel(File resultFile) {
 		this();
 		setResultFile(resultFile);
+		setUseSourceId(false);
 	}
 
 	@Override
 	public void saveEntity(Annotation annotation) throws IOException {
 
 		if (getResultFile() != null) {
+			String id = useSourceId() ? annotation.getSourceConceptId() : annotation.getCui();
 			
 			for (int idx = 0; idx < annotation.getCount(); idx++) {
 				String line = String.format(trecLine, 
-						annotation.getDocumentID(), annotation.getOntology() + "_" + annotation.getSourceConceptId() + "_" + idx);
+						annotation.getDocumentID(), annotation.getOntology() + "_" + id + "_" + idx);
 				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
 			}
 
@@ -78,6 +81,14 @@ public class TRECResultModel implements IEntityWriter<Annotation> {
 	 */
 	public void setResultFile(File resultFile) {
 		this.resultFile = resultFile;
+	}
+
+	public boolean useSourceId() {
+		return useSourceId;
+	}
+
+	public void setUseSourceId(boolean useSourceId) {
+		this.useSourceId = useSourceId;
 	}
 
 }
