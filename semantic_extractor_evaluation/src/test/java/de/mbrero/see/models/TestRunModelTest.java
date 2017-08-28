@@ -79,6 +79,7 @@ public class TestRunModelTest {
 		TestRun item = items.get(0);
 
 		assertEquals(1, items.size());
+		assertTrue(run.getId() > 0);
 		assertEquals(inPath, item.getInputPath());
 		assertEquals(type, item.getExtractor());
 		assertEquals(outPathEx, item.getOutputPathExtractorResult());

@@ -60,7 +60,7 @@ public class TestrunCommand implements ICommand {
 	 * <li>Saving the annotation in a TREC result file</li>
 	 * </ol> 
 	 * 
-	 * @params {@link ConsoleCommand} The command received from the command line including parameters.
+	 * @param {@link ConsoleCommand} The command received from the command line including parameters.
 	 */
 	public void execute(ConsoleCommand command) throws Exception {
 
@@ -84,32 +84,32 @@ public class TestrunCommand implements ICommand {
 		/*
 		 * Initiallize Test run
 		 */
-		System.out.println(">>>Initiallize Test run...");
+		System.out.println("\n\n>>>Initiallize Test run...");
 		ctrl.initializeTestRun();
 		
 		/*
 		 * Start extractor with given parameters
 		 */
-		System.out.println(">>>Start extractor with given parameters...");
+		System.out.println("\n\n>>>Start extractor with given parameters...");
 		ctrl.runExtractor();
 		
 		/*
 		 * Getting concepts from extractor result
 		 */
-		System.out.println(">>>Getting concepts from extractor result...");
+		System.out.println("\n\n>>>Getting concepts from extractor result...");
 		ctrl.getAnnotationsFromExtractorResult();
 		
 		/*
 		 * Save annotations to database
 		 */
-		System.out.println(">>>Save annotations to database...");
+		System.out.println("\n\n>>>Save annotations to database...");
 		ctrl.saveAnnotationsToDatabase();
 		
 		
 		/*
 		 * Save annotations to TREC file
 		 */
-		System.out.println(">>>Save annotationsto TREC file...");
+		System.out.println("\n\n>>>Save annotationsto TREC file...");
 		ctrl.saveAnnotationsToTrecFile();
 		
 		ctrl.setResult(TestRunResults.SUCCESS);

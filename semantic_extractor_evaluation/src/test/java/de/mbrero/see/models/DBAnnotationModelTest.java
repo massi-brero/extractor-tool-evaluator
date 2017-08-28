@@ -1,7 +1,6 @@
 package de.mbrero.see.models;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.mbrero.see.controllers.TestRunController;
 import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Annotation;
@@ -96,7 +96,7 @@ public class DBAnnotationModelTest {
 		assertEquals("test text", items.get(1).getMatchedChunk());
 		assertEquals(Ontology.NCBI.name(), items.get(1).getOntology());
 		assertEquals("test text", items.get(1).getPreferredText());
-		assertEquals(1, items.get(1).getTestRunId());
+		assertEquals(0, items.get(1).getTestRunId());
 	}
 	
 	@Test
@@ -130,7 +130,7 @@ public class DBAnnotationModelTest {
 		assertEquals("test text", items.get(1).getMatchedChunk());
 		assertEquals(Ontology.NCBI.name(), items.get(1).getOntology());
 		assertEquals("test text", items.get(1).getPreferredText());
-		assertEquals(1, items.get(1).getTestRunId());
+		assertEquals(0, items.get(1).getTestRunId());
 	}
 	
 	private void setUpAnnotationsFixture() {
@@ -146,7 +146,7 @@ public class DBAnnotationModelTest {
 		annotation1.setMatchedChunk("test text");
 		annotation1.setOntology(Ontology.NCBI.name());
 		annotation1.setPreferredText("test text");
-		annotation1.setTestRunId(0);
+		annotation1.setTestRunId(TestRunController.testRunId);
 		
 		annotation2 = new Annotation();
 		annotation2.setCount(2);
@@ -157,7 +157,7 @@ public class DBAnnotationModelTest {
 		annotation2.setMatchedChunk("test text");
 		annotation2.setOntology(Ontology.NCBI.name());
 		annotation2.setPreferredText("test text");
-		annotation2.setTestRunId(1);
+		annotation2.setTestRunId(TestRunController.testRunId);
 		
 		HashMap<String, Annotation> put1 = new HashMap<>();
 		put1.put(annotation1.getSourceConceptId(), annotation1);

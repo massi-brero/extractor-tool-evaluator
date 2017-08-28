@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import de.mbrero.see.controllers.TestRunController;
 import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Annotation;
@@ -39,6 +40,7 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	@Override
 	public void saveEntityList(ArrayList<Annotation> annotations) {
 		for (Annotation annotation : annotations) {
+			annotation.setTestRunId(TestRunController.testRunId);
 			saveEntity(annotation);
 		}
 

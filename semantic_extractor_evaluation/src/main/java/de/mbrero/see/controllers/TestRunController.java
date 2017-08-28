@@ -38,6 +38,7 @@ public class TestRunController {
 	private HashMap<String, HashMap<String, Annotation>> annotations;
 	private AnnotationsController annotationsCtrl;
 	private AbstractParser parser = null;
+	public static int testRunId = 0;
 
 	/**
 	 * 
@@ -99,6 +100,7 @@ public class TestRunController {
 
 	public void setResult(TestRunResults result) {
 		run.setResult(result.toString());
+		model.save(run);
 	}
 
 	public void setDuration(long duration) {
@@ -114,13 +116,10 @@ public class TestRunController {
 		if (result == 0) {
 			setDuration(extractorCtrl.getExecutionTime().getSeconds());
 			model.save(run);
+			TestRunController.testRunId = run.getId();
 		} else {
-			throw new ExtractorExecutionException("There was an error while executiong the extraction process.");
+			throw new ExtractorExecutionException("There was an error while executing the extraction process.");
 		}
-
-	}
-
-	private void parseAnnotations() {
 
 	}
 
