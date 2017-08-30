@@ -198,7 +198,13 @@ If we break the down the parameters, we get:
 |-input|path to folder, where the articles are located|yes|
 |-outEx|path to folder where the result file from the extraction  rocess should to be saved|yes|
 |-outTrec|path to folder where the TREC file from the extraction process should to be saved|yes|
-|<a name="ex_params"></a>-params|paramaters you want to set for the extractor. |yes|
+|<a name="ex_params"></a>-params|parameters you want to set for the extractor. |yes|
+
+#### Special parameters ####
+
+|parameter|extractor|semantics|usage|mandatory|
+|---------|---------------------------|----------------------|------------------|---|
+|--DISAMB|MetaMap|starts disambiguiation server|use only in params surounded by [...]|no|
 
 The "params" option takes the parameters the user wants to call the extractor with. The syntax looks like this:  
 _[paramname1=value1, paramname2=value2, ...]_
