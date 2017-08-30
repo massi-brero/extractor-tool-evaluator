@@ -27,10 +27,17 @@ public class MetaMapController extends AbstractExtractorController {
 	private final String DISMBIGUATION_SERVER_CMD = "/bin/wsdserverctl";
 	private final String OUTPUT_SUFFIX = ".out";
 	private final HashMap<String, String> PARAMS_FROM_USER_INPUT;
+	private final String USE_DISAMBIGUATION_SERVER = "--DISAMB";
 	private boolean withDisambiguiation = false;
 
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
 		super(inputFile, outputFile, new HashMap<String, String>());
+		
+		if(params.containsKey(USE_DISAMBIGUATION_SERVER)) {
+			setWithDisambiguiation(true);
+			params.remove(USE_DISAMBIGUATION_SERVER);
+		}
+		
 		PARAMS_FROM_USER_INPUT = params;
 	}
 

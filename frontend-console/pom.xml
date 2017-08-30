@@ -8,7 +8,7 @@
 		<artifactId>seeparent</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	
+
 	<artifactId>frontend-console</artifactId>
 	<name>frontend-console</name>
 	<url>http://maven.apache.org</url>
@@ -21,6 +21,17 @@
 			<groupId>de.mbrero.see</groupId>
 			<artifactId>semantic_extractor_evaluation</artifactId>
 			<version>0.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.1</version>
 		</dependency>
 	</dependencies>
 
@@ -53,5 +64,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
