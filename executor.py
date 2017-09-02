@@ -1,8 +1,11 @@
-import constants, sys, getopt
+import os, sys, glob, constants, getopt
 from quickumls import QuickUMLS
 from twisted.web.test.test_cgi import READINPUT_CGI
+from fileinput import filename
 
 class Executor:
+    
+    FILE_EXTENSION = "*.*"
     
     ### extractor params ###
     quickumls_fp = "../umls_2016_ncbi"
@@ -13,7 +16,7 @@ class Executor:
     window = 1
     
     ### input and output ###
-    input_file = ""
+    input_path = ""
     output_file = ""
     text = ""
     result = []
@@ -23,65 +26,96 @@ class Executor:
         self.extractArgs(args)
         
     def run(self):
-        self.readInput()
+        if (os.path.isfile(self.input_path)):
+            self.readFile(self.input_path)
+            self.extract()
+        elif (os.path.isdir(self.input_path)):
+            files = self.readFolder()   
+            for file_name in files:
+                self.readFile(file_name)
+                self.extract()
+        else:
+            print("Error: Input path is not valid") 
+            
+        print(self.result)
+        self.writeOutput()
+            
         
     def extract(self):
-        print 'quickumls_fp: ' +self.quickumls_fp
-        print 'overlapping_criteria: ' + self.overlapping_criteria
-        print 'threshold: ' + str(self.threshold)
-        print 'similarity_name: ' + self.similarity_name
-        print 'minMatchedLength: ' +str(self.minMatchedLength)
-        print 'window: ' + str(self.window)
+        #----------------------------- print 'quickumls_fp: ' +self.quickumls_fp
+        #------------ print 'overlapping_criteria: ' + self.overlapping_criteria
+        #----------------------------- print 'threshold: ' + str(self.threshold)
+        #---------------------- print 'similarity_name: ' + self.similarity_name
+        #---------------- print 'minMatchedLength: ' +str(self.minMatchedLength)
+        #----------------------------------- print 'window: ' + str(self.window)
     
         matcher = QuickUMLS(self.quickumls_fp, self.overlapping_criteria, self.threshold,
                         self.window, self.similarity_name, self.minMatchedLength,
                          constants.ACCEPTED_SEMTYPES, True)
     
-        text = "The virus is not a mouse. Oh a Bacterium..."
-        result = matcher.match(text, best_match=True, ignore_syntax=False)
-        print(result)
+        self.result.append(matcher.match(self.text, best_match=True, ignore_syntax=False))
         
     def extractArgs(self, args):
         try:
-            opts, args = getopt.getopt(args,"hq:oc:t:m:s:w:-i:-o:",
-                                    ["quickumls=", "overlapping=", "threshold=", "minMatched=", "similarity", "window", "input", "output"])
+            opts, args = getopt.getopt(args,"hq:l:t:m:s:w:i:o:",
+                                    ["quickumls=", "overlapping=", "threshold=", "minMatched=", "similarity=", "window=", "input=", "output="])
         except getopt.GetoptError:
             print("Error: Unknown argument")
             print self.getHelpString()
             sys.exit(2)
-        
+
         for opt, arg in opts:
             if opt == '-h':
                 print self.getHelpString()
                 sys.exit()
-            elif opt in ('-q', 'quickumls'):
+            elif opt in ('-q', '--quickumls'):
                 self.quickumls_fp = arg
-            elif opt in ('-oc', 'overlapping'):
+            elif opt in ('l', '--overlapping'):
                 self.overlapping_criteria= arg
-            elif opt in ('-t', 'threshold'):
+            elif opt in ('-t', '--threshold'):
                 self.threshold = arg
-            elif opt in ('-m', 'minMatched'):
+            elif opt in ('-m', '--minMatched'):
                 self.minMatchedLength = arg
-            elif opt in ('-s', 'similarity'):
+            elif opt in ('-s', '--similarity'):
                 self.similarity_name= arg
-            elif opt in ('-w', 'window'):
+            elif opt in ('-w', '--window'):
                 self.window = arg
-            elif opt in ('-i', 'input'):
-                self.window = arg
-            elif opt in ('-o', 'output'):
-                self.window = arg
+            elif opt in ('-i', '--input'):
+                self.input_path = arg
+            elif opt in ('-o', '--output'):
+                self.output_file = arg
         
     
     def getHelpString(self):    
-        return ("run.py \n-q <umls data> \n-o <overlapping criteria>"
+        return ("run.py \n-q <umls data> \n-l <overlapping criteria>"
                 "\n-t <threshhold> \n-m <minimum matched length> \n"
-                "-s <similarity name> -w <window> \n-i <input file path>"
-                "-o <output file path>")
+                "-s <similarity name> -w <window> \n-i <input_path file path>"
+                "\n-o <output_file file path>")
         
         
-    def readInput(self):
-        print("readFile")
+    def readFolder(self):
+        path = self.input_path
         
-    def readFile(self):
-        print("readFile")
+        if (not self.input_path.endswith("/")):
+            path = path + "/"
+            
+        return glob.glob(path + self.FILE_EXTENSION)
+        
+        
+    def readFile(self, file_name):
+        try:
+            with open(file_name) as f:
+                self.text = f.readlines()
+        except (IOError, OSError) as e:
+            print ("Error: while reading your input path.\n" + str(e))
+
+        
+    def writeOutput(self):
+        try:
+            with open(self.output_file, 'w') as f:
+                items = [str(x) for x in self.result[0][0]]
+                f.write(','.join(items))
+        except (IOError, OSError) as e:
+            print ("Error: while writing result file.\n" + str(e))
+
 
