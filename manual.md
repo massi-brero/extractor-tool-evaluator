@@ -21,7 +21,7 @@ The goals of the SEE software are basically:
 6. [TREC evaluation tool](http://trec.nist.gov/trec_eval/)
 7. MySQL 5.x
 
-#### <a name="1.2.1"></a>1.2.1 Gold Standard ####
+#### <a id="1.2.1"></a>1.2.1 Gold Standard ####
 
 The currently used gold standard is the [CRAFT Corpus 2.0](http://bionlp-corpora.sourceforge.net/CRAFT/). consisting of 64 bio-medical full texts about genetic research. The publications used are taken from from the extensive source for scientific publications [PUBMED](https://www.ncbi.nlm.nih.gov/pubmed/).
 The corpus is used as a reference point for evaluating the results and the performance provided by the tested extractors. In the CRAFT Corpus concepts of 8 ontologies have  been extracted by domain experts. SEE currently uses the NCBI taxonomy results.
@@ -33,7 +33,7 @@ The extraction results in the Craft corpus are wrapped in several document types
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|-- craft-2.0  
 
 
-#### <a name="1.2.2"></a>1.2.2 The extractors ####
+#### <a id="1.2.2"></a>1.2.2 The extractors ####
 
 At the moment SEE supports 3 extractors:
 * [MetaMap](https://metamap.nlm.nih.gov/)

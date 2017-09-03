@@ -1,7 +1,9 @@
 import os, sys, glob, constants, getopt
+from xml.etree.ElementTree import Element, SubElement, tostring
+from xml.etree import ElementTree
+from xml.dom import minidom
 from quickumls import QuickUMLS
-from twisted.web.test.test_cgi import READINPUT_CGI
-from fileinput import filename
+
 
 class Executor:
     
@@ -20,6 +22,7 @@ class Executor:
     output_file = ""
     text = ""
     result = []
+    xml = None
     
     
     def __init__(self, args):
@@ -28,20 +31,20 @@ class Executor:
     def run(self):
         if (os.path.isfile(self.input_path)):
             self.readFile(self.input_path)
-            self.extract()
+            self.extract(self.input_path)
         elif (os.path.isdir(self.input_path)):
             files = self.readFolder()   
             for file_name in files:
                 self.readFile(file_name)
-                self.extract()
+                self.extract(file_name)
         else:
             print("Error: Input path is not valid") 
             
-        print(self.result)
+        #print(self.result)
         self.writeOutput()
             
         
-    def extract(self):
+    def extract(self, file_name):
         #----------------------------- print 'quickumls_fp: ' +self.quickumls_fp
         #------------ print 'overlapping_criteria: ' + self.overlapping_criteria
         #----------------------------- print 'threshold: ' + str(self.threshold)
@@ -53,7 +56,8 @@ class Executor:
                         self.window, self.similarity_name, self.minMatchedLength,
                          constants.ACCEPTED_SEMTYPES, True)
     
-        self.result.append(matcher.match(self.text, best_match=True, ignore_syntax=False))
+        extraction_result = matcher.match(self.text, best_match=True, ignore_syntax=False)
+        self.buildXML(extraction_result, file_name)
         
     def extractArgs(self, args):
         try:
@@ -111,11 +115,47 @@ class Executor:
 
         
     def writeOutput(self):
+        
+        # print pretty
+        rough_string = ElementTree.tostring(self.xml, 'utf-8')
+        reparsed = minidom.parseString(rough_string)
+        output_string =  reparsed.toprettyxml(indent="  ")
+        
         try:
             with open(self.output_file, 'w') as f:
-                items = [str(x) for x in self.result[0][0]]
-                f.write(','.join(items))
+                f.write(output_string)
         except (IOError, OSError) as e:
             print ("Error: while writing result file.\n" + str(e))
+            
+    ### xml builder ###
+    def buildXML(self, extraction_result, file_name):
+        self.result.extend(extraction_result)
+        
+        if (self.xml is None):
+            self.xml = Element("output")
+        
+        document = SubElement(self.xml, "document", {"file": file_name})
+        self.addConceptsToXML(document, extraction_result)
+        
+
+    def addConceptsToXML(self, element, concepts):
+        if (type(element) is Element):
+            for item in concepts:
+                if (any(isinstance(x, dict)) for x in item):
+                    self.addConceptNode(element, item)
+                else:
+                    self.addConceptsToXML(element, item)
+            
+
+            
+    def addConceptNode(self, element, concepts):
+        matched_concepts = SubElement(element, "concepts_matched")
+        
+        if(type(element) is Element):
+            for concept in concepts:
+                conceptNode = SubElement(matched_concepts, "concept")
+                for key, value in concept.items():
+                    child = SubElement(conceptNode, key)
+                    child.text = str(value)
 
 
