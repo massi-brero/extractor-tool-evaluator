@@ -85,6 +85,11 @@ public class TestRunController {
 				parser.parse(outputExtractorResult);
 				annotations = parser.getAnnotations();
 				break;
+			case QUICKUMLS:
+				parser = (MetaMapParser) ParserFactory.getInstance(ParserType.QUICKUMLS);
+				parser.parse(outputExtractorResult);
+				annotations = parser.getAnnotations();
+				break;
 			default:
 				throw new ExtractorExecutionException("This extractor is currently not supported.");
 		}

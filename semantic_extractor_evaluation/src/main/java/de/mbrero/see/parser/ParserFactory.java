@@ -34,6 +34,12 @@ public class ParserFactory {
 	private final static String CRAFT_ID_INFORMATION_TAG = "integerSlotMentionValue";
 	private final static String CRAFT_CONCEPT_NODE = "value";
 
+	/*
+	 * QuickUmls parameters
+	 */
+	private static final String QUICKUMLS_ID_INFORMATION_TAG = "concept";
+	private static final String QUICKUMLS_CONCEPT_NODE = "cui";
+
 
 	/**
 	 * Returns a configured parser for extracting the found annotations in a text file.
@@ -56,6 +62,7 @@ public class ParserFactory {
 			parser = setUpCTakesParser();
 			break;
 		case QUICKUMLS:
+			parser = setQuickUmlsParser();
 			break;
 		case METAMAP:
 			parser = setUpMetaMapParser();
@@ -69,6 +76,16 @@ public class ParserFactory {
 		
 		return parser; 
 		
+	}
+
+
+	private static AnnotationParser setQuickUmlsParser() {
+		QuickUmlsParser parser = new QuickUmlsParser();
+		parser.setExtractorName(parserType.toString());
+		parser.setIdInformationTag(QUICKUMLS_ID_INFORMATION_TAG);
+		parser.setConceptIdentifierNode(QUICKUMLS_CONCEPT_NODE);
+		
+		return parser;
 	}
 
 
