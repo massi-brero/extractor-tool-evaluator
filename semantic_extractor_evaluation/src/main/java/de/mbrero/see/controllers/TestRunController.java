@@ -12,6 +12,7 @@ import de.mbrero.see.models.TestRunModel;
 import de.mbrero.see.parser.AbstractParser;
 import de.mbrero.see.parser.MetaMapParser;
 import de.mbrero.see.parser.ParserFactory;
+import de.mbrero.see.parser.QuickUmlsParser;
 import de.mbrero.see.persistance.dto.Annotation;
 import de.mbrero.see.persistance.dto.TestRun;
 import de.mbrero.see.persistance.dto.types.TestRunResults;
@@ -86,7 +87,7 @@ public class TestRunController {
 				annotations = parser.getAnnotations();
 				break;
 			case QUICKUMLS:
-				parser = (MetaMapParser) ParserFactory.getInstance(ParserType.QUICKUMLS);
+				parser = (QuickUmlsParser) ParserFactory.getInstance(ParserType.QUICKUMLS);
 				parser.parse(outputExtractorResult);
 				annotations = parser.getAnnotations();
 				break;

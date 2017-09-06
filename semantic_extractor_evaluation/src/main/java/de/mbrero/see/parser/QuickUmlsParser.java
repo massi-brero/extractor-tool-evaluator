@@ -13,11 +13,11 @@ import org.xml.sax.SAXException;
 import de.mbrero.see.persistance.dto.Annotation;
 
 public class QuickUmlsParser extends AbstractParser {
-	private final String DOCUMENT_ID_TAG = "odocument";
+	private final String DOCUMENT_ID_TAG = "document";
 	private final String DOCUMENT_ID_NODE = "file";
 	private final String ONTOLOGY_NODE = "";
+	private ParserHelper helper = new ParserHelper();
 	//private final String PREFERRED_TEXT_TAG = "preferredText";
-
 	
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
@@ -41,8 +41,8 @@ public class QuickUmlsParser extends AbstractParser {
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
-//		String ontology = elem.getAttribute(ONTOLOGY_NODE).toUpperCase();
-//		annotation.setOntology(ontology);
+		String ontology = helper.getOntologyForCui(conceptId);
+		annotation.setOntology(ontology);
 		annotation.setCui(conceptId);
 		// ToDo: get this info
 		annotation.setPreferredText(""); //not used at the moment

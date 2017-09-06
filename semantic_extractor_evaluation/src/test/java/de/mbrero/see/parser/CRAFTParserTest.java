@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 
 import org.junit.Before;
@@ -27,7 +26,7 @@ import types.ParserType;
 public class CRAFTParserTest {
 	private CRAFTParser parser = null;
 	private File workingFile = null;
-	private ParserHelper helper = null;
+
 
 
 	@Before
@@ -35,7 +34,6 @@ public class CRAFTParserTest {
 	{
 		parser = (CRAFTParser)ParserFactory.getInstance(ParserType.CRAFT);
 		workingFile = new File(getClass().getClassLoader().getResource("texts/craft/ncbi/craft-1.xml").getFile());
-		helper = new ParserHelper();
 	}
 	
 	@Test
@@ -95,18 +93,5 @@ public class CRAFTParserTest {
 		assertEquals("error matching count annotation2", 1, annotation2.getCount());
 		
 	}
-	
-	@Test
-	public void test_4_concepMapping() throws IOException {
-		File mappingSource = new File(getClass().getClassLoader().getResource("mapping/mapping.rrf").getFile());
-		String id = "10088";
-		String ontology = "NCBI";
 		
-		helper.setUmlsMappingSource(mappingSource);
-		
-		assertEquals("error mapping umls cui to source vocabulary id", "C100", 
-				helper.getCuiForOntologyId(id, ontology));
-	}
-
-	
 }

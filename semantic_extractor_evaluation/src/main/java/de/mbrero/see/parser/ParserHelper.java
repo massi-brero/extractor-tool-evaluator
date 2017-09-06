@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -17,6 +16,7 @@ import java.util.stream.Stream;
 public final class ParserHelper {
 	private File umlsMappingSource = null;
 	private final int POS_CUI = 0;
+	private final int POS_ONTOLOGY = 11;
 	
 	/**
 	 * Returns a UMLS ID (CUI) that maps the given id from the source <br>
@@ -49,6 +49,37 @@ public final class ParserHelper {
 		}
 
 		return id;
+		
+	}
+	
+	/**
+	 * Returns the Ontology the CUI from UMLS refers to. Of course it will only return a value if the given ontology is
+	 * part of the metathesaurus.
+	 * 
+	 * 
+	 * @return String
+	 * @throws IOException 
+	 */
+	public String getOntologyForCui(String cui) throws IOException {
+		String ontology = "";
+		
+		if (!cui.isEmpty()) {
+			Stream<String> stream = Files.lines(Paths.get(getUmlsMappingSource().getAbsolutePath()));
+			
+			String result = stream
+						    .filter(line -> line.contains(cui))
+						    .findFirst()
+						    .orElse("");
+	    	stream.close();
+	    	 
+	    	if(!result.isEmpty())
+	    	{
+	    		ontology = result.split("\\|")[POS_ONTOLOGY];	    		
+	    	}
+	    	
+		}
+
+		return ontology;
 		
 	}
 	

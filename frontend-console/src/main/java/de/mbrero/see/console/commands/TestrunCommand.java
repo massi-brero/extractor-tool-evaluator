@@ -97,13 +97,13 @@ public class TestrunCommand implements ICommand {
 		 * Getting concepts from extractor result
 		 */
 		System.out.println("\n\n>>>Getting concepts from extractor result...");
-		//ctrl.getAnnotationsFromExtractorResult();
+		ctrl.getAnnotationsFromExtractorResult();
 		
 		/*
 		 * Save annotations to database
 		 */
 		System.out.println("\n\n>>>Save annotations to database...");
-		//ctrl.saveAnnotationsToDatabase();
+		ctrl.saveAnnotationsToDatabase();
 		
 		
 		/*

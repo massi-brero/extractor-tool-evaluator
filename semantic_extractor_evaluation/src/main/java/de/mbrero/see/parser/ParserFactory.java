@@ -37,7 +37,7 @@ public class ParserFactory {
 	/*
 	 * QuickUmls parameters
 	 */
-	private static final String QUICKUMLS_ID_INFORMATION_TAG = "concept";
+	private static final String QUICKUMLS_ID_INFORMATION_TAG = "id";
 	private static final String QUICKUMLS_CONCEPT_NODE = "cui";
 
 
