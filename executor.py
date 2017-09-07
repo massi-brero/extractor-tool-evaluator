@@ -3,12 +3,15 @@ from xml.etree.ElementTree import Element, SubElement, tostring
 from xml.etree import ElementTree
 from xml.dom import minidom
 from quickumls import QuickUMLS
+from fileinput import filename
+from twisted.trial._synctest import Todo
 
 
 class Executor:
     
     FILE_EXTENSION = "*.*"
     DIR_PATH = os.path.dirname(os.path.realpath(__file__))
+    CUI_TAG = "cui"
     
     ### extractor params ###
     quickumls_fp = DIR_PATH + "/../umls_2016_ncbi"
@@ -20,7 +23,7 @@ class Executor:
     
     ### input and output ###
     input_path = ""
-    output_file = ""
+    output_path = ""
     text = ""
     result = []
     xml = None
@@ -30,19 +33,40 @@ class Executor:
         self.extractArgs(args)
         
     def run(self):
-        if (os.path.isfile(self.input_path)):
-            self.readFile(self.input_path)
-            self.extract(self.input_path)
-        elif (os.path.isdir(self.input_path)):
-            files = self.readFolder()   
-            for file_name in files:
-                self.readFile(file_name)
-                self.extract(file_name)
-        else:
-            print("Error: Input path is not valid") 
+        
+        output_file = self.output_path;
+        
+        try:
+            if os.path.isdir(self.output_path):
+                raise Exception("Please enter a path (not a target file) for the output files")
+         
+            if (os.path.isfile(self.input_path)):
+                
+                self.readFile(self.input_path)
+                self.extract(self.input_path)
+                # @Todo continue here
+                self.writeOutput(self.buildTargetFilePath())
+                
+            elif (os.path.isdir(self.input_path)):
+                
+                files = self.readFolder()   
+                
+                for file_name in files:
+                    self.readFile(file_name)
+                    self.extract(file_name)
+                    
+                    if self.output_path.isdir():
+                        output_file = self.output_path + "/" + filename
+                    else:
+    
+                        self.writeOutput(output_file)
+            else:
+                raise Exception("Error: Input path is not valid") 
+            
+        except Exception as e:
+            print(e)
             
         #print(self.result)
-        self.writeOutput()
             
         
     def extract(self, file_name):
@@ -79,18 +103,18 @@ class Executor:
                 elif opt in ('l', '--overlapping'):
                     self.overlapping_criteria= arg
                 elif opt in ('-t', '--threshold'):
-                    self.threshold = arg
+                    self.threshold = float(arg)
                 elif opt in ('-m', '--minMatched'):
-                    self.minMatchedLength = arg
+                    self.minMatchedLength = int(arg)
                 elif opt in ('-s', '--similarity'):
                     self.similarity_name= arg
                 elif opt in ('-w', '--window'):
-                    self.window = arg
+                    self.window = int(arg)
                 elif opt in ('-i', '--input'):
                     self.input_path = arg
                     hasInputParam = True
                 elif opt in ('-o', '--output'):
-                    self.output_file = arg
+                    self.output_path = arg
                     hasOutputParam = True
                     
             if not hasInputParam:
@@ -115,7 +139,7 @@ class Executor:
         return ("run.py \n-q <umls data> \n-l <overlapping criteria>"
                 "\n-t <threshhold> \n-m <minimum matched length> \n"
                 "-s <similarity name> -w <window> \n-i <input_path file path>"
-                "\n-o <output_file file path>\n\ninput path and output file are mandatory")
+                "\n-o <output_path file path>\n\ninput path and output file are mandatory")
         
         
     def readFolder(self):
@@ -135,7 +159,7 @@ class Executor:
             print ("Error: while reading your input path.\n" + str(e))
 
         
-    def writeOutput(self):
+    def writeOutput(self, filePath):
         
         # print pretty
         rough_string = ElementTree.tostring(self.xml, 'utf-8')
@@ -143,7 +167,7 @@ class Executor:
         output_string =  reparsed.toprettyxml(indent="  ")
         
         try:
-            with open(self.output_file, 'w') as f:
+            with open(filePath, 'w') as f:
                 f.write(output_string)
         except (IOError, OSError) as e:
             print ("Error: while writing result file.\n" + str(e))
@@ -155,7 +179,7 @@ class Executor:
         if (self.xml is None):
             self.xml = Element("output")
         
-        document = SubElement(self.xml, "document", {"file": file_name})
+        document = SubElement(self.xml, "document", {"file": self.extractFilename(file_name)})
         self.addConceptsToXML(document, extraction_result)
         
 
@@ -177,6 +201,25 @@ class Executor:
                 conceptNode = SubElement(matched_concepts, "concept")
                 for key, value in concept.items():
                     child = SubElement(conceptNode, key)
-                    child.text = str(value)
+                    if key == self.CUI_TAG:
+                        child = SubElement(conceptNode, "id")
+                        child.set(self.CUI_TAG, value)
+                    else:
+                        child.text = str(value)
+                        
+    def buildTargetFilePath(self, path):
+        file_name = self.extractFilename(path)
+        output_path = self.output_path + "/" + file_name + ".out"
+        
+        
+                        
+    def extractFilename(self, path):
+        try:    
+            pathComponents = path.split("/")
+            fileName = pathComponents[-1]
+        except IndexError:
+            fileName = "no-file-found"
+            
+        return fileName
 
 
