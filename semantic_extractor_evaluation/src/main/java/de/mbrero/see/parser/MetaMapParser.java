@@ -8,7 +8,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,8 +28,7 @@ public class MetaMapParser extends AbstractParser {
 	// private final String PREFERRED_TEXT_TAG = "preferredText";
 
 	private int scoreThreshHold = 500;
-	private NodeList nodeList = null;
-
+	
 	/**
 	 * Return the lower limit from which on the candidates in the MetaMap output
 	 * xml file<br />
