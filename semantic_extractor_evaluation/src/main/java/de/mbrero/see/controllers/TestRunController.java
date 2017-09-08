@@ -106,7 +106,7 @@ public class TestRunController {
 
 	public void setResult(TestRunResults result) {
 		run.setResult(result.toString());
-		model.save(run);
+		model.update(run);
 	}
 
 	public void setDuration(long duration) {

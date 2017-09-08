@@ -110,7 +110,7 @@ public class TestrunCommand implements ICommand {
 		 * Save annotations to TREC file
 		 */
 		System.out.println("\n\n>>>Save annotationsto TREC file...");
-		//ctrl.saveAnnotationsToTrecFile();
+		ctrl.saveAnnotationsToTrecFile();
 		
 		ctrl.setResult(TestRunResults.SUCCESS);
 

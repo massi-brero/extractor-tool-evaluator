@@ -31,7 +31,6 @@ public class QuickUmlsParser extends AbstractParser {
 		}
 
 		return filename;
-
 	}
 	
 	@Override
