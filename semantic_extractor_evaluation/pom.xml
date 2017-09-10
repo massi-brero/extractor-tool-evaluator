@@ -103,6 +103,13 @@
 		</plugins>
 		<resources>
 			<resource>
+				<includes>
+					<include>mapping/*</include>
+					<include>tables/*</include>
+					<include>*.xml</include>
+					<include>*.properties</include>
+					<include>*.RRF</include>
+				</includes>
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>

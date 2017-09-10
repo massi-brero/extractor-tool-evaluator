@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import de.mbrero.see.parser.CRAFTParser;
 import de.mbrero.see.parser.ParserFactory;
 import de.mbrero.see.persistance.dto.Annotation;

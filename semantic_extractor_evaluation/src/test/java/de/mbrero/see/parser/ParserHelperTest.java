@@ -2,8 +2,8 @@ package de.mbrero.see.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class ParserHelperTest {
 	
 	@Test
 	public void testConceptMapping() throws IOException {
-		File mappingSource = new File(getClass().getClassLoader().getResource("mapping/mapping.rrf").getFile());
+		String mappingSource = "mapping/mapping.rrf";
 		String id = "10088";
 		String ontology = "NCBI";
 		
@@ -32,7 +32,7 @@ public class ParserHelperTest {
 	
 	@Test
 	public void testFindOntologyForCUI() throws IOException {
-		File mappingSource = new File(getClass().getClassLoader().getResource("mapping/mapping.rrf").getFile());
+		String mappingSource = "mapping/mapping.rrf";
 		String cui = "C100";
 		String ontology = "NCBI";
 		
@@ -44,7 +44,9 @@ public class ParserHelperTest {
 		cui = "C0001076";
 		ontology = "GO";
 		
-		assertEquals("error mapping umls cui to ontology21", ontology, 
+		helper.setUmlsMappingSource(mappingSource);
+		
+		assertEquals("error mapping umls cui to ontology 2", ontology, 
 				helper.getOntologyForCui(cui));
 	}
 

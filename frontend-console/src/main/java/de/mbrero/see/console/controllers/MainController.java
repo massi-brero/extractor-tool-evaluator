@@ -56,7 +56,7 @@ public class MainController {
 			System.out.print("$see> ");
 			input = in.nextLine().trim();
 
-			if ("quit".equals(input) || "q".equals(input)) {
+			if ("exit".equals(input) || "quit".equals(input)) {
 				System.out.println("Exit!");
 				in.close();
 				System.exit(0);

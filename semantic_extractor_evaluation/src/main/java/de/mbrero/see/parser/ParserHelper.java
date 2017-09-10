@@ -1,9 +1,9 @@
 package de.mbrero.see.parser;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.stream.Stream;
 
 /**
@@ -14,8 +14,19 @@ import java.util.stream.Stream;
  *
  */
 public final class ParserHelper {
-	private File umlsMappingSource = null;
-	private final int POS_CUI = 0;
+	/*
+	 * The location of the MRCONSO.RFF file is an InputStream, so the identification
+	 * will work even if the MRCONSO.RFF file is put as a resource in the same jar as the application.
+	 */
+	private InputStream umlsMappingSource = null;
+	/*
+	 * Standard location of the MRCONSO.rff, if no custom value is set.
+	 */
+	private final String MRCONCO_URI = "mapping/MRCONSO.RRF";
+	/*
+	 * Defines where the ontology information can be found in the MRCONSO.RFF PSV
+	 * file can be found.
+	 */
 	private final int POS_ONTOLOGY = 11;
 	
 	/**
@@ -33,7 +44,7 @@ public final class ParserHelper {
 		String id = "";
 		
 		if (!vid.isEmpty() && !ontology.isEmpty()) {
-			Stream<String> stream = Files.lines(Paths.get(getUmlsMappingSource().getAbsolutePath()));
+			Stream<String> stream = (new BufferedReader(new InputStreamReader(getUmlsMappingSource()))).lines();
 			
 			String result = stream
 						    .filter(line -> line.contains(ontology) && line.contains(vid))
@@ -62,15 +73,22 @@ public final class ParserHelper {
 	 */
 	public String getOntologyForCui(String cui) throws IOException {
 		String ontology = "";
+		InputStreamReader isReader= new InputStreamReader(getUmlsMappingSource());
+		BufferedReader buffReader = new BufferedReader(isReader);
+		
 		
 		if (!cui.isEmpty()) {
-			Stream<String> stream = Files.lines(Paths.get(getUmlsMappingSource().getAbsolutePath()));
+			Stream<String> stream = buffReader.lines();
 			
 			String result = stream
 						    .filter(line -> line.contains(cui))
 						    .findFirst()
 						    .orElse("");
-	    	stream.close();
+	    	
+			stream.close();
+	    	buffReader.close();
+	    	isReader.close();
+	    	
 	    	 
 	    	if(!result.isEmpty())
 	    	{
@@ -83,17 +101,28 @@ public final class ParserHelper {
 		
 	}
 	
-	public File getUmlsMappingSource() {
+	/**
+	 * The stream from where the MRCONSO file of the UMLS installation
+	 * is located.
+	 * @return InputStream 
+	 * 
+	 */
+	public InputStream getUmlsMappingSource() {
 		
 		if(umlsMappingSource == null) {
-			return new File(getClass().getClassLoader().getResource("mapping/MRCONSO.RRF").getFile());			
+			return getClass().getClassLoader().getResourceAsStream(MRCONCO_URI);			
 		} 
 		
 		return umlsMappingSource;
 	}
 
-	public void setUmlsMappingSource(File mappingSource) {
-		umlsMappingSource = mappingSource;
+	/**
+	 * Sets the MRCONSO resource from the UMLS installation as stream.
+	 * 
+	 * @param sourceURI
+	 */
+	public void setUmlsMappingSource(String sourceURI) {
+		umlsMappingSource = getClass().getClassLoader().getResourceAsStream(sourceURI);
 	}
 
 }
