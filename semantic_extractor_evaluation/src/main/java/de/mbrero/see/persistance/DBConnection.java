@@ -12,6 +12,7 @@ public class DBConnection {
 	private Configuration config = null;
 	private Session session = null;
 	private URL standardConfigUrl;
+	private static SessionFactory factory = null;
 
 	public DBConnection() 
 	{
@@ -38,13 +39,22 @@ public class DBConnection {
 		}
 	}
 	
+	/**
+	 * Provides a new session. Should be closed as soon as possible to be 
+	 * returned to the pool.
+	 * @return
+	 */
 	public Session getNewSession()
 	{
-		SessionFactory factory = this.config.buildSessionFactory();
+		if (factory == null)
+			factory = this.config.buildSessionFactory();
+		
 		session = factory.openSession();
 		session.setFlushMode(FlushMode.COMMIT);
-		factory.close();
+		//factory.close();
 		
 		return session;
 	}
+	
+	
 }
