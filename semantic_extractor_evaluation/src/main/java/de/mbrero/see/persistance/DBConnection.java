@@ -46,12 +46,10 @@ public class DBConnection {
 	 */
 	public Session getNewSession()
 	{
-		if (factory == null)
-			factory = this.config.buildSessionFactory();
-		
+		factory = this.config.buildSessionFactory();
 		session = factory.openSession();
 		session.setFlushMode(FlushMode.COMMIT);
-		//factory.close();
+		factory.close();
 		
 		return session;
 	}
