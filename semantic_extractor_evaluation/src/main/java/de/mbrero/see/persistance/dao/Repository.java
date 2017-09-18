@@ -20,12 +20,7 @@ public class Repository<T> implements IRepository<T> {
 	/*
 	 * Get the Connection to the database
 	 */
-	private static DBConnection conn = null;
-	/*
-	 * We can share a session over different method calls ... if we really want
-	 * to.
-	 */
-	private Session session = null;
+	private DBConnection conn = null;
 	/*
 	 * This is needed to create a generic repository for all tables.
 	 */
@@ -51,14 +46,16 @@ public class Repository<T> implements IRepository<T> {
 	@SuppressWarnings("unchecked")
 	public T get(int id) {
 		T item = null;
+		Session session = getSession();
+		
 		try {
-			Transaction t = getSession().beginTransaction();
-			item = (T) getSession().get(CLASS_TYPE, id);
+			Transaction t = session.beginTransaction();
+			item = (T) session.get(CLASS_TYPE, id);
 			t.commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {
-			closeSession();
+			closeSession(session);
 		}
 		return item;
 	}
@@ -67,14 +64,16 @@ public class Repository<T> implements IRepository<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
 		List<T> items = new ArrayList<T>();
+		Session session = getSession();
+		
 		try {
-			Transaction t = getSession().beginTransaction();
-			items = getSession().createCriteria(CLASS_TYPE).list();
+			Transaction t = session.beginTransaction();
+			items = session.createCriteria(CLASS_TYPE).list();
 			t.commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {
-			closeSession();
+			closeSession(session);
 		}
 		return items;
 	}
@@ -86,9 +85,11 @@ public class Repository<T> implements IRepository<T> {
 	@Override
 	public void save(T item) {
 		Transaction t = null;
+		Session session = getSession();
+		
 		try {
-			t = getSession().beginTransaction();
-			getSession().save(item);
+			t = session.beginTransaction();
+			session.save(item);
 			t.commit();
 		} catch (RuntimeException e) {
 			if (t != null) {
@@ -97,60 +98,59 @@ public class Repository<T> implements IRepository<T> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeSession();
+			closeSession(session);
 		}
 	}
 
 	public void delete(T item) {
 		Transaction t = null;
+		Session session = getSession();
+		
 		try {
-			t = getSession().beginTransaction();
-			getSession().delete(item);
+			t = session.beginTransaction();
+			session.delete(item);
 			t.commit();
 		} catch (RuntimeException e) {
 			if (t != null)
 				t.rollback();
 			e.printStackTrace();
 		} finally {
-			closeSession();
+			closeSession(session);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
 	public void delete(int id) {
-		T item = (T) getSession().load(CLASS_TYPE, new Integer(id));
+		Session session = getSession();
+		T item = (T) session.load(CLASS_TYPE, new Integer(id));
 		delete(item);
 	}
 
 	/**
 	 */
 	public void update(T item) {
-
+		Session session = getSession();
+		
 		try {
-			Transaction t = getSession().beginTransaction();
-			getSession().update(item);
+			Transaction t = session.beginTransaction();
+			session.update(item);
 			t.commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {
-			closeSession();
+			closeSession(session);
 		}
 
 	}
 
-	public void closeSession() {
-		if (session != null) {
+	public void closeSession(Session session) {
 			session.flush();
 			session.close();			
-		}
 	}
 
 	private Session getSession() {
 		outputProgress();
-		if (session == null || !session.isConnected())
-			session = conn.getNewSession();
-
-		return session;
+		return conn.getNewSession();
 	}
 
 	private void outputProgress() {

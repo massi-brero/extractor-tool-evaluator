@@ -25,6 +25,7 @@ public class DBConnectionTest
 	public void testGetNewSessionStandardPath() {
 		DBConnection conn = new DBConnection();
 		Session session = conn.getNewSession();
+		DBConnection.closeDBConnection();
 		
 		assertTrue(session instanceof Session);
 	}
@@ -35,6 +36,8 @@ public class DBConnectionTest
 		URL url = getClass().getClassLoader().getResource("hibernate.cfg.xml");
 		DBConnection conn = new DBConnection(url);
 		Session session = conn.getNewSession();
+		
+		DBConnection.closeDBConnection();
 		
 		assertTrue(session instanceof Session);
 	}

@@ -31,11 +31,13 @@ public class AnnotationRepositoryTest {
 
 	@After
 	public void tearDown() throws Exception {
+		DBConnection.closeDBConnection();
 		Session session = this.conn.getNewSession();
 		Transaction t = session.beginTransaction();
 	    Query query = session.createQuery("delete from Annotation");
 	    query.executeUpdate();
 	    t.commit();
+	    session.flush();
 	    session.close();
 	}
 	
@@ -70,7 +72,7 @@ public class AnnotationRepositoryTest {
 		ann.setTestRunId(123);
 		
 		repo.save(ann);
-		Annotation item = (Annotation) repo.get(1);
+		Annotation item = (Annotation) repo.get(ann.getId());
 
 		assertEquals("123", item.getSourceConceptId());
 	}
@@ -95,7 +97,7 @@ public class AnnotationRepositoryTest {
 		ann.setTestRunId(123);
 		
 		repo.save(ann);
-		repo.delete(1);
+		repo.delete(ann.getId());
 		ArrayList<Annotation> items = (ArrayList<Annotation>) repo.getAll();
 
 		assertEquals(0, items.size());
@@ -113,8 +115,8 @@ public class AnnotationRepositoryTest {
 		ann.setPreferredText("test");
 		ann.setTestRunId(123);
 		
-		repo.save(new Annotation());
-		Annotation item = repo.get(1);
+		repo.save(ann);
+		Annotation item = repo.get(ann.getId());
 		
 		repo.delete(item);
 		ArrayList<Annotation> items = (ArrayList<Annotation>) repo.getAll();
@@ -136,7 +138,7 @@ public class AnnotationRepositoryTest {
 		
 		repo.save(ann);
 		
-		Annotation item = (Annotation) repo.get(1);
+		Annotation item = (Annotation) repo.get(ann.getId());
 		item.setSourceConceptId("124");
 		repo.update(item);
 

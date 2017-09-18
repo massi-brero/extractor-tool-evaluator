@@ -30,11 +30,13 @@ public class TestRunRepositoryTest {
 
 	@After
 	public void tearDown() throws Exception {
+		DBConnection.closeDBConnection();
 		Session session = this.conn.getNewSession();
 		Transaction t = session.beginTransaction();
 	    Query query = session.createQuery("delete from TestRun");
 	    query.executeUpdate();
 	    t.commit();
+	    session.flush();
 	    session.close();
 	}
 	
@@ -59,7 +61,7 @@ public class TestRunRepositoryTest {
 		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(run);
-		TestRun item = (TestRun) repo.get(1);
+		TestRun item = (TestRun) repo.get(run.getId());
 
 		assertEquals("foo/test.xml", item.getInputPath());
 	}
@@ -74,12 +76,12 @@ public class TestRunRepositoryTest {
 	@Test
 	public void testDeleteById() {
 		TestRun run = new TestRun();
-		run.setInputPath("foo/test.xml");
+		run.setInputPath("foo/testxx.xml");
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS.toString());
 		
 		repo.save(run);
-		repo.delete(1);
+		repo.delete(run.getId());
 		ArrayList<TestRun> items = (ArrayList<TestRun>) repo.getAll();
 
 		assertEquals(0, items.size());
@@ -92,8 +94,8 @@ public class TestRunRepositoryTest {
 		run.setDate(new Date());
 		run.setResult(TestRunResults.SUCCESS.toString());
 		
-		repo.save(new TestRun());
-		TestRun item = repo.get(1);
+		repo.save(run);
+		TestRun item = repo.get(run.getId());
 		
 		repo.delete(item);
 		ArrayList<TestRun> items = (ArrayList<TestRun>) repo.getAll();
@@ -110,7 +112,7 @@ public class TestRunRepositoryTest {
 		
 		repo.save(run);
 		
-		TestRun item = (TestRun) repo.get(1);
+		TestRun item = (TestRun) repo.get(run.getId());
 		item.setInputPath("foo/test2.xml");
 		repo.update(item);
 

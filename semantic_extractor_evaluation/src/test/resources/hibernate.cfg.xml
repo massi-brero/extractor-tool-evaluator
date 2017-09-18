@@ -13,10 +13,16 @@
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.connection.release_mode">on_close</property>
-		<property name="connection.pool_size">100</property>
+
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">200</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+
 		<property name="hibernate.jdbc.batch_size">30</property>
-		<property name="hibernate.order_inserts">true</property>
-		<property name="hibernate.order_updates">true</property>
+		<property name="hibernate.order_inserts">false</property>
+		<property name="hibernate.order_updates">false</property>
 		<property name="hibernate.jdbc.batch_versioned_data">true</property>
 		<mapping resource="tables/article.xml" />
 		<mapping resource="tables/test_run.xml" />
