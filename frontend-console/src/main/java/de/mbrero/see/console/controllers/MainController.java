@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import org.hibernate.bytecode.buildtime.ExecutionException;
 
+import de.mbrero.see.console.App;
 import de.mbrero.see.console.commands.ConsoleCommand;
 import de.mbrero.see.console.commands.ICommand;
 import de.mbrero.see.console.io.CommandInterpreter;
@@ -59,6 +60,7 @@ public class MainController {
 			if ("exit".equals(input) || "quit".equals(input)) {
 				System.out.println("Exit!");
 				in.close();
+				App.shutdown();
 				System.exit(0);
 			}
 
@@ -71,7 +73,7 @@ public class MainController {
 					throw new ExecutionException("Your command could not be executed.");
 				}
 				
-				output("Job done!");
+				output("\n\nJob done!");
 
 			} catch (Exception e) {
 				e.printStackTrace();

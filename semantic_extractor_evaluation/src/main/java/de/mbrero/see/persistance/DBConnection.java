@@ -55,12 +55,12 @@ public class DBConnection {
 	}
 
 	public static void closeDBConnection() {
-		if (factory instanceof SessionFactoryImpl) {
+		if (factory != null && factory instanceof SessionFactoryImpl) {
 			SessionFactoryImpl sf = (SessionFactoryImpl) factory;
 			ConnectionProvider conn = sf.getConnectionProvider();
 			conn.close();
+			factory.close();
 		}
-		factory.close();
 	}
 
 }

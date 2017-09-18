@@ -31,7 +31,6 @@ public class AnnotationRepositoryTest {
 
 	@After
 	public void tearDown() throws Exception {
-		DBConnection.closeDBConnection();
 		Session session = this.conn.getNewSession();
 		Transaction t = session.beginTransaction();
 	    Query query = session.createQuery("delete from Annotation");
@@ -39,6 +38,7 @@ public class AnnotationRepositoryTest {
 	    t.commit();
 	    session.flush();
 	    session.close();
+		DBConnection.closeDBConnection();
 	}
 	
 	@Test

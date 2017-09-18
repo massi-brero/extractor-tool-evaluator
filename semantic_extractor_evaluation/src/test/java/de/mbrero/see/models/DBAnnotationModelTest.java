@@ -48,13 +48,14 @@ public class DBAnnotationModelTest {
 	    query.executeUpdate();
 	    t.commit();
 	    session.close();
+		DBConnection.closeDBConnection();
 	}
 
 	@Test
 	public void testSaveAnnotation() {
 	
 		annotationModel.saveEntity(annotation1);
-		Annotation item = repo.get(1);
+		Annotation item = repo.get(annotation1.getId());
 
 		assertEquals(1, item.getCount());
 		assertEquals("001", item.getSourceConceptId());
