@@ -73,7 +73,7 @@ public class MainController {
 					throw new ExecutionException("Your command could not be executed.");
 				}
 				
-				output("\n\nJob done!");
+				output("Job done!");
 
 			} catch (Exception e) {
 				e.printStackTrace();

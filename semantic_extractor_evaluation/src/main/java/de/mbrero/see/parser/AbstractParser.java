@@ -129,8 +129,25 @@ public abstract class AbstractParser implements AnnotationParser {
 		NodeList nList = getNodeList(conceptInformationTag);
 		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
 
+		int oldProgress = 0;
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
+				
+			
+			if (idx == 0) {
+				System.out.print("[");
+			}
+			else if (idx == nList.getLength() - 1) {
+				System.out.println("]");
+			}
+			else {
+				int progress = Math.round(((float)idx / nList.getLength()) * 100) / 5;
+				
+				if (progress > oldProgress) {
+					System.out.print("=");
+				}
+				oldProgress = progress;
+			}
 
 			Node node = nList.item(idx);
 
