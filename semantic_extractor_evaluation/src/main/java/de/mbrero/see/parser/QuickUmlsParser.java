@@ -38,7 +38,7 @@ public class QuickUmlsParser extends AbstractParser {
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
-		String ontology = "hghgh";
+		String ontology = helper.getOntologyForCui(conceptId);
 		annotation.setOntology(ontology);
 		annotation.setCui(conceptId);
 		// ToDo: get this info
