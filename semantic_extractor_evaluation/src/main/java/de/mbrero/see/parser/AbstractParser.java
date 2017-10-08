@@ -115,6 +115,7 @@ public abstract class AbstractParser implements AnnotationParser {
 
 			for (File file : files) {
 				parse(file);
+				System.out.println("Finished parsing file: " + file.getAbsolutePath());
 			}
 
 		} else {
