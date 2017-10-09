@@ -14,7 +14,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class QuickUmlsParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "document";
 	private final String DOCUMENT_ID_NODE = "file";
-	private ParserHelper helper = new ParserHelper();
+	
 	//private final String PREFERRED_TEXT_TAG = "preferredText";
 	
 	@Override
@@ -38,7 +38,7 @@ public class QuickUmlsParser extends AbstractParser {
 			throws ParserConfigurationException, SAXException, IOException {
 		Annotation annotation = new Annotation();
 
-		String ontology = helper.getOntologyForCui(conceptId);
+		String ontology = PROTOTYPE_ONTOLOGY;
 		annotation.setOntology(ontology);
 		annotation.setCui(conceptId);
 		// ToDo: get this info

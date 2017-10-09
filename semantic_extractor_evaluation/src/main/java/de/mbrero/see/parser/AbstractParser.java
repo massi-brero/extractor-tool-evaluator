@@ -3,6 +3,7 @@ package de.mbrero.see.parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -55,6 +56,14 @@ public abstract class AbstractParser implements AnnotationParser {
 	protected File sourceFile;
 
 	/**
+	 * The ontology used for the prototype of this software. To get the used
+	 * ontology dynamically from the MRCONSO.RFF file of <br/>
+	 * a UMLS installation use {@link ParserHelper#getOntologyForCui(String)}.
+	 * Beware the extraction from the usually big files is quite expensive.
+	 */
+	protected final String PROTOTYPE_ONTOLOGY = "NCBI";
+
+	/**
 	 * All annotations for every parsed result file. Structure
 	 * {@link Annotation}:
 	 * <ul>
@@ -80,6 +89,8 @@ public abstract class AbstractParser implements AnnotationParser {
 	 */
 	protected File outputFile;
 	protected String extractorName = "";
+	
+	protected static int progressRatio = 0;
 
 	public AbstractParser() {
 		annotations = new HashMap<>();
@@ -129,25 +140,10 @@ public abstract class AbstractParser implements AnnotationParser {
 		NodeList nList = getNodeList(conceptInformationTag);
 		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
 
-		int oldProgress = 0;
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
-				
-			
-			if (idx == 0) {
-				System.out.print("[");
-			}
-			else if (idx == nList.getLength() - 1) {
-				System.out.println("]");
-			}
-			else {
-				int progress = Math.round(((float)idx / nList.getLength()) * 100) / 5;
-				
-				if (progress > oldProgress) {
-					System.out.print("=");
-				}
-				oldProgress = progress;
-			}
+
+			showProgress(nList.getLength(), idx, 10);
 
 			Node node = nList.item(idx);
 
@@ -171,6 +167,43 @@ public abstract class AbstractParser implements AnnotationParser {
 		}
 
 		return fileAnnotations;
+	}
+
+	/**
+	 * 
+	 * Shows a progress Bar for the console.
+	 * 
+	 * @param int totalLength
+	 * @param int idx actual position in iteration; start with 0
+	 * @param int steps 
+	 */
+	private void showProgress(int totalLength, int idx, int steps) {
+
+		float progress = idx == totalLength - 1 ? 100.00f : ((float) idx / totalLength) * 100;
+		int newProgressRatio = (int)progress / steps;
+
+		if (newProgressRatio > progressRatio) {
+			StringBuilder output = new StringBuilder();
+			DecimalFormat df = new DecimalFormat("#.00");
+			output.append("\r")
+				  .append(df.format(progress))
+				  .append("%\t")
+				  .append("[");
+			for (int i = 0; i < steps - 1; i++) {
+				if (i < newProgressRatio)
+					output.append("=");
+				else
+					output.append(" ");		
+			}
+			System.out.print(output.append("]"));
+			
+			if (idx == totalLength - 1)
+				progressRatio = 0;
+			
+		}
+
+		progressRatio = newProgressRatio;
+
 	}
 
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
