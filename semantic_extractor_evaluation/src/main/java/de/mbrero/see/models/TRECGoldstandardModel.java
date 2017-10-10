@@ -56,7 +56,6 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 		for(Annotation annotation : annotations) {
 			saveEntity(annotation);
 		}
-	
 
 	}
 

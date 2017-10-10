@@ -16,7 +16,6 @@ import de.mbrero.see.persistance.DBConnection;
 
 public class Repository<T> implements IRepository<T> {
 
-	private static int counter = 0;
 	/*
 	 * Get the Connection to the database
 	 */
@@ -149,20 +148,7 @@ public class Repository<T> implements IRepository<T> {
 	}
 
 	private Session getSession() {
-		outputProgress();
 		return conn.getNewSession();
-	}
-
-	private void outputProgress() {
-
-		if (Repository.counter <= 40) {
-			System.out.print(".");
-			Repository.counter++;
-		} else {
-			System.out.println(".");
-			Repository.counter = 0;
-		}
-
 	}
 
 }

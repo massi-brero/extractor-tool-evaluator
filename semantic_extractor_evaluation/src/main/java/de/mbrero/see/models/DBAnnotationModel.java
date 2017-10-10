@@ -10,6 +10,7 @@ import de.mbrero.see.controllers.TestRunController;
 import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Annotation;
+import util.ProgressBar;
 
 /**
  * Saves annotations to a database table defined by the {@link Annotation} bean.
@@ -39,9 +40,16 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 
 	@Override
 	public void saveEntityList(ArrayList<Annotation> annotations) {
+		int count = 0;
+		ProgressBar progressBar = new ProgressBar();
+		
 		for (Annotation annotation : annotations) {
+			
+			progressBar.showProgress(annotations.size(), count, 10);
 			annotation.setTestRunId(TestRunController.testRunId);
 			saveEntity(annotation);
+			
+			count++;
 		}
 
 	}
@@ -50,10 +58,13 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	@SuppressWarnings("unchecked")
 	public void saveEntitiesInCorpus(HashMap<String, HashMap<String, Annotation>> allAnnotations) {
 		
-		Iterator it = allAnnotations.entrySet().iterator();
+		Iterator<?> it = allAnnotations.entrySet().iterator();
 		
 		while (it.hasNext()) {
 			Map.Entry<String, HashMap<String, Annotation>> entry = (Map.Entry<String, HashMap<String, Annotation>>) it.next();
+			
+			System.out.println(entry.getKey());
+			
 			HashMap<String, Annotation> foo = entry.getValue();
 			ArrayList<Annotation> annList = new ArrayList<Annotation>((entry.getValue().values()));
 			saveEntityList(annList);

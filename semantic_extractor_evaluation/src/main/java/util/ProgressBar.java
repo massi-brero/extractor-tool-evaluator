@@ -29,13 +29,13 @@ public class ProgressBar {
 				  .append(df.format(progress))
 				  .append("%\t")
 				  .append("[");
-			for (int i = 0; i < steps - 1; i++) {
-				if (i < newProgressRatio)
-					output.append("=");
+			for (int i = 1; i <= steps; i++) {
+				if (i <= newProgressRatio)
+					output.append("*");
 				else
-					output.append(" ");		
+					output.append(".");		
 			}
-			System.out.print(output.append("]\n"));
+			System.out.print(output.append("]"));
 			
 			if (idx == totalLength - 1)
 				progressRatio = 0;
