@@ -47,7 +47,7 @@ public class TRECGoldstandardResultWriterTest {
 		Stream<String> stream = Files.lines(Paths.get(resultFile.getPath()));
 
 		stream.forEach((str) -> {
-			assertEquals("testText1.txt 0 CUI001_0 1", str);
+			assertEquals("testText1.txt 0 C001_0 1", str);
 		});
 		
 		stream.close();
@@ -69,9 +69,9 @@ public class TRECGoldstandardResultWriterTest {
 		});
 		
 		assertEquals(3, annotationsResult.size());
-		assertEquals("testText1.txt 0 CUI001_0 1", annotationsResult.get(0));
-		assertEquals("testText2.txt 0 CUI002_0 1", annotationsResult.get(1));
-		assertEquals("testText2.txt 0 CUI002_1 1", annotationsResult.get(2));
+		assertEquals("testText1.txt 0 C001_0 1", annotationsResult.get(0));
+		assertEquals("testText2.txt 0 C002_0 1", annotationsResult.get(1));
+		assertEquals("testText2.txt 0 C002_1 1", annotationsResult.get(2));
 		
 		stream.close();
 		
@@ -97,9 +97,9 @@ public class TRECGoldstandardResultWriterTest {
 		    }
 		});
 		assertEquals(3, annotationsResult.size());
-		assertEquals("testText1.txt 0 CUI001_0 1", annotationsResult.get(0));
-		assertEquals("testText2.txt 0 CUI002_0 1", annotationsResult.get(1));
-		assertEquals("testText2.txt 0 CUI002_1 1", annotationsResult.get(2));
+		assertEquals("testText1.txt 0 C001_0 1", annotationsResult.get(0));
+		assertEquals("testText2.txt 0 C002_0 1", annotationsResult.get(1));
+		assertEquals("testText2.txt 0 C002_1 1", annotationsResult.get(2));
 		
 		stream.close();
 		
@@ -111,7 +111,8 @@ public class TRECGoldstandardResultWriterTest {
 		
 		annotation1 = new Annotation();
 		annotation1.setCount(1);
-		annotation1.setSourceConceptId("001");
+		annotation1.setSourceConceptId("0011");
+		annotation1.setCui("C001");
 		annotation1.setDocumentID(document1);
 		annotation1.setMatchedChunk("test text");
 		annotation1.setOntology(Ontology.NCBI.name());
@@ -119,7 +120,8 @@ public class TRECGoldstandardResultWriterTest {
 		
 		annotation2 = new Annotation();
 		annotation2.setCount(2);
-		annotation2.setSourceConceptId("002");
+		annotation2.setSourceConceptId("0022");
+		annotation2.setCui("C002");
 		annotation2.setDocumentID(document2);
 		annotation2.setMatchedChunk("test text");
 		annotation2.setOntology(Ontology.NCBI.name());

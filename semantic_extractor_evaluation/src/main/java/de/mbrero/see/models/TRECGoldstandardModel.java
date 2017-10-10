@@ -22,7 +22,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 	
 	File resultFile = null;
-	private String trecLine = "%s 0 CUI%s 1".concat(System.getProperty("line.separator"));
+	private String trecLine = "%s 0 %s 1".concat(System.getProperty("line.separator"));
 
 	public TRECGoldstandardModel() {
 	}
@@ -39,7 +39,7 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 			
 			for (int idx = 0; idx < annotation.getCount(); idx++) {
 				String line = String.format(trecLine, 
-						annotation.getDocumentID(), annotation.getSourceConceptId() + "_" + idx);
+						annotation.getDocumentID(), annotation.getCui() + "_" + idx);
 
 				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
 			}
