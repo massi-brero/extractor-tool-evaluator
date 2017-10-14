@@ -166,7 +166,7 @@ public class CTakesParserTest {
 	
 	@Ignore
 	@Test 
-	public void test_saveResultToRable() {
+	public void test_saveResultToTable() {
 		
 	}
 

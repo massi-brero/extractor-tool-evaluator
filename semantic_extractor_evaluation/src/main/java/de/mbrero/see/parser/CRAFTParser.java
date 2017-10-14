@@ -1,6 +1,5 @@
 package de.mbrero.see.parser;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.naming.ConfigurationException;

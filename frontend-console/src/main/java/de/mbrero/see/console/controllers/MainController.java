@@ -1,9 +1,11 @@
 package de.mbrero.see.console.controllers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.hibernate.bytecode.buildtime.ExecutionException;
 
@@ -21,8 +23,15 @@ import exceptions.UnknownCommandException;
  *
  */
 public class MainController {
+	
+	/*
+	 * Output colors
+	 */
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_BLUE = "\u001B[34m";
 
-	CommandInterpreter interpreter;
+	private CommandInterpreter interpreter;
 	private final String CLASSNAME_SUFFIX = "Command";
 	/**
 	 * The object that wraps the console command.
@@ -51,20 +60,21 @@ public class MainController {
 
 		while (true) {
 
-			Scanner in;
-			in = new Scanner(System.in);
-
-			System.out.print("$see> ");
-			input = in.nextLine().trim();
-
-			if ("exit".equals(input) || "quit".equals(input)) {
-				System.out.println("Exit!");
-				in.close();
-				App.shutdown();
-				System.exit(0);
-			}
-
 			try {
+				
+				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+				
+				System.out.print(ANSI_GREEN + "$see> ");
+				input = bufferedReader.readLine().trim();
+				
+				//System.out.print(bufferedReader.read());
+				
+				if ("exit".equals(input) || "quit".equals(input)) {
+					System.out.println("Exit!");
+					bufferedReader.close();
+					App.shutdown();
+					System.exit(0);
+				}
 				
 				cmd = this.getInterpreter().buildCommand(input);
 				int result = this.executeCommand(cmd);
@@ -75,9 +85,11 @@ public class MainController {
 				
 				output("Job done!");
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				output(e.getMessage());
+			} catch (IOException e1) {
+				output("Error while reading from console..." + e1.getMessage());
+			}
+			catch (Exception e2) {
+				output(e2.getMessage());
 			}
 		}
 
@@ -137,8 +149,8 @@ public class MainController {
 	}
 
 	private void output(String msg) {
-		msg = "***" + msg + "***";
-		System.out.println(msg);
+		msg = "\n*** " + msg + " ***\n";
+		System.out.print(ANSI_RED + msg + ANSI_RESET);
 	}
 
 	private String buildClassname(ConsoleCommand cmd) {

@@ -40,7 +40,7 @@ public class TRECResultModel implements IEntityWriter<Annotation> {
 			
 			for (int idx = 0; idx < annotation.getCount(); idx++) {
 				String line = String.format(trecLine, 
-						annotation.getDocumentID(), annotation.getOntology() + "_" + id + "_" + idx);
+						annotation.getDocumentID(), id + "_" + idx);
 				Files.write(Paths.get(getResultFile().getPath()), line.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);				
 			}
 
