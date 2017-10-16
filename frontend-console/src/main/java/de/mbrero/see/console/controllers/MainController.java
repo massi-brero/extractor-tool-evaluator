@@ -1,19 +1,19 @@
 package de.mbrero.see.console.controllers;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Map;
 
 import org.hibernate.bytecode.buildtime.ExecutionException;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
 
 import de.mbrero.see.console.App;
 import de.mbrero.see.console.commands.ConsoleCommand;
 import de.mbrero.see.console.commands.ICommand;
 import de.mbrero.see.console.io.CommandInterpreter;
-import exceptions.ParameterException;
 import exceptions.UnknownCommandException;
 
 /**
@@ -22,14 +22,12 @@ import exceptions.UnknownCommandException;
  * @author massi.brero@gmail.com
  *
  */
-public class MainController {
+public class MainController implements Runnable {
 	
 	/*
 	 * Output colors
 	 */
-	public static final String ANSI_GREEN = "\u001B[32m";
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_RED = "\u001B[31m";
+
 
 	private CommandInterpreter interpreter;
 	private final String CLASSNAME_SUFFIX = "Command";
@@ -40,20 +38,8 @@ public class MainController {
 	 */
 	private ICommand commandObject = null;
 
-	public static Map<String, String> bootstrap() {
-		MainController mainCtrl = new MainController();
-		mainCtrl.readFromConsole();
-
-		return null;
-	}
-
-	/**
-	 * Reads the user input.
-	 * 
-	 * @return {@link ConsoleCommand}
-	 * @throws ParameterException
-	 */
-	public ConsoleCommand readFromConsole() {
+	@Override
+	public void run() {
 
 		ConsoleCommand cmd = new ConsoleCommand();
 		String input = "";
@@ -62,16 +48,14 @@ public class MainController {
 
 			try {
 				
-				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-				
-				System.out.print(ANSI_GREEN + "$see> ");
-				input = bufferedReader.readLine().trim();
-				
-				//System.out.print(bufferedReader.read());
+				Terminal terminal =  TerminalBuilder.terminal();
+				LineReader lineReader = LineReaderBuilder.builder()
+							                              .terminal(terminal)
+							                              .build();
+				input = lineReader.readLine("$see> ");
 				
 				if ("exit".equals(input) || "quit".equals(input)) {
 					System.out.println("Exit!");
-					bufferedReader.close();
 					App.shutdown();
 					System.exit(0);
 				}
@@ -150,7 +134,7 @@ public class MainController {
 
 	private void output(String msg) {
 		msg = "\n*** " + msg + " ***\n";
-		System.out.print(ANSI_RED + msg + ANSI_RESET);
+		System.out.print(App.ANSI_RED + msg + App.ANSI_RESET);
 	}
 
 	private String buildClassname(ConsoleCommand cmd) {
