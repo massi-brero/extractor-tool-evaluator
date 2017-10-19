@@ -1,4 +1,4 @@
-package de.mbrero.see.controllers;
+package de.mbrero.see.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +22,7 @@ import de.mbrero.see.persistance.dto.Annotation;
  * @author massi
  *
  */
-public class AnnotationsController {
+public class AnnotationsService {
 
 	private TRECGoldstandardModel gsTrecModel = null;
 	private TRECResultModel resultTrecModel = null;
@@ -31,7 +31,7 @@ public class AnnotationsController {
 	/**
 	 * 
 	 */
-	public AnnotationsController() {
+	public AnnotationsService() {
 		gsTrecModel = new TRECGoldstandardModel();
 		resultTrecModel = new TRECResultModel();
 		dbModel = new DBAnnotationModel();

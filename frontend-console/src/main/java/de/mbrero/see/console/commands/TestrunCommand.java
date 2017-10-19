@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import de.mbrero.see.controllers.TestRunController;
+import de.mbrero.see.api.TestRunController;
 import de.mbrero.see.persistance.dto.types.TestRunResults;
 import types.Extractors;
 

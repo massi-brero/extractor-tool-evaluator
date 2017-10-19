@@ -15,7 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.mbrero.see.controllers.TestRunController;
+import de.mbrero.see.api.TestRunController;
 import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Annotation;

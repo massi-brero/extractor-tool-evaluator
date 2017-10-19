@@ -1,4 +1,4 @@
-package de.mbrero.see.controllers;
+package de.mbrero.see.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class TestRunController {
 	private Extractors type;
 	private HashMap<String, String> params = new HashMap<>();
 	private HashMap<String, HashMap<String, Annotation>> annotations;
-	private AnnotationsController annotationsCtrl;
+	private AnnotationsService annotationsService;
 	private AbstractParser parser = null;
 	public static int testRunId = 0;
 
@@ -56,7 +56,7 @@ public class TestRunController {
 	 */
 	public TestRunController(File input, Extractors type, File outputExtractorResult, File outputTRECFile,
 			String tester, HashMap<String, String> params) {
-		annotationsCtrl = new AnnotationsController();
+		annotationsService = new AnnotationsService();
 		this.inputPath = input;
 		this.type = type;
 		this.outputExtractorResult = outputExtractorResult;
@@ -97,11 +97,11 @@ public class TestRunController {
 	}
 
 	public void saveAnnotationsToDatabase() throws Exception {
-		annotationsCtrl.saveAnnotationsToDatabase(annotations);
+		annotationsService.saveAnnotationsToDatabase(annotations);
 	}
 
 	public void saveAnnotationsToTrecFile() throws IOException {
-		annotationsCtrl.saveAnnotationsToTRECResultUsingCUI(annotations, outputTRECFile);
+		annotationsService.saveAnnotationsToTRECResultUsingCUI(annotations, outputTRECFile);
 	}
 
 	public void setResult(TestRunResults result) {

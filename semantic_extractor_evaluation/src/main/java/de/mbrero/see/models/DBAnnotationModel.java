@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import de.mbrero.see.controllers.TestRunController;
+import de.mbrero.see.api.TestRunController;
 import de.mbrero.see.persistance.DBConnection;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Annotation;

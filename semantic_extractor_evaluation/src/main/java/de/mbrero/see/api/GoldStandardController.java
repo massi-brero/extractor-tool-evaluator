@@ -1,4 +1,4 @@
-package de.mbrero.see.controllers;
+package de.mbrero.see.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,13 +23,13 @@ public class GoldStandardController {
 	private File inputPath = new File("");
 	private File outputPath = new File("");
 	private HashMap<String, HashMap<String, Annotation>> annotations = new HashMap<>();
-	private AnnotationsController annotationsCtrl;
+	private AnnotationsService annotationsService;
 
 	public GoldStandardController(GoldStandardType type, File input, File output) {
 		setType(type);
 		setInputPath(input);
 		setOutputPath(output);
-		annotationsCtrl = new AnnotationsController();
+		annotationsService = new AnnotationsService();
 	}
 
 	/**
@@ -90,12 +90,12 @@ public class GoldStandardController {
 		this.annotations = annotations;
 	}
 
-	public AnnotationsController getAnnCtrl() {
-		return annotationsCtrl;
+	public AnnotationsService getAnnCtrl() {
+		return annotationsService;
 	}
 
-	public void setAnnCtrl(AnnotationsController annCtrl) {
-		this.annotationsCtrl = annCtrl;
+	public void setAnnCtrl(AnnotationsService annCtrl) {
+		this.annotationsService = annCtrl;
 	}
 	
 	private void runGoldStandardJob() throws Exception, IOException {
@@ -109,13 +109,13 @@ public class GoldStandardController {
 		 * Write the parsed results to the database
 		 */
 		writeToConsole("Saving annotations to MySQL Database...");
-		annotationsCtrl.saveAnnotationsToDatabase(annotations);
+		annotationsService.saveAnnotationsToDatabase(annotations);
 
 		/*
 		 * Write the annotations to the TREC qrel files
 		 */
 		writeToConsole("Saving annotations to TREC file...");
-		annotationsCtrl.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
+		annotationsService.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
 	}
 
 	private void writeToConsole(String msg) {

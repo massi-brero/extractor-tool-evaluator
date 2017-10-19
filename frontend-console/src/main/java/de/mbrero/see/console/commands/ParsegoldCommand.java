@@ -3,7 +3,7 @@ package de.mbrero.see.console.commands;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import de.mbrero.see.controllers.GoldStandardController;
+import de.mbrero.see.api.GoldStandardController;
 import types.GoldStandardType;
 
 /**
