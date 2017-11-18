@@ -7,6 +7,7 @@ import java.util.HashMap;
 import de.mbrero.see.parser.CRAFTParser;
 import de.mbrero.see.parser.ParserFactory;
 import de.mbrero.see.persistance.dto.Annotation;
+import de.mbrero.see.services.AnnotationsService;
 import types.GoldStandardType;
 import types.ParserType;
 

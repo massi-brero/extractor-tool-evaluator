@@ -1,7 +1,6 @@
 package de.mbrero.see.console;
 
 import java.io.IOException;
-import java.util.Map;
 
 import de.mbrero.see.console.controllers.MainController;
 import de.mbrero.see.persistance.DBConnection;
@@ -16,8 +15,7 @@ public class App {
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
 	
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
     	App.printHeader();
     	bootstrap();
     }
@@ -43,13 +41,18 @@ public class App {
     	
     }
     
-    public static void shutdown()
-    {
+    /**
+     * Closes the application and sees that all open connections are closed.
+     */
+    public static void shutdown() {
     	System.out.println("Closing all connections.");
     	DBConnection.closeDBConnection();
     	System.out.println("\nBye...");
     }
     
+    /**
+     * Fires up the console and bootstraps the application.
+     */
 	public static void bootstrap() {
 		Thread consoleThread = new Thread(new MainController());
 		consoleThread.start();

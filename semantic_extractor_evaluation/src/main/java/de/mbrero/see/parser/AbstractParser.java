@@ -3,7 +3,6 @@ package de.mbrero.see.parser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -140,6 +139,8 @@ public abstract class AbstractParser implements AnnotationParser {
 		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
 		
 		ProgressBar progressBar = new ProgressBar();
+		
+		System.out.println(nList.getLength());
 
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
@@ -170,9 +171,26 @@ public abstract class AbstractParser implements AnnotationParser {
 		return fileAnnotations;
 	}
 
+	/**
+	 *  Reads the annotation tags. Validating the XML is turned of for performance reasons.
+	 * 
+	 * @param tagName
+	 * @return
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		
+		dbFactory.setNamespaceAware(false);
+		dbFactory.setValidating(false);
+		dbFactory.setFeature("http://xml.org/sax/features/namespaces", false);
+		dbFactory.setFeature("http://xml.org/sax/features/validation", false);
+		dbFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+		dbFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		dBuilder.reset();
 		document = dBuilder.parse(getInputFile());
@@ -204,10 +222,7 @@ public abstract class AbstractParser implements AnnotationParser {
 	}
 
 	@Override
-	public void setOutputType(OutputType type) {
-		// TODO Auto-generated method stub
-
-	}
+	public void setOutputType(OutputType type) {}
 
 	/**
 	 * @return the umlsInformationTagreturn

@@ -14,23 +14,26 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class QuickUmlsParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "document";
 	private final String DOCUMENT_ID_NODE = "file";
+	private String annotatedFilename = "";
 	
 	//private final String PREFERRED_TEXT_TAG = "preferredText";
 	
 	@Override
 	protected String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException {
 
-		String filename = "";
-		
-		NodeList nList = getNodeList(DOCUMENT_ID_TAG);
-		Node node = nList.item(0);
-
-		if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
-			Element elem = (Element) node;
-			filename = elem.getAttribute(DOCUMENT_ID_NODE);
+		if (annotatedFilename.isEmpty())
+		{
+			NodeList nList = getNodeList(DOCUMENT_ID_TAG);
+			Node node = nList.item(0);
+			
+			if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
+				Element elem = (Element) node;
+				annotatedFilename = elem.getAttribute(DOCUMENT_ID_NODE);
+			}			
 		}
+		
 
-		return filename;
+		return annotatedFilename;
 	}
 	
 	@Override

@@ -16,6 +16,7 @@ import de.mbrero.see.parser.QuickUmlsParser;
 import de.mbrero.see.persistance.dto.Annotation;
 import de.mbrero.see.persistance.dto.TestRun;
 import de.mbrero.see.persistance.dto.types.TestRunResults;
+import de.mbrero.see.services.AnnotationsService;
 import types.Extractors;
 import types.ParserType;
 
