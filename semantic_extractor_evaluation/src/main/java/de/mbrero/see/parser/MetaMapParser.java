@@ -16,6 +16,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
+import util.ProgressBar;
 
 public class MetaMapParser extends AbstractParser {
 	private final String OPTION_TAG = "Option";
@@ -67,11 +68,14 @@ public class MetaMapParser extends AbstractParser {
 
 		NodeList nList = getNodeList(conceptInformationTag);
 		HashMap<String, Annotation> fileAnnotations = new HashMap<>();
+		ProgressBar progressBar = new ProgressBar();
 
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
 
 			Element conceptElement = (Element) nList.item(idx);
+			
+			progressBar.showProgress(nList.getLength(), idx, 10);
 
 			if (conceptElement.getNodeType() == Node.ELEMENT_NODE) {
 
