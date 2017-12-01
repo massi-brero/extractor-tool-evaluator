@@ -37,6 +37,11 @@ public class TestrunCommand implements ICommand {
 	public final String INPUT_PATH_PARAMETER = "input";
 	public final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
 	public final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
+	public final String SKIP_PARAMETER = "-skip";
+	public final String SKIP_EXTRACTION_VALUE = "extraction";
+	public final String SKIP_PARSING_VALUE = "parsing";
+	public final String SKIP_DATABASE_VALUE = "database";
+	public final String SKIP_TREC_VALUE = "trec";
 	
 	private String paramsString = null;
 	private HashMap<String, String> params = new HashMap<>();
@@ -81,11 +86,14 @@ public class TestrunCommand implements ICommand {
 													   cmd.getParameters().get(TESTER_PARAMETER),
 													   getParams());
 		
-		/*
-		 * Initiallize Test run
-		 */
-		System.out.println("\n\n>>>Initiallize Test run...");
-		ctrl.initializeTestRun();
+		if (cmd.getParameters().get(SKIP_PARAMETER) == null) {
+			/*
+			 * Initiallize Test run
+			 */
+			System.out.println("\n\n>>>Initiallize Test run...");
+			ctrl.initializeTestRun();
+		}
+
 		
 		/*
 		 * Start extractor with given parameters
