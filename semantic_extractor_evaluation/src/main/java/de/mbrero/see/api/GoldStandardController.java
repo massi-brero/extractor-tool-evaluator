@@ -103,19 +103,19 @@ public class GoldStandardController {
 		/*
 		 * Get the annotations
 		 */
-		writeToConsole("Starting Job...");
+		writeToConsole("\n\nStarting Job...");
 		retrieveAnnotations();
 
 		/*
 		 * Write the parsed results to the database
 		 */
-		writeToConsole("Saving annotations to MySQL Database...");
+		writeToConsole("\n\nSaving annotations to MySQL Database...");
 		annotationsService.saveAnnotationsToDatabase(annotations);
 
 		/*
 		 * Write the annotations to the TREC qrel files
 		 */
-		writeToConsole("Saving annotations to TREC file...");
+		writeToConsole("\n\nSaving annotations to TREC file...");
 		annotationsService.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
 	}
 

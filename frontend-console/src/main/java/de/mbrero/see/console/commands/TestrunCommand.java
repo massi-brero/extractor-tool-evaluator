@@ -89,9 +89,9 @@ public class TestrunCommand implements ICommand {
 		setTest(cmd.getParameters().get(TEST_PARAMETER) != null ? true : false);
 
 		/*
-		 * Initiallize Test run
+		 * Initialize Test run
 		 */
-		System.out.println("\n\n>>>Initiallize Test run...");
+		System.out.println("\n\n>>>Initialize Test run...");
 		ctrl.initializeTestRun();
 
 		/*
