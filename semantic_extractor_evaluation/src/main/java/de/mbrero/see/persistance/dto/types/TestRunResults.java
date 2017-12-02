@@ -12,5 +12,6 @@ import de.mbrero.see.persistance.dto.TestRun;
 public enum TestRunResults {
 	SUCCESS,
 	FAILED,
-	PENDING
+	PENDING,
+	TEST
 }

@@ -38,6 +38,7 @@ public class TestEndToEndGoldStandard {
 		params.put("type", "craft");
 		params.put("input", getClass().getClassLoader().getResource("input/ncbi/test1.txt").getFile());
 		params.put("output", trecFile.getAbsolutePath());
+		params.put("test", "");
 		cmd.setCommand("parsegold");
 		cmd.setParameters(params);
 
@@ -60,6 +61,7 @@ public class TestEndToEndGoldStandard {
 		params.put("input", getClass().getClassLoader().getResource("input/ncbi/craft-test.xmi").getFile());
 		params.put("output", trecFile.getAbsolutePath());
 		cmd.setCommand("parsegold");
+		params.put("test", "");
 		cmd.setParameters(params);
 
 		MainController ctrl = new MainController();	
@@ -69,11 +71,12 @@ public class TestEndToEndGoldStandard {
 	}
 	
 	@Test
-	public void endToEndTestTRECFileThrowsErrorBecauseOfWronOntologyNameOfFolder() {
+	public void endToEndTestTRECFileThrowsErrorBecauseOfWrongOntologyNameOfFolder() {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("type", "craft");
 		params.put("input", getClass().getClassLoader().getResource("input/abcd/craft-test.xmi").getFile());
 		params.put("output", trecFile.getAbsolutePath());
+		params.put("test", "");
 		cmd.setCommand("parsegold");
 		cmd.setParameters(params);
 

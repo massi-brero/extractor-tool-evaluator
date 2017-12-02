@@ -13,7 +13,11 @@ import types.Extractors;
  * Triggers the execution of a semantic extractor. The Type supported can be
  * found in {@link Extractors}.<br>
  * A valid call from the console may look like this<br>
- * testrun -type metamap -tester massi@gmail.com -input /home/massi/projects/result_files/txt_test/* -outTrec /home/massi/projects/result_files/TREC/mm_test -outEx /home/massi/projects/result_files/extractor_results/mm/res1.xml -params [--XMLf]
+ * testrun -type metamap -tester massi@gmail.com -input
+ * /home/massi/projects/result_files/txt_test/* -outTrec
+ * /home/massi/projects/result_files/TREC/mm_test -outEx
+ * /home/massi/projects/result_files/extractor_results/mm/res1.xml -params
+ * [--XMLf]
  * 
  * The "tester" parameter is mandatory for reproduction reasons. Input folder or
  * file and output file<br>
@@ -37,11 +41,13 @@ public class TestrunCommand implements ICommand {
 	public final String INPUT_PATH_PARAMETER = "input";
 	public final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
 	public final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
-	
+	public final String TEST_PARAMETER = "test";
+
 	private String paramsString = null;
 	private HashMap<String, String> params = new HashMap<>();
 	private ConsoleCommand cmd = new ConsoleCommand();
-	
+	private boolean isTest = false;
+
 	/*
 	 * Paths for input and output validation.
 	 */
@@ -53,14 +59,17 @@ public class TestrunCommand implements ICommand {
 	/**
 	 * Triggers the whole test run for an extractor, including:
 	 * <ol>
-	 * 	<li>Initializing the test and storing enveronment data for reproducibility purposes.</li>
+	 * <li>Initializing the test and storing enveronment data for
+	 * reproducibility purposes.</li>
 	 * <li>Starting the extractor with the given parameters.</li>
 	 * <li>Saving the result file from the extraction process.</li>
 	 * <li>Saving the annotations to a SQL database</li>
 	 * <li>Saving the annotation in a TREC result file</li>
-	 * </ol> 
+	 * </ol>
 	 * 
-	 * @param {@link ConsoleCommand} The command received from the command line including parameters.
+	 * @param {@link
+	 * 			ConsoleCommand} The command received from the command line
+	 *            including parameters.
 	 */
 	public void execute(ConsoleCommand command) throws Exception {
 
@@ -74,46 +83,45 @@ public class TestrunCommand implements ICommand {
 			parseExtractorParameters();
 		}
 
-		TestRunController ctrl = new TestRunController(inputPath, 
-													   type,
-													   outputPathExtractorResult, 
-													   outputPathTRECFile, 
-													   cmd.getParameters().get(TESTER_PARAMETER),
-													   getParams());
-		
+		TestRunController ctrl = new TestRunController(inputPath, type, outputPathExtractorResult, outputPathTRECFile,
+				cmd.getParameters().get(TESTER_PARAMETER), getParams());
+
+		setTest(cmd.getParameters().get(TEST_PARAMETER) != null ? true : false);
+
 		/*
 		 * Initiallize Test run
 		 */
 		System.out.println("\n\n>>>Initiallize Test run...");
 		ctrl.initializeTestRun();
-		
+
 		/*
 		 * Start extractor with given parameters
 		 */
 		System.out.println("\n\n>>>Start extractor with given parameters...");
 		ctrl.runExtractor();
-		
+
 		/*
 		 * Getting concepts from extractor result
 		 */
 		System.out.println("\n\n>>>Getting concepts from extractor result...");
 		ctrl.getAnnotationsFromExtractorResult();
-		
+
 		/*
 		 * Save annotations to database
 		 */
 		System.out.println("\n\n>>>Save annotations to database...");
 		ctrl.saveAnnotationsToDatabase();
-		
-		
+
 		/*
 		 * Save annotations to TREC file
 		 */
 		System.out.println("\n\n>>>Save annotationsto TREC file...");
 		ctrl.saveAnnotationsToTrecFile();
-		
-		ctrl.setResult(TestRunResults.SUCCESS);
 
+		if (isTest())
+			ctrl.setResult(TestRunResults.TEST);
+		else
+			ctrl.setResult(TestRunResults.SUCCESS);
 
 	}
 
@@ -122,7 +130,7 @@ public class TestrunCommand implements ICommand {
 
 		String normalizedInputPathAsString = cmd.getParameters().get(INPUT_PATH_PARAMETER).replace("*", "");
 		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
-		
+
 		outputPathExtractorResult = new File(cmd.getParameters().get(OUTPUT_PATH_EXTRACTOR_PARAMETER));
 		outputPathTRECFile = new File(cmd.getParameters().get(OUTPUT_PATH_TREC_PARAMETER));
 
@@ -132,20 +140,21 @@ public class TestrunCommand implements ICommand {
 		if (!(new File(normalizedInputPathAsString)).exists()) {
 			throw new FileNotFoundException("Path for input files does not exist");
 		}
-		
-		if (getCmd().getParameters().get(TESTER_PARAMETER) == null 
-			|| getCmd().getParameters().get(TESTER_PARAMETER) == "") {
-				throw new FileNotFoundException("Please enter the email of the tester!");	
+
+		if (getCmd().getParameters().get(TESTER_PARAMETER) == null
+				|| getCmd().getParameters().get(TESTER_PARAMETER) == "") {
+			throw new FileNotFoundException("Please enter the email of the tester!");
 		}
 
-//		if (outputPathExtractorResult.isDirectory()) {
-//			throw new FileNotFoundException("Please specify a file name in an existing "
-//					+ "directory for the extractor result!");
-//		}
-		
+		// if (outputPathExtractorResult.isDirectory()) {
+		// throw new FileNotFoundException("Please specify a file name in an
+		// existing "
+		// + "directory for the extractor result!");
+		// }
+
 		if (outputPathTRECFile.isDirectory()) {
-			throw new FileNotFoundException("Please specify a file name in an existing "
-					+ "directory for the TREC result file!");
+			throw new FileNotFoundException(
+					"Please specify a file name in an existing " + "directory for the TREC result file!");
 		}
 
 		if (paramsString.length() > 0) {
@@ -165,16 +174,13 @@ public class TestrunCommand implements ICommand {
 
 		Arrays.stream(paramsArray).forEach(paramsPair -> {
 			String[] paramsPairAsArray = paramsPair.split("=");
-			
-			if(paramsPairAsArray.length == 1) {
-				params.put(paramsPairAsArray[0], "");				
-			}
-			else if (paramsPairAsArray.length == 2) {
-				params.put(paramsPairAsArray[0], paramsPairAsArray[1]);				
-			}
-			else {
-				throw new IllegalArgumentException("The paramater syntax is: "
-						+ "[-param1 value1 -param2 ....]");				
+
+			if (paramsPairAsArray.length == 1) {
+				params.put(paramsPairAsArray[0], "");
+			} else if (paramsPairAsArray.length == 2) {
+				params.put(paramsPairAsArray[0], paramsPairAsArray[1]);
+			} else {
+				throw new IllegalArgumentException("The paramater syntax is: " + "[-param1 value1 -param2 ....]");
 			}
 
 		});
@@ -234,6 +240,14 @@ public class TestrunCommand implements ICommand {
 
 	public void setParamsString(String paramsString) {
 		this.paramsString = paramsString;
+	}
+
+	public boolean isTest() {
+		return isTest;
+	}
+
+	public void setTest(boolean isTest) {
+		this.isTest = isTest;
 	}
 
 }
