@@ -40,6 +40,7 @@ public class TestRunController {
 	private HashMap<String, HashMap<String, Annotation>> annotations;
 	private AnnotationsService annotationsService;
 	private AbstractParser parser = null;
+	private boolean skipExtraction = false;
 	public static int testRunId = 0;
 
 	/**
@@ -52,7 +53,7 @@ public class TestRunController {
 	 * @param tester
 	 *            String Email of the person doing the extraction test.
 	 * @param params
-	 *            String Paramaters that have to be used with the extractor
+	 *            String Parameters that have to be used with the extractor
 	 *            call.
 	 */
 	public TestRunController(File input, Extractors type, File outputExtractorResult, File outputTRECFile,
@@ -67,17 +68,15 @@ public class TestRunController {
 	}
 
 	public void initializeTestRun() {
-
-		run.setInputPath(inputPath.getAbsolutePath());
-		run.setOutputPathExtractorResult(outputExtractorResult.getAbsolutePath());
-		run.setOutputPathTRECFile(outputTRECFile.getAbsolutePath());
-		run.setExtractor(type.toString());
-		run.setDate(new Date());
-		run.setResult(TestRunResults.PENDING.toString());
-		run.setParameters(params.toString());
-		run.setTester(tester);
-		run.setSystemInformation(model.getSystemInformation().toString());
-
+			run.setInputPath(inputPath.getAbsolutePath());
+			run.setOutputPathExtractorResult(outputExtractorResult.getAbsolutePath());
+			run.setOutputPathTRECFile(outputTRECFile.getAbsolutePath());
+			run.setExtractor(type.toString());
+			run.setDate(new Date());
+			run.setResult(TestRunResults.PENDING.toString());
+			run.setParameters(params.toString());
+			run.setTester(tester);
+			run.setSystemInformation(model.getSystemInformation().toString());			
 	}
 
 	public void getAnnotationsFromExtractorResult() throws Exception {
@@ -121,6 +120,7 @@ public class TestRunController {
 		int result = extractorCtrl.start();
 
 		if (result == 0) {
+			
 			setDuration(extractorCtrl.getExecutionTime().getSeconds());
 			model.save(run);
 			TestRunController.testRunId = run.getId();
@@ -128,6 +128,14 @@ public class TestRunController {
 			throw new ExtractorExecutionException("There was an error while executing the extraction process.");
 		}
 
+	}
+
+	public boolean isSkipExtraction() {
+		return skipExtraction;
+	}
+
+	public void setSkipExtraction(boolean skipExtraction) {
+		this.skipExtraction = skipExtraction;
 	}
 
 }

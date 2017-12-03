@@ -49,43 +49,5 @@ public class TestEndToEndGoldStandard {
 		assertTrue(result == 0);
 
 	}
-	
-	/*
-	 * Please copy the MRCONSOLE.rff to the resources folder for this test
-	 */
-	@Test
-	//@Ignore
-	public void endToEndTestTRECFileANDatabaseRowsWritten() {
-		HashMap<String, String> params = new HashMap<>();
-		params.put("type", "craft");
-		params.put("input", getClass().getClassLoader().getResource("input/ncbi/craft-test.xmi").getFile());
-		params.put("output", trecFile.getAbsolutePath());
-		cmd.setCommand("parsegold");
-		params.put("test", "");
-		cmd.setParameters(params);
-
-		MainController ctrl = new MainController();	
-
-		ctrl.executeCommand(cmd);
-		assertTrue(trecFile.isFile());
-	}
-	
-	@Test
-	public void endToEndTestTRECFileThrowsErrorBecauseOfWrongOntologyNameOfFolder() {
-		HashMap<String, String> params = new HashMap<>();
-		params.put("type", "craft");
-		params.put("input", getClass().getClassLoader().getResource("input/abcd/craft-test.xmi").getFile());
-		params.put("output", trecFile.getAbsolutePath());
-		params.put("test", "");
-		cmd.setCommand("parsegold");
-		cmd.setParameters(params);
-
-		MainController ctrl = new MainController();	
-
-		int result = ctrl.executeCommand(cmd);
-		assertEquals(1, result);
-
-	}
-
 
 }

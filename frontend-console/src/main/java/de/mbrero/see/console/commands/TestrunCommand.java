@@ -35,15 +35,26 @@ public class TestrunCommand implements ICommand {
 	/*
 	 * constants for received parameters. These have to be validated
 	 */
-	public final String TYPE_PARAMETER = "type";
-	public final String EXTRACTOR_PARAMS_PARAMETER = "params";
-	public final String TESTER_PARAMETER = "tester";
-	public final String INPUT_PATH_PARAMETER = "input";
-	public final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
-	public final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
-	public final String TEST_PARAMETER = "test";
+	public static final String TYPE_PARAMETER = "type";
+	public static final String EXTRACTOR_PARAMS_PARAMETER = "params";
+	public static final String TESTER_PARAMETER = "tester";
+	public static final String INPUT_PATH_PARAMETER = "input";
+	public static final String OUTPUT_PATH_EXTRACTOR_PARAMETER = "outEx";
+	public static final String OUTPUT_PATH_TREC_PARAMETER = "outTrec";
+	public static final String TEST_PARAMETER = "test";
 
-	private String paramsString = null;
+	/*
+	 * Values für skip parameter. These allow to omit one of the steps of
+	 * the<br> computing pipeline.
+	 */
+	public static final String SKIP_PARAMETER = "skip";
+	public static final String SKIP_EXTRACTION_VALUE = "extraction";
+
+	/*
+	 * Controller that processes the computing pipeline
+	 */
+	private TestRunController testrunController = null;
+	private String extractorParamsString = "";
 	private HashMap<String, String> params = new HashMap<>();
 	private ConsoleCommand cmd = new ConsoleCommand();
 	private boolean isTest = false;
@@ -59,7 +70,7 @@ public class TestrunCommand implements ICommand {
 	/**
 	 * Triggers the whole test run for an extractor, including:
 	 * <ol>
-	 * <li>Initializing the test and storing enveronment data for
+	 * <li>Initializing the test and storing environment data for
 	 * reproducibility purposes.</li>
 	 * <li>Starting the extractor with the given parameters.</li>
 	 * <li>Saving the result file from the extraction process.</li>
@@ -75,30 +86,36 @@ public class TestrunCommand implements ICommand {
 
 		cmd = command;
 		type = Extractors.valueOf(cmd.getParameters().get(TYPE_PARAMETER).toUpperCase());
-		paramsString = command.getParameters().get(EXTRACTOR_PARAMS_PARAMETER);
+		String extractorParamsValues = command.getParameters().get(EXTRACTOR_PARAMS_PARAMETER);
+		extractorParamsString = extractorParamsValues != null ? extractorParamsValues : "";
 
 		validateParameters();
 
-		if (paramsString != null && !paramsString.isEmpty()) {
+		if (extractorParamsString != null && !extractorParamsString.isEmpty()) {
 			parseExtractorParameters();
 		}
 
-		TestRunController ctrl = new TestRunController(inputPath, type, outputPathExtractorResult, outputPathTRECFile,
-				cmd.getParameters().get(TESTER_PARAMETER), getParams());
+		TestRunController ctrl = getTestrunController();
 
-		setTest(cmd.getParameters().get(TEST_PARAMETER) != null ? true : false);
+		if (cmd.getParameters().get(TEST_PARAMETER) != null) {
+			setTest(true);
+			ctrl.setSkipExtraction(true);
+		}
 
-		/*
-		 * Initialize Test run
-		 */
-		System.out.println("\n\n>>>Initialize Test run...");
-		ctrl.initializeTestRun();
+		if (command.getParameters().get(SKIP_PARAMETER) == SKIP_EXTRACTION_VALUE) {
 
-		/*
-		 * Start extractor with given parameters
-		 */
-		System.out.println("\n\n>>>Start extractor with given parameters...");
-		ctrl.runExtractor();
+			/*
+			 * Initialize Test run
+			 */
+			System.out.println("\n\n>>>Initialize Test run...");
+			ctrl.initializeTestRun();
+
+			/*
+			 * Start extractor with given parameters
+			 */
+			System.out.println("\n\n>>>Start extractor with given parameters...");
+			ctrl.runExtractor();
+		}
 
 		/*
 		 * Getting concepts from extractor result
@@ -118,10 +135,13 @@ public class TestrunCommand implements ICommand {
 		System.out.println("\n\n>>>Save annotationsto TREC file...");
 		ctrl.saveAnnotationsToTrecFile();
 
-		if (isTest())
-			ctrl.setResult(TestRunResults.TEST);
-		else
-			ctrl.setResult(TestRunResults.SUCCESS);
+		if (command.getParameters().get(SKIP_PARAMETER) != SKIP_EXTRACTION_VALUE)
+		{
+			if (isTest())
+				ctrl.setResult(TestRunResults.TEST);
+			else
+				ctrl.setResult(TestRunResults.SUCCESS);			
+		}
 
 	}
 
@@ -157,8 +177,9 @@ public class TestrunCommand implements ICommand {
 					"Please specify a file name in an existing " + "directory for the TREC result file!");
 		}
 
-		if (paramsString.length() > 0) {
-			if (paramsString.charAt(0) != '[' || paramsString.charAt(paramsString.length() - 1) != ']') {
+		if (extractorParamsString.length() > 0) {
+			if (extractorParamsString.charAt(0) != '['
+					|| extractorParamsString.charAt(extractorParamsString.length() - 1) != ']') {
 				throw new IllegalArgumentException(
 						"The parameter list for the chosen extractor must start with '[' " + "and end with ']'");
 			}
@@ -168,9 +189,9 @@ public class TestrunCommand implements ICommand {
 
 	public void parseExtractorParameters() throws IllegalArgumentException {
 
-		paramsString = paramsString.replaceAll("[\\[|\\]]", "");
+		extractorParamsString = extractorParamsString.replaceAll("[\\[|\\]]", "");
 
-		String[] paramsArray = paramsString.split(",");
+		String[] paramsArray = extractorParamsString.split(",");
 
 		Arrays.stream(paramsArray).forEach(paramsPair -> {
 			String[] paramsPairAsArray = paramsPair.split("=");
@@ -184,6 +205,19 @@ public class TestrunCommand implements ICommand {
 			}
 
 		});
+	}
+
+	public TestRunController getTestrunController() {
+		if (testrunController == null) {
+			testrunController = new TestRunController(inputPath, type, outputPathExtractorResult, outputPathTRECFile,
+					cmd.getParameters().get(TESTER_PARAMETER), getParams());
+		}
+
+		return testrunController;
+	}
+
+	public void setTestrunController(TestRunController testrunController) {
+		this.testrunController = testrunController;
 	}
 
 	public ConsoleCommand getCmd() {
@@ -235,11 +269,11 @@ public class TestrunCommand implements ICommand {
 	}
 
 	public String getParamsString() {
-		return paramsString;
+		return extractorParamsString;
 	}
 
 	public void setParamsString(String paramsString) {
-		this.paramsString = paramsString;
+		this.extractorParamsString = paramsString;
 	}
 
 	public boolean isTest() {
