@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<output>
+  <document file="testrun_skip.txt">
+    <concepts_matched>
+      <concept>
+        <start>334</start>
+        <ngram>mouse</ngram>
+        <end>339</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mouse</term>
+        <cui/>
+        <id cui="C0025914"/>
+      </concept>
+      <concept>
+        <start>334</start>
+        <ngram>mouse</ngram>
+        <end>339</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mouse</term>
+        <cui/>
+        <id cui="C0026809"/>
+      </concept>
+    </concepts_matched>
+    <concepts_matched>
+      <concept>
+        <start>47</start>
+        <ngram>mice</ngram>
+        <end>51</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mice</term>
+        <cui/>
+        <id cui="C0026809"/>
+      </concept>
+      <concept>
+        <start>47</start>
+        <ngram>mice</ngram>
+        <end>51</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mice</term>
+        <cui/>
+        <id cui="C1331371"/>
+      </concept>
+    </concepts_matched>
+    <concepts_matched>
+      <concept>
+        <start>234</start>
+        <ngram>mice</ngram>
+        <end>238</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mice</term>
+        <cui/>
+        <id cui="C0026809"/>
+      </concept>
+      <concept>
+        <start>234</start>
+        <ngram>mice</ngram>
+        <end>238</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mice</term>
+        <cui/>
+        <id cui="C1331371"/>
+      </concept>
+    </concepts_matched>
+  </document>
+</output>

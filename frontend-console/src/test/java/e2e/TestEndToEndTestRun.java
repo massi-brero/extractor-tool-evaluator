@@ -21,15 +21,11 @@ public class TestEndToEndTestRun {
 
 	private TestrunCommand testCmd = new TestrunCommand();
 	private ConsoleCommand consoleCmd = new ConsoleCommand();
-	private File inputFile = null;
-	private File outputTrecFile = null;
-	private File outputExtractorResultFile = null;
 	MainController ctrl = null;
 
 
 	@Before
 	public void setUp() throws Exception {
-		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result").getFile());
 		ctrl = new MainController();
 	}
 
@@ -44,8 +40,9 @@ public class TestEndToEndTestRun {
 		String type = "quickumls";
 		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
-		inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_allsteps.txt").getFile());
-		outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_allsteps").getFile());
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_allsteps.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_allsteps").getFile());
+		File outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
@@ -84,8 +81,9 @@ public class TestEndToEndTestRun {
 		String type = "quickumls";
 		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
-		inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
-		outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		File outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
