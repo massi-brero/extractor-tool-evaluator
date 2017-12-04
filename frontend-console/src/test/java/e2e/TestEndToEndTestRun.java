@@ -29,8 +29,6 @@ public class TestEndToEndTestRun {
 
 	@Before
 	public void setUp() throws Exception {
-		inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun.txt").getFile());
-		outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_test").getFile());
 		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result").getFile());
 		ctrl = new MainController();
 	}
@@ -46,6 +44,8 @@ public class TestEndToEndTestRun {
 		String type = "quickumls";
 		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
+		inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_allsteps.txt").getFile());
+		outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_allsteps").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
@@ -67,20 +67,32 @@ public class TestEndToEndTestRun {
 		testCmd.execute(consoleCmd);
 		
 		Mockito.verify(spyCtrl, Mockito.times(1)).runExtractor();
-
+		Mockito.verify(spyCtrl, Mockito.times(1)).initializeTestRun();
+		Mockito.verify(spyCtrl, Mockito.times(1)).getAnnotationsFromExtractorResult();
+		Mockito.verify(spyCtrl, Mockito.times(1)).saveAnnotationsToDatabase();
+		Mockito.verify(spyCtrl, Mockito.times(1)).saveAnnotationsToTrecFile();
+	
 	}
 	
-	@Ignore
+	//@Ignore
+	@Test
+	/**
+	 * results in ~/projects/extractor_benchmarker/frontend-console/target/test-classes/output/
+	 * @throws Exception
+	 */
 	public void skipExtraction() throws Exception {
 		String type = "quickumls";
 		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
+		inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_EXTRACTOR_PARAMETER, outputExtractorResultFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
-		//params.put(TestrunCommand.TEST_PARAMETER, "");
+		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
+		params.put(TestrunCommand.TEST_PARAMETER, "");
 		consoleCmd.setCommand("testrun");
 		consoleCmd.setParameters(params);
 
@@ -95,7 +107,11 @@ public class TestEndToEndTestRun {
 		testCmd.setTestrunController(spyCtrl);
 		testCmd.execute(consoleCmd);
 		
-		Mockito.verify(spyCtrl, Mockito.times(1)).runExtractor();
+		Mockito.verify(spyCtrl, Mockito.times(0)).runExtractor();
+		Mockito.verify(spyCtrl, Mockito.times(0)).initializeTestRun();
+		Mockito.verify(spyCtrl, Mockito.times(1)).getAnnotationsFromExtractorResult();
+		Mockito.verify(spyCtrl, Mockito.times(1)).saveAnnotationsToDatabase();
+		Mockito.verify(spyCtrl, Mockito.times(1)).saveAnnotationsToTrecFile();
 
 	}
 

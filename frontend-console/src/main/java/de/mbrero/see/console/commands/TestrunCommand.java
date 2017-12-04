@@ -102,7 +102,7 @@ public class TestrunCommand implements ICommand {
 			ctrl.setSkipExtraction(true);
 		}
 
-		if (command.getParameters().get(SKIP_PARAMETER) == SKIP_EXTRACTION_VALUE) {
+		if (command.getParameters().get(SKIP_PARAMETER) != SKIP_EXTRACTION_VALUE) {
 
 			/*
 			 * Initialize Test run
