@@ -101,9 +101,11 @@ public class TestrunCommand implements ICommand {
 			setTest(true);
 			ctrl.setSkipExtraction(true);
 		}
+		
 
-		if (command.getParameters().get(SKIP_PARAMETER) != SKIP_EXTRACTION_VALUE) {
-
+		if (!(skipParameterIsSet() 
+				&& command.getParameters().get(SKIP_PARAMETER).equals(SKIP_EXTRACTION_VALUE))) {
+			
 			/*
 			 * Initialize Test run
 			 */
@@ -135,7 +137,7 @@ public class TestrunCommand implements ICommand {
 		System.out.println("\n\n>>>Save annotationsto TREC file...");
 		ctrl.saveAnnotationsToTrecFile();
 
-		if (command.getParameters().get(SKIP_PARAMETER) != SKIP_EXTRACTION_VALUE)
+		if (!skipParameterIsSet())
 		{
 			if (isTest())
 				ctrl.setResult(TestRunResults.TEST);
@@ -282,6 +284,10 @@ public class TestrunCommand implements ICommand {
 
 	public void setTest(boolean isTest) {
 		this.isTest = isTest;
+	}
+	
+	private boolean skipParameterIsSet() {
+		return cmd.getParameters().get(SKIP_PARAMETER) != null;
 	}
 
 }

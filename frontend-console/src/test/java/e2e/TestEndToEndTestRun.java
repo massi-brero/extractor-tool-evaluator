@@ -2,11 +2,11 @@ package e2e;
 
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -21,6 +21,7 @@ public class TestEndToEndTestRun {
 
 	private TestrunCommand testCmd = new TestrunCommand();
 	private ConsoleCommand consoleCmd = new ConsoleCommand();
+	File outputExtractorResultFile = null;
 	MainController ctrl = null;
 
 
@@ -31,7 +32,7 @@ public class TestEndToEndTestRun {
 
 	@After
 	public void tearDown() throws Exception {
-		//outputExtractorResultFile.delete();
+		Arrays.stream(outputExtractorResultFile.listFiles()).forEach(File::delete);
 		//outputTrecFile.delete();
 	}
 
@@ -42,7 +43,7 @@ public class TestEndToEndTestRun {
 		HashMap<String, String> params = new HashMap<>();
 		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_allsteps.txt").getFile());
 		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_allsteps").getFile());
-		File outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result").getFile());
+		outputExtractorResultFile = new File("src/test/resources/output/extractor-result");
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
@@ -83,7 +84,7 @@ public class TestEndToEndTestRun {
 		HashMap<String, String> params = new HashMap<>();
 		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
 		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
-		File outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
+		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
