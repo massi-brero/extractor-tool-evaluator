@@ -120,14 +120,15 @@ num_rel_ret    	all	4481
 * ohne Disambiguiation
 * Strict Data Model -> sollte schneller sein als der relaxed Modus (?)
 
-15. mit Disambiguation Server [--XMLf1,-R=NCBI,-C,--DISAMB]
+15. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
+* Volltexte
+* mit Disambiguiation
+
+
+15. mit Disambiguation Server [--XMLf1,-R=NCBI,-C,-DISAMB]
 * Volltexte
 * mit Disambiguiation
 * Relaxed Model
-
-15. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB,]
-* Volltexte
-* mit Disambiguiation
 
 16. Relaxed Model [--XMLf1,-R=NCBI,-C]
 * Volltexte
@@ -163,10 +164,6 @@ beinflussen diese die Güte des Ergebnisses und die Verarbeitungsgeschwindigkeit
 ### To Do ###
 * variieren: overlapping_criteria, similarity_name mit Standard Werten Sonst
 * accepted semtypes verringern (Standard-Werte)? Einfluß auf Performance? ...Evaluation?
-
-
-
-16870721.txt.out:49338:8: XML-Dokumentstrukturen müssen innerhalb derselben Entity beginnen und enden
 
 
 
