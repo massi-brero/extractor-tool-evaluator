@@ -189,7 +189,7 @@ num_rel        	all	7449
 num_rel_ret    	all	781
 
 
-21. threshhold hochsetzen: [--XMLf1,-R=NCBI,-r=800,--DISAMB]
+21. threshhold verringern: [--XMLf1,-R=NCBI,-r=800,--DISAMB]
 * Volltexte
 * eleminiert false positives
 num_ret        	all	6016
@@ -217,6 +217,22 @@ num_rel_ret    	all	5668
 * keine aus Derivation gebildeten Varianten
 * vermeidet Änderungen im Sinn
 * evtl. Verbesserung der Precision?
+num_ret        	all	14674
+num_rel        	all	7449
+num_rel_ret    	all	5612
+
+25. threshhold verringern: [--XMLf1,-R=NCBI,-r=700,--DISAMB]
+* Volltexte
+* eleminiert false positives
+num_ret        	all	9411
+num_rel        	all	7449
+num_rel_ret    	all	3374
+
+
+26. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,-R=NCBI,-DISAMB]
+* Volltexte
+
+
 
 
 
@@ -250,7 +266,7 @@ xx. Text als eine Phrase behandeln
 #### MetaMap ####
 * Performance stark beeinflusst von Art/Umfang der Kandidatenbildung
 * bzgl. Threshhold hilft nur Rantasten an denoptimalen Wert (wie wird r gebildet?)
-* untere Grenze -500
+* untere Grenze -500 (erwähnen!)
 
 
 #### Generell  ####

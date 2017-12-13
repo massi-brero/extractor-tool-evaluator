@@ -28,7 +28,7 @@ public class MetaMapParser extends AbstractParser {
 	private final String CANDIDATE_MATCHED = "CandidateMatched";
 	// private final String PREFERRED_TEXT_TAG = "preferredText";
 
-	private int scoreThreshHold = 500;
+	private int scoreThreshHold = 0;
 	
 	/**
 	 * Return the lower limit from which on the candidates in the MetaMap output
