@@ -113,5 +113,154 @@ public class TestEndToEndTestRun {
 		Mockito.verify(spyCtrl, Mockito.times(1)).saveAnnotationsToTrecFile();
 
 	}
+	
+	public void ThrowsNoExceptionIfExtractorParametersAreMissingAndSkipParameterIsNotSet() throws Exception
+	{
+		String type = "quickumls";
+		String tester = "example@example.com";
+		HashMap<String, String> params = new HashMap<>();
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
+		params.put(TestrunCommand.TYPE_PARAMETER, type);
+		params.put(TestrunCommand.TESTER_PARAMETER, tester);
+		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
+		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
+		params.put(TestrunCommand.TEST_PARAMETER, "");
+		consoleCmd.setCommand("testrun");
+		consoleCmd.setParameters(params);
+		
+		TestRunController ctrl  =  new TestRunController(inputFile, 
+														 Extractors.QUICKUMLS, 
+														 outputExtractorResultFile,
+														 outputTrecFile,
+														 tester, 
+														 new HashMap<>());
+		
+		TestRunController spyCtrl = Mockito.spy(ctrl);
+		testCmd.setTestrunController(spyCtrl);
+		testCmd.execute(consoleCmd);
+	}
+	
+	public void ThrowsAnExceptionIfInputPathMissingAndSkipParameterIsNotSet() throws Exception
+	{
+		String type = "quickumls";
+		String tester = "example@example.com";
+		HashMap<String, String> params = new HashMap<>();
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
+		params.put(TestrunCommand.TYPE_PARAMETER, type);
+		params.put(TestrunCommand.TESTER_PARAMETER, tester);
+		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
+		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
+		params.put(TestrunCommand.TEST_PARAMETER, "");
+		consoleCmd.setCommand("testrun");
+		consoleCmd.setParameters(params);
+		
+		TestRunController ctrl  =  new TestRunController(inputFile, 
+														 Extractors.QUICKUMLS, 
+														 outputExtractorResultFile,
+														 outputTrecFile,
+														 tester, 
+														 new HashMap<>());
+		
+		TestRunController spyCtrl = Mockito.spy(ctrl);
+		testCmd.setTestrunController(spyCtrl);
+		testCmd.execute(consoleCmd);
+	}
+	
+	public void ThrowsAnExceptionIfTesterParametersIsMissingAndSkipParameterIsNotSet() throws Exception
+	{
+		String type = "quickumls";
+		String tester = "example@example.com";
+		HashMap<String, String> params = new HashMap<>();
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
+		params.put(TestrunCommand.TYPE_PARAMETER, type);
+		params.put(TestrunCommand.TESTER_PARAMETER, tester);
+		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
+		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
+		params.put(TestrunCommand.TEST_PARAMETER, "");
+		consoleCmd.setCommand("testrun");
+		consoleCmd.setParameters(params);
+		
+		TestRunController ctrl  =  new TestRunController(inputFile, 
+														 Extractors.QUICKUMLS, 
+														 outputExtractorResultFile,
+														 outputTrecFile,
+														 tester, 
+														 new HashMap<>());
+		
+		TestRunController spyCtrl = Mockito.spy(ctrl);
+		testCmd.setTestrunController(spyCtrl);
+		testCmd.execute(consoleCmd);
+	}
+		
+	public void ThrowsNoExceptionIfTesterParametersIsMissingAndSkipParameterIsSet() throws Exception
+	{
+		String type = "quickumls";
+		String tester = "example@example.com";
+		HashMap<String, String> params = new HashMap<>();
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
+		params.put(TestrunCommand.TYPE_PARAMETER, type);
+		params.put(TestrunCommand.TESTER_PARAMETER, tester);
+		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
+		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
+		params.put(TestrunCommand.TEST_PARAMETER, "");
+		consoleCmd.setCommand("testrun");
+		consoleCmd.setParameters(params);
+		
+		TestRunController ctrl  =  new TestRunController(inputFile, 
+														 Extractors.QUICKUMLS, 
+														 outputExtractorResultFile,
+														 outputTrecFile,
+														 tester, 
+														 new HashMap<>());
+		
+		TestRunController spyCtrl = Mockito.spy(ctrl);
+		testCmd.setTestrunController(spyCtrl);
+		testCmd.execute(consoleCmd);
+		
+	}
+	
+	public void ThrowsNoExceptionIfInputPathIsMissingAndSkipParameterIsSet() throws Exception
+	{
+		String type = "quickumls";
+		String tester = "example@example.com";
+		HashMap<String, String> params = new HashMap<>();
+		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
+		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
+		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
+		params.put(TestrunCommand.TYPE_PARAMETER, type);
+		params.put(TestrunCommand.TESTER_PARAMETER, tester);
+		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
+		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
+		params.put(TestrunCommand.TEST_PARAMETER, "");
+		consoleCmd.setCommand("testrun");
+		consoleCmd.setParameters(params);
+		
+		TestRunController ctrl  =  new TestRunController(inputFile, 
+														 Extractors.QUICKUMLS, 
+														 outputExtractorResultFile,
+														 outputTrecFile,
+														 tester, 
+														 new HashMap<>());
+		
+		TestRunController spyCtrl = Mockito.spy(ctrl);
+		testCmd.setTestrunController(spyCtrl);
+		testCmd.execute(consoleCmd);
+		
+	}
+	
+	
 
 }

@@ -229,16 +229,15 @@ num_rel        	all	7449
 num_rel_ret    	all	3374
 
 
-26. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,-R=NCBI]
+26. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,-R=NCBI] wie 14
 * Volltexte
+* erstaunlicherweise etwas mehr Relevante???
+num_ret        	all	15114
+num_rel        	all	7449
+num_rel_ret    	all	5645
 
 
-
-
-
-
-
-25. Kombi threshhold + no-tagger
+27. r = 100;
 
 xx. -g (--allow concept gaps) ???
 
