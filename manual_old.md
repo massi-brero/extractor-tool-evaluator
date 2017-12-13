@@ -162,10 +162,6 @@ The parameters' meaning in detail:
 |-type|which gold standard should be used (currently: just CRAFT)|yes|
 |-input|path to folder, where the files with the annotations are located|yes|
 |-output|path (??) to folder where the TREC qrel file shall be stored|yes|
-|-test|start a test run trial  the run will be marked in the database as a dry run|no|
-|-skip| use with value "extraction"|no|
-
-If you use the -skip parameter the extraction step in pipeline will be skipped an the SEE continues with reading the extractors result. Use this if the extractor may have produced faulty results files you want to check and correct before continuing with the evaluation.
 
 ### 2.3 Starting a test run ###
 
@@ -190,6 +186,8 @@ If we break the down the parameters, we get:
 |-outEx|path to folder where the result file from the extraction  rocess has to be stored|yes|
 |-outTrec|path to folder where the TREC file from the extraction process has to be stored|yes|
 |-params|paramaters you want to set for the extractor. |yes|
+|-test|start a test run trial  the run will be marked in the database as a dry run|no|
+|-skip| use with value "extraction"|no|
 
 The "params" option takes the parameters the user wants to call the extractorwith. The syntax is  
 _[paramname1=value1, paramname2=value2, ...]_
@@ -200,6 +198,8 @@ _extractorCallCommand (automatically inserted) -paramname1 value1 -paramname2 va
 If you want to set a paramater without a corresponding value, just leave out the part after "="  
 _[paramname1=value1, paramname2=]_ for example will be interpreted as  
 _-paramname1 value1 -paramname2_
+
+If you use the -skip parameter the extraction step in pipeline will be skipped an the SEE continues with reading the extractors result. Use this if the extractor may have produced faulty results files you want to check and correct before continuing with the evaluation.
 
 #### 2.3.2 Starting individual tasks of the pipeline ####
 
