@@ -229,7 +229,7 @@ num_rel        	all	7449
 num_rel_ret    	all	3374
 
 
-26. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,-R=NCBI,-DISAMB]
+26. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,-R=NCBI]
 * Volltexte
 
 

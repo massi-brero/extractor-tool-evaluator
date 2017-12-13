@@ -98,6 +98,11 @@ Extremely important: Add the following type definition to the most primitive des
 
 ### 2.0 Basics ###
 
+You can find the starting script (<i>starteval.sh</i>) for the SEE in the project's root folder.
+You may also start it directly using maven commands. Go to the folder <i>frontend-console</i> and enter <i>mvn exec:java</i>. If you start the SEE for the very first time the database and the corresponding tables are created automatically. Just provide the credentials in hibernates config files:
+.../.../ for production
+.../.../ for test
+
 #### 2.0.1 General notes ####
 The SEE can be used via command line. The following sctions explain the possible commands and the parameters needed.
 
@@ -181,6 +186,9 @@ If we break the down the parameters, we get:
 |-outEx|path to folder where the result file from the extraction  rocess has to be stored|yes|
 |-outTrec|path to folder where the TREC file from the extraction process has to be stored|yes|
 |-params|paramaters you want to set for the extractor. |yes|
+|-test|start a test run trial  the run will be marked in the database as a dry run|no|
+|-skip| use with value "extraction"|no|
+
 
 The "params" option takes the parameters the user wants to call the extractorwith. The syntax is  
 _[paramname1=value1, paramname2=value2, ...]_
@@ -191,6 +199,8 @@ _extractorCallCommand (automatically inserted) -paramname1 value1 -paramname2 va
 If you want to set a paramater without a corresponding value, just leave out the part after "="  
 _[paramname1=value1, paramname2=]_ for example will be interpreted as  
 _-paramname1 value1 -paramname2_
+
+If you use the -skip parameter the extraction step in pipeline will be skipped an the SEE continues with reading the extractors result. Use this if the extractor may have produced faulty results files you want to check and correct before continuing with the evaluation.
 
 #### 2.3.2 Starting individual tasks of the pipeline ####
 
