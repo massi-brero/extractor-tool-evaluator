@@ -237,7 +237,31 @@ num_rel        	all	7449
 num_rel_ret    	all	5645
 
 
-27. r = 100;
+27. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen... r = 100;
+* Volltexte
+* wie 26
+num_ret        	all	15114
+num_rel        	all	7449
+num_rel_ret    	all	5645
+
+28. wie 15 aber mit Abstracts [--XMLf1,-R=NCBI,--DISAMB]
+* Abstracts
+* keine fehlerbehafteten Ergebnis XMLs!!
+* Dauer: 272 !!!
+* noch weniger als bei Quick-UMLS
+* Zeichen, dass MM versucht Phrasen im ganzen Text zueinander in Beziehung zu setzen (???)
+
+29. [--XMLf1,-R=NCBI,-o,--DISAMB]
+* Abstracts
+* bei Volltexten --> Memory Overflow
+
+30. [--XMLf1,-R=NCBI,--blanklines=0,--DISAMB]
+
+31. • Negation Detection ??
+
+
+
+
 
 xx. -g (--allow concept gaps) ???
 
@@ -269,6 +293,7 @@ xx. Text als eine Phrase behandeln
 
 
 #### Generell  ####
+* unbedingt erwähnen: Evaluation bei Abstracts nicht möglich -> Ausblick -> eigene Forschungsfrage (wie viel mehr KOnzepte werden gefunden wenn man die Volltexte scannt) -> auf Publikationen verweisen -> die dort aufgeworfenen Fragen sind jetzt mit SEE einfacher zu beantworten !!! -> evtl. kurz den Ansatz erklären (Positione ausmachen -> überflüssige KOnzepte aus den Resultdateien löschen in CRAFT ...)
 * Evaluationen uns Performancemessung ohne Diskussion der verwendeten parameter sind eigtl. wertlos... dafür
 beinflussen diese die Güte des Ergebnisses und die Verarbeitungsgeschwindigkeit einfach zu stark
 * Benchmarking Software erlaubt Bezihungen zwischen Parametern und Tradeoffs aufzuzeigen:

@@ -62,7 +62,7 @@ public class TestrunCommand implements ICommand {
 	/*
 	 * Paths for input and output validation.
 	 */
-	File inputPath = null;
+	File inputPath = new File("");
 	File outputPathExtractorResult = null;
 	File outputPathTRECFile = null;
 	Extractors type = null;
@@ -150,8 +150,13 @@ public class TestrunCommand implements ICommand {
 	@Override
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
 
-		String normalizedInputPathAsString = cmd.getParameters().get(INPUT_PATH_PARAMETER).replace("*", "");
-		inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));
+		String normalizedInputPathAsString = "";
+		
+		if (!skipParameterIsSet())
+		{
+			normalizedInputPathAsString = cmd.getParameters().get(INPUT_PATH_PARAMETER).replace("*", "");
+			inputPath = new File(cmd.getParameters().get(INPUT_PATH_PARAMETER));			
+		}
 
 		outputPathExtractorResult = new File(cmd.getParameters().get(OUTPUT_PATH_EXTRACTOR_PARAMETER));
 		outputPathTRECFile = new File(cmd.getParameters().get(OUTPUT_PATH_TREC_PARAMETER));
@@ -159,7 +164,7 @@ public class TestrunCommand implements ICommand {
 		if (type == null)
 			throw new IllegalArgumentException("Not a valid extractor type");
 
-		if (!(new File(normalizedInputPathAsString)).exists()) {
+		if (!(new File(normalizedInputPathAsString)).exists() && !skipParameterIsSet()) {
 			throw new FileNotFoundException("Path for input files does not exist");
 		}
 
