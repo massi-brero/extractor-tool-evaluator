@@ -8,10 +8,8 @@ import java.util.HashMap;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.when; 
 
 import de.mbrero.see.api.TestRunController;
 import de.mbrero.see.console.commands.ConsoleCommand;
@@ -145,11 +143,11 @@ public class TestEndToEndTestRun {
 		String type = "quickumls";
 		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
-		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
 		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
 		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
+		params.put(TestrunCommand.OUTPUT_PATH_EXTRACTOR_PARAMETER, outputExtractorResultFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
 		params.put(TestrunCommand.TEST_PARAMETER, "");
 		consoleCmd.setCommand("testrun");
@@ -163,13 +161,13 @@ public class TestEndToEndTestRun {
 	public void ThrowsNoExceptionIfTesterParametersIsMissingAndSkipParameterIsSet() throws Exception
 	{
 		String type = "quickumls";
-		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
 		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
 		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
 		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_EXTRACTOR_PARAMETER, outputExtractorResultFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
 		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
 		consoleCmd.setCommand("testrun");
@@ -179,7 +177,7 @@ public class TestEndToEndTestRun {
 		testCmd.execute(consoleCmd);
 	}
 		
-	@Ignore
+	@Test
 	public void ThrowsNoExceptionIfInputPathIsMissingAndSkipParameterIsSet() throws Exception
 	{
 		String type = "quickumls";
@@ -191,23 +189,14 @@ public class TestEndToEndTestRun {
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
 		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
+		params.put(TestrunCommand.OUTPUT_PATH_EXTRACTOR_PARAMETER, outputExtractorResultFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
 		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
 		params.put(TestrunCommand.TEST_PARAMETER, "");
 		consoleCmd.setCommand("testrun");
 		consoleCmd.setParameters(params);
 		
-		TestRunController ctrl  =  new TestRunController(inputFile, 
-														 Extractors.QUICKUMLS, 
-														 outputExtractorResultFile,
-														 outputTrecFile,
-														 tester, 
-														 new HashMap<>());
-		
-		TestRunController spyCtrl = Mockito.spy(ctrl);
-		testCmd.setTestrunController(spyCtrl);
-		testCmd.execute(consoleCmd);
-		
+		testCmd.setTestrunController(getMockTestRunController());
 	}
 	
 	

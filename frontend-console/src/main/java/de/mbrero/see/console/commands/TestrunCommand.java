@@ -152,6 +152,9 @@ public class TestrunCommand implements ICommand {
 
 		String normalizedInputPathAsString = "";
 		
+		/*
+		 * If extraction is skipped we do not need a input path for the texts.
+		 */
 		if (!skipParameterIsSet())
 		{
 			normalizedInputPathAsString = cmd.getParameters().get(INPUT_PATH_PARAMETER).replace("*", "");
@@ -168,8 +171,12 @@ public class TestrunCommand implements ICommand {
 			throw new FileNotFoundException("Path for input files does not exist");
 		}
 
-		if (getCmd().getParameters().get(TESTER_PARAMETER) == null
-				|| getCmd().getParameters().get(TESTER_PARAMETER) == "") {
+		/*
+		 * If extraction is skipped there is no need to set a tester!
+		 */
+		if ((getCmd().getParameters().get(TESTER_PARAMETER) == null
+				|| getCmd().getParameters().get(TESTER_PARAMETER) == "")
+					&& !skipParameterIsSet()) {
 			throw new FileNotFoundException("Please enter the email of the tester!");
 		}
 
