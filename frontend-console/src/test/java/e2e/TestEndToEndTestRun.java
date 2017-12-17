@@ -188,7 +188,6 @@ public class TestEndToEndTestRun {
 		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
 		params.put(TestrunCommand.TESTER_PARAMETER, tester);
-		params.put(TestrunCommand.INPUT_PATH_PARAMETER, inputFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_EXTRACTOR_PARAMETER, outputExtractorResultFile.getAbsolutePath());
 		params.put(TestrunCommand.OUTPUT_PATH_TREC_PARAMETER, outputTrecFile.getAbsolutePath());
 		params.put(TestrunCommand.SKIP_PARAMETER, TestrunCommand.SKIP_EXTRACTION_VALUE);
@@ -197,6 +196,7 @@ public class TestEndToEndTestRun {
 		consoleCmd.setParameters(params);
 		
 		testCmd.setTestrunController(getMockTestRunController());
+		testCmd.execute(consoleCmd);
 	}
 	
 	
