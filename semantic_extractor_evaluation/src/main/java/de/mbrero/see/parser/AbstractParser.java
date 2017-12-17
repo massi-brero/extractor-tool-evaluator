@@ -140,8 +140,6 @@ public abstract class AbstractParser implements AnnotationParser {
 		
 		ProgressBar progressBar = new ProgressBar();
 		
-		System.out.println(nList.getLength());
-
 		for (int idx = 0; idx < nList.getLength(); idx++) {
 			Annotation annotation = new Annotation();
 

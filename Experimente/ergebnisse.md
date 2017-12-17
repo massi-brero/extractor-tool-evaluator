@@ -285,6 +285,31 @@ xx. Text als eine Phrase behandeln
 * Top Ergebnisse nur bei eigener Auswahl
 * Optimierung der Ergebnisse (prakt. Anwendung für SenseCare) bedingt eigtl. ein auf den Artikeltypus abgestimmtes Feintuning der Ergebnisse
 * ergebnisse aus den kurzen Texten werden auch bei den Volltexten bestätigt(s. 2. QuickUMLS Studie)
+* checken warum hier 2 Konzepte auf 1 Begriff gemappt werden
+    <concepts_matched>
+      <concept>
+        <start>334</start>
+        <ngram>mouse</ngram>
+        <end>339</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mouse</term>
+        <cui/>
+        <id cui="C0025914"/>
+      </concept>
+      <concept>
+        <start>334</start>
+        <ngram>mouse</ngram>
+        <end>339</end>
+        <preferred>1</preferred>
+        <similarity>1.0</similarity>
+        <semtypes>set([u'T015'])</semtypes>
+        <term>mouse</term>
+        <cui/>
+        <id cui="C0026809"/>
+      </concept>
+    </concepts_matched>
 
 #### MetaMap ####
 * Performance stark beeinflusst von Art/Umfang der Kandidatenbildung
