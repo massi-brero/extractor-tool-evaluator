@@ -8,30 +8,28 @@ Performance schwankt auf dem gleichen Systen (lokal) um fast 10% für gleiche Pa
 
 #### QuickUMLS ####
 
-1: schlechte Werte bei Standardwerten
-* [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
+1: schlechte Werte bei Standardwerten [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
 * kompletter Textkorpus
 * Volltexte
 num_ret        	all	14077
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4481
 
-
 2: t Erhöhung verbessert Precision aber kaum den Recall
-* {-m=3, -s=jaccard, -t=1.0, -w=5, -l=score}
+* [-m=3,-s=jaccard,-t=1.0,-w=5,-l=score]
 * kompletter Textkorpus
 * Volltexte
 * hohe Performance
 num_ret        	all	9288
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4371
 
 3: minimal Length +1
-* [-m=4,-s=jaccard,-t=0.7,-w=5,-l=score}
+* [-m=4,-s=jaccard,-t=0.7,-w=5,-l=score]
 * kompletter Textkorpus
 * Volltexte
 num_ret        	all	13919
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4419
 * Ergebnis sehr ähnlich zu Run 1
 
@@ -41,34 +39,32 @@ num_rel_ret    	all	4419
 * Volltexte
 * hohe Performance
 num_ret        	all	9130
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4309
 
-
 5: wie 4 aber t kleiner auf 0.8
-* {-m=4, -s=jaccard, -t=0.8, -w=5, -l=score}
+* 	
 * kompletter Textkorpus
 * Volltexte
 num_ret        	all	9996
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4371
 
 6: m auf 5 und t etwas runter (0.7)
-* {-m=5, -s=jaccard, -t=0.7, -w=5, -l=score}
+* [-m=5,-s=jaccard,-t=0.7,-w=5,-l=score]
 * kompletter Textkorpus
 * Volltexte
 * sehr schlechter Recall + Precision
 num_ret        	all	7789
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	1434
-
 
 7: sehr niedrige minLength
 * [-m=2,-s=jaccard,-t=0.7,-w=5,-l=score]
 * kompletter Textkorpus
 * Volltexte
-num_ret        	all	14089
-num_rel        	all	7449
+um_ret        	all	14089
+num_rel        	all	7437
 num_rel_ret    	all	4481
 
 
@@ -77,10 +73,10 @@ num_rel_ret    	all	4481
 * Volltexte
 * [-w=5,-t=0.7,-m=3,-s=cosine,-l=score]
 num_ret        	all	103013
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4882
 
-9: Standardwerte aber similarity_name = overlap
+x9: Standardwerte aber similarity_name = overlap
 * [-w=5,-t=0.7,-m=3,-s=overlap,-l=score]
 * nur für 11597317.txt  
 * Volltext
@@ -92,26 +88,37 @@ num_rel        	all	12
 num_rel_ret    	all	11
 
 
-10: Standardwerte aber overlapping_criteria = length
+9: Standardwerte aber overlapping_criteria = length
 * [-w=5,-t=0.7,-m=3,-s=jaccard,-l=length]
 num_ret        	all	14077
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	4481
 
-11.Nur Abstracts - Parameter wie 1.
+10.Nur Abstracts - Parameter wie 1.
 * [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
 * Abstracts
 * kompletter Korpus
+num_ret        	all	2857
+num_rel        	all	7437
+num_rel_ret    	all	225
 
-12.Nur Abstracts - Parameter wie 3.
+11.Nur Abstracts - Parameter wie 3.
 * [-m=4,-s=jaccard,-t=1.0,-w=5,-l=score]
 * Abstracts
 * kompletter Korpus
+num_ret        	all	448
+num_rel        	all	7437
+num_rel_ret    	all	217
 
-13.Nur Abstracts - Parameter wie 7.
+
+12.Nur Abstracts - Parameter wie 7.
 * [-m=2,-s=jaccard,-t=0.7,-w=5,-l=score]
 * Abstracts
 * kompletter Korpus
+num_ret        	all	2857
+num_rel        	all	7437
+num_rel_ret    	all	225
+
 
 R2 --> wie 1
 * [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
@@ -127,16 +134,16 @@ xx. kann hier evtl. auch irgendwo ein threshhold gesetzt werden?
 
 #### MetaMap ####
 
-14. Keine Parameter [--XMLf1,-R=NCBI]
+13. Keine Parameter [--XMLf1,-R=NCBI]
 * Volltexte
 * ohne Disambiguiation
 * Strict Data Model -> sollte schneller sein als der relaxed Modus (?)
-num_ret        	all	14918
-num_rel        	all	7449
-num_rel_ret    	all	5602
+num_ret        	all	14746
+num_rel        	all	7437
+num_rel_ret    	all	5477
 
 
-15. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
+**14. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
 * Volltexte
 * mit Disambiguiation
 num_ret        	all	15062
@@ -250,6 +257,11 @@ num_rel_ret    	all	5645
 * Dauer: 272 !!!
 * noch weniger als bei Quick-UMLS
 * Zeichen, dass MM versucht Phrasen im ganzen Text zueinander in Beziehung zu setzen (???)
+num_q          	all	67
+num_ret        	all	734
+num_rel        	all	7449
+num_rel_ret    	all	344
+
 
 29. [--XMLf1,-R=NCBI,-o,--DISAMB]
 * Abstracts
@@ -271,7 +283,11 @@ xx. Text als eine Phrase behandeln
 
 
 
-
+### Nachholen ###
+11
+12
+13
+17
 
 
 
@@ -323,6 +339,10 @@ xx. Text als eine Phrase behandeln
 beinflussen diese die Güte des Ergebnisses und die Verarbeitungsgeschwindigkeit einfach zu stark
 * Benchmarking Software erlaubt Bezihungen zwischen Parametern und Tradeoffs aufzuzeigen:
  -> Beispiel Threshhold bei MM -> höherer Wert reduziert false positives, reduziert aber positive positives noch mehr
+* warum in DB speicher?
+** Auswertungen Konzepte über mehrere testRuns und Extraktoren z. B. hinweg
+** Vorkommen einzelner Konzepte...
+* ca 12 Konzepte wh. fehlendem CUI Mapping aus qrel datei aUSGESCHLOSSEN (0,002 % ?)
 
 
 ### To Do ###

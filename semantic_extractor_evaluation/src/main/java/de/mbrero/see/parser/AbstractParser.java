@@ -105,9 +105,12 @@ public abstract class AbstractParser implements AnnotationParser {
 	 * concept information.
 	 * 
 	 * If the path is pointing to a directory, all files in this folder will
-	 * be<br>
-	 * parsed automatically
+	 * be parsed automatically.
 	 * 
+	 * If no annotations could be extracted from the file, we insert an "empty"
+	 * annotation. This way later evaluation tools won't omit this file.
+	 * 
+	 * @see AbstractParser#getEmptyAnnotation()
 	 * @throws Exception
 	 */
 	@Override
@@ -115,8 +118,14 @@ public abstract class AbstractParser implements AnnotationParser {
 		setInputFile(source);
 
 		if (getInputFile().isFile()) {
+			HashMap<String, Annotation> parsedFilesAnnotations = parseFile();
 
-			getAnnotations().put(getAnnotatedFileName(), parseFile());
+			if (parsedFilesAnnotations.size() != 0) {
+				getAnnotations().put(getAnnotatedFileName(), parsedFilesAnnotations);				
+			} else {
+				parsedFilesAnnotations.put("-1", getEmptyAnnotation());
+				getAnnotations().put(getAnnotatedFileName(), parsedFilesAnnotations);
+			}
 
 		} else if (getInputFile().isDirectory()) {
 
@@ -204,6 +213,21 @@ public abstract class AbstractParser implements AnnotationParser {
 
 	protected abstract String getAnnotatedFileName() throws ParserConfigurationException, SAXException, IOException;
 
+	private Annotation getEmptyAnnotation() throws ParserConfigurationException, SAXException, IOException 
+	{
+
+		Annotation annotation = new Annotation();
+
+		annotation.setOntology("");
+		annotation.setCui("-1");
+		annotation.setPreferredText("");
+		annotation.setDocumentID(getAnnotatedFileName());
+		annotation.setExtractor(extractorName);
+		annotation.setMatchedChunk("");
+		annotation.setCount(1);
+
+		return annotation;
+	}
 	/**
 	 * 
 	 * @param name
