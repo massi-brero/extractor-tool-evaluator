@@ -65,7 +65,6 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 			
 			System.out.println(entry.getKey());
 			
-			HashMap<String, Annotation> foo = entry.getValue();
 			ArrayList<Annotation> annList = new ArrayList<Annotation>((entry.getValue().values()));
 			saveEntityList(annList);
 		}

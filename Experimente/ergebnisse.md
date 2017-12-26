@@ -2,7 +2,8 @@
 
 ## Beobachtungen QuickUMLS lokal ##
 
-### vollst. Corpus ###
+### CRAFT ###
+* 731 Einträge in der Datenbank!
 
 Performance schwankt auf dem gleichen Systen (lokal) um fast 10% für gleiche Parameter
 
@@ -98,26 +99,42 @@ num_rel_ret    	all	4481
 * [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
 * Abstracts
 * kompletter Korpus
+### nicht normalisiert ###
 num_ret        	all	2857
 num_rel        	all	7437
 num_rel_ret    	all	225
+### normalisiert ###
+num_ret        	all	2561
+num_rel        	all	723
+num_rel_ret    	all	79
+
 
 11.Nur Abstracts - Parameter wie 3.
 * [-m=4,-s=jaccard,-t=1.0,-w=5,-l=score]
 * Abstracts
 * kompletter Korpus
+### nicht normalisiert ###
 num_ret        	all	448
 num_rel        	all	7437
 num_rel_ret    	all	217
+### normalisiert ###
+num_ret        	all	170
+num_rel        	all	723
+num_rel_ret    	all	73
 
 
 12.Nur Abstracts - Parameter wie 7.
 * [-m=2,-s=jaccard,-t=0.7,-w=5,-l=score]
 * Abstracts
 * kompletter Korpus
+### nicht normalisiert ###
 num_ret        	all	2857
 num_rel        	all	7437
 num_rel_ret    	all	225
+### normalisiert ###
+num_ret        	all	2561
+num_rel        	all	723
+num_rel_ret    	all	79
 
 
 R2 --> wie 1
@@ -143,74 +160,75 @@ num_rel        	all	7437
 num_rel_ret    	all	5477
 
 
-**14. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
+14. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
 * Volltexte
 * mit Disambiguiation
-num_ret        	all	15062
-num_rel        	all	7449
+num_ret        	all	15114
+num_rel        	all	7437
 num_rel_ret    	all	5645
 
 
-16. mit Disambiguation Server [--XMLf1,-R=NCBI,-o,--DISAMB]
+**15a. mit Disambiguation Server [--XMLf1,-R=NCBI,-o,--DISAMB]
 * Volltexte
 * mit Disambiguiation
 * allow Overmatches
 --> ! Resource error: insufficient memory
 
 
-17. Relaxed Model [--XMLf1,-R=NCBI,-C,--DISAMB]
+15. Relaxed Model [--XMLf1,-R=NCBI,-C,V=Base,--DISAMB]
 * Volltexte
 * Relaxed Model
 * eigene DB installiert
 * enthält mehr Strings u. a. mit Kunjunktionen (-> nochnal checken)
-num_ret        	all	14883
-num_rel        	all	7449
+num_ret        	all	14920
+num_rel        	all	7437
 num_rel_ret    	all	5600
 
 
-18. Relaxed Model [--XMLf1,-R=NCBI,-C,-z,--DISAMB]
+16. Relaxed Model [--XMLf1,-R=NCBI,-C,V=Base,-z,--DISAMB]
 * Volltexte
 * Kombination von Relaxed Model und Term Processing (empfohlen)
 * Term processing: Process terms, i.e., short text fragments, rather than a document containing complete sentences.
 * eher für Listen geeignet oder Aufzeählungen / Stichwortsammlungen etc.
-num_ret        	all	13324
-num_rel        	all	7449
+num_ret        	all	13334
+num_rel        	all	7437
 num_rel_ret    	all	4523
 
 
-19. Relaxed Model [--XMLf1,-R=NCBI,-t,--DISAMB]
+
+17. Relaxed Model [--XMLf1,-R=NCBI,-t,--DISAMB]
 * Volltexte
 * Bypass für part-of-speech-tagger
 * Ergebnisse mit QuickUMLS vergleichbar ?? (Check!)
 * geht ziemlich schnell
-num_ret        	all	14918
-num_rel        	all	7449
+num_ret        	all	15007
+num_rel        	all	7437
 num_rel_ret    	all	5620
 
 
-20. threshhold hochsetzen: [--XMLf1,-R=NCBI,-r=950,--DISAMB]
+18. threshhold hochsetzen: [--XMLf1,-R=NCBI,-r=950,--DISAMB]
 * Volltexte
-* eleminiert false positives
 num_ret        	all	2219
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	781
 
 
-21. threshhold verringern: [--XMLf1,-R=NCBI,-r=800,--DISAMB]
+19. threshhold verringern: [--XMLf1,-R=NCBI,-r=800,--DISAMB]
 * Volltexte
 * eleminiert false positives
 num_ret        	all	6016
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	2109
 
 
-22. prefer multiple concepts: [--XMLf1,-R=NCBI,-Y,--DISAMB]
+**20. prefer multiple concepts: [--XMLf1,-R=NCBI,-Y,--DISAMB]
 * Volltexte
 * bewertet Mappings höher, die mehr Konzepte umfassen
 * sinnvoll, um semantische Beziehungen zwischen den im Text gefundenen Konzept zu analysieren
-num_ret        	all	11275
-num_rel        	all	7449
-num_rel_ret    	all	4057
+num_ret        	all	15207
+num_rel        	all	7437
+num_rel_ret    	all	5610
+
 
 23. composite phrases: [--XMLf1,-R=NCBI,-Q=0,--DISAMB]
 * Volltexte

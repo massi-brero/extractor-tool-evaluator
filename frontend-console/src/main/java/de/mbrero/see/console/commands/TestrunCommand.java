@@ -99,7 +99,7 @@ public class TestrunCommand implements ICommand {
 
 		if (cmd.getParameters().get(TEST_PARAMETER) != null) {
 			setTest(true);
-			ctrl.setSkipExtraction(true);
+			//ctrl.setSkipExtraction(true);
 		}
 		
 

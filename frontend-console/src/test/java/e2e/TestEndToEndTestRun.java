@@ -183,7 +183,6 @@ public class TestEndToEndTestRun {
 		String type = "quickumls";
 		String tester = "example@example.com";
 		HashMap<String, String> params = new HashMap<>();
-		File inputFile = new File(getClass().getClassLoader().getResource("input/ncbi/testrun_skip.txt").getFile());
 		File outputTrecFile = new File(getClass().getClassLoader().getResource("output/trec/qrel_testrun_skip").getFile());
 		outputExtractorResultFile = new File(getClass().getClassLoader().getResource("output/extractor-result-skip-test").getFile());
 		params.put(TestrunCommand.TYPE_PARAMETER, type);
