@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import de.mbrero.see.api.TestRunController;
 import de.mbrero.see.persistance.dto.types.TestRunResults;
+import exceptions.ParameterException;
 import types.Extractors;
 
 /**
@@ -81,6 +82,7 @@ public class TestrunCommand implements ICommand {
 	 * @param {@link
 	 * 			ConsoleCommand} The command received from the command line
 	 *            including parameters.
+	 * @throws Exception 
 	 */
 	public void execute(ConsoleCommand command) throws Exception {
 
@@ -148,7 +150,7 @@ public class TestrunCommand implements ICommand {
 	}
 
 	@Override
-	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
+	public void validateParameters() throws FileNotFoundException, IllegalArgumentException, ParameterException {
 
 		String normalizedInputPathAsString = "";
 		
@@ -189,6 +191,10 @@ public class TestrunCommand implements ICommand {
 		if (outputPathTRECFile.isDirectory()) {
 			throw new FileNotFoundException(
 					"Please specify a file name in an existing " + "directory for the TREC result file!");
+		}
+		
+		if (outputPathExtractorResult.isDirectory() && outputPathExtractorResult.list().length > 0) {
+			throw new ParameterException("Please specify an empty folder for extracor result files!");
 		}
 
 		if (extractorParamsString.length() > 0) {

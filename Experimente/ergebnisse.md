@@ -221,7 +221,7 @@ num_rel        	all	7437
 num_rel_ret    	all	2109
 
 
-**20. prefer multiple concepts: [--XMLf1,-R=NCBI,-Y,--DISAMB]
+20. prefer multiple concepts: [--XMLf1,-R=NCBI,-Y,--DISAMB]
 * Volltexte
 * bewertet Mappings höher, die mehr Konzepte umfassen
 * sinnvoll, um semantische Beziehungen zwischen den im Text gefundenen Konzept zu analysieren
@@ -230,23 +230,25 @@ num_rel        	all	7437
 num_rel_ret    	all	5610
 
 
-23. composite phrases: [--XMLf1,-R=NCBI,-Q=0,--DISAMB]
+21. composite phrases: [--XMLf1,-R=NCBI,-Q=0,--DISAMB]
 * Volltexte
 * keine Kompositionen von Phrasen mit Präpositionen generieren
 * Tradeoff höhere Effizienz/geringere Qualität d. Ergebnisse
 num_ret        	all	15107
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	5668
 
-24. -no derivational variants: [--XMLf1,-R=NCBI,-d,--DISAMB]
+22. -no derivational variants: [--XMLf1,-R=NCBI,-d,--DISAMB]
+* Volltexte
 * keine aus Derivation gebildeten Varianten
 * vermeidet Änderungen im Sinn
 * evtl. Verbesserung der Precision?
-num_ret        	all	14674
-num_rel        	all	7449
+num_ret        	all	14688
+num_rel        	all	7437
 num_rel_ret    	all	5612
 
-25. threshhold verringern: [--XMLf1,-R=NCBI,-r=700,--DISAMB]
+
+** 23. threshhold verringern: [--XMLf1,-R=NCBI,-r=700,--DISAMB]
 * Volltexte
 * eleminiert false positives
 num_ret        	all	9411

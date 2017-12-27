@@ -63,7 +63,7 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 		while (it.hasNext()) {
 			Map.Entry<String, HashMap<String, Annotation>> entry = (Map.Entry<String, HashMap<String, Annotation>>) it.next();
 			
-			System.out.println(entry.getKey());
+			System.out.println("\n".concat(entry.getKey()));
 			
 			ArrayList<Annotation> annList = new ArrayList<Annotation>((entry.getValue().values()));
 			saveEntityList(annList);
@@ -94,7 +94,7 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 
 	/**
 	 * @param conn
-	 *            the conn to set
+	 *            the database connection to set
 	 */
 	public void setConn(DBConnection conn) {
 		this.conn = conn;

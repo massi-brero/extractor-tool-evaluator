@@ -105,9 +105,11 @@ public class MainController implements Runnable {
 				return 0;
 			}
 		} catch (InvocationTargetException e1) {
-			e1.printStackTrace();
+			if (e1.getMessage() != null) System.out.println("\n".concat(e1.getMessage()));
+			if (e1.getCause() != null) System.out.print(e1.getCause());
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			if (e2.getMessage() != null) System.out.println(e2.getMessage());
+			if (e2.getCause() != null) System.out.print(e2.getCause());
 		}
 		
 		return 1;
