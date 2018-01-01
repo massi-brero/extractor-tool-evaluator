@@ -193,7 +193,9 @@ public class TestrunCommand implements ICommand {
 					"Please specify a file name in an existing " + "directory for the TREC result file!");
 		}
 		
-		if (outputPathExtractorResult.isDirectory() && outputPathExtractorResult.list().length > 0) {
+		if (outputPathExtractorResult.isDirectory() 
+				&& outputPathExtractorResult.list().length > 0
+					&& !skipParameterIsSet()) {
 			throw new ParameterException("Please specify an empty folder for extracor result files!");
 		}
 

@@ -183,8 +183,8 @@ If we break the down the parameters, we get:
 |-type|extractor type (currently supported: ctakes, metamap, quickumls)|yes|
 |-tester|the one doing this test (email address)|yes|
 |-input|path to folder, where the articles are located|yes|
-|-outEx|path to folder where the result file from the extraction  rocess has to be stored|yes|
-|-outTrec|path to folder where the TREC file from the extraction process has to be stored|yes|
+|-outEx|path to folder where the result file from the extraction process will be stored; has to be empty|yes|
+|-outTrec|path to folder where the TREC file from the extraction process will be stored|yes|
 |-params|paramaters you want to set for the extractor. |yes|
 |-test|start a test run trial  the run will be marked in the database as a dry run|no|
 |-skip| use with value "extraction"|no|

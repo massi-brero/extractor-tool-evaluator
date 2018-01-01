@@ -77,6 +77,12 @@ num_ret        	all	103013
 num_rel        	all	7437
 num_rel_ret    	all	4882
 
+38: Standardwerte aber similarity_name = cosine [-w=8,-t=0.6,-m=3,-s=cosine,-l=score]
+* kompletter Textkorpus
+* Volltexte
+* 
+
+
 x9: Standardwerte aber similarity_name = overlap
 * [-w=5,-t=0.7,-m=3,-s=overlap,-l=score]
 * nur für 11597317.txt  
@@ -154,7 +160,7 @@ xx. kann hier evtl. auch irgendwo ein threshhold gesetzt werden?
 13. Keine Parameter [--XMLf1,-R=NCBI]
 * Volltexte
 * ohne Disambiguiation
-* Strict Data Model -> sollte schneller sein als der relaxed Modus (?)
+* Strict Data Model -> höhere Precision bei gleichen Recall (lt. Funke!!, vgl. vgl. 14 mit 15)
 num_ret        	all	14746
 num_rel        	all	7437
 num_rel_ret    	all	5477
@@ -248,66 +254,170 @@ num_rel        	all	7437
 num_rel_ret    	all	5612
 
 
-** 23. threshhold verringern: [--XMLf1,-R=NCBI,-r=700,--DISAMB]
+23. threshhold verringern: [--XMLf1,-R=NCBI,-r=700,--DISAMB]
 * Volltexte
 * eleminiert false positives
 num_ret        	all	9411
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	3374
 
 
-26. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,-R=NCBI] wie 14
+24. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,r=0,-R=NCBI] wie 14??
 * Volltexte
-* erstaunlicherweise etwas mehr Relevante???
+* Threshhold explizit auf 0 gesetzt
 num_ret        	all	15114
-num_rel        	all	7449
+num_rel        	all	7437
+num_rel_ret    	all	5645
+
+25. threshhold verringern: [--XMLf1,-R=NCBI,-r=600,--DISAMB]
+* Volltexte
+* eleminiert false positives
+num_ret        	all	11728
+num_rel        	all	7437
+num_rel_ret    	all	4316
+
+
+26. threshhold verringern: [--XMLf1,-R=NCBI,-r=400,--DISAMB]
+* Volltexte
+* eleminiert false positives
+num_ret        	all	15114
+num_rel        	all	7437
 num_rel_ret    	all	5645
 
 
-27. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen... r = 100;
+28. threshhold verringern: [--XMLf1,-R=NCBI,-r=200,--DISAMB]
 * Volltexte
-* wie 26
+* eleminiert false positives
+* Grenze bei 500?
 num_ret        	all	15114
-num_rel        	all	7449
+num_rel        	all	7437
 num_rel_ret    	all	5645
 
-28. wie 15 aber mit Abstracts [--XMLf1,-R=NCBI,--DISAMB]
+
+29. best F lt. Funk: [--XMLf1,-R=NCBI,-r=0,-d,-u]
+* model ANY
+* gaps NONE
+* wordOrder Matters
+* acronymAbb DEFAULT/UNIQUE
+* derivationalVariants NONE
+* scoreFilter 0/600
+* (minTermSize 3)
+* ohne DISAMB (gabs 2012 noch nicht?) -> aber wohl kein Effekt ohne DISAMB ??
+num_ret        	all	14724
+num_rel        	all	7437
+num_rel_ret    	all	5612
+
+
+30. höchster R lt. Funk: [--XMLf1,-R=NCBI,-C,-V=Base,-r=0,-g,-i,-a,-D,--DISAMB]
+* model RELAXED
+* gaps ALLOW
+* wordOrder IGNORE
+* acronymAbb ALL
+* derivationalVariants ALL
+* scoreFilter 0
+* (minTermSize 1/3)
+num_ret        	all	20101
+num_rel        	all	7437
+num_rel_ret    	all	5469
+
+
+31. höchste P lt. Funke: [--XMLf1,-R=NCBI,-r=1000,-d,--DISAMB]
+* model STRICT
+* gaps NONE
+* wordOrder Matters
+* acronymAbb DEFAULT/UNIQUE
+* derivationalVariants NONE
+* scoreFilter 1000
+* (minTermSize 3/5)
+num_ret        	all	2167
+num_rel        	all	7437
+num_rel_ret    	all	776
+
+
+32. wie 15 aber mit Abstracts [--XMLf1,-R=NCBI,--DISAMB]
 * Abstracts
 * keine fehlerbehafteten Ergebnis XMLs!!
 * Dauer: 272 !!!
 * noch weniger als bei Quick-UMLS
 * Zeichen, dass MM versucht Phrasen im ganzen Text zueinander in Beziehung zu setzen (???)
-num_q          	all	67
-num_ret        	all	734
-num_rel        	all	7449
-num_rel_ret    	all	344
+### nicht normalisiert ###
+num_ret        	all	743
+num_rel        	all	7437
+num_rel_ret    	all	349
+### normalisiert ###
+num_ret        	all	273
+num_rel        	all	723
+num_rel_ret    	all	121
 
 
-29. [--XMLf1,-R=NCBI,-o,--DISAMB]
+33. mit blanklines [--XMLf1,-R=NCBI,--blanklines=0,--DISAMB]
 * Abstracts
 * bei Volltexten --> Memory Overflow
+### nicht normalisiert ###
+num_ret        	all	760
+num_rel        	all	7437
+num_rel_ret    	all	349
+### normalisiert ##
+num_ret        	all	273
+num_rel        	all	723
+num_rel_ret    	all	121
 
-30. [--XMLf1,-R=NCBI,--blanklines=0,--DISAMB]
 
-31. • Negation Detection ??
+34. wie 21. aber mit Abstracts {-R=NCBI, -r=0, --DISAMB=, --XMLf1=}
+* bester ecall bei Volltexten
+### nicht normalisiert ###
+num_ret        	all	738
+num_rel        	all	7437
+num_rel_ret    	all	349
+### normalisiert ##
+num_ret        	all	274
+num_rel        	all	723
+num_rel_ret    	all	122
+
+
+35. wie 21. aber mit Abstracts {-R=NCBI, -r=0, --DISAMB=, --XMLf1=}
+* bester ecall bei Volltexten
+### nicht normalisiert ###
+num_ret        	all	743
+num_rel        	all	7437
+num_rel_ret    	all	349
+### normalisiert ##
+num_ret        	all	273
+num_rel        	all	723
+num_rel_ret    	all	121
+
+
+36. wie 21. aber mit blanklines und Abstracts [--XMLf1,-R=NCBI,-Q=0,r=400, --blanklines = 0,--DISAMB] 
+* bester call bei Volltexten bisher
+### nicht normalisiert ###
+num_ret        	all	756
+num_rel        	all	7437
+num_rel_ret    	all	350
+### normalisiert ##
+num_ret        	all	274
+num_rel        	all	723
+num_rel_ret    	all	122
 
 
 
+36/37. wie 21. aber mit blanklines und Volltexten [--XMLf1,-R=NCBI,-Q=0,-r=400,--blanklines=0,--DISAMB] 
+* bester call bei Volltexten bisher
+* für 37 keine TREC datei angelegt!
+* wenn blanklines gesetzt wird in vielen Texten keine einzige Annotation gefunden!
+
+
+
+xx. • Negation Detection ??
 
 
 xx. -g (--allow concept gaps) ???
+
+xx. -i (--ignore word order) ???
 
 xx. -y (--word sense disambiguation) ??? 
 
 xx. Text als eine Phrase behandeln
 
-
-
-### Nachholen ###
-11
-12
-13
-17
 
 
 
