@@ -77,11 +77,12 @@ num_ret        	all	103013
 num_rel        	all	7437
 num_rel_ret    	all	4882
 
-38: Standardwerte aber similarity_name = cosine [-w=8,-t=0.6,-m=3,-s=cosine,-l=score]
+38: Standardwerte aber similarity_name = cosine [-w=2,-t=1.0,-m=3,-s=cosine,-l=score]
 * kompletter Textkorpus
 * Volltexte
-* 
-
+num_ret        	all	9288
+num_rel        	all	7437
+num_rel_ret    	all	4372
 
 x9: Standardwerte aber similarity_name = overlap
 * [-w=5,-t=0.7,-m=3,-s=overlap,-l=score]
@@ -291,7 +292,7 @@ num_rel_ret    	all	5645
 * Grenze bei 500?
 num_ret        	all	15114
 num_rel        	all	7437
-num_rel_ret    	all	5645
+num_rel_ret    	all	        5645
 
 
 29. best F lt. Funk: [--XMLf1,-R=NCBI,-r=0,-d,-u]
@@ -405,6 +406,20 @@ num_rel_ret    	all	122
 * für 37 keine TREC datei angelegt!
 * wenn blanklines gesetzt wird in vielen Texten keine einzige Annotation gefunden!
 
+39. [-R=NCBI,-r=0,--DISAMB,--XMLf1=]
+* keine nennenswerten Erkenntnisse erwartet
+* benötigt für den Vergleich mit Abstract Texte Performance
+num_ret        	all	15114
+num_rel        	all	7437
+num_rel_ret    	all	5645
+
+R4. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
+* Volltexte
+* Remote Server
+* mit Disambiguiation
+num_ret        	all	15114
+num_rel        	all	7437
+num_rel_ret    	all	5645
 
 
 xx. • Negation Detection ??
