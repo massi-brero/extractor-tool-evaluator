@@ -143,6 +143,18 @@ num_ret        	all	2561
 num_rel        	all	723
 num_rel_ret    	all	79
 
+40. {-m=3, -s=dice, -t=0.7, -w=5, -l=score}
+* wie Stabdard aber similariry = dice
+num_ret        	all	63308
+num_rel        	all	7437
+num_rel_ret    	all	4813
+
+41. {-m=3, -s=dice, -t=0.9, -w=5, -l=score}
+* wie 40 mit similariry = dice, aber 
+num_ret        	all	9690
+num_rel        	all	7437
+num_rel_ret    	all	4410
+
 
 R2 --> wie 1
 * [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
