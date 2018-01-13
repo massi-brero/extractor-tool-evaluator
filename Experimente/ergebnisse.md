@@ -155,6 +155,10 @@ num_ret        	all	9690
 num_rel        	all	7437
 num_rel_ret    	all	4410
 
+41. [-m=3,-s=cosine,-t=0.6,-w=5,-l=score]
+* t=0.6 wie bei Soldaini als bester Recall beobachtet
+
+
 
 R2 --> wie 1
 * [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score]
