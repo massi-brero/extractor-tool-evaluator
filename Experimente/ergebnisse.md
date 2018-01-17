@@ -149,13 +149,23 @@ num_ret        	all	63308
 num_rel        	all	7437
 num_rel_ret    	all	4813
 
+42. [-m=3,-s=jaccard,-t=0.6,-w=5,-l=score]
+* nur Abstracts
+* wie 8.
+### nicht normalisiert ###
+num_ret        	all	13492
+num_rel        	all	7437
+num_rel_ret    	all	247
+### normalisiert ###
+
+
 41. {-m=3, -s=dice, -t=0.9, -w=5, -l=score}
 * wie 40 mit similariry = dice, aber 
 num_ret        	all	9690
 num_rel        	all	7437
 num_rel_ret    	all	4410
 
-41. [-m=3,-s=cosine,-t=0.6,-w=5,-l=score]
+43. [-m=3,-s=jaccard,-t=0.6,-w=5,-l=score]
 * t=0.6 wie bei Soldaini als bester Recall beobachtet
 
 
