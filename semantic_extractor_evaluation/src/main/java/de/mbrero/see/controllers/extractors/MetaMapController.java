@@ -7,9 +7,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.stream.Stream;
 
 import de.mbrero.see.exceptions.ExtractorExecutionException;
 
@@ -28,6 +25,7 @@ public class MetaMapController extends AbstractExtractorController {
 	private final String OUTPUT_SUFFIX = ".out";
 	private final HashMap<String, String> PARAMS_FROM_USER_INPUT;
 	private final String USE_DISAMBIGUATION_SERVER = "--DISAMB";
+	private final String PYTHON_RUN_PATH = "../semantic_extractor_evaluation/src/main/resources/scripts/metamap_corrector/run.py";
 	private boolean withDisambiguiation = false;
 
 	public MetaMapController(File inputFile, File outputFile, HashMap<String, String> params) {
@@ -75,12 +73,14 @@ public class MetaMapController extends AbstractExtractorController {
 
 	private int runExtractionProcess() throws IOException, InterruptedException, ExtractorExecutionException {
 		int result = 0;
+		int resultXMLCorrection = 0;
 		File inputPathFromUser = getInputFile();
 		File outputPathFromUser = getOutputFile();
 		
 		if (inputPathFromUser.isFile()) {
 			adaptParamsForMetaMap();
 			result = runLinuxExec(buildStartCommand(), true);
+				
 
 		} else if (inputPathFromUser.isDirectory()) {
 
@@ -108,7 +108,19 @@ public class MetaMapController extends AbstractExtractorController {
 			throw new FileNotFoundException("Could not parse given path!");
 		}
 		
-		return result;
+		/**
+		 * Eventually correct xml output;
+		 */
+		if (result == 0) {
+			System.out.println("\n\n>>> Checking and correcting XML-Output..\n");
+			resultXMLCorrection = runLinuxExec(buildCorrectorCommand(outputPathFromUser.getAbsolutePath()), false);
+			System.out.println("\n>>> Finished checking XML-Output...\n\n");
+		}
+		
+		/*
+		 * Returns error from extraction process if that went wrong else from the correction process.
+		 */
+		return result != 0 ? result : resultXMLCorrection;
 	}
 	
 	/**
@@ -136,15 +148,26 @@ public class MetaMapController extends AbstractExtractorController {
 		this.params = paramsAsArray;
 	}
 
-	/**
-	 * @todo add params
-	 */
+
 	protected ArrayList<String> buildStartCommand() {
 		ArrayList<String> startCmd = new ArrayList<>();
 		startCmd.add(getBasePath() + START_EXTRACTION_CMD);
 		
 		return startCmd;
 	}
+	
+
+	protected ArrayList<String> buildCorrectorCommand(String outputPath) {
+		ArrayList<String> correctorCommand = new ArrayList<>();
+		String pathScript = (new File(PYTHON_RUN_PATH)).getAbsolutePath();
+		
+		correctorCommand.add("python");
+		correctorCommand.add(pathScript);
+		correctorCommand.add(outputPath);
+		
+		return correctorCommand;
+	}
+
 
 	private void startDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
 		ArrayList<String> command = new ArrayList<>();

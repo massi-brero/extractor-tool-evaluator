@@ -123,6 +123,7 @@ public abstract class AbstractExtractorController implements Extractor {
 	 * @param command
 	 *            {@link String} the Linux command to start the extraction
 	 *            process.
+	 * @param addParams Add user params for extraction process
 	 * @return
 	 * @throws IOException
 	 * @throws InterruptedException
