@@ -224,80 +224,83 @@ num_rel_ret    	all	5734
 * Kombination von Relaxed Model und Term Processing (empfohlen)
 * Term processing: Process terms, i.e., short text fragments, rather than a document containing complete sentences.
 * eher für Listen geeignet oder Aufzeählungen / Stichwortsammlungen etc.
-num_ret        	all	13334
+num_ret        	all	13942
 num_rel        	all	7437
-num_rel_ret    	all	4523
+num_rel_ret    	all	4641
 
 
 
-17/48. Relaxed Model [--XMLf1,-R=NCBI,-t,-C,-V=Base,--DISAMB]
+17/48. Ohne extra Tagger[--XMLf1,-R=NCBI,-t,--DISAMB]
 * Volltexte
 * Bypass für part-of-speech-tagger
 * Ergebnisse mit QuickUMLS vergleichbar ?? (Check!)
 * geht ziemlich schnell
-num_ret        	all	15007
+num_ret        	all	15592
 num_rel        	all	7437
-num_rel_ret    	all	5620
+num_rel_ret    	all	5753
+
 
 
 18/49. threshhold hochsetzen: [--XMLf1,-R=NCBI,-r=950,--DISAMB]
 * Volltexte
-num_ret        	all	2219
+um_ret        	all	2272
 num_rel        	all	7437
-num_rel_ret    	all	781
+num_rel_ret    	all	776
 
 
 19/50. threshhold verringern: [--XMLf1,-R=NCBI,-r=800,--DISAMB]
 * Volltexte
 * eleminiert false positives
-num_ret        	all	6016
+num_ret        	all	6265
 num_rel        	all	7437
-num_rel_ret    	all	2109
+num_rel_ret    	all	2165
 
 
 20/51. prefer multiple concepts: [--XMLf1,-R=NCBI,-Y,--DISAMB]
 * Volltexte
 * bewertet Mappings höher, die mehr Konzepte umfassen
 * sinnvoll, um semantische Beziehungen zwischen den im Text gefundenen Konzept zu analysieren
-num_ret        	all	15207
+num_ret        	all	15808
 num_rel        	all	7437
-num_rel_ret    	all	5610
+num_rel_ret    	all	5745
 
 
 21/52. composite phrases: [--XMLf1,-R=NCBI,-Q=0,--DISAMB]
 * Volltexte
 * keine Kompositionen von Phrasen mit Präpositionen generieren
 * Tradeoff höhere Effizienz/geringere Qualität d. Ergebnisse
-num_ret        	all	15107
+num_ret        	all	15709
 num_rel        	all	7437
-num_rel_ret    	all	5668
+num_rel_ret    	all	5810
+
 
 22/53. -no derivational variants: [--XMLf1,-R=NCBI,-d,--DISAMB]
 * Volltexte
 * keine aus Derivation gebildeten Varianten
 * vermeidet Änderungen im Sinn
 * evtl. Verbesserung der Precision?
-num_ret        	all	14688
+num_ret        	all	15259
 num_rel        	all	7437
-num_rel_ret    	all	5612
+num_rel_ret    	all	5747
 
 
 23/54. threshhold verringern: [--XMLf1,-R=NCBI,-r=700,--DISAMB]
 * Volltexte
 * eleminiert false positives
-num_ret        	all	9411
+num_ret        	all	9838
 num_rel        	all	7437
-num_rel_ret    	all	3374
+num_rel_ret    	all	3466
 
 
 24/55. Untere Threshholdgrenze aussetzen und alle Ergebnisse anzeigen...: [--XMLf1,r=0,-R=NCBI] wie 14??
 * Volltexte
 * Threshhold explizit auf 0 gesetzt
-num_ret        	all	15114
+num_ret        	all	15715
 num_rel        	all	7437
-num_rel_ret    	all	5645
+num_rel_ret    	all	5783
 
-25/56. threshhold verringern: [--XMLf1,-R=NCBI,-r=600,--DISAMB]
+
+###25/56. threshhold verringern: [--XMLf1,-R=NCBI,-r=600,--DISAMB]
 * Volltexte
 * eleminiert false positives
 num_ret        	all	11728
@@ -362,7 +365,7 @@ num_rel        	all	7437
 num_rel_ret    	all	776
 
 
-32/62. wie 15 aber mit Abstracts [--XMLf1,-R=NCBI,--DISAMB]
+32. wie 15 aber mit Abstracts [--XMLf1,-R=NCBI,--DISAMB]
 * Abstracts
 * keine fehlerbehafteten Ergebnis XMLs!!
 * Dauer: 272 !!!
@@ -378,7 +381,7 @@ num_rel        	all	723
 num_rel_ret    	all	121
 
 
-33/63. mit blanklines [--XMLf1,-R=NCBI,--blanklines=0,--DISAMB]
+33/??. mit blanklines [--XMLf1,-R=NCBI,--blanklines=0,--DISAMB]
 * Abstracts
 * bei Volltexten --> Memory Overflow
 ### nicht normalisiert ###
@@ -391,7 +394,7 @@ num_rel        	all	723
 num_rel_ret    	all	121
 
 
-34/64. wie 21. aber mit Abstracts {-R=NCBI, -r=0, --DISAMB=, --XMLf1=}
+34. wie 21. aber mit Abstracts {-R=NCBI, -r=0, --DISAMB=, --XMLf1=}
 * bester ecall bei Volltexten
 ### nicht normalisiert ###
 num_ret        	all	738
@@ -403,7 +406,7 @@ num_rel        	all	723
 num_rel_ret    	all	122
 
 
-35/65. wie 21. aber mit Abstracts {-R=NCBI, -r=0, --DISAMB=, --XMLf1=}
+35. wie 21. aber mit Abstracts {-R=NCBI, -r=0, --DISAMB=, --XMLf1=}
 * bester ecall bei Volltexten
 ### nicht normalisiert ###
 num_ret        	all	743
@@ -415,7 +418,7 @@ num_rel        	all	723
 num_rel_ret    	all	121
 
 
-36/66. wie 21. aber mit blanklines und Abstracts [--XMLf1,-R=NCBI,-Q=0,r=400, --blanklines = 0,--DISAMB] 
+36. wie 21. aber mit blanklines und Abstracts [--XMLf1,-R=NCBI,-Q=0,r=400, --blanklines = 0,--DISAMB] 
 * bester call bei Volltexten bisher
 ### nicht normalisiert ###
 num_ret        	all	756
@@ -428,12 +431,12 @@ num_rel_ret    	all	122
 
 
 
-36/37/67. wie 21. aber mit blanklines und Volltexten [--XMLf1,-R=NCBI,-Q=0,-r=400,--blanklines=0,--DISAMB] 
+36/37/??. wie 21. aber mit blanklines und Volltexten [--XMLf1,-R=NCBI,-Q=0,-r=400,--blanklines=0,--DISAMB] 
 * bester call bei Volltexten bisher
 * für 37 keine TREC datei angelegt!
 * wenn blanklines gesetzt wird in vielen Texten keine einzige Annotation gefunden!
 
-39/68. [-R=NCBI,-r=0,--DISAMB,--XMLf1=]
+39/??. [-R=NCBI,-r=0,--DISAMB,--XMLf1=]
 * keine nennenswerten Erkenntnisse erwartet
 * benötigt für den Vergleich mit Abstract Texte Performance
 num_ret        	all	15114
