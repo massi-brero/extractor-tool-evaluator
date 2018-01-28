@@ -300,29 +300,29 @@ num_rel        	all	7437
 num_rel_ret    	all	5783
 
 
-###25/56. threshhold verringern: [--XMLf1,-R=NCBI,-r=600,--DISAMB]
+25/56. threshhold verringern: [--XMLf1,-R=NCBI,-r=600,--DISAMB]
 * Volltexte
 * eleminiert false positives
-num_ret        	all	11728
+num_ret        	all	12226
 num_rel        	all	7437
-num_rel_ret    	all	4316
+num_rel_ret    	all	4435
 
 
 26/57. threshhold verringern: [--XMLf1,-R=NCBI,-r=400,--DISAMB]
 * Volltexte
 * eleminiert false positives
-num_ret        	all	15114
+num_ret        	all	15715
 num_rel        	all	7437
-num_rel_ret    	all	5645
+num_rel_ret    	all	5783
 
 
 28/58. threshhold verringern: [--XMLf1,-R=NCBI,-r=200,--DISAMB]
 * Volltexte
 * eleminiert false positives
 * Grenze bei 500?
-num_ret        	all	15114
+num_ret        	all	15715
 num_rel        	all	7437
-num_rel_ret    	all	        5645
+num_rel_ret    	all	5783
 
 
 29/59. best F lt. Funk: [--XMLf1,-R=NCBI,-r=0,-d,-u]
@@ -334,9 +334,9 @@ num_rel_ret    	all	        5645
 * scoreFilter 0/600
 * (minTermSize 3)
 * ohne DISAMB (gabs 2012 noch nicht?) -> aber wohl kein Effekt ohne DISAMB ??
-num_ret        	all	14724
+num_ret        	all	15296
 num_rel        	all	7437
-num_rel_ret    	all	5612
+num_rel_ret    	all	5747
 
 
 30/60. höchster R lt. Funk: [--XMLf1,-R=NCBI,-C,-V=Base,-r=0,-g,-i,-a,-D,--DISAMB]
@@ -347,12 +347,12 @@ num_rel_ret    	all	5612
 * derivationalVariants ALL
 * scoreFilter 0
 * (minTermSize 1/3)
-num_ret        	all	20101
+num_ret        	all	20928
 num_rel        	all	7437
-num_rel_ret    	all	5469
+num_rel_ret    	all	5586
 
 
-31/61. höchste P lt. Funke: [--XMLf1,-R=NCBI,-r=1000,-d,--DISAMB]
+###31/61. höchste P lt. Funke: [--XMLf1,-R=NCBI,-r=1000,-d,--DISAMB]
 * model STRICT
 * gaps NONE
 * wordOrder Matters
@@ -360,9 +360,9 @@ num_rel_ret    	all	5469
 * derivationalVariants NONE
 * scoreFilter 1000
 * (minTermSize 3/5)
-num_ret        	all	2167
+num_ret        	all	2210
 num_rel        	all	7437
-num_rel_ret    	all	776
+num_rel_ret    	all	771
 
 
 32. wie 15 aber mit Abstracts [--XMLf1,-R=NCBI,--DISAMB]
