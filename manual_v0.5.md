@@ -183,7 +183,113 @@ If you use the -skip parameter the extraction step in pipeline will be skipped a
 
 It is also possible to execute individual tasks of the pipeline described in 2.2.1(??).
 
-## 3. Executing and using the unit tests ##
+## 3. Step-by-step explanation for the SEE ##
+The following example refers to the test installation on Harissa.fernuni-hagen.de.
+But the general concepts apply to every instance of the SEE.
+
+### 3.0 Start the application ###
+  1. go to the root folder (~/projects/extractor_benchmarker)
+  2. type ./starteval.sh
+
+### 3.1 Set up goldstandard ###
+**Prerequisites**:
+#
+- no TREC file with the same name in the same location passed with the *-output* option
+- database
+-- name: extractor_eval
+-- user: root
+-- password: 123456
+#
+
+**Statement**:
+****
+parsegold -type craft -input /home/admin34/projects/resources/goldstandard/craft/craft-2.0/xml/ncbi -output /home/admin34/projects/result_files/TREC/craft/qrel
+****
+
+**Explanation Statement**
+#2.3.1
+
+- *parsegold*: the command
+- *-type*: name of the goldstandard
+- *-input*: location of the annotated goldstandard files (please name it after the ontology/ontologies - currently only "ncbi" is supported)
+- *-output*: folder where the TREC qrel file should be saved. You can choose the file name you want, but "qrel" is a common choice.
+
+**Results**:
+a) Files
+You can find the TREC goldstandard ground truth file ("qrel") in the folder you passed with the output parameter. You need this later on to evaluate the extractors' performances.
+b) Database
+The goldstandard concepts can be found in the "annotation" table
+
+
+### 3.2 Run an extractor evaluation ###
+#### 3.2.1 MetaMap ###
+**Prerequisites**:
+#
+- result file Folder (*-outEx*) should be empty
+- no TREC file with the same name in the same location
+- database: *same as above (see 1.)*
+
+**Statement**:
+****
+testrun -type metamap -params [--XMLf1,-R=NCBI,-d] -tester example@example.com -input /home/admin34/projects/result_files/test_articles -outTrec /home/admin34/projects/result_files/TREC/test/mm_run_abc -outEx /home/admin34/projects/result_files/extractor_results/mm/test
+****
+
+**Explanation Statement**:
+#
+- *testrun*: the command
+- *-params*: the options you want to pass to the extractor. See also this manual for the expected syntax.
+- *-type*: name of the extractor (currently supported: "metamap", "quickumls")
+- *-tester*: who did the test? This parameter is mandatory. Please enter your email.
+- *-input*: the folder with the text file that you want to annotate.
+- *-outTrec*: the folder (must exist!) where the trec result file should be stored. You can name it abitrarily. 
+*(Anm.:Hier wird in den n. Tagen noch eine Fehlermeldung programmiert, für den Fall, dass die Datei bereits existiert)*
+- *-outEx*: the folder where you want to store the xml files from the extraction process. Please provide an empty folder. Ohterwise the SEE will warn you with an error message.
+
+**Result**:
+a) Result files
+The XML files with the concepts the mapping software extracted can be found in the folder you provided with the *-outEx* parameter.
+b) database
+#
+- table "test_run": contains the information about the completed experiments.
+(For a more readable MySQL output you can use **select * from test_run\G;**)
+- table "annotation": All the concepts the extractor has found in the last test run for the given text files.
+#
+c) TREC Evaluation
+****
+trec_eval  /home/admin34/projects/result_files/TREC/craft/qrel /home/admin34/projects/result_files/TREC/test/mm_run_abc
+****
+(On the test server the alias "trec_eval" pointing to the trec binary was preconfigured). Here you enter first the trec goldstandard file and second to that the trec file from your test run.
+
+#### 2.2 QuickUMLS ####
+**Prerequisites**:
+*same as above*
+
+**Statement**:
+****
+testrun -type quickumls -params [-m=3,-s=jaccard,-t=0.7,-w=5,-l=score] -tester example@example.com -input /home/admin34/projects/result_files/test_articles -outTrec /home/admin34/projects/result_files/TREC/quickumls/test/quickumls_run_yy -outEx /home/admin34/projects/result_files/extractor_results/quickumls/test
+****
+
+**Explanation Statement**:
+*same as above*
+
+**Results**:
+a) Files
+*same as above*
+b) database
+*same as above*
+c) TREC Evaluation
+****
+trec_eval  /home/admin34/projects/result_files/TREC/craft/qrel /home/admin34/projects/result_files/TREC/quickumls/test/quickumls_run_yy
+****
+
+## 4. Executing and using the unit tests ##
+
+From the command line:
+1. cd into the SEE root (~/projects/extractor_benchmarker)
+2. type **mvn test**
+...or start the JUnit tests from your IDE.
+
+
 
 
 

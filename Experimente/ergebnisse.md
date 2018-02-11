@@ -184,7 +184,7 @@ xx. kann hier evtl. auch irgendwo ein threshhold gesetzt werden?
 
 #### MetaMap ####
 
-13/44. Keine Parameter [--XMLf1,-R=NCBI]
+13/44/62. Keine Parameter [--XMLf1,-R=NCBI]
 * Volltexte
 * ohne Disambiguiation
 * Strict Data Model -> höhere Precision bei gleichen Recall (lt. Funke!!, vgl. vgl. 14 mit 15)
@@ -193,9 +193,9 @@ num_rel        	all	7437
 num_rel_ret    	all	5783
 
 
-14/45. mit Disambiguation Server [--XMLf1,-R=NCBI,-DISAMB]
+14/45. mit Disambiguation Server [--XMLf1,-R=NCBI,--DISAMB]
 * Volltexte
-* mit Disambiguiation
+* mit Disambiguiation46
 num_ret        	all	15715
 num_rel        	all	7437
 num_rel_ret    	all	5783
@@ -352,7 +352,7 @@ num_rel        	all	7437
 num_rel_ret    	all	5586
 
 
-###31/61. höchste P lt. Funke: [--XMLf1,-R=NCBI,-r=1000,-d,--DISAMB]
+31/61. höchste P lt. Funke: [--XMLf1,-R=NCBI,-r=1000,-d,--DISAMB]
 * model STRICT
 * gaps NONE
 * wordOrder Matters
