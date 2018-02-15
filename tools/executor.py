@@ -13,7 +13,7 @@ class Executor:
     CUI_TAG = "cui"
     
     ### extractor params ###
-    quickumls_fp = DIR_PATH + "/../umls_2016_ncbi"
+    quickumls_fp = DIR_PATH + "/ncbi_2016"
     overlapping_criteria = "score"
     threshold = 0.8
     minMatchedLength = 3
@@ -62,12 +62,12 @@ class Executor:
             
         
     def extract(self, file_item):
-        #----------------------------- print 'quickumls_fp: ' +self.quickumls_fp
-        #------------ print 'overlapping_criteria: ' + self.overlapping_criteria
-        #----------------------------- print 'threshold: ' + str(self.threshold)
-        #---------------------- print 'similarity_name: ' + self.similarity_name
-        #---------------- print 'minMatchedLength: ' +str(self.minMatchedLength)
-        #----------------------------------- print 'window: ' + str(self.window)
+        print 'quickumls_fp: ' +self.quickumls_fp
+        print 'overlapping_criteria: ' + self.overlapping_criteria
+        print 'threshold: ' + str(self.threshold)
+        print 'similarity_name: ' + self.similarity_name
+        print 'minMatchedLength: ' +str(self.minMatchedLength)
+        print 'window: ' + str(self.window)
     
         matcher = QuickUMLS(self.quickumls_fp, self.overlapping_criteria, self.threshold,
                         self.window, self.similarity_name, self.minMatchedLength,

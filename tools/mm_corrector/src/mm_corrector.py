@@ -7,7 +7,8 @@ class MMCorrector:
     
     input_path = ""
     CLOSING_TAG = "</MMOs>"
-    WRONG_LAST_LINE = "</MMO>"
+    WRONG_LAST_LINE_1 = "</MMO>"
+    WRONG_LAST_LINE_2 = "<MMOs>"
     FILE_EXTENSION = "*.*"
     NEWLINE = "\n"
     
@@ -44,9 +45,11 @@ class MMCorrector:
                     i -= 1
                     
                 print(file_name)    
-                if (self.WRONG_LAST_LINE in last_line):
+                if (self.WRONG_LAST_LINE_1 in last_line):
                     print("*** Repairing: " + file_name)
                     f.write(self.NEWLINE + self.CLOSING_TAG)
+                
+                #print(last_line)
         except (IOError, OSError) as e:
             print ("Error: while reading your input path.\n" + str(e))
             
