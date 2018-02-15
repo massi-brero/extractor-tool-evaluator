@@ -68,17 +68,17 @@ To use the previously mentioned extractors please install them in this folders i
 
 Please take a look at the following tips and caveats when installing the currently supported extractors.
 
-##### __Used ontologies__ #####
+** __Used ontologies__ **
 
 Most extractors can be customized to use a limited set of (mostly) UMLS ontologies. The current SEE version uses the NBCI taxonomy which was also used in the CRAFT gold standard corpus.
 
-##### __UMLS installation__ #####
+** __UMLS installation__ **
 
 MetaMap and QuickUMLS need a UMLS installation of the ontologies that the extractors will use for the parsing process.
 You can find a How-to and some basic instructions at the [UMLS site](https://www.nlm.nih.gov/research/umls/quickstart.html);
 You need a NIH account to use UMLS (and some extractors will also ask you for those credentials).
 
-##### __QuickUMLS__ #####
+** __QuickUMLS__ **
 
 Quick UMLS is based on python and you will have to install some additional libraries dealing with language processing (most importantly [Simstring](http://www.chokkan.org/software/simstring)):
 
@@ -95,8 +95,11 @@ Please follow the instructions on Install MetaMap to set up a MeTaMap instance.
 
 _Notices on Installation_:
 
-1. If you want to install MetaMap in any other location than the previosly named, you have to changed the path in an SEE class. Please adjust the path in the constant _STANDARD_METAMAP_PATH_ in _/semantic_extractor_evaluation/src/main/java/de/mbrero/see/controllers/extractors/ExtractorFactory.java_ (Then recompile the SEE).
-2. The latest SEE version will repair broken XML files outputted by MetaMap. The program for achieving this is a python script in the resources/tools folder. The script for this is for the standard setup in ...
+1. If you want to install MetaMap in any other location than the previosly named, you have to changed the path in an SEE class. Please adjust the path in the constant _STANDARD_METAMAP_PATH_ in _/semantic_extractor_evaluation/src/main/java/de/ mbrero/see/controllers/extractors/ExtractorFactory.java_ (Then recompile the SEE).
+2. The latest SEE version will repair broken XML files outputted by MetaMap. The program for achieving this is a little python programm in the _resources/tools folder_.  If you want to put this sofware somewhere else you can find the files in the See project files located in _tools/mm_corrector/src_. In case you want to put the corrector files in another folder than the standard tools folder in the resources directory please change the corresponding constant  _PYTHON_RUN_PATH_ in the class _/semantic_extractor_evaluation/src/main/java/de/mbrero/see /controllers/extractors/MetaMapController.java_.
+
+** _Evaluation with the TREC tool_ **
+For evaluating the extractors' performance the SEE creates TREC files both for the goldstandard and for the result files from the extraction process.  In the standard configuration on the server of Hagen university this tool is located in the _resources/tools folder_. You are free  to put it in any other place. Please go [here](http://trec.nist.gov/trec_eval/) to download the trec_eval tool and [here](http://www-nlpir.nist.gov/projects/t01v/trecvid.tools/trec_eval_video/A.README) to learn about its usage . 
 
 
 
@@ -104,8 +107,8 @@ _Notices on Installation_:
 
 ### 2.0 Basics ###
 
-You can find the starting script (<i>starteval.sh</i>) for the SEE in the project's root folder.
-You may also start it directly using maven commands. Go to the folder <i>frontend-console</i> and enter <i>mvn exec:java</i>. If you start the SEE for the very first time the database and the corresponding tables are created automatically. Just provide the credentials in hibernates config files:
+You can find the starting script (_starteval.sh_>) for the SEE in the project's root folder.
+You may also start it directly using maven commands. Go to the folder  _frontend-console_ and enter _mvn exec:java_. If you start the SEE for the very first time the database and the corresponding tables are created automatically. Just provide the credentials in hibernates config files:
 .../.../ for production
 .../.../ for test
 
@@ -208,7 +211,7 @@ _-paramname1 value1 -paramname2_
 
 If you use the -skip parameter the extraction step in pipeline will be skipped an the SEE continues with reading the extractors result. Use this if the extractor may have produced faulty results files you want to check and correct before continuing with the evaluation.
 
-#### 2.3.2 Starting individual tasks of the pipeline ####
+#### 2.3.3 Starting individual tasks of the pipeline ####
 
 It is also possible to execute individual tasks of the pipeline described in 2.2.1(??).
 
@@ -236,7 +239,6 @@ parsegold -type craft -input /home/admin34/projects/resources/goldstandard/craft
 ****
 
 **Explanation Statement**
-#2.3.1
 
 - *parsegold*: the command
 - *-type*: name of the goldstandard
@@ -275,6 +277,7 @@ testrun -type metamap -params [--XMLf1,-R=NCBI,-d] -tester example@example.com -
 - *-outEx*: the folder where you want to store the xml files from the extraction process. Please provide an empty folder. Ohterwise the SEE will warn you with an error message.
 
 **Result**:
+
 a) Result files
 The XML files with the concepts the mapping software extracted can be found in the folder you provided with the *-outEx* parameter.
 b) database
@@ -289,7 +292,7 @@ trec_eval  /home/admin34/projects/result_files/TREC/craft/qrel /home/admin34/pro
 ****
 (On the test server the alias "trec_eval" pointing to the trec binary was preconfigured). Here you enter first the trec goldstandard file and second to that the trec file from your test run.
 
-#### 2.2 QuickUMLS ####
+#### 3.2.2 QuickUMLS ####
 **Prerequisites**:
 *same as above*
 
