@@ -155,11 +155,11 @@ To read and persist the concepts from a goldstandard, you will have to use the _
 
 Details for the pipeline stages:
 1. Start Parsing:
-[...]
+Reads the annotations from the given (XML) file, enriches it with information needed for the evaluation process. Will also look for matching UMLS IDs if the concepts are lacking it.
 2. Save annotations
-The annotations will be saved to the table _annotations_ [...].
+The annotations will be saved to the table _annotations_.
 3. Create TREC file:
-[...]
+Creates the ground truth _qrel_ file.
 
 The syntax to start the goldstandard process is:  
 _parsegold -type craft -input {path-to-folder}  -output {path-with-filename}_
