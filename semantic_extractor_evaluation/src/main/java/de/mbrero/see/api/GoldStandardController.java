@@ -12,7 +12,7 @@ import types.GoldStandardType;
 import types.ParserType;
 
 /**
- * Parses the Goldstandard and saves the annotations to the satabase and creates
+ * Parses the Goldstandard and saves the annotations to the database and creates
  * a qrel File for the TREC tool
  * 
  * @author massi.brero@gmail.com
@@ -53,52 +53,100 @@ public class GoldStandardController {
 
 	}
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void retrieveAnnotations() throws Exception {
 		CRAFTParser crParser = (CRAFTParser) ParserFactory.getInstance(ParserType.CRAFT);
 		crParser.parse(getInputPath());
 		annotations = crParser.getAnnotations();
 	}
 
+	/**
+	 * 
+	 * @return {@link GoldStandardType}
+	 */
 	public GoldStandardType getType() {
 		return type;
 	}
 
+	/**
+	 * 
+	 * @param {@link GoldStandardType} type
+	 */
 	public void setType(GoldStandardType type) {
 		this.type = type;
 	}
 
+	/**
+	 * 
+	 * @return {@link File}
+	 */
 	public File getInputPath() {
 		return inputPath;
 	}
 
+	/**
+	 * 
+	 * @param {@link File} inputPath
+	 */
 	public void setInputPath(File inputPath) {
 		this.inputPath = inputPath;
 	}
 
+	/**
+	 * 
+	 * @return {@link File}
+	 */
 	public File getOutputPath() {
 		return outputPath;
 	}
 
+	/**
+	 * 
+	 * @param {@link File} outputPath
+	 */
 	public void setOutputPath(File outputPath) {
 		this.outputPath = outputPath;
 	}
 
+	/**
+	 * 
+	 * @return {@link HashMap}
+	 */
 	public HashMap<String, HashMap<String, Annotation>> getAnnotations() {
 		return annotations;
 	}
 
+	/**
+	 * 
+	 * @param {@link HashMap} annotations
+	 */
 	public void setAnnotations(HashMap<String, HashMap<String, Annotation>> annotations) {
 		this.annotations = annotations;
 	}
 
+	/**
+	 * 
+	 * @return {@link AnnotationsService}
+	 */
 	public AnnotationsService getAnnCtrl() {
 		return annotationsService;
 	}
 
+	/**
+	 * {@link AnnotationsService}
+	 * @param annCtrl
+	 */
 	public void setAnnCtrl(AnnotationsService annCtrl) {
 		this.annotationsService = annCtrl;
 	}
 	
+	/**
+	 * @throws Exception
+	 * @throws IOException
+	 */
 	private void runGoldStandardJob() throws Exception, IOException {
 		/*
 		 * Get the annotations
@@ -119,6 +167,10 @@ public class GoldStandardController {
 		annotationsService.saveAnnotationsToTRECGoldStandard(annotations, outputPath);
 	}
 
+	/**
+	 * 
+	 * @param msg
+	 */
 	private void writeToConsole(String msg) {
 		msg = ">>> " + msg + "\n";
 		System.out.println(msg);

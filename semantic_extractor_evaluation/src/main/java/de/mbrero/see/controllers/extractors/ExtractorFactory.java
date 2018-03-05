@@ -5,6 +5,13 @@ import java.util.HashMap;
 
 import types.Extractors;
 
+/**
+ * This class is used to instantiate one of the possible concept mappers.
+ * @see Extractors
+ * 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class ExtractorFactory {
 
 	/*
@@ -25,7 +32,8 @@ public class ExtractorFactory {
 	private static HashMap<String, String> params = null;
 
 	/**
-	 * 
+	 * Use this to generate a extractor of the Type {@link Extractor} and return and configured and<br>
+	 * instantiated object.
 	 * 
 	 * @param extractor
 	 * @param bPath

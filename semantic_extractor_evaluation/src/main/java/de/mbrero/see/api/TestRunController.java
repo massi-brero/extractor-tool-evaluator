@@ -41,6 +41,9 @@ public class TestRunController {
 	private AnnotationsService annotationsService;
 	private AbstractParser parser = null;
 	private boolean skipExtraction = false;
+	/*
+	 * Id to be stored in the database with this test run
+	 */
 	public static int testRunId = 0;
 
 	/**
@@ -67,6 +70,9 @@ public class TestRunController {
 		this.params = params;
 	}
 
+	/**
+	 * Sets all needed environment parameters for a test run.
+	 */
 	public void initializeTestRun() {
 			run.setInputPath(inputPath.getAbsolutePath());
 			run.setOutputPathExtractorResult(outputExtractorResult.getAbsolutePath());
@@ -79,6 +85,12 @@ public class TestRunController {
 			run.setSystemInformation(model.getSystemInformation().toString());			
 	}
 
+	/**
+	 * Configure the concept mapper to retrieve the annotations extractedfrom the input files.<br>
+	 * Expand switch case with additional concept mappers.
+	 * 
+	 * @throws Exception
+	 */
 	public void getAnnotationsFromExtractorResult() throws Exception {
 		switch (type) {
 			case METAMAP:
@@ -96,23 +108,48 @@ public class TestRunController {
 		}
 	}
 
+	/**
+	 * Save the extracted concepts to a MySQL database.
+	 * @throws Exception
+	 */
 	public void saveAnnotationsToDatabase() throws Exception {
 		annotationsService.saveAnnotationsToDatabase(annotations);
 	}
 
+	/**
+	 * Save the extracted annotations to a trec result file.<br>
+	 * @see <a href="https://github.com/usnistgov/trec_eval">TREC Evaluation Tool Information</a>
+	 * @throws IOException
+	 */
 	public void saveAnnotationsToTrecFile() throws IOException {
 		annotationsService.saveAnnotationsToTRECResultUsingCUI(annotations, outputTRECFile);
 	}
 
+	/**
+	 * Set one of the possible test result types @see {@link TestRunResults}
+	 * @param result
+	 */
 	public void setResult(TestRunResults result) {
 		run.setResult(result.toString());
 		model.update(run);
 	}
 
+	/**
+	 * Set the time the concept mapper took an that was measured.
+	 * @param duration
+	 */
 	public void setDuration(long duration) {
 		run.setDuration(duration);
 	}
 
+	/**
+	 * Instantiate the chosen extractor from the factory {@link ExtractorFactory} and start the test run with the given parameters.
+	 * 
+	 * @throws IllegalArgumentException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
 	public void runExtractor()
 			throws IllegalArgumentException, IOException, InterruptedException, ExtractorExecutionException {
 
@@ -130,10 +167,22 @@ public class TestRunController {
 
 	}
 
+	/**
+	 * Test if the parameter to skip the extraction step was set.
+	 * 
+	 * @return booleean
+	 */
 	public boolean isSkipExtraction() {
 		return skipExtraction;
 	}
 
+	/**
+	 * Set if the extraction step should be skipped. use this if there was an error after a succesful extraction<br>
+	 * and you do not want it to run again but continue with the following steps of the execution pipeline.<br>
+	 * See manual for detailed information.
+	 * 
+	 * @param skipExtraction
+	 */
 	public void setSkipExtraction(boolean skipExtraction) {
 		this.skipExtraction = skipExtraction;
 	}

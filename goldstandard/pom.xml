@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
+<!-- This module is not needed for the prototype at the moment.
+When we want to use more goldstandards maybe move the logic into an own module. -->
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -8,9 +10,7 @@
 		<artifactId>seeparent</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<groupId>de.mbrero.see</groupId>
 	<artifactId>goldstandard</artifactId>
-	<version>0.0.1</version>
 	<name>goldstandard</name>
 	<url>http://maven.apache.org</url>
 	<properties>

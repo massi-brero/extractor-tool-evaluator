@@ -64,6 +64,12 @@ public abstract class AbstractExtractorController implements Extractor {
 	 */
 	protected ArrayList<String> params = null;
 
+	/**
+	 * The constructor with all the parameters retrieved from the user input and needed to run a concept mapper.
+	 * @param inputFile
+	 * @param outputFile
+	 * @param params
+	 */
 	public AbstractExtractorController(File inputFile, File outputFile, HashMap<String, String> params) {
 		setInputFile(inputFile);
 		setOutputFile(outputFile);
@@ -80,7 +86,7 @@ public abstract class AbstractExtractorController implements Extractor {
 	/**
 	 * Returns the params as a simple array to be used with the {@link Process#}
 	 * 
-	 * @return the params
+	 * @return {@link ArrayList} the params
 	 */
 	public ArrayList<String> getParams() {
 		return params;
@@ -156,6 +162,10 @@ public abstract class AbstractExtractorController implements Extractor {
 
 	}
 
+	/**
+	 * 
+	 * @param type
+	 */
 	private void writeOutput(int type) {
 		StringBuilder output = new StringBuilder();
 

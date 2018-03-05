@@ -71,6 +71,13 @@ public class MetaMapController extends AbstractExtractorController {
 	}
 
 
+	/**
+	 * 
+	 * @return int
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
 	private int runExtractionProcess() throws IOException, InterruptedException, ExtractorExecutionException {
 		int result = 0;
 		int resultXMLCorrection = 0;
@@ -149,6 +156,9 @@ public class MetaMapController extends AbstractExtractorController {
 	}
 
 
+	/**
+	 * @return {@link ArrayList<String>}
+	 */
 	protected ArrayList<String> buildStartCommand() {
 		ArrayList<String> startCmd = new ArrayList<>();
 		startCmd.add(getBasePath() + START_EXTRACTION_CMD);
@@ -156,7 +166,11 @@ public class MetaMapController extends AbstractExtractorController {
 		return startCmd;
 	}
 	
-
+	/**
+	 * 
+	 * @param String outputPath
+	 * @returm {@link ArrayList<String>}
+	 */
 	protected ArrayList<String> buildCorrectorCommand(String outputPath) {
 		ArrayList<String> correctorCommand = new ArrayList<>();
 		String pathScript = (new File(PYTHON_RUN_PATH)).getAbsolutePath();
@@ -169,7 +183,13 @@ public class MetaMapController extends AbstractExtractorController {
 	}
 
 
-	private void startDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
+	/**
+	 * Start MetaMap's disambiguation server programmatically. So no parameter may be needed.
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
+	public void startDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + DISMBIGUATION_SERVER_CMD);
 		command.add("start");
@@ -177,6 +197,12 @@ public class MetaMapController extends AbstractExtractorController {
 
 	}
 
+	/**
+	 * Stop MetaMap's disambiguation server programmatically.
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
 	public void stopDisambiguationServer() throws IOException, InterruptedException, ExtractorExecutionException {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + DISMBIGUATION_SERVER_CMD);
@@ -185,6 +211,12 @@ public class MetaMapController extends AbstractExtractorController {
 
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
 	private void startTagger() throws IOException, InterruptedException, ExtractorExecutionException {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + TAGGER_CMD);
@@ -193,6 +225,12 @@ public class MetaMapController extends AbstractExtractorController {
 
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
 	private void stopTagger() throws IOException, InterruptedException, ExtractorExecutionException {
 		ArrayList<String> command = new ArrayList<>();
 		command.add(getBasePath() + TAGGER_CMD);
@@ -201,10 +239,18 @@ public class MetaMapController extends AbstractExtractorController {
 
 	}
 
+	/**
+	 * Check if extraction runs MetaMap's disambiguation server.
+	 * @return boolean
+	 */
 	public boolean isWithDisambiguiation() {
 		return withDisambiguiation;
 	}
 
+	/**
+	 * Set if you want to run the extraction eith MetaMap's disambiguation server.
+	 * @param boolean ithDisambiguiation
+	 */
 	public void setWithDisambiguiation(boolean withDisambiguiation) {
 		this.withDisambiguiation = withDisambiguiation;
 	}

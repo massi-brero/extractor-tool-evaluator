@@ -23,6 +23,12 @@ public class QuickUmlsController extends AbstractExtractorController {
 
 	private final String RUN_SCRIPT_PATH = "/run.py";
 
+	/**
+	 * Set 
+	 * @param File inputFile
+	 * @param File outputFile
+	 * @param HashMap<String, String> params
+	 */
 	public QuickUmlsController(File inputFile, File outputFile, HashMap<String, String> params) {
 		super(inputFile, outputFile, params);
 	}
@@ -30,7 +36,6 @@ public class QuickUmlsController extends AbstractExtractorController {
 
 	/**
 	 * Starts the extractor for an annotation run.
-	 * 
 	 * 
 	 * @throws IOException
 	 * @throws InterruptedException
@@ -49,7 +54,13 @@ public class QuickUmlsController extends AbstractExtractorController {
 		return result;
 	}
 
-
+	/**
+	 * 
+	 * @return int
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExtractorExecutionException
+	 */
 	private int runExtractionProcess() throws IOException, InterruptedException, ExtractorExecutionException {
 		int result = 0;
 		
@@ -59,7 +70,7 @@ public class QuickUmlsController extends AbstractExtractorController {
 	}
 	
 	/**
-	 * @todo add params
+	 * 
 	 */
 	protected ArrayList<String> buildStartCommand() {
 		ArrayList<String> startCmd = new ArrayList<>();

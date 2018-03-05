@@ -7,9 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * A class for reading configurations for the front end. Not needed at the moment.
+ * @author massi
+ *
+ */
 public class ConfigurationReader {
 
-	
+	/**
+	 * Read the config for frontend from command.cfg.xml.
+	 * 
+	 * @return {@link Properties}
+	 */
 	public Properties readCommandConfiguration() {
 		
 		File configFile = new File(getClass().getClassLoader().getResource("command.cfg.xml").getFile());
