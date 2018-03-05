@@ -27,8 +27,6 @@ public class MainController implements Runnable {
 	/*
 	 * Output colors
 	 */
-
-
 	private CommandInterpreter interpreter;
 	private final String CLASSNAME_SUFFIX = "Command";
 	/**
@@ -38,6 +36,9 @@ public class MainController implements Runnable {
 	 */
 	private ICommand commandObject = null;
 
+	/**
+	 * Analyzes and runs the command received from console.
+	 */
 	@Override
 	public void run() {
 

@@ -15,6 +15,10 @@ public class App {
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_RED = "\u001B[31m";
 	
+	/**
+	 * Main entry point for the application.
+	 * @param args
+	 */
     public static void main( String[] args ) {
     	App.printHeader();
     	bootstrap();

@@ -8,9 +8,13 @@ import types.GoldStandardType;
 
 /**
  * Triggers the parsing of a gold standard {@link GoldStandardType} so it can be
- * used for the extractor evaluation as reference resource.
+ * used for the extractor evaluation as reference resource.<br>
  * 
- * parsegold -type craft -input /home/massi/projects/result_files/goldstandard/ncbi -output /home/massi/projects/result_files/TREC/craft/qrel
+ * The folder containing the texts should be named after the ontology/ontologies used.
+ 	*@see Ontology.
+ * 
+ * Example:<br>
+ * parsegold -type craft -input {path to goldstandard}/ncbi -output {path to chosen result folder}/qrel
  * 
  * @author massi.brero@gmail.com
  *
@@ -25,6 +29,9 @@ public class ParsegoldCommand implements ICommand {
 	File outputPath = null;
 	GoldStandardType type = null;
 
+	/*
+	 * @see de.mbrero.see.console.commands.ICommand#execute(de.mbrero.see.console.commands.ConsoleCommand)
+	 */
 	public void execute(ConsoleCommand command) throws Exception {
 
 		cmd = command;
@@ -37,6 +44,9 @@ public class ParsegoldCommand implements ICommand {
 
 	}
 
+	/*
+	 * @see de.mbrero.see.console.commands.ICommand#validateParameters()
+	 */
 	@Override
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException {
 

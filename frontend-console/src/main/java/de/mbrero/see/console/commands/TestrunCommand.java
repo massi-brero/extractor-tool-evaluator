@@ -14,15 +14,14 @@ import types.Extractors;
  * Triggers the execution of a semantic extractor. The Type supported can be
  * found in {@link Extractors}.<br>
  * A valid call from the console may look like this<br>
- * testrun -type metamap -tester massi@gmail.com -input
- * /home/massi/projects/result_files/txt_test/* -outTrec
- * /home/massi/projects/result_files/TREC/mm_test -outEx
- * /home/massi/projects/result_files/extractor_results/mm/res1.xml -params
- * [--XMLf]
+ * testrun -type metamap -tester massi@gmail.com<br>
+ * -input {path to text files}/txt_test/*<br>
+ * -outTrec {path to result files}/mm_test<br>
+ * -outEx {path to chosen extractor result files}<br>
+ * -params [--XMLf]
  * 
  * The "tester" parameter is mandatory for reproduction reasons. Input folder or
- * file and output file<br>
- * are also mandatory.
+ * file and output file are also mandatory.
  * 
  * The "params" option takes the parameters the user wants to call the extractor
  * with. The syntax is<br>
@@ -149,6 +148,9 @@ public class TestrunCommand implements ICommand {
 
 	}
 
+	/**
+	 * @see ICommand
+	 */
 	@Override
 	public void validateParameters() throws FileNotFoundException, IllegalArgumentException, ParameterException {
 
@@ -209,6 +211,11 @@ public class TestrunCommand implements ICommand {
 
 	}
 
+	/**
+	 * Analyzes and casts paramaters that shall be handed over to the extractor.
+	 * 
+	 * @throws IllegalArgumentException
+	 */
 	public void parseExtractorParameters() throws IllegalArgumentException {
 
 		extractorParamsString = extractorParamsString.replaceAll("[\\[|\\]]", "");
@@ -229,6 +236,10 @@ public class TestrunCommand implements ICommand {
 		});
 	}
 
+	/**
+	 * Returns {@link TestRunController} as a singleton.
+	 * @return
+	 */
 	public TestRunController getTestrunController() {
 		if (testrunController == null) {
 			testrunController = new TestRunController(inputPath, type, outputPathExtractorResult, outputPathTRECFile,
@@ -238,74 +249,147 @@ public class TestrunCommand implements ICommand {
 		return testrunController;
 	}
 
+	/**
+	 * setter
+	 * @param testrunController
+	 */
 	public void setTestrunController(TestRunController testrunController) {
 		this.testrunController = testrunController;
 	}
 
+	/**
+	 * getter
+	 * @return {@link ConsoleCommand}
+	 */
 	public ConsoleCommand getCmd() {
 		return cmd;
 	}
 
+	/**
+	 * setter
+	 * @param cmd
+	 */
 	public void setCmd(ConsoleCommand cmd) {
 		this.cmd = cmd;
 	}
 
+	/**
+	 * getter 
+	 * @return {@link File}
+	 */
 	public File getInputPath() {
 		return inputPath;
 	}
 
+	/**
+	 * setter
+	 * 
+	 * @param inputPath
+	 */
 	public void setInputPath(File inputPath) {
 		this.inputPath = inputPath;
 	}
 
+	/**
+	 * getter
+	 * @return {@link File}
+	 */
 	public File getOutputPathExtractorResult() {
 		return outputPathExtractorResult;
 	}
 
+	/**
+	 * setter
+	 * @param outputPathExtractorResult
+	 */
 	public void setOutputPathExtractorResult(File outputPathExtractorResult) {
 		this.outputPathExtractorResult = outputPathExtractorResult;
 	}
 
+	/**
+	 * getter
+	 * @return {@link File}
+	 */
 	public File getOutputPathTRECFile() {
 		return outputPathTRECFile;
 	}
 
+	/**
+	 * setter
+	 * @param outputPathTRECFile
+	 */
 	public void setOutputPathTRECFile(File outputPathTRECFile) {
 		this.outputPathTRECFile = outputPathTRECFile;
 	}
 
+	/**
+	 * getter 
+	 * @return {@link Extractors}
+	 */
 	public Extractors getType() {
 		return type;
 	}
 
+	/**
+	 * setter
+	 * @param {@link {@link Extractors} type
+	 */
 	public void setType(Extractors type) {
 		this.type = type;
 	}
 
+	/**
+	 * getter
+	 * @return {@link HashMap<String, String>} 
+	 */
 	public HashMap<String, String> getParams() {
 		return params;
 	}
 
+	/**
+	 * setter 
+	 * @param {@link HashMap<String, String>} params
+	 */
 	public void setParams(HashMap<String, String> params) {
 		this.params = params;
 	}
 
+	/**
+	 * getter
+	 * @return {@link String}
+	 */
 	public String getParamsString() {
 		return extractorParamsString;
 	}
 
+	/**
+	 * setter
+	 * @param String paramsString
+	 */
 	public void setParamsString(String paramsString) {
 		this.extractorParamsString = paramsString;
 	}
 
+	/**
+	 * Checks if this run is just a dry run for testing.
+	 * @return {@link Boolean}
+	 */
 	public boolean isTest() {
 		return isTest;
 	}
 
+	/**
+	 * Sets if this run is just a dry run for testing.
+	 * @param boolean isTest
+	 */
 	public void setTest(boolean isTest) {
 		this.isTest = isTest;
 	}
 	
+	/**
+	 * Checks if a parameter is set that says to skip parts of the processing pipeline.
+	 * @return boolean
+	 */
 	private boolean skipParameterIsSet() {
 		return cmd.getParameters().get(SKIP_PARAMETER) != null;
 	}
