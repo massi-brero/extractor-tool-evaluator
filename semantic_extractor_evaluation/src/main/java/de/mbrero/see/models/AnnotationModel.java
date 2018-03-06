@@ -5,6 +5,11 @@ import java.util.List;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.Article;
 
+/**
+ * Model 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class AnnotationModel implements IModelPersistance<Article> {
 
 	private Repository<Article> repository;
@@ -43,10 +48,18 @@ public class AnnotationModel implements IModelPersistance<Article> {
 		repository.update(item);
 	}
 
+	/**
+	 * Getter
+	 * @return {@link Repository}
+	 */
 	public Repository<Article> getRepository() {
 		return repository;
 	}
 
+	/**
+	 * Getter
+	 * @return {@link Repository}
+	 */
 	public void setRepository(Repository<Article> repository) {
 		this.repository = repository;
 	}

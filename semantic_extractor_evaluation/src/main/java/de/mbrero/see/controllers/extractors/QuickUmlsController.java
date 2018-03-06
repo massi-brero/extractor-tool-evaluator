@@ -24,10 +24,20 @@ public class QuickUmlsController extends AbstractExtractorController {
 	private final String RUN_SCRIPT_PATH = "/run.py";
 
 	/**
-	 * Set 
-	 * @param File inputFile
-	 * @param File outputFile
-	 * @param HashMap<String, String> params
+	 * Set information needed for a extration process. 
+	 * @param File inputFile The texts that should be annotated.
+	 * @param File outputFile Where the extractor files shall be stored.
+	 * @param HashMap<String, String> params Parameters handed over to QuickUMLS
+	 * <ul>
+	 * <li>-q <umls data></li>
+	 * <li>-l <overlapping criteria></li>
+	 * <li>-t <threshhold></li>
+	 * <li>-m <minimum matched length> </li>
+	 * <li>-s <similarity name> -w <window> </li>
+	 * <li>-i <input_path file path></li>
+	 * <li>-o <output_path file path></li>
+	 * </ul>
+	 * 
 	 */
 	public QuickUmlsController(File inputFile, File outputFile, HashMap<String, String> params) {
 		super(inputFile, outputFile, params);
@@ -70,7 +80,7 @@ public class QuickUmlsController extends AbstractExtractorController {
 	}
 	
 	/**
-	 * 
+	 * @return ArrayList<String>
 	 */
 	protected ArrayList<String> buildStartCommand() {
 		ArrayList<String> startCmd = new ArrayList<>();

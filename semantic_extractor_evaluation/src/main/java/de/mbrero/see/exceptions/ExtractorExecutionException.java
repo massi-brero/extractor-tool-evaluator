@@ -8,16 +8,19 @@ package de.mbrero.see.exceptions;
  */
 public class ExtractorExecutionException extends Exception {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 
+	 * @param msg
+	 */
 	public ExtractorExecutionException(String msg) {
 		super(msg);
 	}
 	
-	
+	/**
+	 * 
+	 */
 	public ExtractorExecutionException() {
 		super("Extractor Execution Error");
 	}
