@@ -1,10 +1,12 @@
 package de.mbrero.see.models;
 
-import java.util.HashMap;
-
+/**
+ * Not needed in the prototype.
+ * 
+ * @author massi@gmail.com.
+ *
+ */
 public class SystemInformationModel {
-	
-
 	
 
 }

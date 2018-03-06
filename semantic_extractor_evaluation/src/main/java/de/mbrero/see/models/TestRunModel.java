@@ -7,11 +7,20 @@ import java.util.List;
 import de.mbrero.see.persistance.dao.Repository;
 import de.mbrero.see.persistance.dto.TestRun;
 
+/**
+ * This model is used for all database operations regarding a test run / an extraction run.
+ * 
+ * @author massi
+ *
+ */
 public class TestRunModel implements IModelPersistance<TestRun> {
 
 	private Repository<TestRun> repository;
 	private HashMap<String, String>system = new HashMap<>();
 	
+	/**
+	 * Constructor
+	 */
 	public TestRunModel() {
 		this.repository = new Repository<>(TestRun.class);
 	}
@@ -53,14 +62,30 @@ public class TestRunModel implements IModelPersistance<TestRun> {
 		repository.update(item);
 	}
 
+	/**
+	 * Getter for test run repository.
+	 * 
+	 * @return {@link Repository<TestRun>}
+	 */
 	public Repository<TestRun> getRepository() {
 		return repository;
 	}
 
+	/**
+	 * Setter for test run repository.}
+	 * 
+	 * @param {@link Repository<TestRun>} repository
+	 */
 	public void setRepository(Repository<TestRun> repository) {
 		this.repository = repository;
 	}
 	
+	/**
+	 * Returns information collected about the running OS, the VM and the Hardware.<br>
+	 * Add here if additional information shall be retrieved.
+	 * 
+	 * @return {@link HashMap<String, String>}
+	 */
 	public HashMap<String, String> getSystemInformation()
 	{
 		

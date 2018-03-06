@@ -23,10 +23,16 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	private final String HBM_CONFIG_PATH = "hibernate.cfg.xml";
 	private DBConnection conn;
 
+	/**
+	 * Constructor
+	 */
 	public DBAnnotationModel() {
 		init();
 	}
 
+	/**
+	 * Initialize connection and instantiate repository.
+	 */
 	public void init() {
 		URL url = getClass().getClassLoader().getResource(HBM_CONFIG_PATH);
 		conn = new DBConnection(url);
@@ -71,14 +77,14 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	}
 
 	/**
-	 * @return the repo
+	 * @return {@link Repository<Annotation>} the repository
 	 */
 	public Repository<Annotation> getRepo() {
 		return repo;
 	}
 
 	/**
-	 * @param repo
+	 * @param {@link Repository<Annotation>} repo
 	 *            the repo to set
 	 */
 	public void setRepo(Repository<Annotation> repo) {
@@ -86,14 +92,14 @@ public class DBAnnotationModel implements IEntityWriter<Annotation> {
 	}
 
 	/**
-	 * @return the conn
+	 * @return {@link DBConnection} the connection to the database
 	 */
 	public DBConnection getConn() {
 		return conn;
 	}
 
 	/**
-	 * @param conn
+	 * @param {@link DBConnection} conn
 	 *            the database connection to set
 	 */
 	public void setConn(DBConnection conn) {

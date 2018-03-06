@@ -24,9 +24,17 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 	File resultFile = null;
 	private String trecLine = "%s 0 %s 1".concat(System.getProperty("line.separator"));
 
+	/**
+	 * (NO parameter) constructor
+	 */
 	public TRECGoldstandardModel() {
 	}
 
+	/**
+	 * Constructor that sets where the results from the parsing process of the goldstandard annotations<br>
+	 * have to be saved into.
+	 * @param resultFile
+	 */
 	public TRECGoldstandardModel(File resultFile) {
 		this();
 		setResultFile(resultFile);
