@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.stream.Stream;
 
@@ -106,6 +104,13 @@ public final class ParserHelper {
 		
 	}
 	
+	/**
+	 * Gets the ids that correspond to the original source ids from the ontologies.<br>
+	 * The corresponding dictionary is {@link ParserHelper#MRCONSO_URI}. This method is generic but<br>
+	 * in the prototype it's used to map the UMLS CUI to the concept' original ontology id.
+	 * @return
+	 * @throws IOException
+	 */
 	public HashMap<String, String> getIDMappingForSourceIDs() throws IOException
 	{
 		
@@ -160,6 +165,10 @@ public final class ParserHelper {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return {@link BufferedReader}
+	 */
 	private BufferedReader getUMLSMappingReader() {
 		InputStreamReader isReader= new InputStreamReader(getUmlsMappingSourceAsStream());
 		BufferedReader buffReader = new BufferedReader(isReader);

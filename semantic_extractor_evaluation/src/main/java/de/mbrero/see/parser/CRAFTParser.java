@@ -16,7 +16,7 @@ import types.Ontology;
 /**
  * 
  * This class parses the CRAFT goldstandard so it may be used with the extracted annotations
- * lists from the extractor software tested and work as a rerefernce point.
+ * lists from the extractor software tested and work as a reference point.
  * 
  * Since the files in this gold standard sometimes lack the information about the ontology the 
  * concepts were derived from, the extractOntology method will get the ontology name from the folder name the 
@@ -80,6 +80,12 @@ public class CRAFTParser extends AbstractParser {
 		
 	}
 	
+	/**
+	 * 
+	 * @param conceptId
+	 * @return
+	 * @throws ConfigurationException
+	 */
 	private String extractOntology(String conceptId) throws ConfigurationException
 	{
 		String ontology = getInputFile().getParentFile().getName().toUpperCase();

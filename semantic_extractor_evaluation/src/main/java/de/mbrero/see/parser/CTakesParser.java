@@ -1,7 +1,6 @@
 package de.mbrero.see.parser;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -12,6 +11,12 @@ import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
 
+/**
+ * First implementation for the test of the cTakes extractor. Currently not used.
+ * 
+ * @author massi.brero@gmail.com
+ *
+ */
 public class CTakesParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "org.apache.ctakes.typesystem.type.structured.DocumentID";
 	private final String DOCUMENT_ID_NODE = "documentID";

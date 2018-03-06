@@ -48,14 +48,18 @@ public class ParserFactory {
 	 * @return
 	 * @throws TypeConstraintException
 	 */
-	public static AnnotationParser getInstance(ParserType type) throws TypeConstraintException  {
+	public static IAnnotationParser getInstance(ParserType type) throws TypeConstraintException  {
 		parserType = type;
 		return createParser();
 	}
 	
-
-	private static AnnotationParser createParser() throws TypeConstraintException {
-		AnnotationParser parser = null;
+	/**
+	 * 
+	 * @return
+	 * @throws TypeConstraintException
+	 */
+	private static IAnnotationParser createParser() throws TypeConstraintException {
+		IAnnotationParser parser = null;
 		
 		switch (parserType) {
 		case CTAKES:
@@ -78,8 +82,11 @@ public class ParserFactory {
 		
 	}
 
-
-	private static AnnotationParser setQuickUmlsParser() {
+	/**
+	 * 
+	 * @return {@link IAnnotationParser}
+	 */
+	private static IAnnotationParser setQuickUmlsParser() {
 		QuickUmlsParser parser = new QuickUmlsParser();
 		parser.setExtractorName(parserType.toString());
 		parser.setIdInformationTag(QUICKUMLS_ID_INFORMATION_TAG);
@@ -88,7 +95,10 @@ public class ParserFactory {
 		return parser;
 	}
 
-
+	/**
+	 * 
+	 * @return {@link CTakesParser}
+	 */
 	private static CTakesParser setUpCTakesParser() {
 		CTakesParser parser = new CTakesParser();
 		parser.setExtractorName(parserType.toString());
@@ -98,6 +108,10 @@ public class ParserFactory {
 		return parser;
 	}
 	
+	/**
+	 * {@link CRAFTParser}
+	 * @return
+	 */
 	private static CRAFTParser setUpCRAFTParser() {
 		CRAFTParser parser = new CRAFTParser();
 		parser.setExtractorName(parserType.name());
@@ -107,6 +121,10 @@ public class ParserFactory {
 		return parser;
 	}
 	
+	/**
+	 * {@link MetaMapParser}
+	 * @return
+	 */
 	private static MetaMapParser setUpMetaMapParser() {
 		MetaMapParser parser = new MetaMapParser();
 		parser.setExtractorName(parserType.name());

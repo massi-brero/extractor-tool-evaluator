@@ -10,17 +10,30 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.connection.ConnectionProvider;
 import org.hibernate.impl.SessionFactoryImpl;
 
+/**
+ * This class manages the connection to the MySQL database.
+ * Uses Hibernate @see http://hibernate.org/
+ * 
+ * @author massi
+ *
+ */
 public class DBConnection {
 	private Configuration config = null;
 	private Session session = null;
 	private static SessionFactory factory = null;
 	private URL standardConfigUrl;
 
+	/**
+	 * (no parameter) constructor
+	 */
 	public DBConnection() {
 		this.standardConfigUrl = getClass().getClassLoader().getResource("hibernate.cfg.xml");
 		this.init();
 	}
 
+	/*
+	 * Constructor with path to Hibernate configuration.
+	 */
 	public DBConnection(URL url) throws HibernateException {
 		this.config = new Configuration();
 		this.config.configure(url);
@@ -54,6 +67,9 @@ public class DBConnection {
 		}
 	}
 
+	/**
+	 * Close the connection to the database, e. g. when shutting down the application.
+	 */
 	public static void closeDBConnection() {
 		if (factory != null && factory instanceof SessionFactoryImpl) {
 			SessionFactoryImpl sf = (SessionFactoryImpl) factory;

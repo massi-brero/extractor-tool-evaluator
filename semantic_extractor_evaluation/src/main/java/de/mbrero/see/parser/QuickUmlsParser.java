@@ -11,6 +11,12 @@ import org.xml.sax.SAXException;
 
 import de.mbrero.see.persistance.dto.Annotation;
 
+/**
+ * Parses the result files returned by the QuickUMLS extractor.
+ *  
+ * @author massi.brero@gmail.com
+ *
+ */
 public class QuickUmlsParser extends AbstractParser {
 	private final String DOCUMENT_ID_TAG = "document";
 	private final String DOCUMENT_ID_NODE = "file";

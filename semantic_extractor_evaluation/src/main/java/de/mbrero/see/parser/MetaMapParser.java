@@ -18,6 +18,12 @@ import org.xml.sax.SAXException;
 import de.mbrero.see.persistance.dto.Annotation;
 import util.ProgressBar;
 
+/**
+ * Parses the result files returned by MetaMap.
+ * 
+ * @author massi
+ *
+ */
 public class MetaMapParser extends AbstractParser {
 	private final String OPTION_TAG = "Option";
 	private final String OPTION_NAME_TAG = "OptName";
@@ -32,8 +38,7 @@ public class MetaMapParser extends AbstractParser {
 	
 	/**
 	 * Return the lower limit from which on the candidates in the MetaMap output
-	 * xml file<br />
-	 * shall be considered.
+	 * xml file<br /> shall be considered. Sets Metamap's "t" parameter.
 	 * 
 	 * @return int
 	 */
@@ -64,6 +69,9 @@ public class MetaMapParser extends AbstractParser {
 
 	}
 
+	/**
+	 * Parses a single text file.
+	 */
 	protected HashMap<String, Annotation> parseFile() throws Exception {
 
 		NodeList nList = getNodeList(conceptInformationTag);
@@ -127,6 +135,9 @@ public class MetaMapParser extends AbstractParser {
 		return annotation;
 	}
 
+	/**
+	 * Get a list of nodes from the xml file filtered by their tag name.
+	 */
 	protected NodeList getNodeList(String tagName) throws ParserConfigurationException, SAXException, IOException {
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

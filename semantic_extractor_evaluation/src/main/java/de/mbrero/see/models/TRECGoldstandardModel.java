@@ -13,7 +13,7 @@ import java.util.Map;
 import de.mbrero.see.persistance.dto.Annotation;
 
 /**
- * Saves annotation to a database table defined by the annotate bean.
+ * Saves annotation to a TREC qrel file for goldstandards with a fixed line structure.
  * The CRAFT gold standard uses the UMLS CUI as concept identifier.
  * 
  * @author massi.brero@gmail.com
@@ -22,6 +22,9 @@ import de.mbrero.see.persistance.dto.Annotation;
 public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 	
 	File resultFile = null;
+	/**
+	 * Format of qrel line... has a fixed structure
+	 */
 	private String trecLine = "%s 0 %s 1".concat(System.getProperty("line.separator"));
 
 	/**
@@ -31,8 +34,8 @@ public class TRECGoldstandardModel implements IEntityWriter<Annotation> {
 	}
 
 	/**
-	 * Constructor that sets where the results from the parsing process of the goldstandard annotations<br>
-	 * have to be saved into.
+	 * Constructor that sets where the results from the parsing process of the goldstandard texts<br>
+	 * have to be saved as TREC goldstandard file named "qrel".
 	 * @param resultFile
 	 */
 	public TRECGoldstandardModel(File resultFile) {

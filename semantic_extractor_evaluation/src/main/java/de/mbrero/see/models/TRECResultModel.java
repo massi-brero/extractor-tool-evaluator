@@ -13,19 +13,31 @@ import java.util.Map;
 import de.mbrero.see.persistance.dto.Annotation;
 
 /**
- * Saves annotation to a database table defined by the annotate bean.
+ * Saves annotation to a TREC result file with a fixed line structure.
+ * The result file is per default named like the text file it originates from.
  * 
  * @author massi.brero@gmail.com
  *
  */
 public class TRECResultModel implements IEntityWriter<Annotation> {
 	File resultFile = null;
+	/**
+	 * Format of qrel line... has a fixed structure
+	 */
 	private String trecLine = "%s 0 %s 0 0 0".concat(System.getProperty("line.separator"));
 	private boolean useSourceId;
 
+	/*
+	 * (no parameter) constructor
+	 */
 	public TRECResultModel() {
 	}
 
+	/**
+	 * Constructor that is given the file the results have to be stored in the TREC result format.
+	 * 
+	 * @param resultFile
+	 */
 	public TRECResultModel(File resultFile) {
 		this();
 		setResultFile(resultFile);
@@ -83,10 +95,18 @@ public class TRECResultModel implements IEntityWriter<Annotation> {
 		this.resultFile = resultFile;
 	}
 
+	/**
+	 * Has the original concept id from the ontology to be used.
+	 * @return
+	 */
 	public boolean useSourceId() {
 		return useSourceId;
 	}
 
+	/**
+	 * Set if the concept ids from the ontologies shall be used.
+	 * @param useSourceId
+	 */
 	public void setUseSourceId(boolean useSourceId) {
 		this.useSourceId = useSourceId;
 	}

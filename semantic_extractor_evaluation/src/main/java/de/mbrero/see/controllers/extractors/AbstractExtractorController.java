@@ -8,8 +8,6 @@ import java.lang.ProcessBuilder.Redirect;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Stream;
 
 import de.mbrero.see.exceptions.ExtractorExecutionException;
 
@@ -28,7 +26,7 @@ public abstract class AbstractExtractorController implements Extractor {
 	/**
 	 * The console command that has to be executed.
 	 */
-	private String consoleCmd;
+	//private String consoleCmd;
 	/**
 	 * The path the bin directory/files are stored.
 	 */
@@ -167,7 +165,7 @@ public abstract class AbstractExtractorController implements Extractor {
 	 * @param type
 	 */
 	private void writeOutput(int type) {
-		StringBuilder output = new StringBuilder();
+		//StringBuilder output = new StringBuilder();
 
 		Thread ioThread = new Thread() {
 			BufferedReader reader = null;
