@@ -1,21 +1,17 @@
 package de.mbrero.see.persistance.dto;
 
 
+import java.time.Duration;
 import java.util.Date;
-import java.util.HashMap;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import de.mbrero.see.persistance.dto.types.TestRunResults;
 
 
 /**
@@ -63,50 +59,98 @@ public class TestRun {
     @Column(name = "extractor")
 	private String extractor = "";
     
+    /**
+     * 
+     * @return int
+     */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * 
+	 * @param int id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getInputPath() {
 		return inputPath;
 	}
 
+	/**
+	 * 
+	 * @param String path
+	 */
 	public void setInputPath(String path) {
 		this.inputPath = path;
 	}
 
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getOutputPathExtractorResult() {
 		return outputPathExtractorResult;
 	}
 
+	/**
+	 * 
+	 * @param String outPath
+	 */
 	public void setOutputPathExtractorResult(String outPath) {
 		this.outputPathExtractorResult = outPath;
 	}
 
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getOutputPathTRECFile() {
 		return outputPathTRECFile;
 	}
 
+	/**
+	 * 
+	 * @param String outputPathTRECFile
+	 */
 	public void setOutputPathTRECFile(String outputPathTRECFile) {
 		this.outputPathTRECFile = outputPathTRECFile;
 	}
 
+	/**
+	 * 
+	 * @return {@link Date}
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * 
+	 * @param {@link Date} date
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getResult() {
 		return result;
 	}
 
+	/**
+	 * String
+	 * @param result
+	 */
 	public void setResult(String result) {
 		this.result = result;
 	}
@@ -153,18 +197,34 @@ public class TestRun {
 		this.systemInformation = systemInformation;
 	}
 
+	/**
+	 * 
+	 * @return {@link Duration}
+	 */
 	public long getDuration() {
 		return duration;
 	}
 
+	/**
+	 * 
+	 * @param {@link Duration} duration
+	 */
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
 
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getExtractor() {
 		return extractor;
 	}
 
+	/**
+	 * String
+	 * @param extractor
+	 */
 	public void setExtractor(String extractor) {
 		this.extractor = extractor;
 	}

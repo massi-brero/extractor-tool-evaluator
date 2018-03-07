@@ -3,7 +3,7 @@ package de.mbrero.see.persistance.dao;
 import java.util.List;
 
 /**
- * Interface for CRUD Operations on databases.
+ * Generic interface for CRUD Operations on databases.
  * 
  * @author massi.brero@gmail.com
  *
@@ -11,16 +11,41 @@ import java.util.List;
  */
 public interface IRepository<T> {
 
+	/**
+	 * Get entity
+	 * @param T id
+	 * @return
+	 */
 	public T get(int id);
 	
+	/**
+	 * Get all entities
+	 * @return {@link List}
+	 */
 	public List<T> getAll();
 	
+	/**
+	 * Save entity
+	 * @param T item
+	 */
 	public void save(T item);
 	
+	/**
+	 * Delete a single entity by the id.
+	 * @param int id
+	 */
 	public void delete(int id);
 	
+	/**
+	 * Delete entity item.
+	 * @param T item
+	 */
 	public void delete(T item);
 
+	/**
+	 * Update entity.
+	 * @param T item
+	 */
 	public void update(T item);
 	
 	

@@ -23,7 +23,7 @@ import types.Ontology;
 public class TRECResultWriterTest {
 	File resultFile = null;
 	private HashMap<String, HashMap<String, Annotation>> allAnnotationsWithCUI;
-	private HashMap<String, HashMap<String, Annotation>> allAnnotationsWithSourceId;
+	//private HashMap<String, HashMap<String, Annotation>> allAnnotationsWithSourceId;
 	private Annotation annotation1;
 	private Annotation annotation2;
 	private TRECResultModel model;
@@ -32,7 +32,7 @@ public class TRECResultWriterTest {
 	public void setUp() throws Exception {
 		model = new TRECResultModel();
 		allAnnotationsWithCUI = new HashMap<>();
-		allAnnotationsWithSourceId = new HashMap<>();
+		//allAnnotationsWithSourceId = new HashMap<>();
 		resultFile = new File("src/test/resources/trec/result");
 		setUpAnnotationsFixture();
 	}

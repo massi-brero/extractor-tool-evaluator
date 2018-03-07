@@ -33,34 +33,66 @@ public class Article {
     @Column(name="source")
 	private String  source;
 	
+    /**
+     * 
+     * @return int
+     */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * 
+	 * @param int id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * 
+	 * @param String name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getArticleId() {
 		return articleId;
 	}
 	
+	/**
+	 * 
+	 * @param String aid
+	 */
 	public void setArticleId(String aid) {
 		this.articleId = aid;
 	}
 	
+	/**
+	 * 
+	 * @return String
+	 */
 	public String getSource() {
 		return source;
 	}
 	
+	/**
+	 * 
+	 * @param String source
+	 */
 	public void setSource(String source) {
 		this.source = source;
 	}  

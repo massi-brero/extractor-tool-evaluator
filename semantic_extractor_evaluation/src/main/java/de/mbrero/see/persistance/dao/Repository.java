@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import de.mbrero.see.persistance.DBConnection;
 
 /**
+ * Generic repository for entities.
  * 
  * @author massi.brero@gmail.com
  *
@@ -25,17 +26,29 @@ public class Repository<T> implements IRepository<T> {
 	 */
 	private final Class<T> CLASS_TYPE;
 
+	/**
+	 * Constructor: Initialize Repository for type T.
+	 * @param T cl
+	 */
 	public Repository(Class<T> cl) {
 		CLASS_TYPE = cl;
 		init();
 	}
 
+	/**
+	 * Constructor: Initialize Repository for type T and with given database connection.
+	 * @param T cl
+	 * @param DBConnection c
+	 */
 	public Repository(Class<T> cl, DBConnection c) {
 		CLASS_TYPE = cl;
 		conn = c;
 		init();
 	}
 
+	/**
+	 * 
+	 */
 	private void init() {
 		if (conn == null)
 			conn = new DBConnection();
@@ -77,10 +90,6 @@ public class Repository<T> implements IRepository<T> {
 		return items;
 	}
 
-	/**
-	 * 
-	 * @param item
-	 */
 	@Override
 	public void save(T item) {
 		Transaction t = null;
@@ -101,6 +110,7 @@ public class Repository<T> implements IRepository<T> {
 		}
 	}
 
+	@Override
 	public void delete(T item) {
 		Transaction t = null;
 		Session session = getSession();
@@ -125,8 +135,7 @@ public class Repository<T> implements IRepository<T> {
 		delete(item);
 	}
 
-	/**
-	 */
+	
 	public void update(T item) {
 		Session session = getSession();
 		
@@ -142,11 +151,19 @@ public class Repository<T> implements IRepository<T> {
 
 	}
 
+	/**
+	 * 
+	 * @param session
+	 */
 	public void closeSession(Session session) {
 			session.flush();
 			session.close();			
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	private Session getSession() {
 		return conn.getNewSession();
 	}

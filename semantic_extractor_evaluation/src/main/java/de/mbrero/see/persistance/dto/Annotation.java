@@ -52,7 +52,9 @@ public class Annotation {
     @Column(name="test_run_id")
 	private int testRunId = 0;
     
-
+    /**
+     * Increment the counter if an annotation already exists for the same text.
+     */
 	public void incrementCounter() {
 		count++;
 	}
