@@ -16,7 +16,7 @@ import types.GoldStandardType;
  * Example:<br>
  * parsegold -type craft -input {path to goldstandard}/ncbi -output {path to chosen result folder}/qrel
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ParsegoldCommand implements ICommand {

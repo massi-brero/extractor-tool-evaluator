@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Generic interface for CRUD Operations on databases.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  * @param <T>
  */

@@ -10,7 +10,7 @@ import de.mbrero.see.persistance.dto.TestRun;
 /**
  * This model is used for all database operations regarding a test run / an extraction run.
  * 
- * @author massi
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class TestRunModel implements IModelPersistance<TestRun> {

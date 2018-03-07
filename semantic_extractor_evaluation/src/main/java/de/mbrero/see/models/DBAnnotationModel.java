@@ -15,7 +15,7 @@ import util.ProgressBar;
 /**
  * Saves annotations to a database table defined by the {@link Annotation} bean.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class DBAnnotationModel implements IEntityWriter<Annotation> {

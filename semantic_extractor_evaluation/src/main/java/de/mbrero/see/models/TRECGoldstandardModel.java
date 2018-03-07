@@ -16,7 +16,7 @@ import de.mbrero.see.persistance.dto.Annotation;
  * Saves annotation to a TREC qrel file for goldstandards with a fixed line structure.
  * The CRAFT gold standard uses the UMLS CUI as concept identifier.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class TRECGoldstandardModel implements IEntityWriter<Annotation> {

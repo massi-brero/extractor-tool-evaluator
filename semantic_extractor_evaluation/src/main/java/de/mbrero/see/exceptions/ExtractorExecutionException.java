@@ -3,7 +3,7 @@ package de.mbrero.see.exceptions;
 /**
  * Error class for errors occuring when an extractor crashing inmidst of a process
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ExtractorExecutionException extends Exception {

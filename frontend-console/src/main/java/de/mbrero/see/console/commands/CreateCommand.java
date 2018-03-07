@@ -5,7 +5,7 @@ import exceptions.UnknownCommandException;
 
 /**
  * Defines the public interface for all possible commands the application will accept.
- * @author massi
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class CreateCommand implements ICommand {

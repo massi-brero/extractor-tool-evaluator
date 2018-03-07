@@ -28,7 +28,7 @@ import types.Extractors;
  * /home/massi/projects/extractor_benchmarker/semantic_extractor_evaluation/
  * src/test/resources/mm_test/output/output.txt --XMLf
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class MetaMapBasicExtractorTest {

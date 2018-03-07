@@ -22,7 +22,7 @@ import types.ParserType;
  * This test class also tests the methods provided by the abstract class. You may see the test for the 
  * cTakes Parser as a model checking all the funcionalities. This is not reall TDD but faster ;-) 
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

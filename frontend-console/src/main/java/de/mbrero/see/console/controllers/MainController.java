@@ -19,7 +19,7 @@ import exceptions.UnknownCommandException;
 /**
  * Gets and prepares input for execution.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class MainController implements Runnable {

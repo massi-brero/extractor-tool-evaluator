@@ -14,7 +14,7 @@ import org.hibernate.impl.SessionFactoryImpl;
  * This class manages the connection to the MySQL database.
  * Uses Hibernate @see http://hibernate.org/
  * 
- * @author massi
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class DBConnection {

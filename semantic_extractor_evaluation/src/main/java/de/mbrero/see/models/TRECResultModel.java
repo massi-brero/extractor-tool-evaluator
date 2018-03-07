@@ -16,7 +16,7 @@ import de.mbrero.see.persistance.dto.Annotation;
  * Saves annotation to a TREC result file with a fixed line structure.
  * The result file is per default named like the text file it originates from.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class TRECResultModel implements IEntityWriter<Annotation> {

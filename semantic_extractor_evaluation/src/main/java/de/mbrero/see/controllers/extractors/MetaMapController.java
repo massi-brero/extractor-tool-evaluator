@@ -14,7 +14,7 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
  * This class is for managing the MetaMap extractor.
  * 
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class MetaMapController extends AbstractExtractorController {

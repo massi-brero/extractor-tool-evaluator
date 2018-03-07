@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 /**
  * Table representation for a test run.
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 @Entity

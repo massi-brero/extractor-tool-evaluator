@@ -24,7 +24,7 @@ import types.ParserType;
  * This class initializes the test run for an extraction experiment. It stores
  * the technical and non-technical environment variables of the test run.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class TestRunController {

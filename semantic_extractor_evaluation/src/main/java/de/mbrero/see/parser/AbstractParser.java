@@ -24,7 +24,7 @@ import util.ProgressBar;
  * Since the results file may differ from extractor to extractor, this class will<br>
  * be extended by specific classes dealing with the specific structures of the extractor's output,
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public abstract class AbstractParser implements IAnnotationParser {

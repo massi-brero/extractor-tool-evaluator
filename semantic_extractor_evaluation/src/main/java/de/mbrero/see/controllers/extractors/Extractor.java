@@ -10,7 +10,7 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
 /**
  * Interface to be implemented by all Extractor controllers.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public interface Extractor {

@@ -9,7 +9,7 @@ import java.util.Properties;
 
 /**
  * A class for reading configurations for the front end. Not needed at the moment.
- * @author massi
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ConfigurationReader {

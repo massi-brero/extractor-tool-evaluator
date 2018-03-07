@@ -16,7 +16,7 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
  * dictionary objects.
  * 
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class QuickUmlsController extends AbstractExtractorController {

@@ -14,7 +14,7 @@ import de.mbrero.see.exceptions.ExtractorExecutionException;
 /**
  * Base Class for starting the extractor software from the console.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public abstract class AbstractExtractorController implements Extractor {

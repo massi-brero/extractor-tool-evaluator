@@ -14,7 +14,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 /**
  * Parses the result files returned by the QuickUMLS extractor.
  *  
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class QuickUmlsParser extends AbstractParser {

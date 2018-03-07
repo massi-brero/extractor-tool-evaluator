@@ -19,7 +19,7 @@ import types.Ontology;
 import types.ParserType;
 
 /**
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Encapsulates the commands from the console.<br>
  * Part of the command pattern.
  *  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ConsoleCommand {
@@ -38,7 +38,7 @@ public class ConsoleCommand {
 	}
 	/**
 	 * Getter 
-	 * @return {@link HashMap}
+	 * @return @see HashMap
 	 */
 	public HashMap<String, String> getParameters() {
 		return parameters;

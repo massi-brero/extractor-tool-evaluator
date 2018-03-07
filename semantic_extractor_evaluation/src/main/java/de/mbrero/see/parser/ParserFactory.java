@@ -9,7 +9,7 @@ import types.ParserType;
  * to extract the annotations from the result files of an extractor run 
  * on an biomedical text.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ParserFactory {

@@ -9,7 +9,7 @@ import types.Extractors;
  * This class is used to instantiate one of the possible concept mappers.
  * @see Extractors
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ExtractorFactory {

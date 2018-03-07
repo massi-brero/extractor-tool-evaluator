@@ -14,7 +14,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 /**
  * First implementation for the test of the cTakes extractor. Currently not used.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class CTakesParser extends AbstractParser {

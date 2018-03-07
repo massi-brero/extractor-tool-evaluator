@@ -8,7 +8,7 @@ import de.mbrero.see.persistance.dto.Annotation;
 /**
  * Very generic interface to save entities like Annotations and the like.
  * Provides to API to either conveniently single entities, entities in documents or an entire corpus.
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  * @param <T>
  */

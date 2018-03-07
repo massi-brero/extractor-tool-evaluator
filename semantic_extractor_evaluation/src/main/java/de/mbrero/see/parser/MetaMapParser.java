@@ -21,7 +21,7 @@ import util.ProgressBar;
 /**
  * Parses the result files returned by MetaMap.
  * 
- * @author massi
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class MetaMapParser extends AbstractParser {

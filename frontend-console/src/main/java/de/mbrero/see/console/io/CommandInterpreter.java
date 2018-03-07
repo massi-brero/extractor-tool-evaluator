@@ -6,7 +6,7 @@ import exceptions.ParameterException;
 /**
  * Class to use the console as a user interface. Quite straightforward.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class CommandInterpreter {

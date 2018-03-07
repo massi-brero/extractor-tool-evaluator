@@ -11,7 +11,7 @@ import de.mbrero.see.persistance.DBConnection;
 /**
  * Generic repository for entities.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 

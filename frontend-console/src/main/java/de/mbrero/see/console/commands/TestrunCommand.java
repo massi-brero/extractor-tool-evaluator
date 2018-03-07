@@ -27,7 +27,7 @@ import types.Extractors;
  * with. The syntax is<br>
  * [paramname_1=value_1, paramname_2=value_2, ...]
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class TestrunCommand implements ICommand {

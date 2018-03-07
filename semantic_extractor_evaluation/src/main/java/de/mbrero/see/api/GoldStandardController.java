@@ -15,7 +15,7 @@ import types.ParserType;
  * Parses the Goldstandard and saves the annotations to the database and creates
  * a qrel File for the TREC tool
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class GoldStandardController {

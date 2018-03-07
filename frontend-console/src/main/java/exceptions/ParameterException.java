@@ -3,7 +3,7 @@ package exceptions;
 /**
  * Error class for console command errors.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class ParameterException extends Exception {

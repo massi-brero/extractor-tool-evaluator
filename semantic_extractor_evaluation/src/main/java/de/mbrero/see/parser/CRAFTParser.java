@@ -25,7 +25,7 @@ import types.Ontology;
  * This is also the case in the original CRAFT folder structure. So beware to store  annotation
  * files in folders bearing the name of the ontology the concepts are coming from.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class CRAFTParser extends AbstractParser {

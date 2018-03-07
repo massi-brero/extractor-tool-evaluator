@@ -11,7 +11,7 @@ import java.util.stream.Stream;
  * Contains some delegate methods that are useful for<br>
  * the parsing process.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public final class ParserHelper {

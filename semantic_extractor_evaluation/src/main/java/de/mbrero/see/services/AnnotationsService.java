@@ -19,7 +19,7 @@ import de.mbrero.see.persistance.dto.Annotation;
  * The annotations can be saved to the annotations table in the MySQL database or
  * as a TREC result file.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 public class AnnotationsService {

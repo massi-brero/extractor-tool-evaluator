@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * This class is meant as a bean to store detailed information about a concept found in a given 
  * text using a specific extractor.
  * 
- * @author massi.brero@gmail.com
+ * @author massimiliano.brero@studium.fernuni-hagen.de
  *
  */
 @Entity

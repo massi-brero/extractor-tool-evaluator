@@ -1,0 +1,13 @@
+de.mbrero.see.api
+de.mbrero.see.console.commands
+de.mbrero.see.controllers.extractors
+de.mbrero.see.exceptions
+de.mbrero.see.models
+de.mbrero.see.parser
+de.mbrero.see.persistance
+de.mbrero.see.persistance.dao
+de.mbrero.see.persistance.dto
+de.mbrero.see.persistance.dto.types
+de.mbrero.see.services
+types
+util
