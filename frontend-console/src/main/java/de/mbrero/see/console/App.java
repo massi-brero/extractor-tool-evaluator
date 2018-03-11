@@ -26,16 +26,14 @@ public class App {
     
     
     private static void printHeader() {
-    	try {
-			Process p = Runtime.getRuntime().exec("clear");
-			p.waitFor();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-    	System.out.println("\n");
+    	/*
+    	 * Clear the screen
+    	 */
+    	System.out.print("\033\143");
     	
+    	/**
+    	 * Show Intro
+    	 */
     	System.out.println(App.ANSI_GREEN);
     	System.out.println(" _____ _____ _____    _____             _                 _           ");
     	System.out.println("|   __|   __|   __|  | __  |___ ___ ___| |_ _____ ___ ___| |_ ___ ___ ");
