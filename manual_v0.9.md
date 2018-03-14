@@ -4,6 +4,7 @@
 
 The SEE software is a part of a bachelor thesis developped for Fernuni Hagen Germany ([www.fernuni-hagen.de](www.fernuni-hagen.de)). The software was written in Java.
 The SEE's scope is to test concept extracting software.  The SEE should also be seen as part of a larger testing environment consisting of:
+
 * The SEE as benchmarking module
 * a gold standard as a reference point
 * the concept mappers (i. e. extractors) as test candidates
@@ -329,6 +330,12 @@ From the command line:
 1. cd into the SEE root (~/projects/extractor_benchmarker)
 2. type **mvn test**
 ...or start the JUnit tests from your IDE.
+Due to the prototype nature of the SEE some of the functional depend on MataMap being installed. If you do not want to test MetaMap skip this tests with _@Ingnore_ or compile the SEE with 
+> mvn clean install -DskipTests
+ 
+##5. Miscellaneous#
+The SEE already contains the class for managing the [cTakes] (http://ctakes.apache.org/) concept mapper. It even has a rudimental parser. Due to the time limits given, it was not possible to set up the complete environment for testing cTakes.
+There are even already tests written for ctakes. This may be a future task....
 
 
 

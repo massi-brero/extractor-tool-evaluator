@@ -1,0 +1,10 @@
+
+#!/bin/bash
+
+clear
+cd frontend-console/
+echo "Bootstrapping the application..."
+echo "================================"
+echo ""
+mvn exec:java
+#java -jar ./frontend-console/target/frontend-console-0.0.1.jar

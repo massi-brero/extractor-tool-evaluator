@@ -57,6 +57,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test
+	@Ignore
 	public void test_2_textFileIsProcessed() throws Exception {
 		
 		parser.parse(workingFile);
@@ -69,6 +70,7 @@ public class CTakesParserTest {
 		
 	
 	@Test
+	@Ignore
 	public void test_3_parseTinyXMLResult() throws Exception {
 		
 		parser.parse(workingFile);
@@ -89,6 +91,7 @@ public class CTakesParserTest {
 
 	
 	@Test
+	@Ignore
 	public void test_4_parseResultWithDuplicateAnnotations() throws Exception {
 		parser.parse(multipleAnnotationsFile);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -102,6 +105,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test 
+	@Ignore
 	public void test_5_parseAllFilesInDirectory() throws Exception {
 		parser.parse(folder);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -120,6 +124,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test 
+	@Ignore
 	public void test_6_parseFilesInNestedDirectory() throws Exception {
 		parser.parse(nestedFolder);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -138,6 +143,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test 
+	@Ignore
 	public void test_7_parseFilesInNestedDirectoryWithDuplicateCui() throws Exception {
 		parser.parse(nestedFolderWithDuplicates);
 		HashMap<String, HashMap<String, Annotation>> allAnnotations = parser.getAnnotations();
@@ -156,6 +162,7 @@ public class CTakesParserTest {
 	}
 	
 	@Test (expected = ParserConfigurationException.class)
+	@Ignore
 	public void test_8_errorThrownWhenNoTagForTheConceptIdIsSet() throws Exception {
 		CTakesParser parser = new CTakesParser();
 		parser.setExtractorName("GO");
