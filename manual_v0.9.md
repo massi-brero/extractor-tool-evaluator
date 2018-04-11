@@ -100,6 +100,12 @@ _Notices on Installation_:
 ** _Evaluation with the TREC tool_ **
 For evaluating the extractors' performance, the SEE creates TREC files both for the goldstandard and for the result files from the extraction process.  In the standard configuration on the server of Hagen University this tool is located in the _resources/tools folder_. You are free  to put it in any other place. Please go [here](http://trec.nist.gov/trec_eval/) to download the trec_eval tool and [here](http://www-nlpir.nist.gov/projects/t01v/trecvid.tools/trec_eval_video/A.README) to learn about its usage. 
 
+** Please note: **
+Since we need a reference source for the mapping of the UMLS and the Ontology ID, you need to copy the MRCONSO.RFF from your UMLS installations in these folders of the SEE:
+1. {path-to-your-project-root}/semantic_extractor_evaluation/src/main/resources/mapping/
+2. {path-to-your-project-root}/extractor_benchmarker/semantic_extractor_evaluation/src/test/resources/mapping/
+3. {path-to-your-project-root}extractor_benchmarker/frontend-console/src/test/resources/mapping/
+
 
 
 ## 2 Using the SEE ##
